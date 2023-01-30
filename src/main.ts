@@ -3,7 +3,7 @@ import constants from "./utils/constants";
 import createEntity from "./utils/createEntity";
 import { addComponentWithProperty } from "./utils/setComponent";
 import setupWorld from "./loaders/world";
-import { damageIndexes } from "./utils/damageIndexes";
+import { damageIndexes } from "./indexes/damageIndexes";
 
 const world = setupWorld();
 

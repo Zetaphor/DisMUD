@@ -1,6 +1,6 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
 import constants from "../utils/constants";
-import { damageIndexes } from "../utils/damageIndexes";
+import { damageIndexes } from "../indexes/damageIndexes";
 
 const burningSystem = (world) => {
   const Flammable = world._components["flammable"];
