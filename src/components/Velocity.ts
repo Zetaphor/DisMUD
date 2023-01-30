@@ -1,6 +1,5 @@
-import { defineComponent } from "bitecs";
-import { Vector2 } from "../structs/Vector2";
+import { defineComponent, Types } from "bitecs";
 
-export const Velocity = defineComponent(Vector2);
+export const Velocity = defineComponent({ x: Types.f32, y: Types.f32 });
 
 export default Velocity;
