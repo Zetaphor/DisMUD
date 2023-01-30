@@ -1,9 +1,8 @@
 import { defineComponent, Types } from "bitecs";
 
-// Used with the durability component when durability reaches zero
-export const Breakable = defineComponent({
+// Used with the flammable and damage component in the Burning system
+export const Burning = defineComponent({
   enabled: Types.ui8,
-  damageAmount: Types.ui16,
 });
 
-export default Breakable;
+export default Burning;

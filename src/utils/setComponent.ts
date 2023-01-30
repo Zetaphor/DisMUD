@@ -1,3 +1,5 @@
+import { addComponent } from "bitecs";
+
 export function setComponentProperty(world, eid, component, property, value) {
   const componentDefinition = Object.keys(world._components[component]);
 
@@ -34,4 +36,20 @@ export function setComponentValue(world, eid, component, data) {
     // Set the property on the component
     world._components[component][property][eid] = value;
   }
+}
+
+export function addComponentWithData(world, eid, component, data) {
+  addComponent(world, world["_components"][component], eid);
+  setComponentValue(world, eid, component, data);
+}
+
+export function addComponentWithProperty(
+  world,
+  eid,
+  component,
+  property,
+  value
+) {
+  addComponent(world, world["_components"][component], eid);
+  setComponentProperty(world, eid, component, property, value);
 }
