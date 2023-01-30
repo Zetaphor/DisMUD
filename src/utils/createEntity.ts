@@ -5,6 +5,11 @@ export function createEntity(world, type, components) {
 
   // Validate the total components in the entity definition versus the component data
   if (entityDefinition.components.length !== Object.keys(components).length) {
+    console.error(
+      `Definition: ${entityDefinition.components}\nInput: ${Object.keys(
+        components
+      )}\n`
+    );
     throw new Error(
       `${type} component mismatch, expected ${
         entityDefinition.components.length
@@ -29,8 +34,11 @@ export function createEntity(world, type, components) {
     // Validate the total properties of the component definition against the component data
     if (componentDefinition.length !== Object.keys(data).length) {
       removeEntity(world, eid);
+      console.error(
+        `Definition: ${componentDefinition}\nInput: ${Object.keys(data)}\n`
+      );
       throw new Error(
-        `${type} component mismatch, expected ${
+        `${type} ${component} component mismatch, expected ${
           componentDefinition.length
         } properties, but got ${Object.keys(data).length}`
       );
