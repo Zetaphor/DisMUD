@@ -6,6 +6,7 @@ import Flammable from "../components/Flammable";
 import Health from "../components/Health";
 import Mortal from "../components/Mortal";
 import Position from "../components/Position";
+import Scale from "../components/Scale";
 import Velocity from "../components/Velocity";
 
 export const components = {
@@ -18,6 +19,7 @@ export const components = {
   mortal: Mortal,
   position: Position,
   velocity: Velocity,
+  scale: Scale,
 };
 
 export default components;
