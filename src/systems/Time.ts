@@ -1,4 +1,5 @@
 import { defineQuery } from "bitecs";
+const { performance } = require("perf_hooks");
 
 export const timeSystem = (world) => {
   const time = world.time;

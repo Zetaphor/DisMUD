@@ -17,7 +17,7 @@ const movementSystem = (world) => {
   return world;
 };
 
-export function initMovementSystem(world) {
+export function initMovementSystem() {
   return movementSystem;
 }
 
