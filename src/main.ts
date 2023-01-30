@@ -17,11 +17,11 @@ const newEntity = createEntity(world, "wood", {
   },
 });
 
-console.log(newEntity);
-console.log(hasComponent(world, world["_components"]["position"], newEntity));
-console.log(hasComponent(world, world["_components"]["durability"], newEntity));
-console.log(hasComponent(world, world["_components"]["breakable"], newEntity));
-console.log(hasComponent(world, world["_components"]["flammable"], newEntity));
+// console.log(newEntity);
+// console.log(hasComponent(world, world["_components"]["position"], newEntity));
+// console.log(hasComponent(world, world["_components"]["durability"], newEntity));
+// console.log(hasComponent(world, world["_components"]["breakable"], newEntity));
+// console.log(hasComponent(world, world["_components"]["flammable"], newEntity));
 
 addComponentWithProperty(
   world,
