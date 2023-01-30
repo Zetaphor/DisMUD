@@ -1,39 +1,21 @@
-import { createWorld, hasComponent } from "bitecs";
+import { createWorld } from "bitecs";
 import components from "./components";
-import { entities } from "./entities";
-import { constants } from "./constants";
-import { createEntity } from "./utils/createEntity";
-import { setComponentProperty, setComponentValue } from "./utils/setComponent";
-
+import entities from "./entities";
 import { initSystems, startPipeline } from "./systems";
 
-const world = createWorld();
+export default function setupWorld() {
+  const world = createWorld();
 
-world["_components"] = components;
-world["_entities"] = entities;
+  world["_components"] = components;
+  world["_entities"] = entities;
 
-const systems = initSystems(world);
+  const systems = initSystems(world);
 
-const pipeline = startPipeline(systems);
+  const pipeline = startPipeline(systems);
 
-setInterval(function () {
-  pipeline(world);
-}, 16);
+  setInterval(function () {
+    pipeline(world);
+  }, 16);
 
-const newEntity = createEntity(world, "wood", {
-  position: { x: 0, y: 0 },
-  durability: { val: 0, min: 0, max: 100 },
-  flammable: { enabled: constants.TRUE },
-  breakable: { enabled: constants.TRUE },
-});
-
-console.log(newEntity);
-console.log(hasComponent(world, world["_components"]["position"], newEntity));
-console.log(hasComponent(world, world["_components"]["durability"], newEntity));
-console.log(hasComponent(world, world["_components"]["breakable"], newEntity));
-console.log(hasComponent(world, world["_components"]["flammable"], newEntity));
-
-// console.log("Value:", world["_components"]["position"]["x"][newEntity]);
-// setComponentProperty(world, newEntity, "position", "x", 100);
-// setComponentValue(world, newEntity, "position", { x: 100, y: 100 });
-// console.log("Value:", world["_components"]["position"]["x"][newEntity]);
+  return world;
+}

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/world.ts"
+    "start": "ts-node src/main.ts"
   },
   "repository": {
     "type": "git",
