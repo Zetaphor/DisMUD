@@ -1,5 +1,5 @@
 import { defineQuery, removeEntity } from "bitecs";
-import constants from "../constants";
+import constants from "../utils/constants";
 
 const breakingSystem = (world) => {
   const Breakable = world._components["breakable"];

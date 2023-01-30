@@ -1,4 +1,4 @@
-import Wood from "./entities/Wood";
+import Wood from "../entities/Wood";
 
 export const entities = {
   wood: Wood,

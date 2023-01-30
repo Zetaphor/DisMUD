@@ -1,5 +1,5 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
-import constants from "../constants";
+import constants from "../utils/constants";
 
 const burningSystem = (world) => {
   const Flammable = world._components["flammable"];

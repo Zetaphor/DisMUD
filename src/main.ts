@@ -1,8 +1,8 @@
 import { hasComponent } from "bitecs";
-import constants from "./constants";
+import constants from "./utils/constants";
 import createEntity from "./utils/createEntity";
 import { addComponentWithProperty } from "./utils/setComponent";
-import setupWorld from "./world";
+import setupWorld from "./loaders/world";
 
 const world = setupWorld();
 
