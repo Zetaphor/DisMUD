@@ -3,13 +3,14 @@ import constants from "./utils/constants";
 import createEntity from "./utils/createEntity";
 import { addComponentWithProperty } from "./utils/setComponent";
 import setupWorld from "./loaders/world";
+import { damageIndexes } from "./utils/damageIndexes";
 
 const world = setupWorld();
 
 const newEntity = createEntity(world, "wood", {
   position: { x: 0, y: 0 },
   durability: { val: 100, min: 0, max: 100 },
-  breakable: { enabled: constants.TRUE },
+  breakable: { enabled: constants.TRUE, damageIndex: damageIndexes.NONE },
   flammable: {
     enabled: constants.TRUE,
     causesDamage: constants.TRUE,
