@@ -1,7 +1,8 @@
-import { createWorld, getEntityComponents, hasComponent } from "bitecs";
+import { createWorld, hasComponent } from "bitecs";
 import components from "./components";
-import { entities, createEntity } from "./entities";
+import { entities } from "./entities";
 import { constants } from "./constants";
+import { createEntity } from "./utils/createEntity";
 
 import { initSystems, startPipeline } from "./systems";
 
