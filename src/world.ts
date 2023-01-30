@@ -3,6 +3,7 @@ import components from "./components";
 import { entities } from "./entities";
 import { constants } from "./constants";
 import { createEntity } from "./utils/createEntity";
+import { setComponentProperty, setComponentValue } from "./utils/setComponent";
 
 import { initSystems, startPipeline } from "./systems";
 
@@ -31,3 +32,8 @@ console.log(hasComponent(world, world["_components"]["position"], newEntity));
 console.log(hasComponent(world, world["_components"]["durability"], newEntity));
 console.log(hasComponent(world, world["_components"]["breakable"], newEntity));
 console.log(hasComponent(world, world["_components"]["flammable"], newEntity));
+
+// console.log("Value:", world["_components"]["position"]["x"][newEntity]);
+// setComponentProperty(world, newEntity, "position", "x", 100);
+// setComponentValue(world, newEntity, "position", { x: 100, y: 100 });
+// console.log("Value:", world["_components"]["position"]["x"][newEntity]);
