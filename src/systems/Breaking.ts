@@ -1,4 +1,4 @@
-import { addComponent, defineQuery, removeEntity } from "bitecs";
+import { addComponent, defineQuery } from "bitecs";
 import constants from "../utils/constants";
 import { lookupDamageIndex } from "../indexes/damageIndexes";
 

@@ -1,4 +1,4 @@
-import { defineComponent, Types } from "bitecs";
+import { defineComponent } from "bitecs";
 import Uint3 from "../structs/uInt3";
 
 // This component represents the amount of damage
