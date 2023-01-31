@@ -1,8 +1,8 @@
 export const damageIndexes = {
-  NONE: 0,
-  BURNED: 1,
-  SMASHED: 2,
-  CUT: 3,
+  NONE: 1,
+  BURNED: 2,
+  SMASHED: 3,
+  CUT: 4,
 };
 
 const damageIndexKeys = Object.keys(damageIndexes);

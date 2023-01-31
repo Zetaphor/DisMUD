@@ -1,9 +1,9 @@
 export const scaleIndexes = {
-  TINY: 0,
-  SMALL: 1,
-  MEDIUM: 2,
-  LARGE: 3,
-  HUGE: 4,
+  TINY: 1,
+  SMALL: 2,
+  MEDIUM: 3,
+  LARGE: 4,
+  HUGE: 5,
 };
 
 const scaleIndexKeys = Object.keys(scaleIndexes);
