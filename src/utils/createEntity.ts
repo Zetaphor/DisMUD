@@ -2,6 +2,10 @@ import { addEntity, removeEntity } from "bitecs";
 import { addComponentWithValue } from "./setComponent";
 
 export function createEntity(world, type, componentsData) {
+  if (typeof world["_entities"][type] === "undefined") {
+    throw new Error(`Entity type "${type}" does not exist\n`);
+  }
+
   const entityDefinition = world["_entities"][type];
 
   const eid = addEntity(world);
