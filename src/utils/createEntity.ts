@@ -3,6 +3,14 @@ import { addComponent, addEntity, removeEntity } from "bitecs";
 export function createEntity(world, type, components) {
   const entityDefinition = world["_entities"][type];
 
+  const eid = addEntity(world);
+
+  // TODO: Rewrite this so it iterates through the component defition instead of what was provided to createEntity
+  // It will then look for any extra components provided that were not in the definition, or call out any missing components
+  // This should allow me to have optional components since I won't need to do a straight length comparison and rely on
+  // the data provided to the createEntity function
+  // Once this is done I can remove the dropIndex NONE
+
   // Validate the total components in the entity definition versus the component data
   if (entityDefinition.components.length !== Object.keys(components).length) {
     console.error(
@@ -17,14 +25,14 @@ export function createEntity(world, type, components) {
     );
   }
 
-  const eid = addEntity(world);
-
   // Iterate through each component provided to the createEntity function
   for (const [component, data] of Object.entries(components)) {
     // Validate that the component is present in the definition
     if (entityDefinition.components.indexOf(component) === -1) {
       removeEntity(world, eid);
-      throw new Error(`${type} unknown component: ${component}`);
+      throw new Error(
+        `${type} entity definition does not contain component: ${component}`
+      );
     }
 
     addComponent(world, world._components[component], eid);
