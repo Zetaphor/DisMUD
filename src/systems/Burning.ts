@@ -36,8 +36,6 @@ const burningSystem = (world) => {
   return world;
 };
 
-export function initBurningSystem() {
+export default function initBurningSystem() {
   return burningSystem;
 }
-
-export default initBurningSystem;

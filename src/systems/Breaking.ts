@@ -1,6 +1,6 @@
 import { defineQuery, removeEntity } from "bitecs";
 import constants from "../utils/constants";
-import lookupDamageIndex from "../indexes/damageIndexes";
+import { lookupDamageIndex } from "../indexes/damageIndexes";
 
 const breakingSystem = (world) => {
   const Breakable = world._components["breakable"];
@@ -25,8 +25,6 @@ const breakingSystem = (world) => {
   return world;
 };
 
-export function initBreakingSystem() {
+export default function initBreakingSystem() {
   return breakingSystem;
 }
-
-export default initBreakingSystem;

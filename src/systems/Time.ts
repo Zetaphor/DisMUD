@@ -1,6 +1,6 @@
 const { performance } = require("perf_hooks");
 
-export const timeSystem = (world) => {
+const timeSystem = (world) => {
   const time = world.time;
   const now = performance.now();
   const delta = now - time.then;
@@ -10,7 +10,7 @@ export const timeSystem = (world) => {
   return world;
 };
 
-export function initTimeSystem(world) {
+export default function initTimeSystem(world) {
   world["time"] = {
     delta: 0,
     elapsed: 0,
@@ -19,5 +19,3 @@ export function initTimeSystem(world) {
 
   return timeSystem;
 }
-
-export default initTimeSystem;

@@ -9,6 +9,6 @@ export const scaleIndexes = {
 const scaleIndexKeys = Object.keys(scaleIndexes);
 const scaleIndexValues = Object.values(scaleIndexes);
 
-export default function lookupScaleIndex(index) {
+export function lookupScaleIndex(index) {
   return scaleIndexKeys[scaleIndexValues.indexOf(index)];
 }

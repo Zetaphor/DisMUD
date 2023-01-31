@@ -1,7 +1,5 @@
 import Wood from "../entities/Wood";
 
-export const entities = {
+export default {
   wood: Wood,
 };
-
-export default entities;

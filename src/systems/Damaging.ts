@@ -32,8 +32,6 @@ const damagingSystem = (world) => {
   return world;
 };
 
-export function initDamagingSystem() {
+export default function initDamagingSystem() {
   return damagingSystem;
 }
-
-export default initDamagingSystem;

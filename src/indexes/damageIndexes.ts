@@ -8,6 +8,6 @@ export const damageIndexes = {
 const damageIndexKeys = Object.keys(damageIndexes);
 const damageIndexValues = Object.values(damageIndexes);
 
-export default function lookupDamageIndex(index) {
+export function lookupDamageIndex(index) {
   return damageIndexKeys[damageIndexValues.indexOf(index)];
 }

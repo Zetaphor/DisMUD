@@ -9,7 +9,7 @@ import Position from "../components/Position";
 import Scale from "../components/Scale";
 import Velocity from "../components/Velocity";
 
-export const components = {
+export default {
   breakable: Breakable,
   burning: Burning,
   damage: Damage,
