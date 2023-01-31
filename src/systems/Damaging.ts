@@ -15,6 +15,7 @@ const damagingSystem = (world) => {
     if (Health.val[eid] < Health.min[eid]) {
       Health.val[eid] = Health.min[eid];
     }
+    console.log(`Damaged ${eid} health with ${Damage.val[eid]} damage`);
     removeComponent(world, Damage, eid);
   }
 
@@ -25,7 +26,7 @@ const damagingSystem = (world) => {
     if (Durability.val[eid] < Durability.min[eid]) {
       Durability.val[eid] = Durability.min[eid];
     }
-    console.log(`Damaged ${eid} with ${Damage.val[eid]} damage`);
+    console.log(`Damaged ${eid} durability with ${Damage.val[eid]} damage`);
     removeComponent(world, Damage, eid);
   }
 

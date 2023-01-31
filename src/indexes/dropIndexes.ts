@@ -3,10 +3,19 @@ import { lookupDamageIndex, damageIndexes } from "./damageIndexes";
 import { scaleIndexes } from "./scaleIndexes";
 
 export const dropIndexes = {
-  WOOD: 1,
+  CORPSE: 1,
+  WOOD: 2,
 };
 
 const dropIndexData = {
+  CORPSE: {
+    description: "A rotting corpse",
+    entityName: "corpse",
+    data: {
+      position: { x: 0, y: 0 },
+      scale: { scaleIndex: scaleIndexes.SMALL },
+    },
+  },
   WOOD: {
     description: "A regular piece of wood",
     entityName: "wood",

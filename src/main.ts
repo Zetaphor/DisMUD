@@ -4,29 +4,51 @@ import setupWorld from "./loaders/world";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
+import { addComponentWithProperty } from "./utils/setComponent";
 
 const world = setupWorld();
 
-const newEntity = createEntity(world, "tree", {
+const newEntity = createEntity(world, "person", {
   position: { x: 0, y: 0 },
-  durability: { val: 100, min: 0, max: 100 },
-  breakable: { enabled: constants.TRUE, damageIndex: damageIndexes.NONE },
-  deathDrops: { dropIndex: dropIndexes.WOOD, qty: 1 },
-  scale: { scaleIndex: scaleIndexes.LARGE },
+  scale: { scaleIndex: scaleIndexes.MEDIUM },
+  mortal: { enabled: constants.FALSE },
+  killable: { enabled: constants.TRUE },
+  health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
+  deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
+  age: {
+    val: 0,
+    max: 5,
+    adultAge: 5,
+    tickRate: 1,
+    lastTick: 0,
+  },
   flammable: {
     enabled: constants.TRUE,
     causesDamage: constants.TRUE,
     damage: 10,
   },
-  age: {
-    val: 0,
-    max: 10,
-    adultAge: 5,
-    destroyAtMax: constants.TRUE,
-    tickRate: 1,
-    lastTick: 0,
-  },
 });
+
+// const newEntity = createEntity(world, "tree", {
+//   position: { x: 0, y: 0 },
+//   durability: { val: 100, min: 0, max: 100 },
+//   breakable: { enabled: constants.TRUE, damageIndex: damageIndexes.NONE },
+//   deathDrops: { dropIndex: dropIndexes.WOOD, qty: 1 },
+//   scale: { scaleIndex: scaleIndexes.LARGE },
+//   flammable: {
+//     enabled: constants.TRUE,
+//     causesDamage: constants.TRUE,
+//     damage: 10,
+//   },
+//   age: {
+//     val: 0,
+//     max: 5,
+//     adultAge: 5,
+//     tickRate: 1,
+//     lastTick: 0,
+//   },
+//   mortal: { enabled: constants.FALSE },
+// });
 
 // const newEntity = createEntity(world, "wood", {
 //   position: { x: 0, y: 0 },
@@ -41,15 +63,15 @@ const newEntity = createEntity(world, "tree", {
 //   },
 // });
 
-// // Set the object on fire
-// addComponentWithProperty(
-//   world,
-//   "tree",
-//   newEntity,
-//   "burning",
-//   "enabled",
-//   constants.TRUE
-// );
+// Set the object on fire
+addComponentWithProperty(
+  world,
+  "person",
+  newEntity,
+  "burning",
+  "enabled",
+  constants.TRUE
+);
 
 // // Validate components
 // console.log(newEntity);

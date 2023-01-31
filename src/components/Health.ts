@@ -1,6 +1,12 @@
-import { defineComponent } from "bitecs";
-import Uint3 from "../structs/uInt3";
+import { defineComponent, Types } from "bitecs";
 
-export const Health = defineComponent(Uint3);
+// Used with the Mortality component in the Mortality system.
+// When Killable enabled and below min, destroy entity
+export const Health = defineComponent({
+  val: Types.ui16,
+  min: Types.ui16,
+  max: Types.ui16,
+  damageIndex: Types.ui16,
+});
 
 export default Health;

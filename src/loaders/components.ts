@@ -11,6 +11,7 @@ import Position from "../components/Position";
 import Scale from "../components/Scale";
 import Velocity from "../components/Velocity";
 import Age from "../components/Age";
+import Killable from "../components/Killable";
 
 export default {
   breakable: Breakable,
@@ -26,4 +27,5 @@ export default {
   deathDrops: DeathDrops,
   destroyed: Destroyed,
   age: Age,
+  killable: Killable,
 };
