@@ -1,6 +1,6 @@
 import { defineComponent, Types } from "bitecs";
 
-// Used with the Health component when health reaches zero
+// Used with the Age component in the Aging system
 export const Mortal = defineComponent({
   enabled: Types.ui8,
 });
