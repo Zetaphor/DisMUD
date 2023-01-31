@@ -5,8 +5,8 @@ const damagingSystem = (world) => {
   const Health = world._components["health"];
   const Durability = world._components["durability"];
 
-  const healthQuery = defineQuery([Health]);
-  const durabilityQuery = defineQuery([Durability]);
+  const healthQuery = defineQuery([Damage, Health]);
+  const durabilityQuery = defineQuery([Damage, Durability]);
 
   const healthEnts = healthQuery(world);
   for (let i = 0; i < healthEnts.length; i++) {
