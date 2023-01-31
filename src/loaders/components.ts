@@ -1,6 +1,8 @@
 import Breakable from "../components/Breakable";
 import Burning from "../components/Burning";
 import Damage from "../components/Damage";
+import Destroyed from "../components/Destroyed";
+import DeathDrops from "../components/DeathDrops";
 import Durability from "../components/Durability";
 import Flammable from "../components/Flammable";
 import Health from "../components/Health";
@@ -20,6 +22,6 @@ export default {
   position: Position,
   velocity: Velocity,
   scale: Scale,
+  deathDrops: DeathDrops,
+  destroyed: Destroyed,
 };
-
-export default components;

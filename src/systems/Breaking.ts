@@ -1,10 +1,11 @@
-import { defineQuery, removeEntity } from "bitecs";
+import { addComponent, defineQuery, removeEntity } from "bitecs";
 import constants from "../utils/constants";
 import { lookupDamageIndex } from "../indexes/damageIndexes";
 
 const breakingSystem = (world) => {
   const Breakable = world._components["breakable"];
   const Durability = world._components["durability"];
+  const Destroyed = world._components["destroyed"];
 
   const breakableQuery = defineQuery([Breakable]);
 
@@ -18,7 +19,7 @@ const breakingSystem = (world) => {
             Breakable.damageIndex[eid]
           )}`
         );
-        removeEntity(world, eid);
+        addComponent(world, Destroyed, eid);
       }
     }
   }

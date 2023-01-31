@@ -2,12 +2,14 @@ import { pipe } from "bitecs";
 import initBreakingSystem from "../systems/Breaking";
 import initBurningSystem from "../systems/Burning";
 import initDamagingSystem from "../systems/Damaging";
+import initDestroyingSystem from "../systems/Destroying";
 import initMovementSystem from "../systems/Movement";
 import initTimeSystem from "../systems/Time";
 
 export function initSystems(world) {
   return [
     initTimeSystem(world),
+    initDestroyingSystem(),
     initMovementSystem(),
     initDamagingSystem(),
     initBreakingSystem(),
