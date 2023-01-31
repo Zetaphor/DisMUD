@@ -5,6 +5,7 @@ import setupWorld from "./loaders/world";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
+import { hasComponent } from "bitecs";
 
 const world = setupWorld();
 
@@ -25,6 +26,8 @@ const newEntity = createEntity(world, "tree", {
 //   position: { x: 0, y: 0 },
 //   durability: { val: 100, min: 0, max: 100 },
 //   breakable: { enabled: constants.TRUE, damageIndex: damageIndexes.NONE },
+//   scale: { scaleIndex: scaleIndexes.MEDIUM },
+//   deathDrops: { dropIndex: dropIndexes.WOOD, qty: 1 },
 //   flammable: {
 //     enabled: constants.TRUE,
 //     causesDamage: constants.TRUE,
@@ -32,18 +35,39 @@ const newEntity = createEntity(world, "tree", {
 //   },
 // });
 
-// console.log(newEntity);
-// console.log(hasComponent(world, world["_components"]["position"], newEntity));
-// console.log(hasComponent(world, world["_components"]["durability"], newEntity));
-// console.log(hasComponent(world, world["_components"]["breakable"], newEntity));
-// console.log(hasComponent(world, world["_components"]["flammable"], newEntity));
-
 addComponentWithProperty(
   world,
+  "tree",
   newEntity,
   "burning",
   "enabled",
   constants.TRUE
+);
+
+console.log(newEntity);
+console.log(
+  "position:",
+  hasComponent(world, world["_components"]["position"], newEntity)
+);
+console.log(
+  "durability:",
+  hasComponent(world, world["_components"]["durability"], newEntity)
+);
+console.log(
+  "breakable:",
+  hasComponent(world, world["_components"]["breakable"], newEntity)
+);
+console.log(
+  "flammable:",
+  hasComponent(world, world["_components"]["flammable"], newEntity)
+);
+console.log(
+  "scale:",
+  hasComponent(world, world["_components"]["scale"], newEntity)
+);
+console.log(
+  "deathDrops:",
+  hasComponent(world, world["_components"]["deathDrops"], newEntity)
 );
 
 // console.log("Value:", world["_components"]["position"]["x"][newEntity]);

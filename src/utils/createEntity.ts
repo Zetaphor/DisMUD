@@ -1,70 +1,48 @@
-import { addComponent, addEntity, removeEntity } from "bitecs";
+import { addEntity, removeEntity } from "bitecs";
+import { addComponentWithValue } from "./setComponent";
 
-export function createEntity(world, type, components) {
+export function createEntity(world, type, componentsData) {
   const entityDefinition = world["_entities"][type];
 
   const eid = addEntity(world);
 
-  // TODO: Rewrite this so it iterates through the component defition instead of what was provided to createEntity
-  // It will then look for any extra components provided that were not in the definition, or call out any missing components
-  // This should allow me to have optional components since I won't need to do a straight length comparison and rely on
-  // the data provided to the createEntity function
-  // Once this is done I can remove the dropIndex NONE
+  const componentsDataKeys = Object.keys(componentsData);
+  let addedComponents = [];
 
-  // Validate the total components in the entity definition versus the component data
-  if (entityDefinition.components.length !== Object.keys(components).length) {
-    console.error(
-      `Definition: ${entityDefinition.components}\nInput: ${Object.keys(
-        components
-      )}\n`
+  for (let i = 0; i < entityDefinition.components.length; i++) {
+    const component = entityDefinition.components[i];
+
+    // Validate the component from the definition exists in the received data
+    if (componentsDataKeys.indexOf(component) === -1) {
+      removeEntity(world, eid);
+      throw new Error(
+        `${type}: required ${component} component was not found in the createEntity data, received ${componentsDataKeys}\n`
+      );
+    }
+
+    addComponentWithValue(
+      world,
+      type,
+      eid,
+      component,
+      componentsData[component]
     );
-    throw new Error(
-      `${type} component mismatch, expected ${
-        entityDefinition.components.length
-      } components, but got ${Object.keys(components).length}`
-    );
+    addedComponents.push(component);
   }
 
-  // Iterate through each component provided to the createEntity function
-  for (const [component, data] of Object.entries(components)) {
-    // Validate that the component is present in the definition
-    if (entityDefinition.components.indexOf(component) === -1) {
-      removeEntity(world, eid);
-      throw new Error(
-        `${type} entity definition does not contain component: ${component}`
-      );
-    }
+  let remainingComponents = componentsDataKeys.filter(
+    (item) => !addedComponents.includes(item)
+  );
 
-    addComponent(world, world._components[component], eid);
-
-    const componentDefinition = Object.keys(world._components[component]);
-
-    // Validate the total properties of the component definition against the component data
-    if (componentDefinition.length !== Object.keys(data).length) {
-      removeEntity(world, eid);
-      console.error(
-        `Definition: ${componentDefinition}\nInput: ${Object.keys(data)}\n`
-      );
-      throw new Error(
-        `${type} ${component} component mismatch, expected ${
-          componentDefinition.length
-        } properties, but got ${Object.keys(data).length}`
-      );
-    }
-
-    // // Iterate each provided property and set it on the component
-    for (const [property, value] of Object.entries(data)) {
-      // Validate that the property is present in the definition
-      if (componentDefinition.indexOf(property) === -1) {
-        removeEntity(world, eid);
-        throw new Error(
-          `${type} unknown ${component} component property: ${property}`
-        );
-      }
-
-      // Set the property on the component
-      world._components[component][property][eid] = value;
-    }
+  for (let i = 0; i < remainingComponents.length; i++) {
+    console.log(`${type} adding optional component ${remainingComponents[i]}`);
+    addComponentWithValue(
+      world,
+      type,
+      eid,
+      remainingComponents[i],
+      componentsData[remainingComponents[i]]
+    );
   }
 
   return eid;

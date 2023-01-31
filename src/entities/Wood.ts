@@ -1,12 +1,5 @@
 export const Wood = {
-  components: [
-    "durability",
-    "breakable",
-    "flammable",
-    "position",
-    "scale",
-    "deathDrops", // I can remove this after I rework createEntity
-  ],
+  components: ["durability", "breakable", "flammable", "position", "scale"],
 };
 
 export default Wood;

@@ -3,8 +3,7 @@ import { lookupDamageIndex, damageIndexes } from "./damageIndexes";
 import { scaleIndexes } from "./scaleIndexes";
 
 export const dropIndexes = {
-  NONE: 1, // I can remove this once I rework createEntity
-  WOOD: 2,
+  WOOD: 1,
 };
 
 const dropIndexData = {
@@ -24,7 +23,6 @@ const dropIndexData = {
         damage: 10,
       },
       scale: { scaleIndex: scaleIndexes.SMALL },
-      deathDrops: { dropIndex: 1, qty: 0 }, // I can remove this after I rework createEntity
     },
   },
 };

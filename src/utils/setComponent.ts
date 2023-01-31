@@ -1,24 +1,34 @@
 import { addComponent } from "bitecs";
 
-export function setComponentProperty(world, eid, component, property, value) {
+export function setComponentProperty(
+  world,
+  type,
+  eid,
+  component,
+  property,
+  value
+) {
   const componentDefinition = Object.keys(world._components[component]);
 
   if (componentDefinition.indexOf(property) === -1) {
     throw new Error(
-      `Component "${component}" does not have property "${property}"`
+      `${type}: Component "${component}" does not have property "${property}"`
     );
   }
 
   world._components[component][property][eid] = value;
 }
 
-export function setComponentValue(world, eid, component, data) {
+export function setComponentValue(world, type, eid, component, data) {
   const componentDefinition = Object.keys(world._components[component]);
 
   // Validate the total properties of the component definition against the component data
   if (componentDefinition.length !== Object.keys(data).length) {
+    console.error(
+      `Definition: ${componentDefinition}\nInput: ${Object.keys(data)}\n`
+    );
     throw new Error(
-      `${component} component mismatch, expected ${
+      `${type} ${component} component mismatch, expected ${
         componentDefinition.length
       } properties, but got ${Object.keys(data).length}`
     );
@@ -29,7 +39,7 @@ export function setComponentValue(world, eid, component, data) {
     // Validate that the property is present in the definition
     if (componentDefinition.indexOf(property) === -1) {
       throw new Error(
-        `${component} unknown ${component} component property: ${property}`
+        `${type} unknown ${component} component property: ${property}`
       );
     }
 
@@ -38,18 +48,19 @@ export function setComponentValue(world, eid, component, data) {
   }
 }
 
-export function addComponentWithData(world, eid, component, data) {
+export function addComponentWithValue(world, type, eid, component, data) {
   addComponent(world, world["_components"][component], eid);
-  setComponentValue(world, eid, component, data);
+  setComponentValue(world, type, eid, component, data);
 }
 
 export function addComponentWithProperty(
   world,
+  type,
   eid,
   component,
   property,
   value
 ) {
   addComponent(world, world["_components"][component], eid);
-  setComponentProperty(world, eid, component, property, value);
+  setComponentProperty(world, type, eid, component, property, value);
 }
