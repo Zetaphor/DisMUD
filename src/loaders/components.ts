@@ -10,6 +10,7 @@ import Mortal from "../components/Mortal";
 import Position from "../components/Position";
 import Scale from "../components/Scale";
 import Velocity from "../components/Velocity";
+import Age from "../components/Age";
 
 export default {
   breakable: Breakable,
@@ -24,4 +25,5 @@ export default {
   scale: Scale,
   deathDrops: DeathDrops,
   destroyed: Destroyed,
+  age: Age,
 };

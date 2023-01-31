@@ -1,11 +1,9 @@
 import constants from "./utils/constants";
 import createEntity from "./utils/createEntity";
-import { addComponentWithProperty } from "./utils/setComponent";
 import setupWorld from "./loaders/world";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
-import { hasComponent } from "bitecs";
 
 const world = setupWorld();
 
@@ -19,6 +17,14 @@ const newEntity = createEntity(world, "tree", {
     enabled: constants.TRUE,
     causesDamage: constants.TRUE,
     damage: 10,
+  },
+  age: {
+    val: 0,
+    max: 10,
+    adultAge: 5,
+    destroyAtMax: constants.TRUE,
+    tickRate: 1,
+    lastTick: 0,
   },
 });
 
@@ -35,41 +41,44 @@ const newEntity = createEntity(world, "tree", {
 //   },
 // });
 
-addComponentWithProperty(
-  world,
-  "tree",
-  newEntity,
-  "burning",
-  "enabled",
-  constants.TRUE
-);
+// // Set the object on fire
+// addComponentWithProperty(
+//   world,
+//   "tree",
+//   newEntity,
+//   "burning",
+//   "enabled",
+//   constants.TRUE
+// );
 
-console.log(newEntity);
-console.log(
-  "position:",
-  hasComponent(world, world["_components"]["position"], newEntity)
-);
-console.log(
-  "durability:",
-  hasComponent(world, world["_components"]["durability"], newEntity)
-);
-console.log(
-  "breakable:",
-  hasComponent(world, world["_components"]["breakable"], newEntity)
-);
-console.log(
-  "flammable:",
-  hasComponent(world, world["_components"]["flammable"], newEntity)
-);
-console.log(
-  "scale:",
-  hasComponent(world, world["_components"]["scale"], newEntity)
-);
-console.log(
-  "deathDrops:",
-  hasComponent(world, world["_components"]["deathDrops"], newEntity)
-);
+// // Validate components
+// console.log(newEntity);
+// console.log(
+//   "position:",
+//   hasComponent(world, world["_components"]["position"], newEntity)
+// );
+// console.log(
+//   "durability:",
+//   hasComponent(world, world["_components"]["durability"], newEntity)
+// );
+// console.log(
+//   "breakable:",
+//   hasComponent(world, world["_components"]["breakable"], newEntity)
+// );
+// console.log(
+//   "flammable:",
+//   hasComponent(world, world["_components"]["flammable"], newEntity)
+// );
+// console.log(
+//   "scale:",
+//   hasComponent(world, world["_components"]["scale"], newEntity)
+// );
+// console.log(
+//   "deathDrops:",
+//   hasComponent(world, world["_components"]["deathDrops"], newEntity)
+// );
 
+// // Update components directly
 // console.log("Value:", world["_components"]["position"]["x"][newEntity]);
 // setComponentProperty(world, newEntity, "position", "x", 100);
 // setComponentValue(world, newEntity, "position", { x: 100, y: 100 });
