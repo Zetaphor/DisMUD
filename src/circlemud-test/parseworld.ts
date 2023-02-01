@@ -1,29 +1,5 @@
-import parseRoomsFromWld from "./parseRoomsFromWld";
-import { parseWorldFile } from "./roomToJson";
-
-const fs = require("fs");
-
-let fileString = "";
-
-fs.readFile("src/circlemud-test/world/wld/25.wld", "utf-8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  const roomList = parseRoomsFromWld(data);
-
-  /*
-    #<virtual number>
-    <room name>~
-    <Room Description>
-    ~
-    <zone number> <room bitvector> <sector type>
-    {Zero or more Direction Fields and/or Extra Descriptions}
-    S
-  */
-
-  let rooms = {};
+export default function parseWorld(roomList) {
+  let rooms = [];
   for (let roomIndex = 0; roomIndex < roomList.length; roomIndex++) {
     const lines = roomList[roomIndex].split("\n");
 
@@ -31,7 +7,7 @@ fs.readFile("src/circlemud-test/world/wld/25.wld", "utf-8", (err, data) => {
     lines.splice(-2, 2);
 
     // console.log(lines);
-    let newRoom = { exits: [] };
+    let newRoom = { exits: [], extra: { keywords: [], description: "" } };
     newRoom["virtualNum"] = parseInt(lines[0].slice(1));
     newRoom["name"] = lines[1];
     newRoom["description"] = lines[2];
@@ -71,16 +47,14 @@ fs.readFile("src/circlemud-test/world/wld/25.wld", "utf-8", (err, data) => {
           extraIndexes.push(lineIndex);
         }
       }
-      // console.log(newRoom);
     }
 
     // Capture all exits
     for (let i = 0; i < exitIndexes.length; i++) {
       const currentExitIndex = exitIndexes[i];
       let nextExitIndex = exitIndexes[i + 1];
-      if (typeof nextExitIndex === "undefined") {
-        nextExitIndex = lines.length;
-      }
+      if (typeof nextExitIndex === "undefined") nextExitIndex = lines.length;
+
       let newExit = {
         direction: parseInt(lines[currentExitIndex].slice(1)),
         description: "",
@@ -116,19 +90,21 @@ fs.readFile("src/circlemud-test/world/wld/25.wld", "utf-8", (err, data) => {
       newRoom["exits"].push(newExit);
       // console.log(newRoom["virtualNum"], newExit);
     }
+
+    for (let i = 0; i < extraIndexes.length; i++) {
+      const extraIndex = extraIndexes[i];
+      newRoom["extra"]["keywords"] = lines[extraIndex + 1].slice(0, -1).split(" ");
+      // console.log(newRoom["extra"]["keywords"]);
+
+      for (let j = extraIndex + 2; j < lines.length - 1; j++) {
+        newRoom["extra"]["description"] += lines[j] + " ";
+      }
+      // console.log(newRoom["extra"]["description"]);
+    }
+
+    rooms.push(newRoom);
+    // console.log(newRoom);
   }
 
-  // const parsedRooms = parseWorldFile(data);
-
-  // console.log(parsedRooms.length);
-
-  // console.log(parsedRooms);
-
-  // fs.writeFile("src/circlemud-test/json/wld/9.json", JSON.stringify(parsedRooms), { flag: "w" }, (err) => {
-  //   if (err) {
-  //     console.error(err);
-  //     return;
-  //   }
-  //   console.log("Data written to file");
-  // });
-});
+  return rooms;
+}
