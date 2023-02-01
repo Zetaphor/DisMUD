@@ -1,0 +1,262 @@
+[
+  {
+    "virtualNumber": "900",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "901",
+    "directions": {
+      "1": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "901",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "902",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "1": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "902",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "903",
+    "directions": {
+      "1": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "903",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "904",
+    "directions": {
+      "1": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "904",
+    "roomName": "The Swift River Delta",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "1": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" },
+      "eadly.": {
+        "generalDescription": "",
+        "keywordList": "9 0 ",
+        "doorFlag": "",
+        "keyNumber": "The",
+        "roomLinked": "tidal"
+      }
+    },
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "905"
+  },
+  {
+    "virtualNumber": "905",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "906",
+    "directions": {
+      "1": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "906",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "908",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "1": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "907",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "908",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "908",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "909",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "1": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "909",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "908",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "1": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "910",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "909",
+    "directions": { "2": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "911",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "912",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "912",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "913",
+    "directions": {
+      "1": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" },
+      "3": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "913",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "914",
+    "directions": {
+      "1": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "914",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "915",
+    "directions": {
+      "0": { "generalDescription": "", "keywordList": "" },
+      "2": { "generalDescription": "", "keywordList": "" }
+    },
+    "extraDescriptions": [
+      { "keywordList": "sign cave", "descriptionText": "A sign beside the dark cave opening reads" }
+    ]
+  },
+  {
+    "virtualNumber": "915",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "916",
+    "directions": { "1": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "916",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "917",
+    "directions": { "2": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "917",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "918",
+    "directions": { "1": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "918",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "919",
+    "directions": { "2": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "919",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "920",
+    "directions": { "1": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "920",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "923",
+    "directions": {
+      "2": { "generalDescription": "", "keywordList": "" },
+      "4": { "generalDescription": "", "keywordList": "" }
+    }
+  },
+  {
+    "virtualNumber": "921",
+    "roomName": "door oak",
+    "zoneNumber": "2",
+    "roomBitvector": "900",
+    "sectorType": "922",
+    "directions": {
+      "1": {
+        "generalDescription": "You see a rather large oak door bound with iron and securely locked",
+        "keywordList": ""
+      }
+    }
+  },
+  {
+    "virtualNumber": "922",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "910",
+    "directions": { "4": { "generalDescription": "", "keywordList": "" } }
+  },
+  {
+    "virtualNumber": "923",
+    "roomName": "",
+    "zoneNumber": "0",
+    "roomBitvector": "-1",
+    "sectorType": "910",
+    "directions": { "5": { "generalDescription": "", "keywordList": "" } }
+  }
+]

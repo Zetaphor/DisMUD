@@ -1,0 +1,63 @@
+The following is the documentation for a CircleMUD World file. Write some Javascript that can read this file definition and parse it to JSON:
+
+The format of a room is: #<virtual number>
+<room name>~
+<Room Description>
+~
+<zone number> <room bitvector> <sector type>
+{Zero or more Direction Fields and/or Extra Descriptions}
+S
+
+There can be between 0 and 6 Direction Fields. There should not be more than one Direction Field for a particular direction. No Extra Descriptions are required but an unlimited number are allowed. Each room is terminated with the literal letter S.
+
+Direction Fields and Extra Descriptions
+This section defines the room's exits, if any, as well as any extra descriptions. This section can be empty if the room has no exits and no extra descriptions. Otherwise, it can have any number of D (Direction Field) and E (Extra Description) sections, in any order. After all exits and extra descriptions have been listed, the end of the room is signaled with the letter S.
+
+3.2 The Direction Field
+The general format of a direction field is:
+D<direction number>
+<general description>
+~
+<keyword list>~
+<door flag> <key number> <room linked>
+
+3.3 Room Extra Descriptions
+There can be an unlimited number of Extra Descriptions in each room.
+
+The format of an extra description is simple:
+E
+<keyword list>~
+<description text>
+~
+
+3.4 World File Example
+
+Here's a sample entry from a CircleMUD world file:
+
+    #18629
+    The Red Room~
+       It takes you a moment to realize that the red glow here is coming
+    from a round portal on the floor.  It looks almost as if someone had
+    painted a picture of a dirt running through a field on the floor of
+    this room.  Oddly enough, it is so realistic you can feel the wind in
+    the field coming out of the picture.
+    ~
+    186 ad 0
+    D0
+    You see a big room up there.
+    ~
+    ~
+    0 -1 18620
+    D1
+    You see a small room.
+    ~
+    oak door~
+    1 18000 18630
+    E
+    portal floor~
+    It looks as if you could go down into it... but you can't be sure of where
+    you will end up, or if you can get back.
+    ~
+    S
+
+This room is virtual number 18629, called `The Red Room.'' It is dark and indoors, with an `INDOORS'' sector type. It has an exit north and east. The north exit leads to room 18620; if a player types `look north'' it will say `You see a big room up there.'' The exit east is a normal, pickable door that leads to room 18630 and which takes key number 18000. There is one extra description for `portal'' and `floor.''
