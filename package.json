@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "parse-circlemud": "ts-node src/circlemud-test/parseworld.ts"
+    "parse": "ts-node src/circlemud-test/parseworld.ts"
   },
   "repository": {
     "type": "git",
