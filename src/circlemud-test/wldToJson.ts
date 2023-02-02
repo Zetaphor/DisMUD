@@ -1,3 +1,4 @@
+// Converts an array of wld rooms to JSON.
 export default function parseWorld(roomList) {
   let rooms = [];
   for (let roomIndex = 0; roomIndex < roomList.length; roomIndex++) {

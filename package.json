@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "parse": "ts-node src/circlemud-test/roomToJson.ts"
+    "parse-wld": "ts-node src/circlemud-test/exportWldToJson.ts"
   },
   "repository": {
     "type": "git",

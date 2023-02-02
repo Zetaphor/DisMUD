@@ -1,3 +1,4 @@
+// Returns an array of rooms from a wld text file.
 export default function parseRoomsFromWld(text) {
   const startDelimiter = "#[0-9]+\n";
   const endDelimiter = "S\n";
