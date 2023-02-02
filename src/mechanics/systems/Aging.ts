@@ -20,10 +20,7 @@ const agingSystem = (world) => {
     }
 
     // Check if we're immortal
-    if (
-      hasComponent(world, Mortal, eid) &&
-      Mortal.enabled[eid] === constants.TRUE
-    ) {
+    if (hasComponent(world, Mortal, eid) && Mortal.enabled[eid] === constants.TRUE) {
       //If not, destroy if too old
       if (Age.val[eid] >= Age.max[eid]) {
         addComponent(world, Destroyed, eid);

@@ -14,11 +14,7 @@ const breakingSystem = (world) => {
     const eid = ents[i];
     if (Breakable.enabled[eid] === constants.TRUE) {
       if (Durability.val[eid] <= Durability.min[eid]) {
-        console.log(
-          `Breaking ${eid} from ${lookupDamageIndex(
-            Breakable.damageIndex[eid]
-          )}`
-        );
+        console.log(`Breaking ${eid} from ${lookupDamageIndex(Breakable.damageIndex[eid])}`);
         addComponent(world, Destroyed, eid);
       }
     }
