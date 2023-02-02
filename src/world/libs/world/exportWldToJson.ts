@@ -6,7 +6,7 @@ const fs = require("fs");
 
 const worldNum = 9;
 
-fs.readFile(`src/circlemud-test/world/wld/${worldNum}.wld`, "utf-8", (err, data) => {
+fs.readFile(`src/world/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
@@ -16,7 +16,7 @@ fs.readFile(`src/circlemud-test/world/wld/${worldNum}.wld`, "utf-8", (err, data)
 
   const parsedRooms = parseWorld(roomList);
 
-  fs.writeFile(`src/circlemud-test/json/wld/${worldNum}.json`, JSON.stringify(parsedRooms), { flag: "w" }, (err) => {
+  fs.writeFile(`src/world/data/json/wld/${worldNum}.json`, JSON.stringify(parsedRooms), { flag: "w" }, (err) => {
     if (err) {
       console.error(err);
       return;
