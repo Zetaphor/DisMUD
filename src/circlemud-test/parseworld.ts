@@ -7,35 +7,32 @@ export default function parseWorld(roomList) {
     lines.splice(-2, 2);
 
     // console.log(lines);
-    let newRoom = { exits: [], extra: { keywords: [], description: "" } };
-    newRoom["virtualNum"] = parseInt(lines[0].slice(1));
+    let newRoom = { exits: [], extra: { tags: [], desc: "" } };
+    newRoom["id"] = parseInt(lines[0].slice(1));
     newRoom["name"] = lines[1];
-    newRoom["description"] = lines[2];
+    newRoom["desc"] = lines[2];
 
     let parsingDescription = true;
-    let parsingExit = false;
-    let setExitDescription = false;
-    let parsingExtraDescriptions = false;
 
     let exitIndexes = [];
     let extraIndexes = [];
 
-    // Capture all description lines
+    // Capture all desc lines
     for (let lineIndex = 3; lineIndex < lines.length; lineIndex++) {
       if (parsingDescription) {
         if (lines[lineIndex] !== "~") {
-          newRoom["description"] += " " + lines[lineIndex];
+          newRoom["desc"] += " " + lines[lineIndex];
         } else {
-          newRoom["description"] = newRoom["description"].trim();
+          newRoom["desc"] = newRoom["desc"].trim();
           parsingDescription = false;
 
-          // Zone, room and sector data comes immediately after description
+          // Zone, room and sector data comes immediately after desc
           const zoneRoomSector = lines[lineIndex + 1].split(" ");
           newRoom["zoneNum"] = parseInt(zoneRoomSector[0]);
           newRoom["roomBitVector"] = zoneRoomSector[1] === "0" ? "" : zoneRoomSector[1];
           newRoom["sectorType"] = parseInt(zoneRoomSector[2]);
 
-          // console.log("Description:", newRoom["description"], "\n");
+          // console.log("Description:", newRoom["desc"], "\n");
           // console.log(newRoom["zoneNum"], newRoom["roomBitVector"], newRoom["sectorType"]);
         }
       } else {
@@ -57,49 +54,49 @@ export default function parseWorld(roomList) {
 
       let newExit = {
         direction: parseInt(lines[currentExitIndex].slice(1)),
-        description: "",
-        keywords: [],
+        desc: "",
+        tags: [],
         flag: 0,
         keyNum: -1,
-        linkedRoom: -1,
+        roomId: -1,
       };
 
       const flagKeyLinked = lines[nextExitIndex - 1].split(" ");
       if (flagKeyLinked.length === 3) {
         newExit["flag"] = parseInt(flagKeyLinked[0]);
         newExit["keyNum"] = parseInt(flagKeyLinked[1]);
-        newExit["linkedRoom"] = parseInt(flagKeyLinked[2]);
-        // console.log(newExit["flag"], newExit["keyNum"], newExit["linkedRoom"]);
+        newExit["roomId"] = parseInt(flagKeyLinked[2]);
+        // console.log(newExit["flag"], newExit["keyNum"], newExit["roomId"]);
       }
 
       if (lines[nextExitIndex - 2].length !== 1 && lines[nextExitIndex - 2].endsWith("~")) {
-        newExit["keywords"] = lines[nextExitIndex - 2].slice(0, -1).split(" ");
-        // console.log(newExit["keywords"]);
+        newExit["tags"] = lines[nextExitIndex - 2].slice(0, -1).split(" ");
+        // console.log(newExit["tags"]);
       }
 
       if (lines[currentExitIndex + 1] !== "~") {
         for (let j = currentExitIndex + 1; j < nextExitIndex - 2; j++) {
           if (lines[j] !== "~") {
-            newExit["description"] += lines[j] + " ";
+            newExit["desc"] += lines[j] + " ";
           } else j = nextExitIndex;
         }
-        newExit["description"] = newExit["description"].trim();
-        // console.log(newExit.description);
+        newExit["desc"] = newExit["desc"].trim();
+        // console.log(newExit.desc);
       }
 
       newRoom["exits"].push(newExit);
-      // console.log(newRoom["virtualNum"], newExit);
+      // console.log(newRoom["id"], newExit);
     }
 
     for (let i = 0; i < extraIndexes.length; i++) {
       const extraIndex = extraIndexes[i];
-      newRoom["extra"]["keywords"] = lines[extraIndex + 1].slice(0, -1).split(" ");
-      // console.log(newRoom["extra"]["keywords"]);
+      newRoom["extra"]["tags"] = lines[extraIndex + 1].slice(0, -1).split(" ");
+      // console.log(newRoom["extra"]["tags"]);
 
       for (let j = extraIndex + 2; j < lines.length - 1; j++) {
-        newRoom["extra"]["description"] += lines[j] + " ";
+        newRoom["extra"]["desc"] += lines[j] + " ";
       }
-      // console.log(newRoom["extra"]["description"]);
+      // console.log(newRoom["extra"]["desc"]);
     }
 
     rooms.push(newRoom);
