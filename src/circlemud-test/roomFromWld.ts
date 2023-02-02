@@ -14,7 +14,7 @@ fs.readFile(`src/circlemud-test/world/wld/${worldNum}.wld`, "utf-8", (err, data)
 
   const roomStart = data.indexOf(`#${roomNum}`);
   const roomEnd = data.indexOf("S\n", roomStart) + 1;
-  console.log(roomStart, roomEnd);
   const roomData = [data.substring(roomStart, roomEnd)];
-  console.log(parseWorld(roomData));
+  const roomJSON = parseWorld(roomData)[0];
+  console.log(roomJSON);
 });
