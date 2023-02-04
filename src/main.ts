@@ -1,7 +1,8 @@
+import authenticatedMessage from "./bot/authenticatedMessages";
 import setupBotInterface from "./bot/interface";
 import players from "./bot/players";
-import systemMessages from "./bot/system-messages";
-import menuMessages from "./bot/menu-messages";
+import systemMessages from "./bot/systemMessages";
+import unauthenticatedMessage from "./bot/unauthenticatedMessages";
 import { db } from "./db/init";
 
 async function startup() {
@@ -15,18 +16,8 @@ async function startup() {
     systemMessages.notifyOnline(botInterface.client);
 
     botInterface.on("playerMsg", (msg) => {
-      if (!players.checkActive(msg.user.id)) menuMessages.newSession(msg.user);
-      else if (msg.content === "login") {
-        players.login(db["players"], msg.user);
-      } else if (msg.content === "logout" || msg.content === "quit") {
-        if (!players.checkActive(msg.user.id)) menuMessages.alreadyLoggedout(msg.user);
-        else {
-          players.logout(db["players"], msg.user);
-          menuMessages.logout(msg.user);
-        }
-      } else {
-        console.log("Handle player commands here");
-      }
+      if (!players.checkActive(msg.user.id)) unauthenticatedMessage(players, db, msg);
+      else authenticatedMessage(players, db, msg);
     });
 
     // db["players"].createPlayer({
