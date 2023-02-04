@@ -5,13 +5,11 @@ const token = process.env.DISCORD_TOKEN;
 
 let botId = null;
 
-const client = new Client({
-  intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
-  partials: [Partials.Message, Partials.Channel, Partials.Reaction],
-});
-
 const botInterface = {
-  client: client,
+  client: new Client({
+    intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
+    partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+  }),
   getUser: getUser,
   listeners: {},
   on(event, cb) {
@@ -27,7 +25,7 @@ const botInterface = {
   },
   async waitForEvent(event) {
     return new Promise((resolve) => {
-      client.once(Events.ClientReady, (c) => {
+      this.client.once(Events.ClientReady, (c) => {
         resolve(event);
       });
     });
@@ -36,7 +34,7 @@ const botInterface = {
 
 async function getUser(id) {
   return new Promise((resolve, reject) => {
-    client.users
+    botInterface.client.users
       .fetch(id.toString())
       .then((user) => {
         resolve(user);
@@ -48,13 +46,13 @@ async function getUser(id) {
   });
 }
 
-client.once(Events.ClientReady, (c) => {
+botInterface.client.once(Events.ClientReady, (c) => {
   botId = c.user.id;
   console.log(`Ready! Logged in as ${c.user.tag} with ID ${c.user.id}`);
   botInterface.emit("ready", null);
 });
 
-client.on(Events.MessageCreate, (msg) => {
+botInterface.client.on(Events.MessageCreate, (msg) => {
   if (msg.author.id === botId) {
     // console.log("Saw bot message");
   } else {
@@ -63,20 +61,27 @@ client.on(Events.MessageCreate, (msg) => {
       content: msg.content,
     });
   }
-  //   msg.react("🇳");
-  //   msg.react("🇪");
-  //   msg.react("🇸");
-  //   msg.react("🇼");
-  //   msg.react("🇺");
-  //   msg.react("🇩");
-  // } else if (activeSessions.indexOf(msg.author.id) === -1) {
-  //   client.users.fetch(targetUserId).then((targetUser) => messages.menu.newSessionMessage(targetUser));
-  // } else if (msg.author.id) {
-  //   console.log(msg.author.id, `${msg.author.username}#${msg.author.discriminator}`);
-  //   console.log(msg.content);
-  //   msg.react("⚔️");
-  // }
 });
+
+export default function setupBotInterface() {
+  console.log("Starting bot...");
+  botInterface.client.login(token);
+  return botInterface;
+}
+
+//   msg.react("🇳");
+//   msg.react("🇪");
+//   msg.react("🇸");
+//   msg.react("🇼");
+//   msg.react("🇺");
+//   msg.react("🇩");
+// } else if (activeSessions.indexOf(msg.author.id) === -1) {
+//   botInterface.client.users.fetch(targetUserId).then((targetUser) => messages.menu.newSessionMessage(targetUser));
+// } else if (msg.author.id) {
+//   console.log(msg.author.id, `${msg.author.username}#${msg.author.discriminator}`);
+//   console.log(msg.content);
+//   msg.react("⚔️");
+// }
 
 // const emojiDirections = {
 //   "🇳": "north",
@@ -89,7 +94,7 @@ client.on(Events.MessageCreate, (msg) => {
 
 // const emojiDirectionKeys = Object.keys(emojiDirections);
 
-// client.on(Events.MessageReactionAdd, (reaction, user) => {
+// botInterface.client.on(Events.MessageReactionAdd, (reaction, user) => {
 //   // Don't listen to reactions from the bot or reactions on the users messages
 //   if (user.bot || !reaction.message.author.bot) return;
 //   const dirName = emojiDirections[reaction._emoji.name];
@@ -97,9 +102,3 @@ client.on(Events.MessageCreate, (msg) => {
 //     targetUser.send(dirName);
 //   }
 // });
-
-export default function setupBotInterface() {
-  console.log("Starting bot...");
-  client.login(token);
-  return botInterface;
-}

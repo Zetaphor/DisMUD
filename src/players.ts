@@ -43,7 +43,7 @@ async function login(db, user) {
 
 async function logout(user) {
   delete players["currentActive"][user.id];
-  console.log(`Logging out user ${user.username}`);
+  // console.log(`Logging out user ${user.username}`);
 }
 
 export default players;

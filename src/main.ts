@@ -1,12 +1,15 @@
-import authenticatedMessage from "./bot/authenticatedMessages";
 import setupBotInterface from "./bot/interface";
-import players from "./players";
-import systemMessages from "./bot/systemMessages";
-import unauthenticatedMessage from "./bot/unauthenticatedMessages";
 import { db } from "./db/init";
+import players from "./players";
+import authenticatedMessage from "./authenticatedMessages";
+import unauthenticatedMessage from "./unauthenticatedMessages";
+import systemMessages from "./bot/systemMessages";
+import simulation from "./simulation/world";
 
 async function startup() {
   try {
+    simulation.start();
+
     await db.init();
     console.log("Databases loaded...");
 

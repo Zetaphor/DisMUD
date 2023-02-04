@@ -1,33 +1,40 @@
-import constants from "./utils/constants";
-import createEntity from "./utils/createEntity";
-import startWorld from "./loaders/world";
-import { damageIndexes } from "./indexes/damageIndexes";
-import { scaleIndexes } from "./indexes/scaleIndexes";
-import { dropIndexes } from "./indexes/dropIndexes";
-import { addComponentWithProperty } from "./utils/setComponent";
+import setupWorld from "./loaders/world";
+// import constants from "./utils/constants";
+// import createEntity from "./utils/createEntity";
+// import { damageIndexes } from "./indexes/damageIndexes";
+// import { scaleIndexes } from "./indexes/scaleIndexes";
+// import { dropIndexes } from "./indexes/dropIndexes";
+// import { addComponentWithProperty } from "./utils/setComponent";
 
-const world = startWorld();
+export const simulation = {
+  world: null,
+  start: function () {
+    this.world = setupWorld();
+  },
+};
 
-const newEntity = createEntity(world, "person", {
-  position: { x: 0, y: 0 },
-  scale: { scaleIndex: scaleIndexes.MEDIUM },
-  mortal: { enabled: constants.FALSE },
-  killable: { enabled: constants.TRUE },
-  health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
-  deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
-  age: {
-    val: 0,
-    max: 5,
-    adultAge: 5,
-    tickRate: 1,
-    lastTick: 0,
-  },
-  flammable: {
-    enabled: constants.TRUE,
-    causesDamage: constants.TRUE,
-    damage: 10,
-  },
-});
+export default simulation;
+
+// const newEntity = createEntity(world, "person", {
+//   position: { x: 0, y: 0 },
+//   scale: { scaleIndex: scaleIndexes.MEDIUM },
+//   mortal: { enabled: constants.FALSE },
+//   killable: { enabled: constants.TRUE },
+//   health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
+//   deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
+//   age: {
+//     val: 0,
+//     max: 5,
+//     adultAge: 5,
+//     tickRate: 1,
+//     lastTick: 0,
+//   },
+//   flammable: {
+//     enabled: constants.TRUE,
+//     causesDamage: constants.TRUE,
+//     damage: 10,
+//   },
+// });
 
 // const newEntity = createEntity(world, "tree", {
 //   position: { x: 0, y: 0 },
@@ -64,7 +71,7 @@ const newEntity = createEntity(world, "person", {
 // });
 
 // Set the object on fire
-addComponentWithProperty(world, "person", newEntity, "burning", "enabled", constants.TRUE);
+// addComponentWithProperty(world, "person", newEntity, "burning", "enabled", constants.TRUE);
 
 // // Validate components
 // console.log(newEntity);

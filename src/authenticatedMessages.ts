@@ -1,4 +1,4 @@
-import systemMessages from "./systemMessages";
+import systemMessages from "./bot/systemMessages";
 
 export default function authenticatedMessage(players, db, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {

@@ -3,7 +3,7 @@ import components from "./components";
 import entities from "./entities";
 import { initSystems, startPipeline } from "./systems";
 
-export default function startWorld() {
+export default function setupWorld() {
   const world = createWorld();
 
   world["_components"] = components;
@@ -17,5 +17,6 @@ export default function startWorld() {
     pipeline(world);
   }, 16);
 
+  console.log("World simulations started...");
   return world;
 }

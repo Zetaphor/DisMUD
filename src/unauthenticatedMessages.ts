@@ -1,4 +1,4 @@
-import systemMessages from "./systemMessages";
+import systemMessages from "./bot/systemMessages";
 
 export default function unauthenticatedMessage(players, db, msg) {
   if (msg.content.toLowerCase() === "login") {
