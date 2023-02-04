@@ -19,8 +19,8 @@ async function startup() {
     systemMessages.notifyOnline(botInterface.client);
 
     botInterface.on("playerMsg", (msg) => {
-      if (!players.checkActive(msg.user.id)) unauthenticatedMessage(players, db, msg);
-      else authenticatedMessage(players, db, msg);
+      if (!players.isActive(msg.user.id)) unauthenticatedMessage(players, db, simulation, msg);
+      else authenticatedMessage(players, db, simulation, msg);
     });
   } catch (err) {
     console.error("Startup error:", err);

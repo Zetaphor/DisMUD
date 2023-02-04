@@ -1,9 +1,14 @@
 import systemMessages from "./bot/systemMessages";
 
-export default function authenticatedMessage(players, db, msg) {
+export default async function authenticatedMessage(players, db, simulation, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {
-    players.logout(msg.user);
-    systemMessages.logout(msg.user);
+    try {
+      await players.logout(players, simulation, msg.user);
+      systemMessages.logout(msg.user);
+    } catch (err) {
+      console.error(`Error logging out user ${msg.user.id}`);
+      systemMessages.logoutFailed(msg.user);
+    }
   } else if (msg.content.toLowerCase() === "login") {
     systemMessages.alreadyLoggedIn(msg.user);
   } else {

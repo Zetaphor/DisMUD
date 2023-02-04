@@ -23,6 +23,12 @@ export const systemMessages = {
       \nGoodbye ${user.username}!
     `);
   },
+  logoutFailed: function (user) {
+    user.send(`
+      🗡️ **__RPG Bot__** 🛡️
+      \n⛔ Failed to log you out.
+    `);
+  },
   loggedIn: function (user) {
     user.send(`
       🗡️ **__RPG Bot__** 🛡️
@@ -32,7 +38,7 @@ export const systemMessages = {
   loginFailed: function (user) {
     user.send(`
       🗡️ **__RPG Bot__** 🛡️
-      \n⚠️ Login failed!
+      \n⛔ Login failed!
     `);
   },
   alreadyLoggedIn: function (user) {

@@ -4,6 +4,7 @@ import createEntity from "./utils/createEntity";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
+import { defineQuery, removeEntity } from "bitecs";
 // import { addComponentWithProperty } from "./utils/setComponent";
 
 export const simulation = {
@@ -11,28 +12,58 @@ export const simulation = {
   start: function () {
     this.world = setupWorld();
   },
-  createPlayerEntity(player) {
-    const newEntity = createEntity(this.world, "person", {
-      position: { x: 0, y: 0 },
-      scale: { scaleIndex: scaleIndexes.MEDIUM },
-      mortal: { enabled: constants.FALSE },
-      killable: { enabled: constants.TRUE },
-      health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
-      deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
-      age: {
-        val: 0,
-        max: 5,
-        adultAge: 5,
-        tickRate: 1,
-        lastTick: 0,
-      },
-      flammable: {
-        enabled: constants.TRUE,
-        causesDamage: constants.TRUE,
-        damage: 10,
-      },
+  createPlayerEntity(playerId) {
+    return new Promise((resolve, reject) => {
+      try {
+        const newEntity = createEntity(this.world, "player", {
+          player: { id: playerId },
+          position: { x: 0, y: 0 },
+          scale: { scaleIndex: scaleIndexes.MEDIUM },
+          mortal: { enabled: constants.FALSE },
+          killable: { enabled: constants.TRUE },
+          health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
+          deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
+          age: {
+            val: 0,
+            max: 5,
+            adultAge: 5,
+            tickRate: 1,
+            lastTick: 0,
+          },
+          flammable: {
+            enabled: constants.TRUE,
+            causesDamage: constants.TRUE,
+            damage: 10,
+          },
+        });
+        resolve(newEntity);
+      } catch (err) {
+        console.error(`Failed to craete player entity ${playerId}: ${err}`);
+        reject(err);
+      }
     });
-    return newEntity;
+  },
+  getPlayerEntityByPlayerId(playerId) {
+    const Player = this.world._components["player"];
+    const playerQuery = defineQuery([Player]);
+    const ents = playerQuery(this.world);
+    for (let i = 0; i < ents.length; i++) {
+      if (ents[i]["id"] === playerId) {
+        i = ents.length;
+        return ents[i];
+      }
+    }
+  },
+  removePlayerEntity(entityId) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        removeEntity(this.world, entityId);
+        resolve();
+      } catch (err) {
+        console.error(`Failed to remove player entity ${entityId}: ${err}`);
+        reject(err);
+      }
+    });
   },
 };
 
