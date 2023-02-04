@@ -22,16 +22,6 @@ async function startup() {
       if (!players.checkActive(msg.user.id)) unauthenticatedMessage(players, db, msg);
       else authenticatedMessage(players, db, msg);
     });
-
-    // db["players"].createPlayer({
-    //   discordId: 134317574342180864n,
-    //   discordUsername: "Zetaphor#0237",
-    //   displayName: "Zetaphor",
-    //   roomNum: 18600,
-    // });
-
-    // db["players"].setPlayerName(134317574342180864n, "Zetaphor");
-    // db["players"].setPlayerEnabled(134317574342180864n, true);
   } catch (err) {
     console.error("Startup error:", err);
   }
