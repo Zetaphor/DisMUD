@@ -1,11 +1,12 @@
 import systemMessages from "./systemMessages";
 
 export default function unauthenticatedMessage(players, db, msg) {
-  if (msg.content === "login") {
+  if (msg.content.toLowerCase() === "login") {
     players
       .login(db["players"], msg.user)
-      .then(() => {
-        systemMessages.loggedIn(msg.user);
+      .then((newPlayer) => {
+        if (newPlayer) systemMessages.newPlayer(msg.user);
+        else systemMessages.loggedIn(msg.user);
       })
       .catch((err) => {
         console.log(`Failed to login ${msg.user.username}`, err);

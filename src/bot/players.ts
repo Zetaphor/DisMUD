@@ -11,24 +11,38 @@ function checkActive(playerId) {
 }
 
 async function login(db, user) {
-  return new Promise((resolve, reject) => {
+  return new Promise<Boolean>((resolve, reject) => {
     db.playerExists(BigInt(user.id))
       .then((exists) => {
         if (exists) {
-          user.currentActive[user.id] = user;
-          // Send the user a message saying they logged in
-          resolve(true);
+          players["currentActive"][user.id] = user;
+          resolve(false);
+        } else {
+          db.createPlayer({
+            discordId: BigInt(user.id),
+            discordUsername: `${user.username}#${user.discriminator}`,
+            displayName: user.username,
+            roomNum: 18600,
+          })
+            .then(() => {
+              players["currentActive"][user.id] = user;
+              resolve(true);
+            })
+            .catch((err) => {
+              console.error(`Error creating player ${user.username}: ${err}`);
+              reject(err);
+            });
         }
       })
       .catch((err) => {
         console.error(`Error logging in ${user.username}:`, err);
         reject(err);
       });
-    db.console.log(`Logging in user ${user.username}`);
   });
 }
 
-async function logout(db, user) {
+async function logout(user) {
+  delete players["currentActive"][user.id];
   console.log(`Logging out user ${user.username}`);
 }
 

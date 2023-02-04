@@ -11,6 +11,12 @@ export const systemMessages = {
       \nIf you are new, a player account will automatically be created for you ✨
     `);
   },
+  newPlayer: function (user) {
+    user.send(`
+      🗡️ **__RPG Bot__** 🛡️
+      \n✨ Welcome to RPG Bot ${user.username}!\n\n You now have a user account.\n\nEnjoy the world! ✨
+    `);
+  },
   logout: function (user) {
     user.send(`
       🗡️ **__RPG Bot__** 🛡️
