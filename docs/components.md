@@ -1,5 +1,9 @@
 ## Components
 
+### Player
+
+Indicates if an entity is a player
+
 ### Breakable
 
 Used in the Breaking system. Can be disabled. Contains damageIndex to indicate damage type that resulted in breaking

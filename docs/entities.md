@@ -2,6 +2,10 @@ Any components in an entities definition are considered required. Additional com
 
 ## Entities
 
+### Player
+
+The player entity template
+
 ### Corpse
 
 Dropped on death by entities with a health component
