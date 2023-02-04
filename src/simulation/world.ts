@@ -1,15 +1,38 @@
 import setupWorld from "./loaders/world";
-// import constants from "./utils/constants";
-// import createEntity from "./utils/createEntity";
-// import { damageIndexes } from "./indexes/damageIndexes";
-// import { scaleIndexes } from "./indexes/scaleIndexes";
-// import { dropIndexes } from "./indexes/dropIndexes";
+import constants from "./utils/constants";
+import createEntity from "./utils/createEntity";
+import { damageIndexes } from "./indexes/damageIndexes";
+import { scaleIndexes } from "./indexes/scaleIndexes";
+import { dropIndexes } from "./indexes/dropIndexes";
 // import { addComponentWithProperty } from "./utils/setComponent";
 
 export const simulation = {
   world: null,
   start: function () {
     this.world = setupWorld();
+  },
+  createPlayerEntity(player) {
+    const newEntity = createEntity(this.world, "person", {
+      position: { x: 0, y: 0 },
+      scale: { scaleIndex: scaleIndexes.MEDIUM },
+      mortal: { enabled: constants.FALSE },
+      killable: { enabled: constants.TRUE },
+      health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
+      deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
+      age: {
+        val: 0,
+        max: 5,
+        adultAge: 5,
+        tickRate: 1,
+        lastTick: 0,
+      },
+      flammable: {
+        enabled: constants.TRUE,
+        causesDamage: constants.TRUE,
+        damage: 10,
+      },
+    });
+    return newEntity;
   },
 };
 

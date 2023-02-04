@@ -24,29 +24,15 @@ export function createEntity(world, type, componentsData) {
       );
     }
 
-    addComponentWithValue(
-      world,
-      type,
-      eid,
-      component,
-      componentsData[component]
-    );
+    addComponentWithValue(world, type, eid, component, componentsData[component]);
     addedComponents.push(component);
   }
 
-  let remainingComponents = componentsDataKeys.filter(
-    (item) => !addedComponents.includes(item)
-  );
+  let remainingComponents = componentsDataKeys.filter((item) => !addedComponents.includes(item));
 
   for (let i = 0; i < remainingComponents.length; i++) {
     console.log(`${type} adding optional component ${remainingComponents[i]}`);
-    addComponentWithValue(
-      world,
-      type,
-      eid,
-      remainingComponents[i],
-      componentsData[remainingComponents[i]]
-    );
+    addComponentWithValue(world, type, eid, remainingComponents[i], componentsData[remainingComponents[i]]);
   }
 
   return eid;
