@@ -46,7 +46,7 @@ Can be disabled. Used in the Mortality system to determine if entity should be d
 
 ### Position
 
-Uses Vector2
+Stores the current roomNum
 
 ### Scale
 

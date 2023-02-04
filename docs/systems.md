@@ -24,8 +24,6 @@ Checks to see if the entity has the Killable component and if health is below mi
 
 If the deathDrops component is present, create the dropped entities. Remove the component
 
-### Movement
-
 ### Time
 
 Handle time and track total ticks
