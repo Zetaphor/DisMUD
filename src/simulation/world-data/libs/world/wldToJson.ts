@@ -10,7 +10,7 @@ export default function parseWorld(roomList) {
     // console.log(lines);
     let newRoom = { exits: [], extra: { tags: [], desc: "" } };
     newRoom["id"] = parseInt(lines[0].slice(1));
-    newRoom["name"] = lines[1];
+    newRoom["name"] = lines[1].slice(0, -1);
     newRoom["desc"] = lines[2];
 
     let parsingDescription = true;
