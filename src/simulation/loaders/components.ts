@@ -12,6 +12,7 @@ import Scale from "../components/Scale";
 import Velocity from "../components/Velocity";
 import Age from "../components/Age";
 import Killable from "../components/Killable";
+import Player from "../components/Player";
 
 export default {
   breakable: Breakable,
@@ -28,4 +29,5 @@ export default {
   destroyed: Destroyed,
   age: Age,
   killable: Killable,
+  player: Player,
 };
