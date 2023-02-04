@@ -1,12 +1,15 @@
 const fs = require("fs");
 
 export function recordExists(db: any, table: String, key: String, val: any) {
-  db.get(`SELECT * FROM ${table} WHERE ${key} = "${val}" LIMIT 1`, (err, row) => {
-    if (err) {
-      console.error("Failed to check for existing record:", err);
-    }
-    if (row) return true;
-    return false;
+  return new Promise<Boolean>((resolve, reject) => {
+    db.get(`SELECT * FROM ${table} WHERE ${key} = "${val}" LIMIT 1`, (err, row) => {
+      if (err) {
+        console.error("Failed to check for existing record:", err);
+        reject();
+      }
+      if (row) resolve(true);
+      resolve(false);
+    });
   });
 }
 
