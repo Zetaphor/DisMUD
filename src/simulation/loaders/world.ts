@@ -3,7 +3,7 @@ import components from "./components";
 import entities from "./entities";
 import { initSystems, startPipeline } from "./systems";
 
-export default function setupWorld() {
+export default function startWorld() {
   const world = createWorld();
 
   world["_components"] = components;

@@ -1,12 +1,12 @@
-import constants from "./mechanics/utils/constants";
-import createEntity from "./mechanics/utils/createEntity";
-import setupWorld from "./mechanics/loaders/world";
-import { damageIndexes } from "./mechanics/indexes/damageIndexes";
-import { scaleIndexes } from "./mechanics/indexes/scaleIndexes";
-import { dropIndexes } from "./mechanics/indexes/dropIndexes";
-import { addComponentWithProperty } from "./mechanics/utils/setComponent";
+import constants from "./utils/constants";
+import createEntity from "./utils/createEntity";
+import startWorld from "./loaders/world";
+import { damageIndexes } from "./indexes/damageIndexes";
+import { scaleIndexes } from "./indexes/scaleIndexes";
+import { dropIndexes } from "./indexes/dropIndexes";
+import { addComponentWithProperty } from "./utils/setComponent";
 
-const world = setupWorld();
+const world = startWorld();
 
 const newEntity = createEntity(world, "person", {
   position: { x: 0, y: 0 },

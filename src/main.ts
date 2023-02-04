@@ -1,6 +1,6 @@
 import authenticatedMessage from "./bot/authenticatedMessages";
 import setupBotInterface from "./bot/interface";
-import players from "./bot/players";
+import players from "./players";
 import systemMessages from "./bot/systemMessages";
 import unauthenticatedMessage from "./bot/unauthenticatedMessages";
 import { db } from "./db/init";
