@@ -5,19 +5,19 @@ import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
 import { defineQuery, removeEntity } from "bitecs";
-// import { addComponentWithProperty } from "./utils/setComponent";
+import getRoomData from "./world-data/libs/world/roomFromWld";
 
 export const simulation = {
   world: null,
   start: function () {
     this.world = setupWorld();
   },
-  createPlayerEntity(playerId) {
+  createPlayerEntity: function (playerId, roomNum) {
     return new Promise((resolve, reject) => {
       try {
         const newEntity = createEntity(this.world, "player", {
           player: { id: playerId },
-          position: { x: 0, y: 0 },
+          position: { roomNum: roomNum },
           scale: { scaleIndex: scaleIndexes.MEDIUM },
           mortal: { enabled: constants.FALSE },
           killable: { enabled: constants.TRUE },
@@ -43,7 +43,7 @@ export const simulation = {
       }
     });
   },
-  getPlayerEntityByPlayerId(playerId) {
+  getPlayerEntityByPlayerId: function (playerId) {
     const Player = this.world._components["player"];
     const playerQuery = defineQuery([Player]);
     const ents = playerQuery(this.world);
@@ -54,7 +54,7 @@ export const simulation = {
       }
     }
   },
-  removePlayerEntity(entityId) {
+  removePlayerEntity: function (entityId) {
     return new Promise<void>((resolve, reject) => {
       try {
         removeEntity(this.world, entityId);
@@ -64,6 +64,26 @@ export const simulation = {
         reject(err);
       }
     });
+  },
+  getRoomData: function (roomNum) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const world = Math.floor(roomNum / 100);
+        const room = ("0" + (roomNum % 100)).slice(-2);
+        const roomData = await getRoomData(world, room);
+        resolve(roomData);
+      } catch (err) {
+        console.error(`Failed to get room data for #${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  getPlayerRoomNum: function (playerEntityId) {
+    const Position = this.world._components["position"];
+    return Position.roomNum[playerEntityId];
+  },
+  getPlayerRoomData: async function (playerEntityId) {
+    return this.getRoomData(this.getPlayerRoomNum(playerEntityId));
   },
 };
 

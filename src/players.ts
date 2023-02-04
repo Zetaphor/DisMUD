@@ -1,3 +1,6 @@
+import roomMessages from "./bot/roomMessages";
+import constants from "./simulation/utils/constants";
+
 export const players = {
   currentActive: {},
   login: login,
@@ -19,10 +22,10 @@ async function login(db, simulation, user) {
           discordId: BigInt(user.id),
           discordUsername: `${user.username}#${user.discriminator}`,
           displayName: user.username,
-          roomNum: 18600,
+          roomNum: constants.NEW_USER_ROOMNUM,
         });
       }
-      const playerEntityId = await simulation.createPlayerEntity(user.id);
+      const playerEntityId = await simulation.createPlayerEntity(user.id, constants.NEW_USER_ROOMNUM);
       players["currentActive"][user.id] = {
         eid: playerEntityId,
         user: user,

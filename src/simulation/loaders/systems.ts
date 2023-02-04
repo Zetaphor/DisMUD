@@ -5,7 +5,6 @@ import initBurningSystem from "../systems/Burning";
 import initDamagingSystem from "../systems/Damaging";
 import initDestroyingSystem from "../systems/Destroying";
 import initMortalitySystem from "../systems/Mortality";
-import initMovementSystem from "../systems/Movement";
 import initTimeSystem from "../systems/Time";
 
 export function initSystems(world) {
@@ -17,7 +16,6 @@ export function initSystems(world) {
     initDamagingSystem(),
     initBreakingSystem(),
     initBurningSystem(),
-    initMovementSystem(),
   ];
 }
 

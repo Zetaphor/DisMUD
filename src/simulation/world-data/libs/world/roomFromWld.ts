@@ -3,18 +3,20 @@ import parseWorld from "./wldToJson";
 
 const fs = require("fs");
 
-const worldNum = 9;
-const roomNum = 914;
+export default function getRoomData(worldNum, roomNum) {
+  console.log(`Loading room ${worldNum}/${roomNum}`);
+  return new Promise((resolve, reject) => {
+    fs.readFile(`src/simulation/world-data/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
 
-fs.readFile(`src/circlemud-test/world/wld/${worldNum}.wld`, "utf-8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  const roomStart = data.indexOf(`#${roomNum}`);
-  const roomEnd = data.indexOf("S\n", roomStart) + 1;
-  const roomData = [data.substring(roomStart, roomEnd)];
-  const roomJSON = parseWorld(roomData)[0];
-  console.log(roomJSON);
-});
+      const roomStart = data.indexOf(`#${roomNum}`);
+      const roomEnd = data.indexOf("S\n", roomStart) + 1;
+      const roomData = [data.substring(roomStart, roomEnd)];
+      resolve(parseWorld(roomData)[0]);
+    });
+  });
+}
