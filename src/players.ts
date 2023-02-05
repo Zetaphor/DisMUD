@@ -8,11 +8,26 @@ export const players = {
   isActive: isActive,
 };
 
+/**
+ * Check if the player is currently active
+ * @function
+ * @param {string} playerId - The player's unique identifier
+ * @returns {boolean} - Returns true if the player is active, otherwise false
+ */
 function isActive(playerId) {
   if (Object.keys(players.currentActive).indexOf(playerId) !== -1) return true;
   return false;
 }
 
+/**
+ * Logs a player into the system
+ * @async
+ * @function
+ * @param {object} db - The database object
+ * @param {object} simulation - The simulation object
+ * @param {object} user - The player's user object
+ * @returns {Promise<Object>} - Returns a promise that resolves to a boolean indicating whether the player was just created (true) or already exists (false)
+ */
 async function login(db, simulation, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
@@ -38,6 +53,15 @@ async function login(db, simulation, user) {
   });
 }
 
+/**
+ * Logs a player out of the system
+ * @async
+ * @function
+ * @param {object} players - The players object
+ * @param {object} simulation - The simulation object
+ * @param {object} user - The player's user object
+ * @returns {Promise<void>} - Returns a promise that resolves when the player has been successfully logged out
+ */
 async function logout(players, simulation, user) {
   return new Promise<void>((resolve, reject) => {
     try {

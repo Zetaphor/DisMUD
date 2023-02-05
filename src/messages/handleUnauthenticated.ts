@@ -1,6 +1,13 @@
 import systemMessages from "./system";
-import buildRoom from "../simulation/roomBuilder";
+import buildRoom from "../roomBuilder";
 
+/**
+ * Handle messages from unauthenticated users
+ * @param {Object} players - players instance
+ * @param {Object} db - database object
+ * @param {Object} simulation - simulation instance
+ * @param {Object} msg - message object
+ */
 export default async function handleUnauthenticatedMessages(players, db, simulation, msg) {
   if (msg.content.toLowerCase() === "login") {
     try {

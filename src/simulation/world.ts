@@ -71,6 +71,7 @@ export const simulation = {
         const world = Math.floor(roomNum / 100);
         const room = ("0" + (roomNum % 100)).slice(-2);
         const roomData = await getRoomData(world, room);
+        // console.log(roomData);
         resolve(roomData);
       } catch (err) {
         console.error(`Failed to get room data for #${roomNum}: ${err}`);

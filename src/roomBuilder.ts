@@ -1,5 +1,11 @@
-import roomMessages from "../messages/room";
+import roomMessages from "./messages/room";
 
+/**
+ * Construct a room from worldData and send it to the user
+ * @param {object} user - The user object
+ * @param {object} wldData - Data for the world
+ * @returns {Promise<void>} - Returns a promise that resolves with void
+ */
 export default function buildRoom(user, wldData) {
   return new Promise<void>(async (resolve, reject) => {
     try {

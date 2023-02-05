@@ -1,6 +1,17 @@
 import { addEntity, removeEntity } from "bitecs";
 import { addComponentWithValue } from "./setComponent";
 
+/**
+ * Creates a new entity and adds components to it.
+ * @param {Object} world - The world object that the entity is being created in.
+ * @param {string} type - The type of entity that is being created.
+ * @param {Object} componentsData - An object containing the data for the components that the entity will have.
+ *
+ * @throws {Error} If the entity type does not exist in the world.
+ * @throws {Error} If a required component was not found in the `componentsData` object.
+ *
+ * @returns {number} The entity ID (eid) of the newly created entity.
+ */
 export function createEntity(world, type, componentsData) {
   if (typeof world["_entities"][type] === "undefined") {
     throw new Error(`Entity type "${type}" does not exist\n`);

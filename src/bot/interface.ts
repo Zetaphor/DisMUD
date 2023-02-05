@@ -5,6 +5,16 @@ const token = process.env.DISCORD_TOKEN;
 
 let botId = null;
 
+/**
+ * The main object that exports the Discord.js client, event listeners, and helper functions
+ * @typedef {Object} BotInterface
+ * @property {Client} client - A Discord.js client instance
+ * @property {function} getUser - A function to retrieve a user from Discord by their ID
+ * @property {Object} listeners - An object that holds the event listeners for the Discord.js client
+ * @property {function} on - A function to add an event listener to the Discord.js client
+ * @property {function} emit - A function to trigger an event and call its listeners
+ * @property {function} waitForEvent - A function to wait for a specific event to occur before resolving
+ */
 const botInterface = {
   client: new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
@@ -32,6 +42,12 @@ const botInterface = {
   },
 };
 
+/**
+ * Retrieves a user from Discord by their ID
+ * @function getUser
+ * @param {string|number} id - The Discord user ID
+ * @returns {Promise} - Resolves with the Discord user object, or rejects if the user cannot be retrieved
+ */
 async function getUser(id) {
   return new Promise((resolve, reject) => {
     botInterface.client.users

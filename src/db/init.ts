@@ -2,6 +2,10 @@ import initPlayersDb from "./players";
 
 let databases = {};
 
+/**
+ * Initializes all databases and stores them in the databases object
+ * @returns {Boolean} Returns true if successful, otherwise throws an error
+ */
 async function initDatabases() {
   try {
     databases["players"] = await initPlayersDb();

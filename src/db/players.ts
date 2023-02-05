@@ -29,6 +29,10 @@ const playerMethods = {
     updateRecord(playersDB, "Players", { discordId: id, enabled: enabled }, "discordId", id),
 };
 
+/**
+ * Initializes the players database.
+ * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
+ */
 export default function initPlayersDb() {
   const playersDBObject = {
     conn: playersDB,
