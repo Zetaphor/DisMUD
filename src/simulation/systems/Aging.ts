@@ -16,7 +16,7 @@ const agingSystem = (world) => {
     if (world.time.ticks - Age.lastTick[eid] >= Age.tickRate[eid]) {
       Age.lastTick[eid] = world.time.ticks;
       Age.val[eid] += 1;
-      console.log(`Age of ${eid} is now ${Age.val[eid]}`);
+      // console.log(`Age of ${eid} is now ${Age.val[eid]}`);
     }
 
     // Check if we're immortal
