@@ -1,4 +1,4 @@
-import systemMessages from "./bot/systemMessages";
+import systemMessages from "./messages/systemMessages";
 import buildRoom from "./simulation/roomBuilder";
 
 export default async function unauthenticatedMessage(players, db, simulation, msg) {

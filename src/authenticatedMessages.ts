@@ -1,4 +1,4 @@
-import systemMessages from "./bot/systemMessages";
+import systemMessages from "./messages/systemMessages";
 import parseCommand from "./parseCommand";
 
 export default async function authenticatedMessage(players, db, simulation, msg) {

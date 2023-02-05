@@ -1,5 +1,5 @@
-import { commands, commandAliases } from "./bot/commands";
-import systemMessages from "./bot/systemMessages";
+import { commands, commandAliases } from "./commands";
+import systemMessages from "./messages/systemMessages";
 
 const fillerWords = ["a", "an", "and", "are", "as", "at", "go", "it", "in", "or", "the", "then", "to", "with"];
 const commandWords = Object.keys(commands);

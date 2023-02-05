@@ -1,5 +1,5 @@
-import move from "../commands/move";
-import say from "../commands/say";
+import move from "./commands/move";
+import say from "./commands/say";
 
 export const commands = {
   say,

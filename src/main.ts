@@ -3,7 +3,7 @@ import { db } from "./db/init";
 import players from "./players";
 import authenticatedMessage from "./authenticatedMessages";
 import unauthenticatedMessage from "./unauthenticatedMessages";
-import systemMessages from "./bot/systemMessages";
+import systemMessages from "./messages/systemMessages";
 import simulation from "./simulation/world";
 
 async function startup() {
