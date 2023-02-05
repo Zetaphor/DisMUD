@@ -7,7 +7,7 @@ let botId = null;
 
 const botInterface = {
   client: new Client({
-    intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
     partials: [Partials.Message, Partials.Channel, Partials.Reaction],
   }),
   getUser: getUser,
@@ -56,6 +56,19 @@ botInterface.client.on(Events.MessageCreate, (msg) => {
   if (msg.author.id === botId) {
     // console.log("Saw bot message");
   } else {
+    const guild = botInterface.client.guilds.cache.get("202071183250685952");
+    // const Guilds = botInterface.client.guilds.cache.map((guild) => guild.id);
+    // console.log(guild.emojis);
+    // var bean = guild.emojis.cache.find((emoji) => emoji.name == "zetaphor");
+    // console.log(bean);
+
+    // const ayy = guild.emojis.cache.get("1070821529685852190");
+    // console.log(ayy);
+    // // const someEmoji = botInterface.client.emojis.get("<1070821529685852190>");
+    // console.log(msg.guild);
+    // console.log(guild.emojis.find((emoji) => emoji.name == "zetaphor"));
+    // console.log(guild.emojis.get("1070821529685852190"));
+
     botInterface.emit("playerMsg", {
       user: msg.author,
       content: msg.content,
