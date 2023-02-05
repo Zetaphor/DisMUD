@@ -1,9 +1,11 @@
+import exits from "./commands/exits";
 import move from "./commands/move";
 import say from "./commands/say";
 
 export const commands = {
   say,
   move,
+  exits,
 };
 
 export const commandAliases = {
@@ -22,4 +24,5 @@ export const commandAliases = {
   d: move,
   down: move,
   go: move,
+  ex: exits,
 };

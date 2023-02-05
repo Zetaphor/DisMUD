@@ -1,4 +1,4 @@
-export default function move(simulation, userData, msg) {
+export default async function move(simulation, userData, msg) {
   const dir = msg.length === 1 ? msg[0] : msg[1];
   let moveDir = "";
 
@@ -19,5 +19,11 @@ export default function move(simulation, userData, msg) {
     return;
   }
 
-  console.log(`move: ${userData.user.username}, ${moveDir}`);
+  const roomExits = await simulation.getPlayerRoomExits(userData.eid);
+  if (Object.keys(roomExits).indexOf(moveDir) === -1) {
+    userData.user.send(`❗ You cannot move ${moveDir} from here!`);
+    return;
+  } else {
+    console.log(`move: ${userData.user.username}, ${moveDir}`);
+  }
 }
