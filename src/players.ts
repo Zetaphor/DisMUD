@@ -1,4 +1,4 @@
-import roomMessages from "./messages/roomMessages";
+import roomMessages from "./messages/room";
 import constants from "./simulation/utils/constants";
 
 export const players = {

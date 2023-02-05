@@ -1,7 +1,7 @@
-import systemMessages from "./messages/systemMessages";
-import buildRoom from "./simulation/roomBuilder";
+import systemMessages from "./system";
+import buildRoom from "../simulation/roomBuilder";
 
-export default async function unauthenticatedMessage(players, db, simulation, msg) {
+export default async function handleUnauthenticatedMessages(players, db, simulation, msg) {
   if (msg.content.toLowerCase() === "login") {
     try {
       const newPlayer = await players.login(db["players"], simulation, msg.user);

@@ -1,7 +1,7 @@
-import systemMessages from "./messages/systemMessages";
-import parseCommand from "./parseCommand";
+import systemMessages from "./system";
+import parseCommand from "../parseCommand";
 
-export default async function authenticatedMessage(players, db, simulation, msg) {
+export default async function handleAuthenticatedMessages(players, db, simulation, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {
     try {
       await players.logout(players, simulation, msg.user);

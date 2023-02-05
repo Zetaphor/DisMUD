@@ -1,4 +1,4 @@
-import roomMessages from "../messages/roomMessages";
+import roomMessages from "../messages/room";
 
 export default function buildRoom(user, wldData) {
   return new Promise<void>(async (resolve, reject) => {

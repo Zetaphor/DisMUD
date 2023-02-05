@@ -1,9 +1,9 @@
 import setupBotInterface from "./bot/interface";
 import { db } from "./db/init";
 import players from "./players";
-import authenticatedMessage from "./authenticatedMessages";
-import unauthenticatedMessage from "./unauthenticatedMessages";
-import systemMessages from "./messages/systemMessages";
+import handleAuthenticatedMessages from "./messages/handleAuthenticated";
+import unauthenticatedMessage from "./messages/handleUnauthenticated";
+import systemMessages from "./messages/system";
 import simulation from "./simulation/world";
 
 async function startup() {
@@ -20,7 +20,7 @@ async function startup() {
 
     botInterface.on("playerMsg", (msg) => {
       if (!players.isActive(msg.user.id)) unauthenticatedMessage(players, db, simulation, msg);
-      else authenticatedMessage(players, db, simulation, msg);
+      else handleAuthenticatedMessages(players, db, simulation, msg);
     });
   } catch (err) {
     console.error("Startup error:", err);
