@@ -10,8 +10,6 @@ export default function buildRoom(user, wldData) {
       };
       roomMessages.displayRoom(user, roomData);
 
-      console.log(wldData.roomBitVector);
-
       resolve();
     } catch (err) {
       console.error(`Error building room #${wldData.id} for user ${user.username}, : ${err}`);
