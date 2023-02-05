@@ -13,7 +13,7 @@ export default function getRoomData(worldNum, roomNum) {
         return;
       }
 
-      const roomStart = data.indexOf(`#${roomNum}`);
+      const roomStart = data.indexOf(`#${worldNum}${roomNum}`);
       const roomEnd = data.indexOf("S\n", roomStart) + 1;
       const roomData = [data.substring(roomStart, roomEnd)];
       resolve(parseWorld(roomData)[0]);
