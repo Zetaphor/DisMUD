@@ -1,4 +1,5 @@
 import systemMessages from "./bot/systemMessages";
+import parseCommand from "./parseCommand";
 
 export default async function authenticatedMessage(players, db, simulation, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {
@@ -12,6 +13,6 @@ export default async function authenticatedMessage(players, db, simulation, msg)
   } else if (msg.content.toLowerCase() === "login") {
     systemMessages.alreadyLoggedIn(msg.user);
   } else {
-    console.log("Handle player commands here");
+    parseCommand(simulation, players["currentActive"][msg.user.id], msg.content);
   }
 }
