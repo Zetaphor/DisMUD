@@ -5,7 +5,7 @@ import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
 import { defineQuery, removeEntity } from "bitecs";
-import getRoomData from "./world-data/libs/world/roomFromWld";
+import roomFromWld from "./world-data/libs/world/roomFromWld";
 
 export const simulation = {
   world: null,
@@ -70,7 +70,7 @@ export const simulation = {
       try {
         const world = Math.floor(roomNum / 100);
         const room = ("0" + (roomNum % 100)).slice(-2);
-        const roomData = await getRoomData(world, room);
+        const roomData = await roomFromWld(world, room);
         resolve(roomData);
       } catch (err) {
         console.error(`Failed to get room data for #${roomNum}: ${err}`);
@@ -92,6 +92,18 @@ export const simulation = {
   async getPlayerRoomExits(playerEntityId) {
     const roomData = await this.getPlayerRoomData(playerEntityId);
     return roomData.exits;
+  },
+  updatePlayerRoomNum(playerEntityId, roomNum) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        const Position = this.world._components["position"];
+        Position.roomNum[playerEntityId] = roomNum;
+        resolve();
+      } catch (err) {
+        console.error(`Failed to update player room num ${roomNum} for ${playerEntityId}: ${err}`);
+        reject(err);
+      }
+    });
   },
 };
 
