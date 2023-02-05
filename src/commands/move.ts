@@ -1,6 +1,5 @@
 export default function move(simulation, userData, msg) {
   const dir = msg.length === 1 ? msg[0] : msg[1];
-  console.log("command", dir, msg);
   let moveDir = "";
 
   if (dir === "n" || dir === "north") {
@@ -17,9 +16,8 @@ export default function move(simulation, userData, msg) {
     moveDir = "down";
   } else {
     userData.user.send(`❓ Unknown direction: **${dir}**`);
+    return;
   }
 
-  if (moveDir !== "") {
-    console.log(`move: ${userData.user.username}, ${moveDir}`);
-  }
+  console.log(`move: ${userData.user.username}, ${moveDir}`);
 }

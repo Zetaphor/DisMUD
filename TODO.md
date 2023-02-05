@@ -3,3 +3,4 @@
 - Add lastLogin date to players table
 - Separate out circlemud parser into its own project for release
 - Figure out emoji to use for the location types
+- Maybe later start caching rooms in memory
