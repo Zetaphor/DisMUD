@@ -12,8 +12,6 @@ export default function parseCommand(simulation, userData, command) {
   if (commandWords.indexOf(words[0].toLowerCase()) !== -1) {
     commands[words[0].toLowerCase()](simulation, userData, words.slice(1));
   } else if (aliasWords.indexOf(words[0].toLowerCase()) !== -1) {
-    console.log(words[0].toLowerCase());
-    console.log(commandAliases[words[0].toLowerCase()]);
     commandAliases[words[0].toLowerCase()](simulation, userData, words.slice(1));
   } else {
     systemMessages.unknownCommand(userData.user, words[0]);
