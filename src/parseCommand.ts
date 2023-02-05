@@ -6,13 +6,14 @@ const commandWords = Object.keys(commands);
 const aliasWords = Object.keys(commandAliases);
 
 export default function parseCommand(simulation, userData, command) {
-  let words = command.split(" ");
-  words = words.filter((word) => !fillerWords.includes(word));
+  let words = command.split(" ").filter((word) => !fillerWords.includes(word));
+  const commandWord = words[0].toLowerCase();
+  if (words.length !== 1) words = words.slice(1);
 
-  if (commandWords.indexOf(words[0].toLowerCase()) !== -1) {
-    commands[words[0].toLowerCase()](simulation, userData, words.slice(1));
-  } else if (aliasWords.indexOf(words[0].toLowerCase()) !== -1) {
-    commandAliases[words[0].toLowerCase()](simulation, userData, words.slice(1));
+  if (commandWords.indexOf(commandWord) !== -1) {
+    commands[commandWord](simulation, userData, words);
+  } else if (aliasWords.indexOf(commandWord) !== -1) {
+    commandAliases[commandWord](simulation, userData, words);
   } else {
     systemMessages.unknownCommand(userData.user, words[0]);
   }
