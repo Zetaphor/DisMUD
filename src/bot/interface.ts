@@ -20,7 +20,7 @@ const botInterface = {
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
     partials: [Partials.Message, Partials.Channel, Partials.Reaction],
   }),
-  getUser: getUser,
+  getUser,
   listeners: {},
   on(event, cb) {
     if (!this.listeners[event]) {

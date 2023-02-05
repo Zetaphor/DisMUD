@@ -18,7 +18,7 @@ async function initDatabases() {
 
 export const db = {
   init: initDatabases,
-  close: () => {
+  close() {
     for (let dbName in databases) {
       if (databases.hasOwnProperty(dbName)) {
         databases[dbName].close();

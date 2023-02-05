@@ -9,10 +9,10 @@ import getRoomData from "./world-data/libs/world/roomFromWld";
 
 export const simulation = {
   world: null,
-  start: function () {
+  start() {
     this.world = setupWorld();
   },
-  createPlayerEntity: function (playerId, roomNum) {
+  createPlayerEntity(playerId, roomNum) {
     return new Promise((resolve, reject) => {
       try {
         const newEntity = createEntity(this.world, "player", {
@@ -43,7 +43,7 @@ export const simulation = {
       }
     });
   },
-  getPlayerEntityByPlayerId: function (playerId) {
+  getPlayerEntityByPlayerId(playerId) {
     const Player = this.world._components["player"];
     const playerQuery = defineQuery([Player]);
     const ents = playerQuery(this.world);
@@ -54,7 +54,7 @@ export const simulation = {
       }
     }
   },
-  removePlayerEntity: function (entityId) {
+  removePlayerEntity(entityId) {
     return new Promise<void>((resolve, reject) => {
       try {
         removeEntity(this.world, entityId);
@@ -65,7 +65,7 @@ export const simulation = {
       }
     });
   },
-  getRoomData: function (roomNum) {
+  getRoomData(roomNum) {
     return new Promise(async (resolve, reject) => {
       try {
         const world = Math.floor(roomNum / 100);
@@ -79,11 +79,11 @@ export const simulation = {
       }
     });
   },
-  getPlayerRoomNum: function (playerEntityId) {
+  getPlayerRoomNum(playerEntityId) {
     const Position = this.world._components["position"];
     return Position.roomNum[playerEntityId];
   },
-  getPlayerRoomData: async function (playerEntityId) {
+  async getPlayerRoomData(playerEntityId) {
     return this.getRoomData(this.getPlayerRoomNum(playerEntityId));
   },
 };
