@@ -17,6 +17,12 @@ export const systemMessages = {
       \n✨ Welcome to RPG Bot ${user.username}!\n\n You now have a user account.\n\nEnjoy the world! ✨
     `);
   },
+  returningPlayer: function (user) {
+    user.send(`
+      🗡️ **__RPG Bot__** 🛡️
+      \n✨ Welcome back to RPG Bot ${user.username}!\n\nEnjoy the world! ✨
+    `);
+  },
   logout: function (user) {
     user.send(`
       🗡️ **__RPG Bot__** 🛡️
@@ -46,6 +52,10 @@ export const systemMessages = {
       🗡️ **__RPG Bot__** 🛡️
       \n😛 You are already logged in as ${user.username} ✨
     `);
+  },
+  unknownCommand: function (user, command) {
+    user.send(`
+      \n❓ Unknown command: **${command}**`);
   },
 };
 

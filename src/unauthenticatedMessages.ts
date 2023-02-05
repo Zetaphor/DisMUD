@@ -6,7 +6,8 @@ export default async function unauthenticatedMessage(players, db, simulation, ms
     try {
       const newPlayer = await players.login(db["players"], simulation, msg.user);
       if (newPlayer) systemMessages.newPlayer(msg.user);
-      else systemMessages.loggedIn(msg.user);
+      else systemMessages.returningPlayer(msg.user);
+      systemMessages.loggedIn(msg.user);
       const roomData = await simulation.getPlayerRoomData(players["currentActive"][msg.user.id]["eid"]);
       buildRoom(msg.user, roomData);
     } catch (err) {
