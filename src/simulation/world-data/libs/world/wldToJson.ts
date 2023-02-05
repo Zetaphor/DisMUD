@@ -1,4 +1,13 @@
 // Converts an array of wld rooms to JSON.
+const ROOM_DIRS = {
+  0: "north",
+  1: "east",
+  2: "south",
+  3: "west",
+  4: "up",
+  5: "down",
+};
+
 export default function parseWorld(roomList) {
   let rooms = [];
   for (let roomIndex = 0; roomIndex < roomList.length; roomIndex++) {
@@ -8,7 +17,7 @@ export default function parseWorld(roomList) {
     lines.splice(-2, 2);
 
     // console.log(lines);
-    let newRoom = { exits: [], extra: { tags: [], desc: "" } };
+    let newRoom = { exits: {}, extra: { tags: [], desc: "" } };
     newRoom["id"] = parseInt(lines[0].slice(1));
     newRoom["name"] = lines[1].slice(0, -1);
     newRoom["desc"] = lines[2];
@@ -85,7 +94,7 @@ export default function parseWorld(roomList) {
         // console.log(newExit.desc);
       }
 
-      newRoom["exits"].push(newExit);
+      newRoom["exits"][ROOM_DIRS[newExit.direction]] = newExit;
       // console.log(newRoom["id"], newExit);
     }
 
