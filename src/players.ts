@@ -30,8 +30,8 @@ function isActive(playerId) {
 async function login(db, simulation, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
-      const playerExists = await db.methods.playerExists(BigInt(user.id));
-      if (!playerExists) {
+      const playerData = await db.methods.playerExists(BigInt(user.id));
+      if (!playerData) {
         await db.methods.createPlayer({
           discordId: BigInt(user.id),
           discordUsername: `${user.username}#${user.discriminator}`,
@@ -40,11 +40,10 @@ async function login(db, simulation, user) {
         });
       }
       const playerEntityId = await simulation.createPlayerEntity(user.id, constants.NEW_USER_ROOMNUM);
-      players["currentActive"][user.id] = {
-        eid: playerEntityId,
-        user: user,
-      };
-      resolve(!playerExists);
+      playerData["eid"] = playerEntityId;
+      playerData["user"] = user;
+      players["currentActive"][user.id] = playerData;
+      resolve(!playerData);
     } catch (err) {
       console.error(`Error logging in ${user.username}:`, err);
       reject(err);
