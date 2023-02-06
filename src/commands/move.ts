@@ -1,3 +1,4 @@
+import emoji from "../messages/emoji";
 import buildRoom from "../roomBuilder";
 
 export default async function move(simulation, userData, msg) {
@@ -23,9 +24,9 @@ export default async function move(simulation, userData, msg) {
 
   const roomExits = await simulation.getPlayerRoomExits(userData.eid);
   if (Object.keys(roomExits).indexOf(moveDir) === -1) {
-    userData.user.send(`❗ You cannot move ${moveDir} from here!`);
+    userData.user.send(`${emoji.error} You cannot move ${moveDir} from here!`);
   } else if (roomExits[moveDir].roomId === -1) {
-    userData.user.send(`❗ You can't go that way!`);
+    userData.user.send(`${emoji.error} You can't go that way!`);
   } else {
     await simulation.updatePlayerRoomNum(userData.eid, roomExits[moveDir].roomId);
     const newRoomData = await simulation.getPlayerRoomData(userData.eid);
