@@ -6,6 +6,10 @@ export const commands = {
   say,
   move,
   exits,
+  info,
+  policy,
+  news,
+  motd,
 };
 
 export const commandAliases = {
