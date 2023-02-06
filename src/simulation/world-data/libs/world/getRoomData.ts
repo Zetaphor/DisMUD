@@ -1,5 +1,5 @@
 // Loads a wld text file, converts a single room to JSON
-import parseWorld from "./wldToJson";
+import parseWorld from "./parseWorld";
 
 const fs = require("fs");
 

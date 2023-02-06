@@ -1,5 +1,5 @@
 // Loads a zon text file, converts the zone to JSON, and exports a JSON file.
-import parseZon from "./zonToJson";
+import parseZon from "./parseZon";
 
 const fs = require("fs");
 

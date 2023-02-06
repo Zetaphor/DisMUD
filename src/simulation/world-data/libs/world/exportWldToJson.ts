@@ -1,6 +1,6 @@
 // Loads a wld text file, converts the rooms to JSON, and exports a JSON file.
-import parseRoomsFromWld from "./wldToRoomsArray";
-import parseWorld from "./wldToJson";
+import parseRoomsFromWld from "./parseRoomsFromWld";
+import parseWorld from "./parseWorld";
 
 const fs = require("fs");
 

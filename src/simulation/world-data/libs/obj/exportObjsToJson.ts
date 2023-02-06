@@ -1,6 +1,6 @@
 // Loads a obj text file, converts the objects to JSON, and exports a JSON file.
-import parseObjsFromObj from "./objsToObjsArray";
-import parseObj from "./objToJson";
+import parseObjsFromObj from "./parseObjsFromObj";
+import parseObj from "./parseObj";
 
 const fs = require("fs");
 

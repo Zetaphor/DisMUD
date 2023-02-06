@@ -1,6 +1,6 @@
 // Loads a mob text file, converts the mobs to JSON, and exports a JSON file.
-import parseMobsFromMob from "./mobToMobsArray";
-import parseMob from "./mobToJson";
+import parseMobsFromMob from "./parseMobsFromMob";
+import parseMob from "./parseMob";
 const fs = require("fs");
 
 const mobNum = 0;
