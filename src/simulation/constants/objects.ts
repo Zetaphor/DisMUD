@@ -80,6 +80,34 @@ export const objectConstants = {
     13: "punch/punches",
     14: "stab/stabs",
   },
+
+  OBJ_AFFECTS: {
+    NONE: 0, // No effect (typically not used).
+    STR: 1, // Apply to strength.
+    DEX: 2, // Apply to dexterity.
+    INT: 3, // Apply to intelligence.
+    WIS: 4, // Apply to wisdom.
+    CON: 5, // Apply to constitution.
+    CHA: 6, // Apply to charisma.
+    CLASS: 7, // Unimplemented.  Do not use.
+    LEVEL: 8, // Unimplemented.  Do not use.
+    AGE: 9, // Apply to character's MUD age, in MUD-years.
+    CHAR_WEIGHT: 10, // Apply to weight.
+    CHAR_HEIGHT: 11, // Apply to height.
+    MANA: 12, // Apply to MAX mana points.
+    HIT: 13, // Apply to MAX hit points.
+    MOVE: 14, // Apply to MAX movement points.
+    GOLD: 15, // Unimplemented.  Do not use.
+    EXP: 16, // Unimplemented.  Do not use.
+    AC: 17, // Apply to armor class (AC).
+    HITROLL: 18, // Apply to hitroll.
+    DAMROLL: 19, // Apply to damage roll bonus.
+    SAVING_PARA: 20, // Apply to save throw: paralyze
+    SAVING_ROD: 21, // Apply to save throw: rods
+    SAVING_PETRI: 22, // Apply to save throw: petrif
+    SAVING_BREATH: 23, // Apply to save throw: breath
+    SAVING_SPELL: 24, // Apply to save throw: spells
+  },
 };
 
 export default objectConstants;
