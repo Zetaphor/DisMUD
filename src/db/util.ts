@@ -59,6 +59,27 @@ export function createRecord(db: any, table: String, data: Object) {
 }
 
 /**
+ * Remove a record from the database
+ * @param {any} db - database connection object
+ * @param {String} table - table name
+ * @param {Number} id - id to remove
+ * @returns {Promise<void>} - returns a promise that resolves when the record is deleted
+ */
+export function removeRecord(db: any, table: String, id: Number) {
+  return new Promise<void>((resolve, reject) => {
+    db.run(`DELETE FROM ${table} WHERE id = "${id}"`, function (err) {
+      if (err) {
+        console.error(`${table} delete error:`, err);
+        reject();
+      } else {
+        console.log(`${table} row(s) deleted: ${this.changes}`);
+        resolve();
+      }
+    });
+  });
+}
+
+/**
  * Update an existing record in the database
  * @param {any} db - database connection object
  * @param {String} table - table name
@@ -179,26 +200,24 @@ export function waitForFile(file: String) {
  * @returns {Promise} Resolves to a newDBObject containing a connection to the database and the methods object.
  */
 export async function initDb(filePath, tableName, createSql, createIndexSql = null) {
-  let newConn = null;
-  let newDB = null;
   const newDBObject = {
-    conn: newConn,
+    conn: null,
   };
 
   await createDBFile(filePath);
 
   return new Promise((resolve, reject) => {
-    newDB = new sqlite3.Database(filePath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+    newDBObject["conn"] = new sqlite3.Database(filePath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
       if (err) {
         console.error(`Failed to open database ${filePath}:`, err);
         reject(err);
       }
       console.log(`Connected to the ${tableName} database.`);
-      tableExists(newDB, tableName)
+      tableExists(newDBObject["conn"], tableName)
         .then((exists) => {
           if (exists) resolve(newDBObject);
           else {
-            createTable(newDB, createSql, createIndexSql)
+            createTable(newDBObject["conn"], createSql, createIndexSql)
               .then(() => {
                 resolve(newDBObject);
               })
