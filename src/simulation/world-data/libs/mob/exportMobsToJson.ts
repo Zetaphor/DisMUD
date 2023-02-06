@@ -1,12 +1,11 @@
 // Loads a mob text file, converts the mobs to JSON, and exports a JSON file.
 import parseMobsFromMob from "./mobToMobsArray";
 import parseMob from "./mobToJson";
-
 const fs = require("fs");
 
-const mobNum = 9;
+const mobNum = 0;
 
-fs.readFile(`src/world/data/circlemud/mob/${mobNum}.mob`, "utf-8", (err, data) => {
+fs.readFile(`src/simulation/world-data/data/circlemud/mob/${mobNum}.mob`, "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
@@ -19,11 +18,18 @@ fs.readFile(`src/world/data/circlemud/mob/${mobNum}.mob`, "utf-8", (err, data) =
     parsedMobs.push(parseMob(mobList[i]));
   }
 
-  fs.writeFile(`src/world/data/json/mob/${mobNum}.json`, JSON.stringify(parsedMobs), { flag: "w" }, (err) => {
-    if (err) {
-      console.error(err);
-      return;
+  // console.log(parsedMobs);
+
+  fs.writeFile(
+    `src/simulation/world-data/data/json/mob/${mobNum}.json`,
+    JSON.stringify(parsedMobs),
+    { flag: "w" },
+    (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Wrote mob file " + mobNum + " to json");
     }
-    console.log("Wrote mob file " + mobNum + " to json");
-  });
+  );
 });

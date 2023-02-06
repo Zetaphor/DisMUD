@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "parse-world": "ts-node src/world/libs/world/exportWldToJson.ts",
-    "parse-obj": "src/world/libs/obj/exportObjsToJson.ts",
-    "parse-mob": "src/world/libs/mob/exportMobsToJson.ts"
+    "parse-world": "ts-node src/simulation/world-data/libs/world/exportWldToJson.ts",
+    "parse-obj": "ts-node src/simulation/world-data/libs/obj/exportObjsToJson.ts",
+    "parse-mob": "ts-node src/simulation/world-data/libs/mob/exportMobsToJson.ts"
   },
   "repository": {
     "type": "git",

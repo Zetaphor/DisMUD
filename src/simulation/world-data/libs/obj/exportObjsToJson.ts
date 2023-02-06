@@ -6,24 +6,29 @@ const fs = require("fs");
 
 const objNum = 9;
 
-fs.readFile(`src/world/data/circlemud/obj/${objNum}.obj`, "utf-8", (err, data) => {
+fs.readFile(`src/simulation/world-data/data/circlemud/obj/${objNum}.obj`, "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
   }
 
   const objList = parseObjsFromObj(data);
-  let parsedMobs = [];
+  let parsedObjs = [];
 
   for (let i = 0; i < objList.length; i++) {
-    parsedMobs.push(parseObj(objList[i]));
+    parsedObjs.push(parseObj(objList[i]));
   }
 
-  fs.writeFile(`src/world/data/json/obj/${objNum}.json`, JSON.stringify(parsedMobs), { flag: "w" }, (err) => {
-    if (err) {
-      console.error(err);
-      return;
+  fs.writeFile(
+    `src/simulation/world-data/data/json/obj/${objNum}.json`,
+    JSON.stringify(parsedObjs),
+    { flag: "w" },
+    (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Wrote obj file " + objNum + " to json");
     }
-    console.log("Wrote obj file " + objNum + " to json");
-  });
+  );
 });
