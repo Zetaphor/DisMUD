@@ -2,7 +2,7 @@ import { createRecord, initDb, recordExists, updateRecord } from "./util";
 
 const dbPath = "src/databases/players.db";
 
-let playersDB = null;
+let playersDBConn = null;
 
 const createPlayersTable = `
 CREATE TABLE IF NOT EXISTS Players (
@@ -22,12 +22,12 @@ CREATE INDEX idx_roomNum ON Players (roomNum)
 `;
 
 const playerMethods = {
-  createPlayer: (data: Object) => createRecord(playersDB, "Players", data),
-  playerExists: (id: BigInt) => recordExists(playersDB, "Players", "discordId", id),
+  createPlayer: (data: Object) => createRecord(playersDBConn, "Players", data),
+  playerExists: (id: BigInt) => recordExists(playersDBConn, "Players", "discordId", id),
   setPlayerName: (id: BigInt, name: String) =>
-    updateRecord(playersDB, "Players", { discordId: id, displayName: name }, "discordId", id),
+    updateRecord(playersDBConn, "Players", { discordId: id, displayName: name }, "discordId", id),
   setPlayerEnabled: (id: BigInt, enabled: Boolean) =>
-    updateRecord(playersDB, "Players", { discordId: id, enabled: enabled }, "discordId", id),
+    updateRecord(playersDBConn, "Players", { discordId: id, enabled: enabled }, "discordId", id),
 };
 
 /**
@@ -38,6 +38,7 @@ export default function initPlayersDb() {
   return new Promise(async (resolve, reject) => {
     try {
       const playersDBObject = await initDb(dbPath, "Players", createPlayersTable, createPlayerIndexes);
+      playersDBConn = playersDBObject["conn"];
       playersDBObject["methods"] = playerMethods;
       resolve(playersDBObject);
     } catch (err) {

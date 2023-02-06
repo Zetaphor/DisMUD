@@ -1,4 +1,3 @@
-import roomMessages from "./messages/room";
 import constants from "./simulation/constants/global";
 
 export const players = {
@@ -31,9 +30,9 @@ function isActive(playerId) {
 async function login(db, simulation, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
-      const playerExists = await db.playerExists(BigInt(user.id));
+      const playerExists = await db.methods.playerExists(BigInt(user.id));
       if (!playerExists) {
-        await db.createPlayer({
+        await db.methods.createPlayer({
           discordId: BigInt(user.id),
           discordUsername: `${user.username}#${user.discriminator}`,
           displayName: user.username,

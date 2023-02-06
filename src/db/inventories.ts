@@ -29,6 +29,8 @@ export default function initPlayerInventoriesDb() {
     try {
       const playerInventoriesDBObject = await initDb(dbPath, "PlayerInventories", createPlayerInventoriesTable, null);
       playerInventoriesDBObject["methods"] = playerInventoryMethods;
+      playerInventoriesDBConn = playerInventoriesDBConn["conn"];
+      playerInventoriesDBConn = playerInventoriesDBConn["conn"];
       resolve(playerInventoriesDBObject);
     } catch (err) {
       console.error(`Error initializing player inventories database: ${err.message}`);
