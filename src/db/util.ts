@@ -193,7 +193,7 @@ export async function initDb(filePath, tableName, createSql, createIndexSql = nu
         console.error(`Failed to open database ${filePath}:`, err);
         reject(err);
       }
-      console.log("Connected to the players database.");
+      console.log(`Connected to the ${tableName} database.`);
       tableExists(newDB, tableName)
         .then((exists) => {
           console.log("Table exists", exists);
@@ -217,6 +217,11 @@ export async function initDb(filePath, tableName, createSql, createIndexSql = nu
   });
 }
 
+/**
+ * Initializes a SQLite database and makes sure the file was created
+ * @param {string} filePath - The file path for the SQLite database.
+ * @returns {Promise} A Promise that resolves when the database has been created
+ */
 export function createDBFile(filePath) {
   return new Promise<void>((resolve, reject) => {
     let db = null;
