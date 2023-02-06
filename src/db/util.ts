@@ -23,6 +23,26 @@ export function recordExists(db: any, table: String, key: String, val: any) {
 }
 
 /**
+ * Get a record from the database
+ * @param db - database connection object
+ * @param table - table name
+ * @param key - key column name
+ * @param val - key value to check for
+ * @returns {Promise<any>}- returns a promise that resolves to the record if it exists, null otherwise
+ */
+export function getRecord(db: any, table: String, key: String, val: any) {
+  return new Promise<any>((resolve, reject) => {
+    db.get(`SELECT * FROM ${table} WHERE ${key} = "${val}" LIMIT 1`, (err, row) => {
+      if (err) {
+        console.error("Failed to get record:", err);
+        reject();
+      }
+      resolve(row);
+    });
+  });
+}
+
+/**
  * Create a new record in the database
  * @param {any} db - database connection object
  * @param {String} table - table name
@@ -65,7 +85,7 @@ export function createRecord(db: any, table: String, data: Object) {
  * @param {Number} id - id to remove
  * @returns {Promise<void>} - returns a promise that resolves when the record is deleted
  */
-export function removeRecord(db: any, table: String, id: Number) {
+export function removeRecord(db: any, table: String, id: BigInt) {
   return new Promise<void>((resolve, reject) => {
     db.run(`DELETE FROM ${table} WHERE id = "${id}"`, function (err) {
       if (err) {
