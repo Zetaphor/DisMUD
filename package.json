@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "bot": "ts-node src/bot.ts",
     "parse-world": "ts-node src/world/libs/world/exportWldToJson.ts",
-    "parse-room": "src/world/libs/world/roomFromWld.ts"
+    "parse-obj": "src/world/libs/obj/exportObjsToJson.ts",
+    "parse-mob": "src/world/libs/mob/exportMobsToJson.ts"
   },
   "repository": {
     "type": "git",
