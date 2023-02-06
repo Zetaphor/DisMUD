@@ -129,20 +129,20 @@ export function createTable(db: any, createSql: String, createIndexSql = null) {
         console.error("Create Table:", err);
         reject();
         return;
+      } else {
+        if (createIndexSql === null) resolve();
+        else {
+          db.run(createIndexSql, (err) => {
+            if (err) {
+              console.error("Create Table Index:", err);
+              reject();
+              return;
+            }
+          });
+          resolve();
+        }
       }
     });
-
-    if (createIndexSql === null) resolve();
-    else {
-      db.run(createIndexSql, (err) => {
-        if (err) {
-          console.error("Create Table Index:", err);
-          reject();
-          return;
-        }
-      });
-      resolve();
-    }
   });
 }
 
