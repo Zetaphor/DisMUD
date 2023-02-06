@@ -1,9 +1,7 @@
-import { commands, commandAliases } from "./commands";
+import { commands, commandAliases, commandList, aliasList } from "./commands";
 import systemMessages from "./messages/system";
 
 const fillerWords = ["a", "an", "and", "are", "as", "at", "go", "it", "in", "or", "the", "then", "to", "with"];
-const commandWords = Object.keys(commands);
-const aliasWords = Object.keys(commandAliases);
 
 /**
  * Parses the user's command and executes the corresponding function.
@@ -16,9 +14,9 @@ export default function parseCommand(simulation, userData, command) {
   const commandWord = words[0].toLowerCase();
   if (words.length !== 1) words = words.slice(1);
 
-  if (commandWords.indexOf(commandWord) !== -1) {
+  if (commandList.indexOf(commandWord) !== -1) {
     commands[commandWord](simulation, userData, words);
-  } else if (aliasWords.indexOf(commandWord) !== -1) {
+  } else if (aliasList.indexOf(commandWord) !== -1) {
     commandAliases[commandWord](simulation, userData, words);
   } else {
     systemMessages.unknownCommand(userData.user, words[0]);

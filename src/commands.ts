@@ -26,3 +26,6 @@ export const commandAliases = {
   go: move,
   ex: exits,
 };
+
+export const commandList = Object.keys(commands);
+export const aliasList = Object.keys(commandAliases);
