@@ -10,6 +10,11 @@ export const emoji = {
   book: "<:rpgbook:1072137758149185647>",
   sparkles: "<:rpgsparkles:1072138456454672384>",
   question: "<:rpgquestion:1072151595749478412>",
+  backpack: "<:rpgbackpack:1072292684380782672>",
+  staff: "<:rpgstick:1072294992992804864>",
+  armor: "<:rpgarmor:1072294977494855720>",
+  bottle: "<:rpgbottle:1072294943076401202>",
+  bread: "<:rpgbread:1072294958964408411> ",
 };
 
 export default emoji;
