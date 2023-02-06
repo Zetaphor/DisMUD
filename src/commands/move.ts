@@ -18,15 +18,15 @@ export default async function move(simulation, userData, msg) {
   } else if (dir === "d" || dir === "down") {
     moveDir = "down";
   } else {
-    userData.user.send(`❓ Unknown direction: **${dir}**`);
+    userData.user.send(`${emoji.question} _Unknown direction: **${dir}**_`);
     return;
   }
 
   const roomExits = await simulation.getPlayerRoomExits(userData.eid);
   if (Object.keys(roomExits).indexOf(moveDir) === -1) {
-    userData.user.send(`${emoji.error} You cannot move ${moveDir} from here!`);
+    userData.user.send(`${emoji.error} _You cannot move ${moveDir} from here!_`);
   } else if (roomExits[moveDir].roomId === -1) {
-    userData.user.send(`${emoji.error} You can't go that way!`);
+    userData.user.send(`${emoji.error} _You can't go that way!_`);
   } else {
     await simulation.updatePlayerRoomNum(userData.eid, roomExits[moveDir].roomId);
     const newRoomData = await simulation.getPlayerRoomData(userData.eid);
