@@ -1,4 +1,4 @@
-import { createRecord, createTable, initDb, recordExists, tableExists, updateRecord } from "./util";
+import { createRecord, initDb, recordExists, updateRecord } from "./util";
 
 const dbPath = "src/players.db";
 
