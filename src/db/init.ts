@@ -21,7 +21,7 @@ export const db = {
   close() {
     for (let dbName in databases) {
       if (databases.hasOwnProperty(dbName)) {
-        databases[dbName].close();
+        databases[dbName]["conn"].close();
       }
     }
   },
