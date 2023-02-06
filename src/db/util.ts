@@ -196,7 +196,6 @@ export async function initDb(filePath, tableName, createSql, createIndexSql = nu
       console.log(`Connected to the ${tableName} database.`);
       tableExists(newDB, tableName)
         .then((exists) => {
-          console.log("Table exists", exists);
           if (exists) resolve(newDBObject);
           else {
             createTable(newDB, createSql, createIndexSql)

@@ -1,6 +1,6 @@
 import { createRecord, initDb, recordExists, updateRecord } from "./util";
 
-const dbPath = "src/players.db";
+const dbPath = "src/databases/players.db";
 
 let playersDB = null;
 
