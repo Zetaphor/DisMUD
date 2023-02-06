@@ -1,3 +1,4 @@
+const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 
 /**
@@ -165,6 +166,68 @@ export function waitForFile(file: String) {
       fs.unwatchFile(file);
       resolve();
       return;
+    });
+  });
+}
+
+/**
+ * Initializes a SQLite database and returns a Promise that resolves to a newDBObject.
+ * @param {string} filePath - The file path for the SQLite database.
+ * @param {string} tableName - The name of the table to be created or checked for existence.
+ * @param {string} createSql - The SQL statement used to create the table.
+ * @param {string} [createIndexSql=null] - The SQL statement used to create an index for the table.
+ * @returns {Promise} Resolves to a newDBObject containing a connection to the database and the methods object.
+ */
+export async function initDb(filePath, tableName, createSql, createIndexSql = null) {
+  let newConn = null;
+  let newDB = null;
+  const newDBObject = {
+    conn: newConn,
+  };
+
+  await createDBFile(filePath);
+
+  return new Promise((resolve, reject) => {
+    newDB = new sqlite3.Database(filePath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+      if (err) {
+        console.error(`Failed to open database ${filePath}:`, err);
+        reject(err);
+      }
+      console.log("Connected to the players database.");
+      tableExists(newDB, tableName)
+        .then((exists) => {
+          console.log("Table exists", exists);
+          if (exists) resolve(newDBObject);
+          else {
+            createTable(newDB, createSql, createIndexSql)
+              .then(() => {
+                resolve(newDBObject);
+              })
+              .catch((err) => {
+                console.error("Failed to create table:", err);
+                reject(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to check for existing table:", err);
+          reject(err);
+        });
+    });
+  });
+}
+
+export function createDBFile(filePath) {
+  return new Promise<void>((resolve, reject) => {
+    let db = null;
+    db = new sqlite3.Database(filePath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+      if (err) {
+        console.error(`Failed to open database ${filePath}:`, err);
+        reject(err);
+      } else {
+        db.close();
+        resolve();
+      }
     });
   });
 }

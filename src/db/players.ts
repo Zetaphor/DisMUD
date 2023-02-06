@@ -1,5 +1,4 @@
-const sqlite3 = require("sqlite3").verbose();
-import { createRecord, createTable, recordExists, tableExists, updateRecord } from "./util";
+import { createRecord, createTable, initDb, recordExists, tableExists, updateRecord } from "./util";
 
 const dbPath = "src/players.db";
 
@@ -12,7 +11,9 @@ CREATE TABLE IF NOT EXISTS Players (
   displayName TEXT,
   roomNum INTEGER,
   creationDate TEXT DEFAULT (datetime('now', 'utc')),
-  enabled BOOLEAN DEFAULT true
+  lastLogin TEXT DEFAULT (datetime('now', 'utc')),
+  enabled BOOLEAN DEFAULT true,
+  admin BOOLEAN DEFAULT false
 )
 `;
 
@@ -34,36 +35,14 @@ const playerMethods = {
  * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
  */
 export default function initPlayersDb() {
-  const playersDBObject = {
-    conn: playersDB,
-    methods: playerMethods,
-  };
-
-  return new Promise((resolve, reject) => {
-    playersDB = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
-      if (err) {
-        console.error(`Failed to open database ${dbPath}:`, err);
-        reject(err);
-      }
-      console.log("Connected to the players database.");
-      tableExists(playersDB, "Players")
-        .then((exists) => {
-          if (exists) resolve(playersDBObject);
-          else {
-            createTable(playersDB, createPlayersTable, createPlayerIndexes)
-              .then(() => {
-                resolve(playersDBObject);
-              })
-              .catch((err) => {
-                console.error("Failed to create table:", err);
-                reject(err);
-              });
-          }
-        })
-        .catch((err) => {
-          console.error("Failed to check for existing table:", err);
-          reject(err);
-        });
-    });
+  return new Promise(async (resolve, reject) => {
+    try {
+      const playersDBObject = await initDb(dbPath, "Players", createPlayersTable, createPlayerIndexes);
+      playersDBObject["methods"] = playerMethods;
+      resolve(playersDBObject);
+    } catch (err) {
+      console.error(`Error initializing players database: ${err.message}`);
+      reject(err);
+    }
   });
 }
