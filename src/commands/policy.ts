@@ -1,5 +1,5 @@
 import globalMessages from "../messages/global";
 
-export default async function policy(simulation, userData, msg) {
+export default async function policy(worldState, userData, msg) {
   globalMessages.policy(userData.user);
 }

@@ -5,6 +5,14 @@ import handleAuthenticatedMessages from "./messages/handleAuthenticated";
 import unauthenticatedMessage from "./messages/handleUnauthenticated";
 import systemMessages from "./messages/system";
 import simulation from "./simulation/world";
+import inventories from "./inventories";
+
+const worldState = {
+  db,
+  players,
+  simulation,
+  inventories,
+};
 
 async function startup() {
   try {
@@ -19,8 +27,8 @@ async function startup() {
     systemMessages.notifyOnline(botInterface.client);
 
     botInterface.on("playerMsg", (msg) => {
-      if (!players.isActive(msg.user.id)) unauthenticatedMessage(players, db, simulation, msg);
-      else handleAuthenticatedMessages(players, db, simulation, msg);
+      if (!players.isActive(msg.user.id)) unauthenticatedMessage(worldState, msg);
+      else handleAuthenticatedMessages(worldState, msg);
     });
   } catch (err) {
     console.error("Startup error:", err);
