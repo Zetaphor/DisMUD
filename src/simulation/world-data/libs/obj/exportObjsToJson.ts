@@ -4,7 +4,7 @@ import parseObj from "./objToJson";
 
 const fs = require("fs");
 
-const objNum = 9;
+const objNum = 50;
 
 fs.readFile(`src/simulation/world-data/data/circlemud/obj/${objNum}.obj`, "utf-8", (err, data) => {
   if (err) {
@@ -18,6 +18,8 @@ fs.readFile(`src/simulation/world-data/data/circlemud/obj/${objNum}.obj`, "utf-8
   for (let i = 0; i < objList.length; i++) {
     parsedObjs.push(parseObj(objList[i]));
   }
+
+  // console.log(parsedObjs);
 
   fs.writeFile(
     `src/simulation/world-data/data/json/obj/${objNum}.json`,

@@ -7,7 +7,8 @@
     "start": "ts-node src/main.ts",
     "parse-world": "ts-node src/simulation/world-data/libs/world/exportWldToJson.ts",
     "parse-obj": "ts-node src/simulation/world-data/libs/obj/exportObjsToJson.ts",
-    "parse-mob": "ts-node src/simulation/world-data/libs/mob/exportMobsToJson.ts"
+    "parse-mob": "ts-node src/simulation/world-data/libs/mob/exportMobsToJson.ts",
+    "parse-zon": "ts-node src/simulation/world-data/libs/mob/exportZonToJson.ts"
   },
   "repository": {
     "type": "git",
