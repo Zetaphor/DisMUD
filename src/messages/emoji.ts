@@ -9,6 +9,7 @@ export const emoji = {
   warning: "<:rpgwarning:1072137725941141565>",
   book: "<:rpgbook:1072137758149185647>",
   sparkles: "<:rpgsparkles:1072138456454672384>",
+  question: "<:rpgquestion:1072151595749478412>",
 };
 
 export default emoji;
