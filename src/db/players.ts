@@ -1,4 +1,4 @@
-import { createRecord, initDb, recordExists, updateRecord } from "./util";
+import { createRecord, getRecord, initDb, updateRecord } from "./util";
 
 const dbPath = "src/databases/players.db";
 
@@ -23,7 +23,7 @@ CREATE INDEX idx_roomNum ON Players (roomNum)
 
 const playerMethods = {
   createPlayer: (data: Object) => createRecord(playersDBConn, "Players", data),
-  playerExists: (id: BigInt) => recordExists(playersDBConn, "Players", "discordId", id),
+  playerExists: (id: BigInt) => getRecord(playersDBConn, "Players", "discordId", id),
   setPlayerName: (id: BigInt, name: String) =>
     updateRecord(playersDBConn, "Players", { discordId: id, displayName: name }, "discordId", id),
   setPlayerEnabled: (id: BigInt, enabled: Boolean) =>
