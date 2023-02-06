@@ -1,8 +1,8 @@
-import { createRecord, initDb, recordExists, updateRecord } from "./util";
+import { createRecord, getRecord, initDb, removeRecord } from "./util";
 
 const dbPath = "src/databases/playerInventories.db";
 
-let playersDB = null;
+let playerInventoriesDBConn = null;
 
 const createPlayerInventoriesTable = `
 CREATE TABLE IF NOT EXISTS PlayerInventories (
@@ -17,7 +17,12 @@ CREATE TABLE IF NOT EXISTS PlayerInventories (
 const createPlayerInventoryIndexes = ``;
 
 const playerInventoryMethods = {
-  // createPlayer: (data: Object) => createRecord(playersDB, "Players", data),
+  getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "discordId", id),
+  initPlayerInventory: (id: BigInt) =>
+    createRecord(playerInventoriesDBConn, "PlayerInventories", { discordId: id, inventoryString: "" }),
+  removePlayerInventory: (id: BigInt) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
+  addItem: (itemData: Object) => createRecord(playerInventoriesDBConn, "PlayerInventories", itemData),
+  removeItem: (id: BigInt) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
 };
 
 /**
