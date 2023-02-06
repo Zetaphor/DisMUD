@@ -1,5 +1,5 @@
 import roomMessages from "./messages/room";
-import constants from "./simulation/utils/constants";
+import constants from "./simulation/constants/global";
 
 export const players = {
   currentActive: {},

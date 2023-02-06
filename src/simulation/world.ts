@@ -1,5 +1,5 @@
 import setupWorld from "./loaders/world";
-import constants from "./utils/constants";
+import constants from "./constants/global";
 import createEntity from "./utils/createEntity";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
