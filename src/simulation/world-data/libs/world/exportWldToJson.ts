@@ -5,11 +5,9 @@ import parseWorld from "./parseWorld";
 const fs = require("fs");
 
 // const worldNum = 0;
+// const worldNum = 9;
 // const worldNum = 12;
-// const worldNum = 120;
 // const worldNum = 15;
-// const worldNum = 150;
-// const worldNum = 186;
 // const worldNum = 25;
 // const worldNum = 30;
 // const worldNum = 31;
@@ -32,6 +30,9 @@ const fs = require("fs");
 // const worldNum = 71; // Issue
 // const worldNum = 72;
 // const worldNum = 79;
+// const worldNum = 120;
+// const worldNum = 150;
+// const worldNum = 186;
 
 fs.readFile(`src/simulation/world-data/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data) => {
   if (err) {

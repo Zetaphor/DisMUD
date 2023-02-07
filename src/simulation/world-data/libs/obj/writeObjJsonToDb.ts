@@ -1,6 +1,10 @@
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
 
+try {
+  fs.unlinkSync(`src/databases/imported/objects.db`, (err) => {});
+} catch (error) {}
+
 const db = new sqlite3.Database("src/databases/imported/objects.db");
 
 db.serialize(() => {
@@ -8,7 +12,6 @@ db.serialize(() => {
   CREATE TABLE IF NOT EXISTS Objects (
     id INTEGER PRIMARY KEY,
     vNum INTEGER,
-    name TEXT,
     data TEXT,
     created TEXT DEFAULT (datetime('now', 'utc')),
     lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
@@ -28,14 +31,9 @@ db.serialize(() => {
           const json = JSON.parse(content);
           for (let i = 0; i < json.length; i++) {
             const object = json[i];
-            // console.log(object.id, object.name);
-            db.run(
-              "INSERT INTO Objects (vNum, name, data) VALUES (?, ?, ?)",
-              [object.id, object.name, content],
-              (err) => {
-                if (err) throw err;
-              }
-            );
+            db.run("INSERT INTO Objects (vNum, data) VALUES (?, ?)", [object.id, content], (err) => {
+              if (err) throw err;
+            });
           }
         });
       }

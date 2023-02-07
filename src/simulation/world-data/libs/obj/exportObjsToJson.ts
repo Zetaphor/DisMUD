@@ -6,11 +6,7 @@ const fs = require("fs");
 
 // const objNum = 0;
 // const objNum = 9;
-// const objNum = 12; // Issue
-// const objNum = 120;
 // const objNum = 15;
-// const objNum = 150;
-// const objNum = 186;
 // const objNum = 25;
 // const objNum = 30;
 // const objNum = 31;
@@ -29,10 +25,12 @@ const fs = require("fs");
 // const objNum = 63;
 // const objNum = 64;
 // const objNum = 65;
-// const objNum = 70;
 // const objNum = 71;
 // const objNum = 72;
-const objNum = 79;
+// const objNum = 79;
+// const objNum = 120;
+// const objNum = 150;
+// const objNum = 186;
 
 fs.readFile(`src/simulation/world-data/data/circlemud/obj/${objNum}.obj`, "utf-8", (err, data) => {
   if (err) {
