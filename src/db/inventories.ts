@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS PlayerInventories (
   playerId INTEGER,
   discordId INTEGER,
   inventoryString TEXT,
-  lastUpdated TEXT DEFAULT (datetime('now', 'utc')),
-  FOREIGN KEY (playerId) REFERENCES Players(id)
+  lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
 )
 `;
 
