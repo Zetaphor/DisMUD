@@ -14,6 +14,7 @@ export default async function msgUnauthenticated(worldState, msg) {
       if (newPlayer) systemMessages.newPlayer(msg.user);
       else systemMessages.returningPlayer(msg.user);
       const roomData = await worldState.rooms.getPlayerRoomData(
+        worldState.simulation.world,
         worldState.players["currentActive"][msg.user.id]["eid"]
       );
       buildRoom(msg.user, roomData);

@@ -14,25 +14,25 @@ export const rooms = {
       }
     });
   },
-  getPlayerRoomNum(playerEntityId) {
-    const Position = this.world._components["position"];
+  getPlayerRoomNum(world, playerEntityId) {
+    const Position = world._components["position"];
     return Position.roomNum[playerEntityId];
   },
-  async getPlayerRoomData(playerEntityId) {
-    return this.getRoomData(this.getPlayerRoomNum(playerEntityId));
+  async getPlayerRoomData(world, playerEntityId) {
+    return this.getRoomData(this.getPlayerRoomNum(world, playerEntityId));
   },
   async getRoomExits(roomNum) {
     const roomData = await this.getRoomData(roomNum);
     return roomData.exits;
   },
-  async getPlayerRoomExits(playerEntityId) {
-    const roomData = await this.getPlayerRoomData(playerEntityId);
+  async getPlayerRoomExits(world, playerEntityId) {
+    const roomData = await this.getPlayerRoomData(world, playerEntityId);
     return roomData.exits;
   },
-  updatePlayerRoomNum(playerEntityId, roomNum) {
+  updatePlayerRoomNum(world, playerEntityId, roomNum) {
     return new Promise<void>((resolve, reject) => {
       try {
-        const Position = this.world._components["position"];
+        const Position = world._components["position"];
         Position.roomNum[playerEntityId] = roomNum;
         resolve();
       } catch (err) {
