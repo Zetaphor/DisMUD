@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Objects (
 const createObjectIndexes = `CREATE INDEX idx_vNum ON Objects (vNum);`;
 
 const objectMethods = {
-  getItemData: (vnum: BigInt) => getRecord(objectsDBConn, "Objects", "vnum", vnum),
+  getObjectData: (vnum: BigInt) => getRecord(objectsDBConn, "Objects", "vnum", vnum),
 };
 
 /**

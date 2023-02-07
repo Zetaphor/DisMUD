@@ -1,15 +1,11 @@
-import getObjData from "../simulation/world-data/libs/obj/getObjData";
-
 export const objects = {
-  getObjectData(objectNum) {
+  loadObject(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
-        const world = Math.floor(objectNum / 100);
-        const room = ("0" + (objectNum % 100)).slice(-2);
-        const objectData = await getObjData(world, room);
-        resolve(objectData);
+        const object = await db.methods.getObjectData(vNum);
+        resolve(object);
       } catch (err) {
-        console.error(`Failed to get object data for #${objectNum}: ${err}`);
+        console.error(`Error loading object ${vNum}: ${err.message}`);
         reject(err);
       }
     });

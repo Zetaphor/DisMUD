@@ -24,7 +24,7 @@ export const commands = {
 };
 
 export const adminCommands = {
-  loadItem,
+  loaditem: loadItem,
 };
 
 export const commandAliases = {
@@ -50,3 +50,7 @@ export const commandAliases = {
 export const adminCommandList = Object.keys(adminCommands);
 export const commandList = Object.keys(commands);
 export const aliasList = Object.keys(commandAliases);
+
+export const adminCommandWords = Object.keys(adminCommands).map((item) => item.toLowerCase());
+export const commandWords = Object.keys(commands).map((item) => item.toLowerCase());
+export const aliasWords = Object.keys(commandAliases).map((item) => item.toLowerCase());
