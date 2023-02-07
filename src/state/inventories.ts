@@ -1,7 +1,17 @@
 export const inventories = {
   playerInventories: {},
 
-  giveItem(discordId, itemData) {},
+  giveItem(discordId, itemData) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        this.playerInventories[discordId].push(itemData);
+        resolve();
+      } catch (err) {
+        console.error(`Failed to give item to player ${discordId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   getInventory(db, discordId) {
     return new Promise(async (resolve, reject) => {
       try {
