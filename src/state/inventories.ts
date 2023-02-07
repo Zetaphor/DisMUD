@@ -1,5 +1,6 @@
 export const inventories = {
   playerInventories: {},
+
   giveItem(discordId, itemData) {},
   getInventory(db, discordId) {
     return new Promise(async (resolve, reject) => {

@@ -1,17 +1,21 @@
+import db from "./db/init";
 import setupBotInterface from "./bot/interface";
-import { db } from "./db/init";
-import players from "./state/players";
+import simulation from "./simulation/world";
 import msgAuthenticated from "./msgAuthenticated";
 import msgUnauthenticated from "./msgUnauthenticated";
 import systemMessages from "./messages/system";
-import simulation from "./simulation/world";
+import players from "./state/players";
 import inventories from "./state/inventories";
+import objects from "./state/objects";
+import rooms from "./state/rooms";
 
 const worldState = {
   db,
   players,
   simulation,
   inventories,
+  objects,
+  rooms,
 };
 
 async function startup() {

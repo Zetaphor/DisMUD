@@ -14,7 +14,10 @@ export const emoji = {
   staff: "<:rpgstick:1072294992992804864>",
   armor: "<:rpgarmor:1072294977494855720>",
   bottle: "<:rpgbottle:1072294943076401202>",
-  bread: "<:rpgbread:1072294958964408411> ",
+  bread: "<:rpgbread:1072294958964408411>",
+  lantern: "<:rpglantern:1072530478638301236>",
+  knight: "<:rpgknight:1072531539398770708>",
+  cloak: "<:rpgcloak:1072531519547129936>",
 };
 
 export default emoji;

@@ -22,14 +22,14 @@ export default async function move(worldState, userData, msg) {
     return;
   }
 
-  const roomExits = await worldState.simulation.getPlayerRoomExits(userData.eid);
+  const roomExits = await worldState.rooms.getPlayerRoomExits(userData.eid);
   if (Object.keys(roomExits).indexOf(moveDir) === -1) {
     userData.user.send(`${emoji.error} _You cannot move ${moveDir} from here!_`);
   } else if (roomExits[moveDir].roomId === -1) {
     userData.user.send(`${emoji.error} _You can't go that way!_`);
   } else {
-    await worldState.simulation.updatePlayerRoomNum(userData.eid, roomExits[moveDir].roomId);
-    const newRoomData = await worldState.simulation.getPlayerRoomData(userData.eid);
+    await worldState.rooms.updatePlayerRoomNum(userData.eid, roomExits[moveDir].roomId);
+    const newRoomData = await worldState.rooms.getPlayerRoomData(userData.eid);
     // console.log("newRoomData", newRoomData);
     buildRoom(userData.user, newRoomData);
     // console.log(`move: ${userData.user.username}, ${moveDir}`);
