@@ -11,7 +11,8 @@
     "parse-zon": "ts-node src/simulation/world-data/libs/zone/exportZonToJson.ts",
     "import-world": "ts-node src/simulation/world-data/libs/world/writeWldJsonToDb.ts",
     "import-obj": "ts-node src/simulation/world-data/libs/obj/writeObjJsonToDb.ts",
-    "import-mob": "ts-node src/simulation/world-data/libs/mob/writeMobJsonToDb.ts"
+    "import-mob": "ts-node src/simulation/world-data/libs/mob/writeMobJsonToDb.ts",
+    "import-zone": "ts-node src/simulation/world-data/libs/zone/writeZonJsonToDb.ts"
   },
   "repository": {
     "type": "git",
