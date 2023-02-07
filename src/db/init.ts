@@ -2,6 +2,7 @@ import initPlayerInventoriesDb from "./inventories";
 import initObjectsDb from "./objects";
 import initMobsDb from "./mobs";
 import initPlayersDb from "./players";
+import initRoomsDb from "./rooms";
 
 let databases = [];
 
@@ -15,6 +16,7 @@ async function initDatabases() {
     db["playerInventories"] = await initPlayerInventoriesDb();
     db["mobs"] = await initMobsDb();
     db["objects"] = await initObjectsDb();
+    db["rooms"] = await initRoomsDb();
     return true;
   } catch (err) {
     console.error("Database initialize:", err);
