@@ -6,7 +6,8 @@ let playersDBConn = null;
 
 const createPlayersTable = `
 CREATE TABLE IF NOT EXISTS Players (
-  discordId INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
+  discordId INTEGER,
   discordUsername TEXT,
   displayName TEXT,
   roomNum INTEGER,
@@ -17,17 +18,15 @@ CREATE TABLE IF NOT EXISTS Players (
 )
 `;
 
-const createPlayerIndexes = `
-CREATE INDEX idx_roomNum ON Players (roomNum)
-`;
+const createPlayerIndexes = `CREATE INDEX idx_roomNum ON Players (roomNum); CREATE INDEX idx_discordId ON Players (discordId);`;
 
 const playerMethods = {
   createPlayer: (data: Object) => createRecord(playersDBConn, "Players", data),
   playerExists: (id: BigInt) => getRecord(playersDBConn, "Players", "discordId", id),
   setPlayerName: (id: BigInt, name: String) =>
-    updateRecord(playersDBConn, "Players", { discordId: id, displayName: name }, "discordId", id),
+    updateRecord(playersDBConn, "Players", { id: id, displayName: name }, "id", id),
   setPlayerEnabled: (id: BigInt, enabled: Boolean) =>
-    updateRecord(playersDBConn, "Players", { discordId: id, enabled: enabled }, "discordId", id),
+    updateRecord(playersDBConn, "Players", { id: id, enabled: enabled }, "id", id),
 };
 
 /**

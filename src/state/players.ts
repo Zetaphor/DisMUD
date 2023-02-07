@@ -30,14 +30,16 @@ function isActive(playerId) {
 async function login(db, simulation, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
-      const playerData = await db.methods.playerExists(BigInt(user.id));
+      let playerData = await db.methods.playerExists(BigInt(user.id));
       if (!playerData) {
-        await db.methods.createPlayer({
+        console.log(`Creating new player ${user.username}`);
+        playerData = await db.methods.createPlayer({
           discordId: BigInt(user.id),
           discordUsername: `${user.username}#${user.discriminator}`,
           displayName: user.username,
           roomNum: constants.NEW_USER_ROOMNUM,
         });
+        playerData = await db.methods.playerExists(BigInt(user.id));
       }
       const playerEntityId = await simulation.createPlayerEntity(user.id, constants.NEW_USER_ROOMNUM);
       playerData["eid"] = playerEntityId;
