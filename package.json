@@ -8,7 +8,10 @@
     "parse-world": "ts-node src/simulation/world-data/libs/world/exportWldToJson.ts",
     "parse-obj": "ts-node src/simulation/world-data/libs/obj/exportObjsToJson.ts",
     "parse-mob": "ts-node src/simulation/world-data/libs/mob/exportMobsToJson.ts",
-    "parse-zon": "ts-node src/simulation/world-data/libs/zone/exportZonToJson.ts"
+    "parse-zon": "ts-node src/simulation/world-data/libs/zone/exportZonToJson.ts",
+    "import-world": "ts-node src/simulation/world-data/libs/world/writeWldJsonToDb.ts",
+    "import-obj": "ts-node src/simulation/world-data/libs/obj/writeObjJsonToDb.ts",
+    "import-mob": "ts-node src/simulation/world-data/libs/mob/writeMobJsonToDb.ts"
   },
   "repository": {
     "type": "git",
