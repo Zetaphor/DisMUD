@@ -3,7 +3,7 @@ import parseMob from "./parseMob";
 
 const fs = require("fs");
 
-export default function getObjData(worldNum, mobNum) {
+export default function getMobData(worldNum, mobNum) {
   console.log(`Loading mob ${worldNum}/${mobNum}`);
   return new Promise((resolve, reject) => {
     fs.readFile(`src/simulation/world-data/data/circlemud/mob/${worldNum}.mob`, "utf-8", (err, data) => {
