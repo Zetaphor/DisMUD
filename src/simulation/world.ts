@@ -1,11 +1,11 @@
 import setupWorld from "./loaders/world";
-import constants from "./utils/constants";
+import constants from "./constants/global";
 import createEntity from "./utils/createEntity";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
 import { defineQuery, removeEntity } from "bitecs";
-import roomFromWld from "./world-data/libs/world/roomFromWld";
+import roomFromWld from "./world-data/libs/world/getRoomData";
 
 export const simulation = {
   world: null,

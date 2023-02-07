@@ -1,11 +1,25 @@
+import emote from "./commands/emote";
 import exits from "./commands/exits";
+import info from "./commands/info";
+import inventory from "./commands/inventory";
+import listCommands from "./commands/listCommands";
+import motd from "./commands/motd";
 import move from "./commands/move";
+import news from "./commands/news";
+import policy from "./commands/policy";
 import say from "./commands/say";
 
 export const commands = {
   say,
   move,
   exits,
+  commands: listCommands,
+  emote,
+  info,
+  policy,
+  news,
+  motd,
+  inventory,
 };
 
 export const commandAliases = {
@@ -25,4 +39,8 @@ export const commandAliases = {
   down: move,
   go: move,
   ex: exits,
+  em: emote,
 };
+
+export const commandList = Object.keys(commands);
+export const aliasList = Object.keys(commandAliases);

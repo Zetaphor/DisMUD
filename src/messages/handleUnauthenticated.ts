@@ -3,25 +3,25 @@ import buildRoom from "../roomBuilder";
 
 /**
  * Handle messages from unauthenticated users
- * @param {Object} players - players instance
- * @param {Object} db - database object
- * @param {Object} simulation - simulation instance
+ * @param {Object} worldState - The state of the world.
  * @param {Object} msg - message object
  */
-export default async function handleUnauthenticatedMessages(players, db, simulation, msg) {
+export default async function handleUnauthenticatedMessages(worldState, msg) {
   if (msg.content.toLowerCase() === "login") {
     try {
-      const newPlayer = await players.login(db["players"], simulation, msg.user);
+      const newPlayer = await worldState.players.login(worldState.db["players"], worldState.simulation, msg.user);
+      systemMessages.loggedIn(msg.user);
       if (newPlayer) systemMessages.newPlayer(msg.user);
       else systemMessages.returningPlayer(msg.user);
-      systemMessages.loggedIn(msg.user);
-      const roomData = await simulation.getPlayerRoomData(players["currentActive"][msg.user.id]["eid"]);
+      const roomData = await worldState.simulation.getPlayerRoomData(
+        worldState.players["currentActive"][msg.user.id]["eid"]
+      );
       buildRoom(msg.user, roomData);
     } catch (err) {
       console.log(`Failed to login ${msg.user.username}`, err);
       systemMessages.loginFailed(msg.user);
-      players.logout();
-      simulation.removePlayerEntity();
+      worldState.players.logout();
+      worldState.simulation.removePlayerEntity();
     }
   } else {
     systemMessages.newSession(msg.user);

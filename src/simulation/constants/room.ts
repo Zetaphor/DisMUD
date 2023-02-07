@@ -1,19 +1,4 @@
-export const constants = {
-  // Booleans
-  FALSE: 0,
-  TRUE: 1,
-
-  NEW_USER_ROOMNUM: 18600,
-
-  ROOM_DIRS: {
-    0: "north",
-    1: "east",
-    2: "south",
-    3: "west",
-    4: "up",
-    5: "down",
-  },
-
+export const roomConstants = {
   DOOR_FLAGS: {
     OPEN: 0, // An unrestricted exit that has no door, or a special door cannot be opened or closed with the ``open'' and ``close'' commands. The latter is useful for secret doors, trap doors, or other doors that are opened and closed by something other than the normal commands, like a special procedure assigned to the room or an object in the room.
     NORMAL: 1, // Normal doors that can be opened, closed, locked, unlocked, and picked.
@@ -53,4 +38,4 @@ export const constants = {
   },
 };
 
-export default constants;
+export default roomConstants;

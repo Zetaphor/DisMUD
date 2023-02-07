@@ -1,5 +1,5 @@
 import { addComponent, defineQuery } from "bitecs";
-import constants from "../utils/constants";
+import constants from "../constants/global";
 import { lookupDamageIndex } from "../indexes/damageIndexes";
 
 const breakingSystem = (world) => {

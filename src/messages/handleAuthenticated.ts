@@ -3,15 +3,13 @@ import parseCommand from "../parseCommand";
 
 /**
  * Handles messages sent by an authenticated user.
- * @param {Object} players - The current players in the simulation.
- * @param {Object} db - The database object.
- * @param {Object} simulation - The current simulation object.
+ * @param {Object} worldState - The state of the world.
  * @param {Object} msg - The message object sent by the user.
  */
-export default async function handleAuthenticatedMessages(players, db, simulation, msg) {
+export default async function handleAuthenticatedMessages(worldState, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {
     try {
-      await players.logout(players, simulation, msg.user);
+      await worldState.players.logout(worldState.players, worldState.simulation, msg.user);
       systemMessages.logout(msg.user);
     } catch (err) {
       console.error(`Error logging out user ${msg.user.id}`);
@@ -20,6 +18,6 @@ export default async function handleAuthenticatedMessages(players, db, simulatio
   } else if (msg.content.toLowerCase() === "login") {
     systemMessages.alreadyLoggedIn(msg.user);
   } else {
-    parseCommand(simulation, players["currentActive"][msg.user.id], msg.content);
+    parseCommand(worldState, worldState.players["currentActive"][msg.user.id], msg.content);
   }
 }

@@ -1,5 +1,5 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
-import constants from "../utils/constants";
+import constants from "../constants/global";
 
 const agingSystem = (world) => {
   const Age = world._components["age"];

@@ -1,4 +1,4 @@
-import constants from "../utils/constants";
+import constants from "../constants/global";
 import { lookupDamageIndex, damageIndexes } from "./damageIndexes";
 import { scaleIndexes } from "./scaleIndexes";
 

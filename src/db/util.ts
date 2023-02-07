@@ -1,3 +1,4 @@
+const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 
 /**
@@ -17,6 +18,26 @@ export function recordExists(db: any, table: String, key: String, val: any) {
       }
       if (row) resolve(true);
       resolve(false);
+    });
+  });
+}
+
+/**
+ * Get a record from the database
+ * @param db - database connection object
+ * @param table - table name
+ * @param key - key column name
+ * @param val - key value to check for
+ * @returns {Promise<any>}- returns a promise that resolves to the record if it exists, null otherwise
+ */
+export function getRecord(db: any, table: String, key: String, val: any) {
+  return new Promise<any>((resolve, reject) => {
+    db.get(`SELECT * FROM ${table} WHERE ${key} = "${val}" LIMIT 1`, (err, row) => {
+      if (err) {
+        console.error("Failed to get record:", err);
+        reject();
+      }
+      resolve(row);
     });
   });
 }
@@ -51,6 +72,27 @@ export function createRecord(db: any, table: String, data: Object) {
         reject();
       } else {
         console.log(`${table} row(s) updated: ${this.changes}`);
+        resolve();
+      }
+    });
+  });
+}
+
+/**
+ * Remove a record from the database
+ * @param {any} db - database connection object
+ * @param {String} table - table name
+ * @param {Number} id - id to remove
+ * @returns {Promise<void>} - returns a promise that resolves when the record is deleted
+ */
+export function removeRecord(db: any, table: String, id: BigInt) {
+  return new Promise<void>((resolve, reject) => {
+    db.run(`DELETE FROM ${table} WHERE id = "${id}"`, function (err) {
+      if (err) {
+        console.error(`${table} delete error:`, err);
+        reject();
+      } else {
+        console.log(`${table} row(s) deleted: ${this.changes}`);
         resolve();
       }
     });
@@ -129,20 +171,20 @@ export function createTable(db: any, createSql: String, createIndexSql = null) {
         console.error("Create Table:", err);
         reject();
         return;
+      } else {
+        if (createIndexSql === null) resolve();
+        else {
+          db.run(createIndexSql, (err) => {
+            if (err) {
+              console.error("Create Table Index:", err);
+              reject();
+              return;
+            }
+          });
+          resolve();
+        }
       }
     });
-
-    if (createIndexSql === null) resolve();
-    else {
-      db.run(createIndexSql, (err) => {
-        if (err) {
-          console.error("Create Table Index:", err);
-          reject();
-          return;
-        }
-      });
-      resolve();
-    }
   });
 }
 
@@ -165,6 +207,70 @@ export function waitForFile(file: String) {
       fs.unwatchFile(file);
       resolve();
       return;
+    });
+  });
+}
+
+/**
+ * Initializes a SQLite database and returns a Promise that resolves to a newDBObject.
+ * @param {string} filePath - The file path for the SQLite database.
+ * @param {string} tableName - The name of the table to be created or checked for existence.
+ * @param {string} createSql - The SQL statement used to create the table.
+ * @param {string} [createIndexSql=null] - The SQL statement used to create an index for the table.
+ * @returns {Promise} Resolves to a newDBObject containing a connection to the database and the methods object.
+ */
+export async function initDb(filePath, tableName, createSql, createIndexSql = null) {
+  const newDBObject = {
+    conn: null,
+  };
+
+  await createDBFile(filePath);
+
+  return new Promise((resolve, reject) => {
+    newDBObject["conn"] = new sqlite3.Database(filePath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+      if (err) {
+        console.error(`Failed to open database ${filePath}:`, err);
+        reject(err);
+      }
+      console.log(`Connected to the ${tableName} database.`);
+      tableExists(newDBObject["conn"], tableName)
+        .then((exists) => {
+          if (exists) resolve(newDBObject);
+          else {
+            createTable(newDBObject["conn"], createSql, createIndexSql)
+              .then(() => {
+                resolve(newDBObject);
+              })
+              .catch((err) => {
+                console.error("Failed to create table:", err);
+                reject(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to check for existing table:", err);
+          reject(err);
+        });
+    });
+  });
+}
+
+/**
+ * Initializes a SQLite database and makes sure the file was created
+ * @param {string} filePath - The file path for the SQLite database.
+ * @returns {Promise} A Promise that resolves when the database has been created
+ */
+export function createDBFile(filePath) {
+  return new Promise<void>((resolve, reject) => {
+    let db = null;
+    db = new sqlite3.Database(filePath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+      if (err) {
+        console.error(`Failed to open database ${filePath}:`, err);
+        reject(err);
+      } else {
+        db.close();
+        resolve();
+      }
     });
   });
 }
