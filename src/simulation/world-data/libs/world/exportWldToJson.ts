@@ -4,9 +4,36 @@ import parseWorld from "./parseWorld";
 
 const fs = require("fs");
 
-const worldNum = 9;
+// const worldNum = 0;
+// const worldNum = 12;
+// const worldNum = 120;
+// const worldNum = 15;
+// const worldNum = 150;
+// const worldNum = 186;
+// const worldNum = 25;
+// const worldNum = 30;
+// const worldNum = 31;
+// const worldNum = 33;
+// const worldNum = 35;
+// const worldNum = 36;
+// const worldNum = 40;
+// const worldNum = 50;
+// const worldNum = 51;
+// const worldNum = 52; // Issue
+// const worldNum = 53;
+// const worldNum = 54; // Issue
+// const worldNum = 60;
+// const worldNum = 61;
+// const worldNum = 62;
+// const worldNum = 63;
+// const worldNum = 64;
+// const worldNum = 65; // Issue
+// const worldNum = 70;
+// const worldNum = 71; // Issue
+// const worldNum = 72;
+// const worldNum = 79;
 
-fs.readFile(`src/world/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data) => {
+fs.readFile(`src/simulation/world-data/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data) => {
   if (err) {
     console.error(err);
     return;
@@ -16,11 +43,16 @@ fs.readFile(`src/world/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data)
 
   const parsedRooms = parseWorld(roomList);
 
-  fs.writeFile(`src/world/data/json/wld/${worldNum}.json`, JSON.stringify(parsedRooms), { flag: "w" }, (err) => {
-    if (err) {
-      console.error(err);
-      return;
+  fs.writeFile(
+    `src/simulation/world-data/data/json/wld/${worldNum}.json`,
+    JSON.stringify(parsedRooms),
+    { flag: "w" },
+    (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Wrote world " + worldNum + " to json");
     }
-    console.log("Wrote world " + worldNum + " to json");
-  });
+  );
 });
