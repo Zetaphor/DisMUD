@@ -7,14 +7,15 @@ let playerInventoriesDBConn = null;
 const createPlayerInventoriesTable = `
 CREATE TABLE IF NOT EXISTS PlayerInventories (
   id INTEGER PRIMARY KEY,
+  playerId INTEGER,
   discordId INTEGER,
   inventoryString TEXT,
   lastUpdated TEXT DEFAULT (datetime('now', 'utc')),
-  FOREIGN KEY (discordId) REFERENCES Players(discordId)
+  FOREIGN KEY (playerId) REFERENCES Players(id)
 )
 `;
 
-const createPlayerInventoryIndexes = ``;
+const createPlayerInventoryIndexes = `CREATE INDEX idx_discordId ON Players (discordId);`;
 
 const playerInventoryMethods = {
   getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "discordId", id),
@@ -32,7 +33,12 @@ const playerInventoryMethods = {
 export default function initPlayerInventoriesDb() {
   return new Promise(async (resolve, reject) => {
     try {
-      const playerInventoriesDBObject = await initDb(dbPath, "PlayerInventories", createPlayerInventoriesTable, null);
+      const playerInventoriesDBObject = await initDb(
+        dbPath,
+        "PlayerInventories",
+        createPlayerInventoriesTable,
+        createPlayerInventoryIndexes
+      );
       playerInventoriesDBObject["methods"] = playerInventoryMethods;
       playerInventoriesDBConn = playerInventoriesDBObject["conn"];
       resolve(playerInventoriesDBObject);
