@@ -1,12 +1,12 @@
-import systemMessages from "./system";
-import buildRoom from "../roomBuilder";
+import systemMessages from "./messages/system";
+import buildRoom from "./roomBuilder";
 
 /**
  * Handle messages from unauthenticated users
  * @param {Object} worldState - The state of the world.
  * @param {Object} msg - message object
  */
-export default async function handleUnauthenticatedMessages(worldState, msg) {
+export default async function msgUnauthenticated(worldState, msg) {
   if (msg.content.toLowerCase() === "login") {
     try {
       const newPlayer = await worldState.players.login(worldState.db["players"], worldState.simulation, msg.user);

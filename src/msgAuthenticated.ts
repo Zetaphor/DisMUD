@@ -1,12 +1,12 @@
-import systemMessages from "./system";
-import parseCommand from "../parseCommand";
+import systemMessages from "./messages/system";
+import parseCommand from "./parseCommand";
 
 /**
  * Handles messages sent by an authenticated user.
  * @param {Object} worldState - The state of the world.
  * @param {Object} msg - The message object sent by the user.
  */
-export default async function handleAuthenticatedMessages(worldState, msg) {
+export default async function msgAuthenticated(worldState, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {
     try {
       await worldState.players.logout(worldState.players, worldState.simulation, msg.user);
