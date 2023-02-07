@@ -18,6 +18,7 @@ export const emoji = {
   lantern: "<:rpglantern:1072530478638301236>",
   knight: "<:rpgknight:1072531539398770708>",
   cloak: "<:rpgcloak:1072531519547129936>",
+  check: "<:rpgcheck:1072648338945622046>",
 };
 
 export default emoji;
