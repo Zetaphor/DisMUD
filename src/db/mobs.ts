@@ -8,14 +8,13 @@ const createMobsTable = `
 CREATE TABLE IF NOT EXISTS Mobs (
   id INTEGER PRIMARY KEY,
   vNum INTEGER,
-  name TEXT,
   data TEXT,
   created TEXT DEFAULT (datetime('now', 'utc')),
   lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
 )
 `;
 
-const createMobIndexes = `CREATE INDEX idx_vNum ON Mobs (vNum); CREATE INDEX idx_name ON Mobs (name);`;
+const createMobIndexes = `CREATE INDEX idx_vNum ON Mobs (vNum);`;
 
 const mobMethods = {};
 

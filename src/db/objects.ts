@@ -8,14 +8,13 @@ const createObjectsTable = `
 CREATE TABLE IF NOT EXISTS Objects (
   id INTEGER PRIMARY KEY,
   vNum INTEGER,
-  name TEXT,
   data TEXT,
   created TEXT DEFAULT (datetime('now', 'utc')),
   lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
 )
 `;
 
-const createObjectIndexes = `CREATE INDEX idx_vNum ON Objects (vNum); CREATE INDEX idx_name ON Objects (name);`;
+const createObjectIndexes = `CREATE INDEX idx_vNum ON Objects (vNum);`;
 
 const objectMethods = {};
 
