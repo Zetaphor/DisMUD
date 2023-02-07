@@ -30,7 +30,8 @@ db.serialize(() => {
 
           const zone = JSON.parse(content);
           db.run("INSERT INTO Zones (vNum, data) VALUES (?, ?)", [zone.id, content], (err) => {
-            if (err) throw err;
+            if (err) {
+              throw err;
           });
         });
       }

@@ -31,7 +31,7 @@ db.serialize(() => {
           const json = JSON.parse(content);
           for (let i = 0; i < json.length; i++) {
             const object = json[i];
-            db.run("INSERT INTO Objects (vNum, data) VALUES (?, ?)", [object.id, content], (err) => {
+            db.run("INSERT INTO Objects (vNum, data) VALUES (?, ?)", [object.id, JSON.stringify(object)], (err) => {
               if (err) throw err;
             });
           }

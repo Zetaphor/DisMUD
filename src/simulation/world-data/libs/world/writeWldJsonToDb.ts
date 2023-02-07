@@ -32,8 +32,11 @@ db.serialize(() => {
           for (let i = 0; i < json.length; i++) {
             const room = json[i];
             // console.log(room.id, room.name);
-            db.run("INSERT INTO Rooms (vNum, data) VALUES (?, ?)", [room.id, content], (err) => {
-              if (err) throw err;
+            db.run("INSERT INTO Rooms (vNum, data) VALUES (?, ?)", [room.id, JSON.stringify(room)], (err) => {
+              if (err) {
+                console.log(`Error on ${room.id}`);
+                throw err;
+              }
             });
           }
         });
