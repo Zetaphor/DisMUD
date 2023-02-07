@@ -26,7 +26,7 @@ const mobMethods = {};
 export default function initMobsDb() {
   return new Promise(async (resolve, reject) => {
     try {
-      const mobsDBObject = await initDb(dbPath, "Objects", createMobsTable, createMobIndexes);
+      const mobsDBObject = await initDb(dbPath, "Mobs", createMobsTable, createMobIndexes);
       mobsDBObject["methods"] = mobMethods;
       mobsDBConn = mobsDBObject["conn"];
       resolve(mobsDBObject);

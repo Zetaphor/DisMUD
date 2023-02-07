@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Players (
 )
 `;
 
-const createPlayerIndexes = `CREATE INDEX idx_roomNum ON Players (roomNum); CREATE INDEX idx_discordId ON Players (discordId);`;
+const createPlayerIndexes = `CREATE INDEX idx_roomNum ON Players (roomNum)`;
 
 const playerMethods = {
   createPlayer: (data: Object) => createRecord(playersDBConn, "Players", data),

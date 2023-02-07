@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS PlayerInventories (
 )
 `;
 
-const createPlayerInventoryIndexes = `CREATE INDEX idx_discordId ON Players (discordId);`;
+const createPlayerInventoryIndexes = `CREATE INDEX idx_discordId ON PlayerInventories (discordId);`;
 
 const playerInventoryMethods = {
   getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "discordId", id),
