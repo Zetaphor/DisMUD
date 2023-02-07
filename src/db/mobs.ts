@@ -1,4 +1,4 @@
-import { createRecord, getRecord, initDb, removeRecord } from "./util";
+import { initDb } from "./util";
 
 const dbPath = "src/databases/mobs.db";
 

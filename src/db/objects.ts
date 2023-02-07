@@ -1,4 +1,4 @@
-import { createRecord, getRecord, initDb, removeRecord } from "./util";
+import { getRecord, initDb } from "./util";
 
 const dbPath = "src/databases/objects.db";
 
@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS Objects (
 
 const createObjectIndexes = `CREATE INDEX idx_vNum ON Objects (vNum);`;
 
-const objectMethods = {};
+const objectMethods = {
+  getItemData: (vnum: BigInt) => getRecord(objectsDBConn, "Objects", "vnum", vnum),
+};
 
 /**
  * Initializes the objects database.
