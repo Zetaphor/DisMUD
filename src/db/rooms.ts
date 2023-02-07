@@ -7,7 +7,7 @@ let roomsDBConn = null;
 const createRoomsTable = `
 CREATE TABLE IF NOT EXISTS Rooms (
   id INTEGER PRIMARY KEY,
-  vNum INTEGER,
+  vNum INTEGER UNIQUE,
   name TEXT,
   data TEXT,
   created TEXT DEFAULT (datetime('now', 'utc')),

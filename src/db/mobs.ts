@@ -7,7 +7,7 @@ let mobsDBConn = null;
 const createMobsTable = `
 CREATE TABLE IF NOT EXISTS Mobs (
   id INTEGER PRIMARY KEY,
-  vNum INTEGER,
+  vNum INTEGER UNIQUE,
   data TEXT,
   created TEXT DEFAULT (datetime('now', 'utc')),
   lastUpdated TEXT DEFAULT (datetime('now', 'utc'))

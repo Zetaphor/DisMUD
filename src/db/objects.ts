@@ -7,7 +7,7 @@ let objectsDBConn = null;
 const createObjectsTable = `
 CREATE TABLE IF NOT EXISTS Objects (
   id INTEGER PRIMARY KEY,
-  vNum INTEGER,
+  vNum INTEGER UNIQUE,
   data TEXT,
   created TEXT DEFAULT (datetime('now', 'utc')),
   lastUpdated TEXT DEFAULT (datetime('now', 'utc'))

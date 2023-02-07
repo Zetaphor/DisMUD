@@ -7,7 +7,7 @@ let playersDBConn = null;
 const createPlayersTable = `
 CREATE TABLE IF NOT EXISTS Players (
   id INTEGER PRIMARY KEY,
-  discordId INTEGER,
+  discordId INTEGER UNIQUE,
   discordUsername TEXT,
   displayName TEXT,
   roomNum INTEGER,

@@ -7,14 +7,13 @@ let playerInventoriesDBConn = null;
 const createPlayerInventoriesTable = `
 CREATE TABLE IF NOT EXISTS PlayerInventories (
   id INTEGER PRIMARY KEY,
-  playerId INTEGER,
-  discordId INTEGER,
+  playerId INTEGER UNIQUE,
   inventoryString TEXT,
   lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
 )
 `;
 
-const createPlayerInventoryIndexes = `CREATE INDEX idx_discordId ON PlayerInventories (discordId);`;
+const createPlayerInventoryIndexes = `CREATE INDEX idx_playerId ON PlayerInventories (playerId);`;
 
 const playerInventoryMethods = {
   getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "discordId", id),

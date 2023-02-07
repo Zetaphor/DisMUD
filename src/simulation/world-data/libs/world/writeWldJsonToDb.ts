@@ -11,7 +11,7 @@ db.serialize(() => {
   db.run(`
   CREATE TABLE IF NOT EXISTS Rooms (
     id INTEGER PRIMARY KEY,
-    vNum INTEGER,
+    vNum INTEGER UNIQUE,
     data TEXT,
     created TEXT DEFAULT (datetime('now', 'utc')),
     lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
