@@ -1,4 +1,4 @@
-import constants from "./simulation/constants/global";
+import constants from "../simulation/constants/global";
 
 export const players = {
   currentActive: {},

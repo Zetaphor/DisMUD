@@ -1,11 +1,11 @@
 import setupBotInterface from "./bot/interface";
 import { db } from "./db/init";
-import players from "./players";
+import players from "./state/players";
 import handleAuthenticatedMessages from "./messages/handleAuthenticated";
 import unauthenticatedMessage from "./messages/handleUnauthenticated";
 import systemMessages from "./messages/system";
 import simulation from "./simulation/world";
-import inventories from "./inventories";
+import inventories from "./state/inventories";
 
 const worldState = {
   db,
