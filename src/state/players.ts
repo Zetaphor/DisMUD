@@ -39,7 +39,6 @@ async function login(db, simulation, user) {
           displayName: user.username,
           roomNum: constants.NEW_USER_ROOMNUM,
         });
-        playerData = await db.methods.playerExists(BigInt(user.id));
       } else {
         await db.methods.updateLastLogin(BigInt(playerData["id"]));
       }

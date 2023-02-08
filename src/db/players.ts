@@ -21,7 +21,18 @@ CREATE TABLE IF NOT EXISTS Players (
 const createPlayerIndexes = `CREATE INDEX idx_roomNum ON Players (roomNum)`;
 
 const playerMethods = {
-  createPlayer: (data: Object) => createRecord(playersDBConn, "Players", data),
+  createPlayer: (data: Object) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const newPlayerId = await createRecord(playersDBConn, "Players", data);
+        const newPlayer = await getRecord(playersDBConn, "Players", "id", newPlayerId);
+        resolve(newPlayer);
+      } catch (err) {
+        console.error(`Error creating player:`, err);
+        reject(err);
+      }
+    });
+  },
   playerExists: (id: BigInt) => getRecord(playersDBConn, "Players", "discordId", id),
   setPlayerName: (id: BigInt, name: String) =>
     updateRecord(playersDBConn, "Players", { id: id, displayName: name }, "id", id),
