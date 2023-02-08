@@ -1,4 +1,5 @@
 import emoji from "../messages/emoji";
+import objectConstants from "../messages/objectConstants";
 import buildRoom from "../roomBuilder";
 
 export default async function look(worldState, userData, msg) {
@@ -42,9 +43,11 @@ export default async function look(worldState, userData, msg) {
       }
       if (matchedItem !== null) {
         const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
-        userData.user.send(`${emoji.examine} **${item.data.shortDesc}**\nItem data goes here!`);
-      } else userData.user.send(`${emoji.warning} _You don't have an item with that name_`);
-      // TODO: Look at objects in inventory
+        userData.user.send(`
+          ${emoji.examine} **${item.data.shortDesc}**\n
+          ${objectConstants.types[item.data.type]}
+        `);
+      } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
     }
   }
 }
