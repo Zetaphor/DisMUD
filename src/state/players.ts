@@ -123,4 +123,10 @@ async function logout(id, players, simulation, user) {
   });
 }
 
+function initPlayerStats() {
+  return {
+    equipment,
+  };
+}
+
 export default players;
