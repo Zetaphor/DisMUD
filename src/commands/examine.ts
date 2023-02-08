@@ -20,7 +20,6 @@ export default async function examine(worldState, userData, msg) {
   }
   if (matchedItem !== null) {
     const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
-    console.log(item, item.data.affects);
     let extras = "";
     for (let i = 0; i < item.data.extra.length; i++) {
       extras += objectConstants.effects[item.data.extra[i]] + "\n";
@@ -28,6 +27,7 @@ export default async function examine(worldState, userData, msg) {
 
     userData.user.send(`
       ${emoji.examine} **${item.data.shortDesc}**\n
+      ${emoji.coins} Value: ${item.data.cost}
       ${objectConstants.types[item.data.type]}
       ${extras.slice(0, -2)}
       ${objectConstants.wear[Number(item.data.wear) - 1]}
