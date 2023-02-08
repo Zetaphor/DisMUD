@@ -21,6 +21,6 @@ export default function parseCommand(worldState, userData, command) {
   } else if (aliasWords.indexOf(keyword) !== -1) {
     commandAliases[keyword](worldState, userData, words);
   } else {
-    systemMessages.unknownCommand(userData.user, words[0]);
+    systemMessages.unknownCommand(userData.user, command.split(" ")[0]);
   }
 }
