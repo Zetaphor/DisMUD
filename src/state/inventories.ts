@@ -1,7 +1,8 @@
 export const inventories = {
   playerInventories: {},
-
-  giveItem(discordId, itemData) {
+  setInventory(playerId, inventory) {
+    this.playerInventories[playerId] = inventory;
+  },
     return new Promise<void>((resolve, reject) => {
       try {
         this.playerInventories[discordId].push(itemData);

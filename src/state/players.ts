@@ -70,6 +70,7 @@ async function login(worldState, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
       let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(BigInt(user.id));
+      let playerInventory = {};
       if (!playerData) {
         console.log(`Creating new player ${user.username}`);
         playerData = await worldState.db["players"].methods.createPlayer({
@@ -81,6 +82,11 @@ async function login(worldState, user) {
         console.log(`Creating new player ${user.username}'s inventory`);
         await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
       } else {
+        const loadedInventory = await worldState.db["playerInventories"].methods.getPlayerInventory(
+          BigInt(playerData.id)
+        );
+        if (loadedInventory.inventoryString !== "") playerInventory = JSON.parse(loadedInventory.inventoryString);
+        worldState.inventories.setInventory(playerData.id, playerInventory);
         await worldState.db["players"].methods.updateLastLogin(BigInt(playerData["id"]));
       }
       const playerEntityId = await worldState.simulation.createPlayerEntity(playerData.id, constants.NEW_USER_ROOMNUM);
