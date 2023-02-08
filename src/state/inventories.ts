@@ -1,5 +1,6 @@
 export const inventories = {
   playerInventories: {},
+
   setInventory(playerId, inventory) {
     this.playerInventories[playerId] = inventory;
   },
@@ -36,6 +37,38 @@ export const inventories = {
       }
     });
   },
+  getInventoryAliases(playerId) {
+    playerId = playerId.toString();
+    return new Promise(async (resolve, reject) => {
+      try {
+        let inventoryAliases = {};
+        const inventory = this.playerInventories[playerId];
+        for (const id in inventory) {
+          if (!Object.prototype.hasOwnProperty.call(inventory, id)) continue;
+          const item = inventory[id];
+          if (item.data.aliases.length) inventoryAliases[id] = item.data.aliases;
+        }
+        resolve(inventoryAliases);
+      } catch (err) {
+        console.error(`Failed to get inventory aliases for player ${playerId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  getInventoryItem(playerId, itemId) {
+    return new Promise((resolve, reject) => {
+      try {
+        if (typeof this.playerInventories[playerId][itemId] !== "undefined") {
+          resolve(this.playerInventories[playerId][itemId]);
+        } else {
+          resolve(null);
+        }
+      } catch (err) {
+        console.error(`Failed to get inventory item ${itemId} for player ${playerId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   getInventory(db, playerId) {
     playerId = playerId.toString();
     return new Promise(async (resolve, reject) => {
@@ -43,19 +76,30 @@ export const inventories = {
         if (Object.keys(this.playerInventories).indexOf(playerId) !== -1) {
           resolve(this.playerInventories[playerId]);
         } else {
-          let playerInventory = {};
-
-          let playerInventoryData = await db.methods.getPlayerInventory(playerId);
-          if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
-          if (playerInventoryData["inventoryString"] !== "") {
-            playerInventory = JSON.parse(playerInventoryData["inventoryString"]);
-          }
-
-          this.playerInventories[playerId] = playerInventory;
+          const playerInventory = await this.loadInventory(db, playerId);
           resolve(playerInventory);
         }
       } catch (err) {
         console.error(`Error getting inventory for ${playerId}:`, err);
+        reject(err);
+      }
+    });
+  },
+  loadInventory(db, playerId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let playerInventory = {};
+
+        let playerInventoryData = await db.methods.getPlayerInventory(playerId);
+        if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
+        if (playerInventoryData["inventoryString"] !== "") {
+          playerInventory = JSON.parse(playerInventoryData["inventoryString"]);
+        }
+
+        this.playerInventories[playerId] = playerInventory;
+        resolve(playerInventory);
+      } catch (err) {
+        console.error(`Error loading inventory for ${playerId}:`, err);
         reject(err);
       }
     });
