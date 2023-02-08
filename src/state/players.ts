@@ -2,9 +2,12 @@ import constants from "../simulation/constants/global";
 
 export const players = {
   currentActive: {},
-  login: login,
-  logout: logout,
-  isActive: isActive,
+  login,
+  logout,
+  isActiveId,
+  isActiveDiscordId,
+  getActiveById,
+  getActiveByDiscordId,
 };
 
 /**
@@ -13,9 +16,45 @@ export const players = {
  * @param {string} playerId - The player's unique identifier
  * @returns {boolean} - Returns true if the player is active, otherwise false
  */
-function isActive(playerId) {
+function isActiveId(playerId) {
   if (Object.keys(players.currentActive).indexOf(playerId) !== -1) return true;
   return false;
+}
+
+/**
+ * Check if the player is currently active using a discordId
+ * @function
+ * @param {string} discordId - The player's Discord ID
+ * @returns {boolean} - Returns true if the player is active, otherwise false
+ */
+function isActiveDiscordId(discordId) {
+  for (var key in players.currentActive) {
+    if (players.currentActive.hasOwnProperty(key) && players.currentActive[key].discordId === discordId) {
+      return true;
+    }
+  }
+}
+
+/**
+ * Get an active player by ID
+ * @param playerId - The player's unique identifier
+ * @returns {Object} - The players data
+ */
+function getActiveById(playerId) {
+  return players.currentActive[playerId];
+}
+
+/**
+ * Get an active player by Discord ID
+ * @param discordId - The player's Discord ID
+ * @returns {Object} - The players data
+ */
+function getActiveByDiscordId(discordId) {
+  for (var key in players.currentActive) {
+    if (players.currentActive.hasOwnProperty(key) && players.currentActive[key].discordId === discordId) {
+      return players.currentActive[key];
+    }
+  }
 }
 
 /**
@@ -30,7 +69,7 @@ function isActive(playerId) {
 async function login(db, simulation, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
-      let playerData = await db.methods.playerExists(BigInt(user.id));
+      let playerData = await db.methods.getPlayerDataByDiscordId(BigInt(user.id));
       if (!playerData) {
         console.log(`Creating new player ${user.username}`);
         playerData = await db.methods.createPlayer({
@@ -42,10 +81,10 @@ async function login(db, simulation, user) {
       } else {
         await db.methods.updateLastLogin(BigInt(playerData["id"]));
       }
-      const playerEntityId = await simulation.createPlayerEntity(user.id, constants.NEW_USER_ROOMNUM);
+      const playerEntityId = await simulation.createPlayerEntity(playerData.id, constants.NEW_USER_ROOMNUM);
       playerData["eid"] = playerEntityId;
       playerData["user"] = user;
-      players["currentActive"][user.id] = playerData;
+      players["currentActive"][playerData.id] = playerData;
       resolve(!playerData);
     } catch (err) {
       console.error(`Error logging in ${user.username}:`, err);
@@ -63,10 +102,10 @@ async function login(db, simulation, user) {
  * @param {object} user - The player's user object
  * @returns {Promise<void>} - Returns a promise that resolves when the player has been successfully logged out
  */
-async function logout(players, simulation, user) {
+async function logout(id, players, simulation, user) {
   return new Promise<void>((resolve, reject) => {
     try {
-      simulation.removePlayerEntity(players["currentActive"][user.id].eid);
+      simulation.removePlayerEntity(players["currentActive"][id].eid);
       delete players["currentActive"][user.id];
       resolve();
     } catch (error) {

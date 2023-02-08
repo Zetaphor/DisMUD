@@ -26,6 +26,7 @@ const playerMethods = {
       try {
         const newPlayerId = await createRecord(playersDBConn, "Players", data);
         const newPlayer = await getRecord(playersDBConn, "Players", "id", newPlayerId);
+        newPlayer["discordId"] = BigInt(newPlayer["discordId"]);
         resolve(newPlayer);
       } catch (err) {
         console.error(`Error creating player:`, err);
@@ -33,7 +34,18 @@ const playerMethods = {
       }
     });
   },
-  playerExists: (id: BigInt) => getRecord(playersDBConn, "Players", "discordId", id),
+  getPlayerDataByDiscordId: (discordId: BigInt) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const playerData = await getRecord(playersDBConn, "Players", "discordId", discordId);
+        if (playerData) playerData["discordId"] = BigInt(playerData["discordId"]);
+        resolve(playerData);
+      } catch (err) {
+        console.error(`Error checking if player exists:`, err);
+        reject(err);
+      }
+    });
+  },
   setPlayerName: (id: BigInt, name: String) =>
     updateRecord(playersDBConn, "Players", { id: id, displayName: name }, "id", id),
   setPlayerEnabled: (id: BigInt, enabled: Boolean) =>
