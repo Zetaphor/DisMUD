@@ -7,15 +7,15 @@ export const objectConstants = {
     3: `${emoji.magicWand} This is a magical wand.`, // Item is a magical wand.
     4: `${emoji.magicStaff} This is a magical staff.`, // Item is a magical staff.
     5: `${emoji.sword} This is a weapon.`, // Item is a weapon.
-    6: ``, // Currently not implemented.  Do not use.
-    7: ``, // Currently not implemented.  Do not use.
+    6: `This item should not have this property, report this to an admin!`, // Currently not implemented.  Do not use.
+    7: `This item should not have this property, report this to an admin!`, // Currently not implemented.  Do not use.
     8: `${emoji.treasure} This item is valuable treasure.`, // Item is treasure other than gold coins (e.g. gems)
     9: `${emoji.armor} This item can be worn as armor.`, // Item is armor.
     10: `${emoji.potion} This item is a magical potion.`, // Item is a magical potion.
-    11: ``, // Currently not implemented.  Do not use.
+    11: `This item should not have this property, report this to an admin!`, // Currently not implemented.  Do not use.
     12: `This is a miscellaneous object.`, // Miscellaneous object with no special properties.
     13: `${emoji.junk} This is item is junk.`, // Trash -- junked by cleaners, not bought by shopkeepers.
-    14: ``, // Currently not implemented.  Do not use.
+    14: `This item should not have this property, report this to an admin!`, // Currently not implemented.  Do not use.
     15: `${emoji.chest} This item is a container that can hold other items.`, // Item is a container.
     16: `${emoji.parchment} This is a note that you can leave notes on.`, // Item is a note (can be written on).
     17: `${emoji.bottle} This is a bottle that can be filled and drank from.`, // Item is a drink container.
