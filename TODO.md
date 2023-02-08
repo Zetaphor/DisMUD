@@ -6,3 +6,49 @@
 - Add a player aliases database, allow player to specify alias like "emote ${1}" or "example ${1} ${2}"
 - Implement look at objects in room, examine objects and mobs in room
 - Implement extra fields in examine
+
+## Commands
+
+### Read commands.hlp for more info on each
+
+! - Repeat last command
+alias, aliases
+assist - Start attacking something someone else is attacking
+auction, grats, gossip noauction, nogossip, nograts - Global channels
+autoexit - Toggles showing exits
+backstab - Attack
+bash - Attack
+brief - Only show room name and occupants/items
+consider - Determine if you can attack
+diagnose - Check wounds
+donate - Donate items to donation room
+eat, drink, sip, taste
+equipment - Show equipment
+fill - Fill container
+flee - Exit battle
+follow - Follow someone
+get, take
+give
+grab, hold
+kick
+kill, hit - Start attacking
+murder - Kill but only PVP
+norepeat - Don't echo communication
+noshout - Don't hear shouts
+notell - Ignore tells
+open, close, lock, unlock
+pick - pick locks
+pour
+quaff - Drink potion
+recite - Recite scroll
+save
+score - Show your stats
+time
+track
+use - Use a wand or staff
+wake, rest, sleep, sit, stand
+wear
+where
+who, online
+wield
+wimpy
