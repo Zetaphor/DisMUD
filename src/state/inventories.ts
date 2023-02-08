@@ -3,17 +3,41 @@ export const inventories = {
   setInventory(playerId, inventory) {
     this.playerInventories[playerId] = inventory;
   },
+  giveItem(playerId, itemData, quantity) {
+    playerId = playerId.toString();
     return new Promise<void>((resolve, reject) => {
       try {
-        this.playerInventories[discordId].push(itemData);
+        if (typeof this.playerInventories[playerId][itemData.id] !== "undefined") {
+          this.playerInventories[playerId][itemData.id]["qty"] += quantity;
+        } else {
+          this.playerInventories[playerId][itemData.id] = {
+            qty: quantity,
+            data: itemData,
+          };
+        }
         resolve();
       } catch (err) {
-        console.error(`Failed to give item to player ${discordId}: ${err}`);
+        console.error(`Failed to give item ${itemData.id} to player ${playerId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  removeItem(playerId, itemId) {
+    playerId = playerId.toString();
+    return new Promise<void>((resolve, reject) => {
+      try {
+        if (typeof this.playerInventories[playerId][itemId] !== "undefined") {
+          delete this.playerInventories[playerId][itemId];
+        }
+        resolve();
+      } catch (err) {
+        console.error(`Failed to remove item ${itemId} from player ${playerId}: ${err}`);
         reject(err);
       }
     });
   },
   getInventory(db, playerId) {
+    playerId = playerId.toString();
     return new Promise(async (resolve, reject) => {
       try {
         if (Object.keys(this.playerInventories).indexOf(playerId) !== -1) {
