@@ -6,6 +6,6 @@ export default async function listCommands(worldState, userData, msg) {
   if (Number(userData.admin)) availableCommands = adminCommandList.concat(availableCommands);
 
   userData.user.send(
-    `${emoji.scroll} _The following commmands are available to you:_\n**${availableCommands.join(", ")}**`
+    `${emoji.openScroll} _The following commmands are available to you:_\n**${availableCommands.join(", ")}**`
   );
 }
