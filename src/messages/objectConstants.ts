@@ -47,22 +47,22 @@ export const objectConstants = {
     q: `Shopkeepers will not buy or sell this item.`, // Shopkeepers will not buy or sell the item.
   },
 
-  wearable: {
-    a: `This item can be picked up off the ground.`, // Item can be taken (picked up off the ground).
-    b: `This item can be worn on the fingers.`, // Item can be worn on the fingers.
-    c: `This item can be worn around the neck.`, // Item can be worn around the neck.
-    d: `This item can be worn on the body.`, // Item can be worn on the body.
-    e: `This item can be worn on the head.`, // Item can be worn on the head.
-    f: `This item can be worn on the legs.`, // Item can be worn on the legs.
-    g: `This item can be worn on the feet.`, // Item can be worn on the feet.
-    h: `This item can be worn on the hands,`, // Item can be worn on the hands.
-    i: `This item can be worn on the arms.`, // Item can be worn on the arms.
-    j: `This item can be used as a shield.`, // Item can be used as a shield.
-    k: `This item can be worn about the body.`, // Item can be worn about the body.
-    l: `This item can be worn around the waist.`, // Item can be worn around the waist.
-    m: `This item can be worn around the wrist.`, // Item can be worn around the wrist.
-    n: `This item can be wielded.`, // Item can be wielded; e.g. weapons.
-    o: `This item can be held.`, // Item can be held (the ``hold'' command).
+  wear: {
+    1: `This item can be picked up off the ground.`, // Item can be taken (picked up off the ground).
+    2: `This item can be worn on the fingers.`, // Item can be worn on the fingers.
+    4: `This item can be worn around the neck.`, // Item can be worn around the neck.
+    8: `This item can be worn on the body.`, // Item can be worn on the body.
+    16: `This item can be worn on the head.`, // Item can be worn on the head.
+    32: `This item can be worn on the legs.`, // Item can be worn on the legs.
+    64: `This item can be worn on the feet.`, // Item can be worn on the feet.
+    128: `This item can be worn on the hands,`, // Item can be worn on the hands.
+    256: `This item can be worn on the arms.`, // Item can be worn on the arms.
+    512: `This item can be used as a shield.`, // Item can be used as a shield.
+    1024: `This item can be worn about the body.`, // Item can be worn about the body.
+    2048: `This item can be worn around the waist.`, // Item can be worn around the waist.
+    4096: `This item can be worn around the wrist.`, // Item can be worn around the wrist.
+    8192: `This item can be wielded.`, // Item can be wielded; e.g. weapons.
+    16384: `This item can be held.`, // Item can be held (the ``hold'' command).
   },
 };
 

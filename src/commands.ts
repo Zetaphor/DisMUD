@@ -1,5 +1,6 @@
 import loadItem from "./commands/admin/loadItem";
 import emote from "./commands/emote";
+import examine from "./commands/examine";
 import exits from "./commands/exits";
 import info from "./commands/info";
 import inventory from "./commands/inventory";
@@ -23,6 +24,7 @@ export const commands = {
   motd,
   inventory,
   look,
+  examine,
 };
 
 export const adminCommands = {
@@ -30,8 +32,6 @@ export const adminCommands = {
 };
 
 export const commandAliases = {
-  t: say,
-  m: move,
   n: move,
   north: move,
   e: move,
@@ -44,6 +44,9 @@ export const commandAliases = {
   up: move,
   d: move,
   down: move,
+
+  t: say,
+  m: move,
   go: move,
   ex: exits,
   em: emote,
