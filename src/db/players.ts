@@ -27,6 +27,14 @@ const playerMethods = {
     updateRecord(playersDBConn, "Players", { id: id, displayName: name }, "id", id),
   setPlayerEnabled: (id: BigInt, enabled: Boolean) =>
     updateRecord(playersDBConn, "Players", { id: id, enabled: enabled }, "id", id),
+  updateLastLogin: (id: BigInt) =>
+    updateRecord(
+      playersDBConn,
+      "Players",
+      { id: id, lastLogin: new Date().toISOString().slice(0, 19).replace("T", " ") },
+      "id",
+      id
+    ),
 };
 
 /**

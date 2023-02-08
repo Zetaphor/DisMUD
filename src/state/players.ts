@@ -40,6 +40,8 @@ async function login(db, simulation, user) {
           roomNum: constants.NEW_USER_ROOMNUM,
         });
         playerData = await db.methods.playerExists(BigInt(user.id));
+      } else {
+        await db.methods.updateLastLogin(BigInt(playerData["id"]));
       }
       const playerEntityId = await simulation.createPlayerEntity(user.id, constants.NEW_USER_ROOMNUM);
       playerData["eid"] = playerEntityId;
