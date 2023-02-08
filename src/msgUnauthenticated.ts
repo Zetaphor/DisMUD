@@ -9,7 +9,7 @@ import buildRoom from "./roomBuilder";
 export default async function msgUnauthenticated(worldState, msg) {
   if (msg.content.toLowerCase() === "login") {
     try {
-      const newPlayer = await worldState.players.login(worldState.db["players"], worldState.simulation, msg.user);
+      const newPlayer = await worldState.players.login(worldState, msg.user);
       systemMessages.loggedIn(msg.user);
       if (newPlayer) systemMessages.newPlayer(msg.user);
       else systemMessages.returningPlayer(msg.user);

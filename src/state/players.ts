@@ -66,22 +66,24 @@ function getActiveByDiscordId(discordId) {
  * @param {object} user - The player's user object
  * @returns {Promise<Object>} - Returns a promise that resolves to a boolean indicating whether the player was just created (true) or already exists (false)
  */
-async function login(db, simulation, user) {
+async function login(worldState, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
-      let playerData = await db.methods.getPlayerDataByDiscordId(BigInt(user.id));
+      let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(BigInt(user.id));
       if (!playerData) {
         console.log(`Creating new player ${user.username}`);
-        playerData = await db.methods.createPlayer({
+        playerData = await worldState.db["players"].methods.createPlayer({
           discordId: BigInt(user.id),
           discordUsername: `${user.username}#${user.discriminator}`,
           displayName: user.username,
           roomNum: constants.NEW_USER_ROOMNUM,
         });
+        console.log(`Creating new player ${user.username}'s inventory`);
+        await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
       } else {
-        await db.methods.updateLastLogin(BigInt(playerData["id"]));
+        await worldState.db["players"].methods.updateLastLogin(BigInt(playerData["id"]));
       }
-      const playerEntityId = await simulation.createPlayerEntity(playerData.id, constants.NEW_USER_ROOMNUM);
+      const playerEntityId = await worldState.simulation.createPlayerEntity(playerData.id, constants.NEW_USER_ROOMNUM);
       playerData["eid"] = playerEntityId;
       playerData["user"] = user;
       players["currentActive"][playerData.id] = playerData;
