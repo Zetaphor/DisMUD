@@ -19,6 +19,8 @@ export const emoji = {
   knight: "<:rpgknight:1072531539398770708>",
   cloak: "<:rpgcloak:1072531519547129936>",
   check: "<:rpgcheck:1072648338945622046>",
+  blind: "<:rpgblind:1072936023253864539>",
+  binoculars: "<:rpgbinoculars:1072936067197579384>",
 };
 
 export default emoji;
