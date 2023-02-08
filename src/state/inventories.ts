@@ -12,23 +12,25 @@ export const inventories = {
       }
     });
   },
-  getInventory(db, discordId) {
+  getInventory(db, playerId) {
     return new Promise(async (resolve, reject) => {
       try {
-        if (Object.keys(this.playerInventories).indexOf(discordId) !== -1) {
-          resolve(this.playerInventories[discordId]);
+        if (Object.keys(this.playerInventories).indexOf(playerId) !== -1) {
+          resolve(this.playerInventories[playerId]);
         } else {
           let playerInventory = {};
-          const playerInventoryData = await db.methods.getPlayerInventory(discordId);
-          console.log("playerInventoryData", playerInventoryData["inventoryString"]);
-          if (!playerInventoryData) await db.methods.initPlayerInventory(discordId);
-          if (playerInventoryData["inventoryString"] !== "")
+
+          let playerInventoryData = await db.methods.getPlayerInventory(playerId);
+          if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
+          if (playerInventoryData["inventoryString"] !== "") {
             playerInventory = JSON.parse(playerInventoryData["inventoryString"]);
-          this.playerInventories["discordId"] = playerInventory;
+          }
+
+          this.playerInventories[playerId] = playerInventory;
           resolve(playerInventory);
         }
       } catch (err) {
-        console.error(`Error getting inventory for ${discordId}:`, err);
+        console.error(`Error getting inventory for ${playerId}:`, err);
         reject(err);
       }
     });

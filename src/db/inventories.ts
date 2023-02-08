@@ -16,12 +16,23 @@ CREATE TABLE IF NOT EXISTS PlayerInventories (
 const createPlayerInventoryIndexes = `CREATE INDEX idx_playerId ON PlayerInventories (playerId);`;
 
 const playerInventoryMethods = {
-  getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "discordId", id),
-  initPlayerInventory: (id: BigInt) =>
-    createRecord(playerInventoriesDBConn, "PlayerInventories", { discordId: id, inventoryString: "" }),
+  getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "playerId", id),
+  initPlayerInventory: (id: BigInt) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const newInventoryId = await createRecord(playerInventoriesDBConn, "PlayerInventories", {
+          playerId: id,
+          inventoryString: "",
+        });
+        const newInventory = await getRecord(playerInventoriesDBConn, "PlayerInventories", "id", newInventoryId);
+        resolve(newInventory);
+      } catch (err) {
+        console.error(`Error initializing player inventory for ${id}:`, err);
+        reject(err);
+      }
+    });
+  },
   removePlayerInventory: (id: BigInt) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
-  addItem: (itemData: Object) => createRecord(playerInventoriesDBConn, "PlayerInventories", itemData),
-  removeItem: (id: BigInt) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
 };
 
 /**
