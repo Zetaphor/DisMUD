@@ -1,7 +1,9 @@
 import loadItem from "./commands/admin/loadItem";
+import balance from "./commands/balance";
 import emote from "./commands/emote";
 import examine from "./commands/examine";
 import exits from "./commands/exits";
+import gold from "./commands/gold";
 import info from "./commands/info";
 import inventory from "./commands/inventory";
 import listCommands from "./commands/listCommands";
@@ -25,6 +27,8 @@ export const commands = {
   inventory,
   look,
   examine,
+  gold,
+  balance,
 };
 
 export const adminCommands = {
@@ -45,11 +49,7 @@ export const commandAliases = {
   d: move,
   down: move,
 
-  t: say,
-  m: move,
   go: move,
-  ex: exits,
-  em: emote,
 };
 
 export const adminCommandList = Object.keys(adminCommands);

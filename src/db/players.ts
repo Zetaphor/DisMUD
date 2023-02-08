@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS Players (
   discordUsername TEXT,
   displayName TEXT,
   roomNum INTEGER,
+  gold INTEGER DEFAULT 10,
+  bank INTEGER DEFAULT 0,
   creationDate TEXT DEFAULT (datetime('now', 'utc')),
   lastLogin TEXT DEFAULT (datetime('now', 'utc')),
   enabled BOOLEAN DEFAULT true,
