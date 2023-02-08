@@ -71,8 +71,8 @@ export function createRecord(db: any, table: String, data: Object) {
         console.error(`${table} create error:`, err, "\n", query, "\n", values);
         reject();
       } else {
-        console.log(`${table} row(s) updated: ${this.changes}`);
-        resolve();
+        console.log(`${table} row(s) created: ${this.changes}`);
+        resolve(this.lastID);
       }
     });
   });
