@@ -2,7 +2,6 @@ import emoji from "../messages/emoji";
 import buildRoom from "../roomBuilder";
 
 export default async function look(worldState, userData, msg) {
-  console.log(msg.length, msg);
   if (msg[0] === "look") {
     const roomData = await worldState.rooms.getPlayerRoomData(worldState.simulation.world, userData.eid);
     buildRoom(userData.user, roomData);
@@ -31,6 +30,20 @@ export default async function look(worldState, userData, msg) {
         userData.user.send(`${emoji.blind} _You can't see anything in that direction_`);
       }
     } else {
+      const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
+      let matchedItem = null;
+      for (const id in inventoryAliases) {
+        if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
+          if (inventoryAliases[id].indexOf(msg[0]) !== -1) {
+            matchedItem = id;
+            break;
+          }
+        }
+      }
+      if (matchedItem !== null) {
+        const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
+        userData.user.send(`${emoji.examine} **${item.data.shortDesc}**\nItem data goes here!`);
+      } else userData.user.send(`${emoji.warning} _You don't have an item with that name_`);
       // TODO: Look at objects in inventory
     }
   }
