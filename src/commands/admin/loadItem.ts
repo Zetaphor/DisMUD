@@ -2,7 +2,7 @@ import emoji from "../../messages/emoji";
 
 export default async function loadItem(worldState, userData, msg) {
   try {
-    const item = await worldState.items.loadObjectData(worldState.db["items"], BigInt(msg[0]));
+    const item = await worldState.items.loadItemData(worldState.db["items"], BigInt(msg[0]));
     if (item) {
       const itemData = JSON.parse(item.data);
       let quantity = 1;
