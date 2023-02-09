@@ -1,4 +1,5 @@
 import Corpse from "../entities/Corpse";
+import Item from "../entities/Item";
 import Mob from "../entities/Mob";
 import Person from "../entities/Person";
 import Player from "../entities/Player";
@@ -12,4 +13,5 @@ export default {
   tree: Tree,
   person: Person,
   mob: Mob,
+  item: Item,
 };

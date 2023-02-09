@@ -63,6 +63,7 @@ export const rooms = {
     for (let i = 0; i < ents.length; i++) {
       if (Position.roomNum[ents[i]] === roomNum) itemList.push(ents[i]);
     }
+    return itemList;
   },
 };
 

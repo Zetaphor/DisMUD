@@ -112,7 +112,19 @@ export const simulation = {
     });
   },
   createItemEntity(itemData, roomNum) {
-    // TODO: implement
+    return new Promise((resolve, reject) => {
+      try {
+        const newEntity = createEntity(this.world, "item", {
+          item: { id: itemData.id },
+          position: { roomNum: roomNum },
+          scale: { scaleIndex: scaleIndexes.MEDIUM },
+        });
+        resolve(newEntity);
+      } catch (err) {
+        console.error(`Failed to create item entity #${itemData.id} ${itemData.shortDesc} in room #${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
   },
 };
 
