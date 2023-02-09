@@ -40,6 +40,7 @@ export const emoji = {
   blessed: "<:rpgblessed:1072962167910977576>",
   cursed: "<:rpgcursed:1072962120947347637>",
   aura: "<:rpgaura:1072962598129111040>",
+  drop: "<:rpgdrop:1073374931842256896>",
 };
 
 export default emoji;

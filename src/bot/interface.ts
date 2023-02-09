@@ -64,13 +64,13 @@ async function getUser(id) {
 
 botInterface.client.once(Events.ClientReady, (c) => {
   botId = c.user.id;
-  console.log(`Ready! Logged in as ${c.user.tag} with ID ${c.user.id}`);
+  console.info(`Ready! Logged in as ${c.user.tag} with ID ${c.user.id}`);
   botInterface.emit("ready", null);
 });
 
 botInterface.client.on(Events.MessageCreate, (msg) => {
   if (msg.author.id === botId) {
-    // console.log("Saw bot message");
+    // console.info("Saw bot message");
   } else {
     botInterface.emit("playerMsg", {
       user: msg.author,
@@ -80,7 +80,7 @@ botInterface.client.on(Events.MessageCreate, (msg) => {
 });
 
 export default function setupBotInterface() {
-  console.log("Starting bot...");
+  console.info("Starting bot...");
   botInterface.client.login(token);
   return botInterface;
 }
