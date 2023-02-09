@@ -1,6 +1,6 @@
 import emoji from "./emoji";
 
-export const objectConstants = {
+export const itemConstants = {
   types: {
     1: `${emoji.lantern} This item can be used to illuminate dark areas.`, // Item is a light source.
     2: `${emoji.scroll} This is a magical scroll.`, // Item is a magical scroll.
@@ -66,4 +66,4 @@ export const objectConstants = {
   },
 };
 
-export default objectConstants;
+export default itemConstants;

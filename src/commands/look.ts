@@ -1,5 +1,5 @@
 import emoji from "../messages/emoji";
-import objectConstants from "../messages/objectConstants";
+import itemConstants from "../messages/itemConstants";
 import buildRoom from "../roomBuilder";
 
 export default async function look(worldState, userData, msg) {
@@ -45,7 +45,7 @@ export default async function look(worldState, userData, msg) {
         const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
         userData.user.send(`
           ${emoji.examine} **${item.data.shortDesc}**\n
-          ${objectConstants.types[item.data.type]}
+          ${itemConstants.types[item.data.type]}
         `);
       } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
     }

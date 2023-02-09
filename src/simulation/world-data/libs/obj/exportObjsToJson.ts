@@ -1,4 +1,4 @@
-// Loads a obj text file, converts the objects to JSON, and exports a JSON file.
+// Loads a obj text file, converts the items to JSON, and exports a JSON file.
 import parseObjsFromObj from "./parseObjsFromObj";
 import parseObj from "./parseObj";
 

@@ -24,7 +24,7 @@ export const mobConstants = {
     BLIND: "a", // Mob is blind.
     INVISIBLE: "b", // Mob is invisible.
     DETECT_ALIGN: "c", // Mob is sensitive to the alignment of others.
-    DETECT_INVIS: "d", // Mob can see invisible characters and objects.
+    DETECT_INVIS: "d", // Mob can see invisible characters and items.
     DETECT_MAGIC: "e", // Mob is sensitive to magical presence.
     SENSE_LIFE: "f", // Mob can sense hidden life.
     WATERWALK: "g", // Mob can traverse unswimmable water sectors.

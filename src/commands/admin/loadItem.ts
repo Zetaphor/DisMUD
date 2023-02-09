@@ -2,16 +2,16 @@ import emoji from "../../messages/emoji";
 
 export default async function loadItem(worldState, userData, msg) {
   try {
-    const object = await worldState.objects.loadObjectData(worldState.db["objects"], BigInt(msg[0]));
-    if (object) {
-      const objectData = JSON.parse(object.data);
+    const item = await worldState.items.loadObjectData(worldState.db["items"], BigInt(msg[0]));
+    if (item) {
+      const itemData = JSON.parse(item.data);
       let quantity = 1;
       if (msg[1]) quantity = Number(msg[1]);
-      await worldState.inventories.giveItem(userData.id, objectData, quantity);
-      userData.user.send(`${emoji.check} Loaded ${quantity} \`${objectData.shortDesc}\` into your inventory`);
+      await worldState.inventories.giveItem(userData.id, itemData, quantity);
+      userData.user.send(`${emoji.check} Loaded ${quantity} \`${itemData.shortDesc}\` into your inventory`);
     }
   } catch (err) {
-    userData.user.send(`${emoji.error} Failed to load object #${msg[0]}`);
-    console.error(`Error loading object #${msg[0]}: ${err.message}`);
+    userData.user.send(`${emoji.error} Failed to load item #${msg[0]}`);
+    console.error(`Error loading item #${msg[0]}: ${err.message}`);
   }
 }

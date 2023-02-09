@@ -22,7 +22,7 @@ Contains a drop index and a quantity. Handled by the Destroying system
 
 ### Destroyed
 
-Marks an object for removal from the Destroying system
+Marks an entity for removal from the Destroying system
 
 ### Durability
 
@@ -58,7 +58,7 @@ Indicates that an entity is a mob
 
 ### Item
 
-Indicates tnat an entity is an object
+Indicates tnat an entity is an item
 
 ### MobStats
 

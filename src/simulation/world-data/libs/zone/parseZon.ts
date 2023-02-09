@@ -26,7 +26,7 @@ export default function parseZon(zone) {
         mobNum: lineParts[2],
         maxExisting: lineParts[3],
         roomNum: lineParts[4],
-        objects: [],
+        items: [],
         equip: [],
       };
       newZone["commands"].push(lastMob);
@@ -41,7 +41,7 @@ export default function parseZon(zone) {
       };
       newZone["commands"].push(lastObj);
     } else if (lineParts[0] === "G") {
-      lastMob["objects"].push(lineParts[2]);
+      lastMob["items"].push(lineParts[2]);
     } else if (lineParts[0] === "E") {
       lastMob["equip"].push({
         position: lineParts[4],

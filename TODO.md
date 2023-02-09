@@ -8,6 +8,7 @@
 - Implement extra fields in examine
 - Refactor health to use Stats component instead
 - Refactor health/death to not remove entity on death and instead add corpse tag. This will allow me to use the 0 "dead" state with strings and keep the mob/player data around
+- Replace object descriptors in examine with docs/objectModifiers.txt
 
 ## Commands
 

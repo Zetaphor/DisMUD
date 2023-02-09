@@ -1,5 +1,5 @@
 import initPlayerInventoriesDb from "./inventories";
-import initObjectsDb from "./objects";
+import initItemsDb from "./items";
 import initMobsDb from "./mobs";
 import initPlayersDb from "./players";
 import initRoomsDb from "./rooms";
@@ -16,7 +16,7 @@ async function initDatabases() {
     db["players"] = await initPlayersDb();
     db["playerInventories"] = await initPlayerInventoriesDb();
     db["mobs"] = await initMobsDb();
-    db["objects"] = await initObjectsDb();
+    db["items"] = await initItemsDb();
     db["rooms"] = await initRoomsDb();
     db["zones"] = await initZonesDb();
     return true;

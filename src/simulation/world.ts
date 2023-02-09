@@ -173,7 +173,7 @@ export default simulation;
 //   },
 // });
 
-// Set the object on fire
+// Set the entity on fire
 // addComponentWithProperty(world, "person", newEntity, "burning", "enabled", globalConstants.TRUE);
 
 // // Validate components

@@ -1,5 +1,5 @@
 import emoji from "../messages/emoji";
-import objectConstants from "../messages/objectConstants";
+import itemConstants from "../messages/itemConstants";
 
 export default async function examine(worldState, userData, msg) {
   if (msg[0] === "examine") {
@@ -22,15 +22,15 @@ export default async function examine(worldState, userData, msg) {
     const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
     let extras = "";
     for (let i = 0; i < item.data.extra.length; i++) {
-      extras += objectConstants.effects[item.data.extra[i]] + "\n";
+      extras += itemConstants.effects[item.data.extra[i]] + "\n";
     }
 
     userData.user.send(`
       ${emoji.examine} **${item.data.shortDesc}**\n
       ${emoji.coins} Value: ${item.data.cost}
-      ${objectConstants.types[item.data.type]}
+      ${itemConstants.types[item.data.type]}
       ${extras.slice(0, -2)}
-      ${objectConstants.wear[Number(item.data.wear) - 1]}
+      ${itemConstants.wear[Number(item.data.wear) - 1]}
     `);
   } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
 }

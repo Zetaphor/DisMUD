@@ -1,4 +1,4 @@
-// Converts an array of obj objects to JSON.
+// Converts an array of obj items to JSON.
 export default function parseObj(objText) {
   const lines = objText.split("\n");
   lines.splice(-1, 1);

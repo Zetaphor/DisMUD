@@ -2,14 +2,14 @@ const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
 
 try {
-  fs.unlinkSync(`src/databases/imported/objects.db`, (err) => {});
+  fs.unlinkSync(`src/databases/imported/items.db`, (err) => {});
 } catch (error) {}
 
-const db = new sqlite3.Database("src/databases/imported/objects.db");
+const db = new sqlite3.Database("src/databases/imported/items.db");
 
 db.serialize(() => {
   db.run(`
-  CREATE TABLE IF NOT EXISTS Objects (
+  CREATE TABLE IF NOT EXISTS Items (
     id INTEGER PRIMARY KEY,
     vNum INTEGER UNIQUE,
     data TEXT,
@@ -17,7 +17,7 @@ db.serialize(() => {
     lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
   );
 
-  CREATE INDEX idx_vNum ON Objects (vNum)
+  CREATE INDEX idx_vNum ON Items (vNum)
   `);
 
   fs.readdir("src/simulation/world-data/data/json/obj/", (err, files) => {
@@ -31,7 +31,7 @@ db.serialize(() => {
           const json = JSON.parse(content);
           for (let i = 0; i < json.length; i++) {
             const object = json[i];
-            db.run("INSERT INTO Objects (vNum, data) VALUES (?, ?)", [object.id, JSON.stringify(object)], (err) => {
+            db.run("INSERT INTO Items (vNum, data) VALUES (?, ?)", [object.id, JSON.stringify(object)], (err) => {
               if (err) throw err;
             });
           }

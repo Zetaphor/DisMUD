@@ -6,7 +6,7 @@ import msgUnauthenticated from "./msgUnauthenticated";
 import systemMessages from "./messages/system";
 import players from "./state/players";
 import inventories from "./state/inventories";
-import objects from "./state/objects";
+import items from "./state/items";
 import rooms from "./state/rooms";
 import mobs from "./state/mobs";
 
@@ -15,7 +15,7 @@ const worldState = {
   players,
   simulation,
   inventories,
-  objects,
+  items,
   rooms,
   mobs,
 };
