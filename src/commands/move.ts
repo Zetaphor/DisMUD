@@ -31,7 +31,7 @@ export default async function move(worldState, userData, msg) {
     await worldState.rooms.updatePlayerRoomNum(worldState.simulation.world, userData.eid, roomExits[moveDir].roomId);
     const newRoomData = await worldState.rooms.getPlayerRoomData(worldState.simulation.world, userData.eid);
     // console.log("newRoomData", newRoomData);
-    buildRoom(userData.user, newRoomData);
+    buildRoom(worldState, userData.user, newRoomData);
     // console.log(`move: ${userData.user.username}, ${moveDir}`);
   }
 }

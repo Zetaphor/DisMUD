@@ -2,7 +2,8 @@ export const roomMessages = {
   displayRoom(user, roomData) {
     user.send(`
     ☀️ **__${roomData.name}__**\n
-      ${roomData.desc}
+      ${roomData.desc}\n
+      ${roomData.mobDescriptions}
     `);
   },
 };
