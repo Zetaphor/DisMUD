@@ -52,6 +52,18 @@ Stores the current roomNum
 
 Uses the scaleIndex
 
-### Velocity
+### Mob
 
-Uses Vector2
+Indicates that an entity is a mob
+
+### Item
+
+Indicates tnat an entity is an object
+
+### MobStats
+
+Tracks mob stats
+
+### PlayerStats
+
+Tracks player stats
