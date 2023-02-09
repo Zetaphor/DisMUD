@@ -71,7 +71,7 @@ export function createRecord(db: any, table: String, data: Object) {
         console.error(`${table} create error:`, err, "\n", query, "\n", values);
         reject();
       } else {
-        console.log(`${table} row(s) created: ${this.changes}`);
+        console.info(`${table} row(s) created: ${this.changes}`);
         resolve(this.lastID);
       }
     });
@@ -92,7 +92,7 @@ export function removeRecord(db: any, table: String, id: BigInt) {
         console.error(`${table} delete error:`, err);
         reject();
       } else {
-        console.log(`${table} row(s) deleted: ${this.changes}`);
+        console.info(`${table} row(s) deleted: ${this.changes}`);
         resolve();
       }
     });
@@ -132,7 +132,7 @@ export function updateRecord(db: any, table: String, data: Object, whereName: St
         console.error("Update error:", err, "\n", query, "\n", setFields);
         reject();
       } else {
-        console.log(`${table} row(s) updated: ${this.changes}`);
+        console.info(`${table} row(s) updated: ${this.changes}`);
         resolve();
       }
     });
@@ -198,7 +198,7 @@ export function waitForFile(file: String) {
     const waitInterval = setInterval(() => {
       fs.unwatchFile(file);
       clearInterval(waitInterval);
-      console.log("Timed out waiting for file:", file);
+      console.info("Timed out waiting for file:", file);
       reject();
     }, 2000);
 
@@ -232,7 +232,7 @@ export async function initDb(filePath, tableName, createSql, createIndexSql = nu
         console.error(`Failed to open database ${filePath}:`, err);
         reject(err);
       }
-      console.log(`Connected to the ${tableName} database.`);
+      console.info(`Connected to the ${tableName} database.`);
       tableExists(newDBObject["conn"], tableName)
         .then((exists) => {
           if (exists) resolve(newDBObject);

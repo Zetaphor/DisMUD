@@ -19,7 +19,7 @@ export default async function msgUnauthenticated(worldState, msg) {
       );
       buildRoom(worldState, msg.user, roomData);
     } catch (err) {
-      console.log(`Failed to login ${msg.user.username}`, err);
+      console.error(`Failed to login ${msg.user.username}`, err);
       systemMessages.loginFailed(msg.user);
       worldState.players.logout();
       // worldState.simulation.removeWorldEntity(); // This is going to fail, there's no entity ID

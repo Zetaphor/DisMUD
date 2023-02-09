@@ -17,6 +17,6 @@ export default function setupWorld() {
     pipeline(world);
   }, 16);
 
-  console.log("World simulations started...");
+  console.info("World simulations started...");
   return world;
 }

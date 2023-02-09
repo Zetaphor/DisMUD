@@ -4,7 +4,6 @@ import parseWorld from "./parseWorld";
 const fs = require("fs");
 
 export default function getRoomData(worldNum, roomNum) {
-  console.log(`Loading room ${worldNum}/${roomNum}`);
   return new Promise((resolve, reject) => {
     fs.readFile(`src/simulation/world-data/data/circlemud/wld/${worldNum}.wld`, "utf-8", (err, data) => {
       if (err) {

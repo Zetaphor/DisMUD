@@ -106,7 +106,7 @@ export const simulation = {
         });
         resolve(newEntity);
       } catch (err) {
-        console.error(`Failed to create mob entity #${mobData.id} ${mobData.shortDesc}: ${err}`);
+        console.error(`Failed to create mob entity #${mobData.id} ${mobData.shortDesc} in room #${roomNum}: ${err}`);
         reject(err);
       }
     });

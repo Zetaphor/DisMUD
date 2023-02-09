@@ -25,7 +25,7 @@ async function startup() {
     simulation.start();
 
     await db.init();
-    console.log("Databases loaded...");
+    console.info("Databases loaded...");
 
     const botInterface = setupBotInterface();
     await botInterface.waitForEvent("ready");
