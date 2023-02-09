@@ -53,7 +53,7 @@ export const simulation = {
       }
     }
   },
-  removePlayerEntity(entityId) {
+  removeWorldEntity(entityId) {
     return new Promise<void>((resolve, reject) => {
       try {
         removeEntity(this.world, entityId);
