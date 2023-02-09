@@ -1,4 +1,4 @@
-import { createRecord, getRecord, initDb, removeRecord } from "./util";
+import { getRecord, initDb } from "./util";
 
 const dbPath = "src/databases/zones.db";
 
@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS Zones (
 
 const createZonesIndexes = `CREATE INDEX idx_vNum ON Zones (vNum);`;
 
-const mobMethods = {};
+const zonesMethods = {
+  getZoneData: (vnum: BigInt) => getRecord(zonesDBConn, "Zones", "vnum", vnum),
+};
 
 /**
  * Initializes the zones database.
@@ -26,7 +28,7 @@ export default function initZonesDb() {
   return new Promise(async (resolve, reject) => {
     try {
       const zonesDBObject = await initDb(dbPath, "Zones", createZonesTable, createZonesIndexes);
-      zonesDBObject["methods"] = mobMethods;
+      zonesDBObject["methods"] = zonesMethods;
       zonesDBConn = zonesDBObject["conn"];
       resolve(zonesDBObject);
     } catch (err) {

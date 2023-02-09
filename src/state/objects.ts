@@ -1,5 +1,5 @@
 export const objects = {
-  loadObject(db, vNum) {
+  loadObjectData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
         const object = await db.methods.getObjectData(vNum);

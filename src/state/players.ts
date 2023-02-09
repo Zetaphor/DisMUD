@@ -116,7 +116,7 @@ async function login(worldState, user) {
 async function logout(id, players, simulation, user) {
   return new Promise<void>((resolve, reject) => {
     try {
-      simulation.removePlayerEntity(players["currentActive"][id].eid);
+      simulation.removeWorldEntity(players["currentActive"][id].eid);
       delete players["currentActive"][user.id];
       resolve();
     } catch (error) {
@@ -127,9 +127,7 @@ async function logout(id, players, simulation, user) {
 }
 
 function initPlayerStats() {
-  return {
-    equipment,
-  };
+  return {};
 }
 
 export default players;

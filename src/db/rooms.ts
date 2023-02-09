@@ -1,4 +1,4 @@
-import { initDb } from "./util";
+import { getRecord, initDb } from "./util";
 
 const dbPath = "src/databases/rooms.db";
 
@@ -17,7 +17,9 @@ CREATE TABLE IF NOT EXISTS Rooms (
 
 const createRoomIndexes = `CREATE INDEX idx_vNum ON Rooms (vNum)`;
 
-const mobMethods = {};
+const roomsMethods = {
+  getRoomData: (vnum: BigInt) => getRecord(roomsDBConn, "Rooms", "vnum", vnum),
+};
 
 /**
  * Initializes the rooms database.
@@ -27,7 +29,7 @@ export default function initRoomsDb() {
   return new Promise(async (resolve, reject) => {
     try {
       const roomsDBObject = await initDb(dbPath, "Rooms", createRoomsTable, createRoomIndexes);
-      roomsDBObject["methods"] = mobMethods;
+      roomsDBObject["methods"] = roomsMethods;
       roomsDBConn = roomsDBObject["conn"];
       resolve(roomsDBObject);
     } catch (err) {

@@ -1,4 +1,4 @@
-import { initDb } from "./util";
+import { getRecord, initDb } from "./util";
 
 const dbPath = "src/databases/mobs.db";
 
@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS Mobs (
 
 const createMobIndexes = `CREATE INDEX idx_vNum ON Mobs (vNum);`;
 
-const mobMethods = {};
+const mobMethods = {
+  getMobData: (vnum: BigInt) => getRecord(mobsDBConn, "Mobs", "vnum", vnum),
+};
 
 /**
  * Initializes the mobs database.
