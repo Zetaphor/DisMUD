@@ -5,7 +5,7 @@ export const objects = {
         const object = await db.methods.getObjectData(vNum);
         resolve(object);
       } catch (err) {
-        console.error(`Error loading object ${vNum}: ${err.message}`);
+        console.error(`Error loading object #${vNum}: ${err.message}`);
         reject(err);
       }
     });
