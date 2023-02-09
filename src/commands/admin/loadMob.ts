@@ -16,7 +16,7 @@ export default async function loadMob(worldState, userData, msg) {
     for (let i = 0; i < quantity; i++) {
       const newMobId = await worldState.mobs.placeMob(worldState, mobData, roomNum);
       userData.user.send(
-        `${emoji.check} Loaded mob ${mobData.id} \`${mobData.shortDesc}\` to entity #${newMobId} in room #${roomNum}`
+        `${emoji.check} Loaded mob #${mobData.id} \`${mobData.shortDesc}\` to entity #${newMobId} in room #${roomNum}`
       );
     }
   } catch (err) {
