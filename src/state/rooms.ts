@@ -1,3 +1,4 @@
+import { defineQuery } from "bitecs";
 import getRoomData from "../simulation/world-data/libs/world/getRoomData";
 
 export const rooms = {
@@ -40,6 +41,28 @@ export const rooms = {
         reject(err);
       }
     });
+  },
+  getMobsInRoom(world, roomNum) {
+    const Mob = world._components["mob"];
+    const Position = world._components["position"];
+    const mobQuery = defineQuery([Mob]);
+    const ents = mobQuery(world);
+
+    let mobList = [];
+    for (let i = 0; i < ents.length; i++) {
+      if (Position.roomNum[ents[i]] === roomNum) mobList.push(ents[i]);
+    }
+    return mobList;
+  },
+  getItemsInRoom(world, roomNum) {
+    const Item = world._components["item"];
+    const Position = world._components["position"];
+    const itemQuery = defineQuery([Item]);
+    const ents = itemQuery(world);
+    let itemList = [];
+    for (let i = 0; i < ents.length; i++) {
+      if (Position.roomNum[ents[i]] === roomNum) itemList.push(ents[i]);
+    }
   },
 };
 
