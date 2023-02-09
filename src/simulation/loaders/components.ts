@@ -15,6 +15,7 @@ import Killable from "../components/Killable";
 import Player from "../components/Player";
 import MobStats from "../components/MobStats";
 import PlayerStats from "../components/PlayerStats";
+import Mob from "../components/Mob";
 
 export default {
   breakable: Breakable,
@@ -32,6 +33,7 @@ export default {
   age: Age,
   killable: Killable,
   player: Player,
+  mob: Mob,
   mobStats: MobStats,
   playerStats: PlayerStats,
 };
