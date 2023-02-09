@@ -13,7 +13,7 @@ const mortalitySystem = (world) => {
   for (let i = 0; i < ents.length; i++) {
     const eid = ents[i];
     if (hasComponent(world, Killable, eid) && Killable.enabled[eid] === globalConstants.TRUE) {
-      if (Health.val[eid] <= Health.min[eid]) {
+      if (Health.val[eid] <= 0) {
         console.log(`Killing ${eid} from ${lookupDamageIndex(Health.damageIndex[eid])}`);
         addComponent(world, Destroyed, eid);
       }

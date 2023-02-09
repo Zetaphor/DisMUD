@@ -20,7 +20,7 @@ export const simulation = {
           scale: { scaleIndex: scaleIndexes.MEDIUM },
           mortal: { enabled: globalConstants.FALSE },
           killable: { enabled: globalConstants.TRUE },
-          health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
+          health: { val: 100, max: 100, damageIndex: damageIndexes.NONE },
           deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
           age: {
             val: 0,

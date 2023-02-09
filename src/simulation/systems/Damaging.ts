@@ -12,8 +12,8 @@ const damagingSystem = (world) => {
   for (let i = 0; i < healthEnts.length; i++) {
     const eid = healthEnts[i];
     Health.val[eid] -= Damage.val[eid];
-    if (Health.val[eid] < Health.min[eid]) {
-      Health.val[eid] = Health.min[eid];
+    if (Health.val[eid] < 0) {
+      Health.val[eid] = 0;
     }
     console.log(`Damaged ${eid} health with ${Damage.val[eid]} damage`);
     removeComponent(world, Damage, eid);

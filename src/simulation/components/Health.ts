@@ -4,7 +4,6 @@ import { defineComponent, Types } from "bitecs";
 // When Killable enabled and below min, destroy entity
 export const Health = defineComponent({
   val: Types.ui16,
-  min: Types.ui16,
   max: Types.ui16,
   damageIndex: Types.ui16,
 });

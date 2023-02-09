@@ -6,6 +6,7 @@
 - Add a player aliases database, allow player to specify alias like "emote ${1}" or "example ${1} ${2}"
 - Implement look at objects in room, examine objects and mobs in room
 - Implement extra fields in examine
+- Refactor health to use Stats component instead
 
 ## Commands
 
