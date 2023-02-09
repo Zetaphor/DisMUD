@@ -72,6 +72,7 @@ export const simulation = {
         const attackDamange = diceRoll(mobData.bareHandDamage);
 
         const newEntity = createEntity(this.world, "mob", {
+          mob: { id: mobData.id },
           position: { roomNum: roomNum },
           scale: { scaleIndex: scaleIndexes.MEDIUM },
           mortal: { enabled: globalConstants.FALSE },
@@ -110,16 +111,8 @@ export const simulation = {
       }
     });
   },
-  removeWorldEntity(entityId) {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        removeEntity(this.world, entityId);
-        resolve();
-      } catch (err) {
-        console.error(`Failed to remove player entity ${entityId}: ${err}`);
-        reject(err);
-      }
-    });
+  createItemEntity(itemData, roomNum) {
+    // TODO: implement
   },
 };
 

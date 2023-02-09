@@ -1,6 +1,6 @@
 export const Mob = {
   components: [
-    "Mob",
+    "mob",
     "health",
     "flammable",
     "position",

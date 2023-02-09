@@ -5,7 +5,7 @@ import buildRoom from "../roomBuilder";
 export default async function look(worldState, userData, msg) {
   if (msg[0] === "look") {
     const roomData = await worldState.rooms.getPlayerRoomData(worldState.simulation.world, userData.eid);
-    buildRoom(userData.user, roomData);
+    buildRoom(worldState, userData.user, roomData);
   } else {
     let moveDir = "";
     if (msg[0] === "n" || msg[0] === "north") {

@@ -2,7 +2,7 @@ import emoji from "../../messages/emoji";
 
 export default async function loadMob(worldState, userData, msg) {
   try {
-    let roomNum = worldState.rooms.getPlayerRoomNum(worldState.simulation.world, userData.id);
+    let roomNum = worldState.rooms.getPlayerRoomNum(worldState.simulation.world, userData.eid);
     let quantity = 1;
     if (msg.length > 1) {
       if (msg[1] !== "here") roomNum = Number(msg[1]);
@@ -15,7 +15,9 @@ export default async function loadMob(worldState, userData, msg) {
 
     for (let i = 0; i < quantity; i++) {
       const newMobId = await worldState.mobs.placeMob(worldState, mobData, roomNum);
-      userData.user.send(`${emoji.check} Loaded mob ${mobData.id} to entity #${newMobId} in room #${roomNum}`);
+      userData.user.send(
+        `${emoji.check} Loaded mob ${mobData.id} \`${mobData.shortDesc}\` to entity #${newMobId} in room #${roomNum}`
+      );
     }
   } catch (err) {
     userData.user.send(`${emoji.error} Failed to load mob #${msg[0]}`);

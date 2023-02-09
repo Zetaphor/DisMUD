@@ -12,7 +12,7 @@ export const mobs = {
       }
     });
   },
-  placeMob(worldState, mobData, roomNum: BigInt) {
+  placeMob(worldState, mobData, roomNum) {
     return new Promise(async (resolve, reject) => {
       try {
         const mobId = await worldState.simulation.createMobEntity(mobData, roomNum);
