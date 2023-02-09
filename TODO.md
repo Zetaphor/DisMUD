@@ -7,6 +7,7 @@
 - Implement look at objects in room, examine objects and mobs in room
 - Implement extra fields in examine
 - Refactor health to use Stats component instead
+- Refactor health/death to not remove entity on death and instead add corpse tag. This will allow me to use the 0 "dead" state with strings and keep the mob/player data around
 
 ## Commands
 

@@ -1,3 +1,4 @@
+import mobConstants from "./messages/mobConstants";
 import roomMessages from "./messages/room";
 
 /**
@@ -23,7 +24,7 @@ export default function buildRoom(worldState, user, roomData) {
         if (MobStats.state[mobId] === MobStats.defaultState[mobId]) {
           mobDescriptions += `${mobData.longDesc}\n`;
         } else {
-          mobDescriptions += `${mobData.shortDesc}\n`;
+          mobDescriptions += `${mobData.shortDesc} ${mobConstants.positions[MobStats.state[mobId]]}\n`;
         }
       }
 
