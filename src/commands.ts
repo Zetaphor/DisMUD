@@ -1,6 +1,7 @@
 import loadItem from "./commands/admin/loadItem";
 import loadMob from "./commands/admin/loadMob";
 import balance from "./commands/balance";
+import drop from "./commands/drop";
 import emote from "./commands/emote";
 import examine from "./commands/examine";
 import exits from "./commands/exits";
@@ -30,6 +31,7 @@ export const commands = {
   examine,
   gold,
   balance,
+  drop,
 };
 
 export const adminCommands = {
