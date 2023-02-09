@@ -1,5 +1,5 @@
 import { addComponent, defineQuery } from "bitecs";
-import constants from "../constants/global";
+import globalConstants from "../constants/global";
 import { lookupDamageIndex } from "../indexes/damageIndexes";
 
 const breakingSystem = (world) => {
@@ -12,7 +12,7 @@ const breakingSystem = (world) => {
   const ents = breakableQuery(world);
   for (let i = 0; i < ents.length; i++) {
     const eid = ents[i];
-    if (Breakable.enabled[eid] === constants.TRUE) {
+    if (Breakable.enabled[eid] === globalConstants.TRUE) {
       if (Durability.val[eid] <= Durability.min[eid]) {
         console.log(`Breaking ${eid} from ${lookupDamageIndex(Breakable.damageIndex[eid])}`);
         addComponent(world, Destroyed, eid);

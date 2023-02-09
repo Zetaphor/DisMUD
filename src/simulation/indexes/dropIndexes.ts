@@ -1,4 +1,4 @@
-import constants from "../constants/global";
+import globalConstants from "../constants/global";
 import { lookupDamageIndex, damageIndexes } from "./damageIndexes";
 import { scaleIndexes } from "./scaleIndexes";
 
@@ -23,12 +23,12 @@ const dropIndexData = {
       position: { x: 0, y: 0 },
       durability: { val: 100, min: 0, max: 100 },
       breakable: {
-        enabled: constants.TRUE,
+        enabled: globalConstants.TRUE,
         damageIndex: lookupDamageIndex(damageIndexes.NONE),
       },
       flammable: {
-        enabled: constants.TRUE,
-        causesDamage: constants.TRUE,
+        enabled: globalConstants.TRUE,
+        causesDamage: globalConstants.TRUE,
         damage: 10,
       },
       scale: { scaleIndex: scaleIndexes.SMALL },

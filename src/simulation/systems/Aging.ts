@@ -1,5 +1,5 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
-import constants from "../constants/global";
+import globalConstants from "../constants/global";
 
 const agingSystem = (world) => {
   const Age = world._components["age"];
@@ -20,7 +20,7 @@ const agingSystem = (world) => {
     }
 
     // Check if we're immortal
-    if (hasComponent(world, Mortal, eid) && Mortal.enabled[eid] === constants.TRUE) {
+    if (hasComponent(world, Mortal, eid) && Mortal.enabled[eid] === globalConstants.TRUE) {
       //If not, destroy if too old
       if (Age.val[eid] >= Age.max[eid]) {
         addComponent(world, Destroyed, eid);

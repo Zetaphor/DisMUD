@@ -1,4 +1,4 @@
-import constants from "../simulation/constants/global";
+import globalConstants from "../simulation/constants/global";
 
 export const players = {
   currentActive: {},
@@ -77,7 +77,7 @@ async function login(worldState, user) {
           discordId: BigInt(user.id),
           discordUsername: `${user.username}#${user.discriminator}`,
           displayName: user.username,
-          roomNum: constants.NEW_USER_ROOMNUM,
+          roomNum: globalConstants.NEW_USER_ROOMNUM,
         });
         console.log(`Creating new player ${user.username}'s inventory`);
         await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
@@ -89,7 +89,10 @@ async function login(worldState, user) {
         worldState.inventories.setInventory(playerData.id, playerInventory);
         await worldState.db["players"].methods.updateLastLogin(BigInt(playerData["id"]));
       }
-      const playerEntityId = await worldState.simulation.createPlayerEntity(playerData.id, constants.NEW_USER_ROOMNUM);
+      const playerEntityId = await worldState.simulation.createPlayerEntity(
+        playerData.id,
+        globalConstants.NEW_USER_ROOMNUM
+      );
       playerData["eid"] = playerEntityId;
       playerData["user"] = user;
       players["currentActive"][playerData.id] = playerData;

@@ -1,5 +1,5 @@
 import setupWorld from "./loaders/world";
-import constants from "./constants/global";
+import globalConstants from "./constants/global";
 import createEntity from "./utils/createEntity";
 import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
@@ -18,8 +18,8 @@ export const simulation = {
           player: { id: playerId },
           position: { roomNum: roomNum },
           scale: { scaleIndex: scaleIndexes.MEDIUM },
-          mortal: { enabled: constants.FALSE },
-          killable: { enabled: constants.TRUE },
+          mortal: { enabled: globalConstants.FALSE },
+          killable: { enabled: globalConstants.TRUE },
           health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
           deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
           age: {
@@ -30,8 +30,8 @@ export const simulation = {
             lastTick: 0,
           },
           flammable: {
-            enabled: constants.TRUE,
-            causesDamage: constants.TRUE,
+            enabled: globalConstants.TRUE,
+            causesDamage: globalConstants.TRUE,
             damage: 10,
           },
         });
@@ -71,8 +71,8 @@ export default simulation;
 // const newEntity = createEntity(world, "person", {
 //   position: { x: 0, y: 0 },
 //   scale: { scaleIndex: scaleIndexes.MEDIUM },
-//   mortal: { enabled: constants.FALSE },
-//   killable: { enabled: constants.TRUE },
+//   mortal: { enabled: globalConstants.FALSE },
+//   killable: { enabled: globalConstants.TRUE },
 //   health: { val: 100, max: 100, min: 0, damageIndex: damageIndexes.NONE },
 //   deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
 //   age: {
@@ -83,8 +83,8 @@ export default simulation;
 //     lastTick: 0,
 //   },
 //   flammable: {
-//     enabled: constants.TRUE,
-//     causesDamage: constants.TRUE,
+//     enabled: globalConstants.TRUE,
+//     causesDamage: globalConstants.TRUE,
 //     damage: 10,
 //   },
 // });
@@ -92,12 +92,12 @@ export default simulation;
 // const newEntity = createEntity(world, "tree", {
 //   position: { x: 0, y: 0 },
 //   durability: { val: 100, min: 0, max: 100 },
-//   breakable: { enabled: constants.TRUE, damageIndex: damageIndexes.NONE },
+//   breakable: { enabled: globalConstants.TRUE, damageIndex: damageIndexes.NONE },
 //   deathDrops: { dropIndex: dropIndexes.WOOD, qty: 1 },
 //   scale: { scaleIndex: scaleIndexes.LARGE },
 //   flammable: {
-//     enabled: constants.TRUE,
-//     causesDamage: constants.TRUE,
+//     enabled: globalConstants.TRUE,
+//     causesDamage: globalConstants.TRUE,
 //     damage: 10,
 //   },
 //   age: {
@@ -107,24 +107,24 @@ export default simulation;
 //     tickRate: 1,
 //     lastTick: 0,
 //   },
-//   mortal: { enabled: constants.FALSE },
+//   mortal: { enabled: globalConstants.FALSE },
 // });
 
 // const newEntity = createEntity(world, "wood", {
 //   position: { x: 0, y: 0 },
 //   durability: { val: 100, min: 0, max: 100 },
-//   breakable: { enabled: constants.TRUE, damageIndex: damageIndexes.NONE },
+//   breakable: { enabled: globalConstants.TRUE, damageIndex: damageIndexes.NONE },
 //   scale: { scaleIndex: scaleIndexes.MEDIUM },
 //   deathDrops: { dropIndex: dropIndexes.WOOD, qty: 1 },
 //   flammable: {
-//     enabled: constants.TRUE,
-//     causesDamage: constants.TRUE,
+//     enabled: globalConstants.TRUE,
+//     causesDamage: globalConstants.TRUE,
 //     damage: 10,
 //   },
 // });
 
 // Set the object on fire
-// addComponentWithProperty(world, "person", newEntity, "burning", "enabled", constants.TRUE);
+// addComponentWithProperty(world, "person", newEntity, "burning", "enabled", globalConstants.TRUE);
 
 // // Validate components
 // console.log(newEntity);

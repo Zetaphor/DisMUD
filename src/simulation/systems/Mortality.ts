@@ -1,5 +1,5 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
-import constants from "../constants/global";
+import globalConstants from "../constants/global";
 import { lookupDamageIndex } from "../indexes/damageIndexes";
 
 const mortalitySystem = (world) => {
@@ -12,7 +12,7 @@ const mortalitySystem = (world) => {
   const ents = healthQuery(world);
   for (let i = 0; i < ents.length; i++) {
     const eid = ents[i];
-    if (hasComponent(world, Killable, eid) && Killable.enabled[eid] === constants.TRUE) {
+    if (hasComponent(world, Killable, eid) && Killable.enabled[eid] === globalConstants.TRUE) {
       if (Health.val[eid] <= Health.min[eid]) {
         console.log(`Killing ${eid} from ${lookupDamageIndex(Health.damageIndex[eid])}`);
         addComponent(world, Destroyed, eid);

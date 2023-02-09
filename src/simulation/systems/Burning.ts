@@ -1,5 +1,5 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
-import constants from "../constants/global";
+import globalConstants from "../constants/global";
 import { damageIndexes } from "../indexes/damageIndexes";
 
 const burningSystem = (world) => {
@@ -15,9 +15,9 @@ const burningSystem = (world) => {
     const eid = ents[i];
 
     if (
-      Burning.enabled[eid] === constants.TRUE &&
-      Flammable.enabled[eid] === constants.TRUE &&
-      Flammable.causesDamage[eid] === constants.TRUE
+      Burning.enabled[eid] === globalConstants.TRUE &&
+      Flammable.enabled[eid] === globalConstants.TRUE &&
+      Flammable.causesDamage[eid] === globalConstants.TRUE
     ) {
       if (hasComponent(world, Damage, eid)) {
         Damage.val[eid] += Flammable.damage[eid];
@@ -27,7 +27,7 @@ const burningSystem = (world) => {
       }
 
       if (hasComponent(world, Breakable, eid)) {
-        if (Breakable.enabled[eid] === constants.TRUE) {
+        if (Breakable.enabled[eid] === globalConstants.TRUE) {
           Breakable.damageIndex[eid] = damageIndexes.BURNED;
         }
       }
