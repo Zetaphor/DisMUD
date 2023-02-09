@@ -27,13 +27,13 @@ export const Stats = defineComponent({
   damRoll: Types.i32,
   savingHit: Types.i32,
   savingSpell: Types.i32,
-  hp: Types.i32,
-  hpMax: Types.i32,
+  hp: Types.ui32,
+  hpMax: Types.ui32,
   hpMod: Types.i32,
-  level: Types.i32,
-  exp: Types.i32,
-  position: Types.i8,
-  gender: Types.i8,
+  level: Types.ui32,
+  exp: Types.ui32,
+  state: Types.ui8,
+  gender: Types.ui8,
 });
 
 export default Stats;

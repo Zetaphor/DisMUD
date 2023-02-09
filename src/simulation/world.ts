@@ -12,6 +12,17 @@ export const simulation = {
   start() {
     this.world = setupWorld();
   },
+  removeWorldEntity(entityId) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        removeEntity(this.world, entityId);
+        resolve();
+      } catch (err) {
+        console.error(`Failed to remove entity ${entityId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   createPlayerEntity(playerId, roomNum) {
     return new Promise((resolve, reject) => {
       try {

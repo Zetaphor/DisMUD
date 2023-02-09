@@ -1,5 +1,5 @@
 export const mobs = {
-  activeMobs: {},
+  activeMobs: {}, // { mobEID: mobData }
 
   loadMobData(db, vNum) {
     return new Promise(async (resolve, reject) => {
