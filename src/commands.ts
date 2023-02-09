@@ -1,4 +1,5 @@
 import loadItem from "./commands/admin/loadItem";
+import loadMob from "./commands/admin/loadMob";
 import balance from "./commands/balance";
 import emote from "./commands/emote";
 import examine from "./commands/examine";
@@ -33,6 +34,7 @@ export const commands = {
 
 export const adminCommands = {
   loaditem: loadItem,
+  loadmob: loadMob,
 };
 
 export const commandAliases = {

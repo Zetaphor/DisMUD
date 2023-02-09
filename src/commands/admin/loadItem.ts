@@ -12,6 +12,6 @@ export default async function loadItem(worldState, userData, msg) {
     }
   } catch (err) {
     userData.user.send(`${emoji.error} Failed to load object #${msg[0]}`);
-    console.error(`Error loading object ${msg[0]}: ${err.message}`);
+    console.error(`Error loading object #${msg[0]}: ${err.message}`);
   }
 }

@@ -8,7 +8,7 @@ import players from "./state/players";
 import inventories from "./state/inventories";
 import objects from "./state/objects";
 import rooms from "./state/rooms";
-import playerStats from "./state/playerStats";
+import mobs from "./state/mobs";
 
 const worldState = {
   db,
@@ -17,7 +17,7 @@ const worldState = {
   inventories,
   objects,
   rooms,
-  playerStats,
+  mobs,
 };
 
 async function startup() {

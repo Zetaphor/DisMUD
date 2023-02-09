@@ -29,6 +29,7 @@ export const playerStatConstants = {
         hp: 25,
         hpMax: 25,
         hpMod: 3,
+        state: 8,
       },
     },
     cleric: {
@@ -60,6 +61,7 @@ export const playerStatConstants = {
         hp: 16,
         hpMax: 16,
         hpMod: 6,
+        state: 8,
       },
     },
     theif: {
@@ -91,6 +93,7 @@ export const playerStatConstants = {
         hp: 19,
         hpMax: 19,
         hpMod: 13,
+        state: 8,
       },
     },
     wizard: {
@@ -122,6 +125,7 @@ export const playerStatConstants = {
         hp: 16,
         hpMax: 16,
         hpMod: 6,
+        state: 8,
       },
     },
   },

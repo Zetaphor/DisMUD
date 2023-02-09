@@ -5,6 +5,7 @@ import { damageIndexes } from "./indexes/damageIndexes";
 import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
 import { defineQuery, removeEntity } from "bitecs";
+import diceRoll from "./utils/diceRoll";
 
 export const simulation = {
   world: null,
@@ -37,7 +38,7 @@ export const simulation = {
         });
         resolve(newEntity);
       } catch (err) {
-        console.error(`Failed to craete player entity ${playerId}: ${err}`);
+        console.error(`Failed to create player entity ${playerId}: ${err}`);
         reject(err);
       }
     });
@@ -52,6 +53,51 @@ export const simulation = {
         return ents[i];
       }
     }
+  },
+  createMobEntity(mobData, roomNum) {
+    return new Promise((resolve, reject) => {
+      try {
+        const maxHp = diceRoll(mobData.maxHP);
+        const attackDamange = diceRoll(mobData.bareHandDamage);
+
+        const newEntity = createEntity(this.world, "mob", {
+          position: { roomNum: roomNum },
+          scale: { scaleIndex: scaleIndexes.MEDIUM },
+          mortal: { enabled: globalConstants.FALSE },
+          killable: { enabled: globalConstants.TRUE },
+          health: { val: maxHp, max: maxHp, damageIndex: damageIndexes.NONE },
+          deathDrops: { dropIndex: dropIndexes.CORPSE, qty: 1 },
+          age: {
+            val: 0,
+            max: 5,
+            adultAge: 5,
+            tickRate: 1,
+            lastTick: 0,
+          },
+          flammable: {
+            enabled: globalConstants.TRUE,
+            causesDamage: globalConstants.TRUE,
+            damage: 10,
+          },
+          mobStats: {
+            alignment: Number(mobData.alignment),
+            level: Number(mobData.level),
+            ac: Number(mobData.armorClass),
+            exp: Number(mobData.xp),
+            gold: Number(mobData.gold),
+            gender: Number(mobData.gender),
+            loadState: Number(mobData.loadPosition),
+            defaultState: Number(mobData.defaultPosition),
+            state: Number(mobData.defaultPosition),
+            attackDamange: Number(attackDamange),
+          },
+        });
+        resolve(newEntity);
+      } catch (err) {
+        console.error(`Failed to create mob entity #${mobData.id} ${mobData.shortDesc}: ${err}`);
+        reject(err);
+      }
+    });
   },
   removeWorldEntity(entityId) {
     return new Promise<void>((resolve, reject) => {

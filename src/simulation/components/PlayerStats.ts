@@ -2,6 +2,7 @@ import { defineComponent, Types } from "bitecs";
 
 // Used to define an entities stats
 export const Stats = defineComponent({
+  alignment: Types.i32,
   str: Types.i32,
   strMod: Types.i32,
   dex: Types.i32,
@@ -29,6 +30,10 @@ export const Stats = defineComponent({
   hp: Types.i32,
   hpMax: Types.i32,
   hpMod: Types.i32,
+  level: Types.i32,
+  exp: Types.i32,
+  position: Types.i8,
+  gender: Types.i8,
 });
 
 export default Stats;
