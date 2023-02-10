@@ -10,7 +10,7 @@ export default function say(worldState, userData, msg) {
       false,
       `${emoji.speak} ${userData.displayName} says "${msg.join(" ")}"`
     );
-    console.log(`${userData.user.username} says: ${msg.join(" ")}`);
+    // console.info(`${userData.user.username} says: ${msg.join(" ")}`);
   } catch (error) {
     console.error(`Error using say ${msg}: ${error}`);
     userData.user.send(`${emoji.error} _Something went wrong!_`);

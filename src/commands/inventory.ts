@@ -29,7 +29,7 @@ export default async function say(worldState, userData, msg) {
       `);
     }
   } catch (err) {
-    console.error(`Error using say ${msg}: ${err}`);
+    console.error(`Error using inventory ${msg}: ${err}`);
     userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }
