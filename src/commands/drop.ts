@@ -1,7 +1,4 @@
 import emoji from "../messages/emoji";
-import itemConstants from "../messages/itemConstants";
-import buildRoom from "../roomBuilder";
-import broadcasts from "../state/broadcasts";
 
 export default async function look(worldState, userData, msg) {
   const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
@@ -22,7 +19,7 @@ export default async function look(worldState, userData, msg) {
     await worldState.items.placeItem(worldState, item.data, roomNum);
 
     userData.user.send(`${emoji.drop} _You dropped ${item.data.shortDesc} to the ground_`);
-    broadcasts.sendToRoom(
+    worldState.broadcasts.sendToRoom(
       worldState,
       roomNum,
       userData.eid,

@@ -18,7 +18,7 @@ export default function buildRoom(worldState, user, roomData) {
 
       for (let i = 0; i < roomMobs.length; i++) {
         const mobId = roomMobs[i];
-        const mobData = worldState.mobs["activeMobs"][mobId];
+        const mobData = worldState.mobs.getActiveMobData(mobId);
         const MobStats = worldState.simulation.world["_components"]["mobStats"];
         if (MobStats.state[mobId] === MobStats.defaultState[mobId]) {
           mobDescriptions += `${mobData.longDesc}\n`;
