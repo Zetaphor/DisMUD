@@ -39,96 +39,49 @@ export default async function look(worldState, userData, msg) {
         return;
       }
     } else {
-      let foundLookTarget = false;
-      let targetData = null;
-      let targetingObject = false;
-      let targetingObjectInventory = false;
+      let target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
 
-      const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
-      for (const id in inventoryAliases) {
-        if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
-          if (inventoryAliases[id].indexOf(msg[0]) !== -1) {
-            targetData = await worldState.inventories.getInventoryItem(userData.id, id);
-            targetData = targetData["data"];
-            targetingObject = true;
-            targetingObjectInventory = true;
-            break;
-          }
-        }
-      }
-
-      // We didn't find an object in inventory, look in the room
-      if (!targetingObject) {
-        const roomItems = worldState.rooms.getItemsInRoom(worldState.simulation.world, roomNum);
-
-        for (let i = 0; i < roomItems.length; i++) {
-          const roomItemData = worldState.items.getActiveItemData(roomItems[i]);
-          for (let i = 0; i < roomItemData.aliases.length; i++) {
-            if (roomItemData.aliases[i].indexOf(msg[0]) !== -1) {
-              targetData = roomItemData;
-              targetingObject = true;
-              i = roomItemData.aliases.length;
-            }
-          }
-        }
-      }
-
-      // We didn't find any objects, look for mobs
-      if (!targetingObject) {
-        const roomMobs = worldState.rooms.getMobsInRoom(worldState.simulation.world, roomNum);
-
-        for (let i = 0; i < roomMobs.length; i++) {
-          const roomMobData = worldState.mobs.getActiveMobData(roomMobs[i]);
-          for (let i = 0; i < roomMobData.aliases.length; i++) {
-            if (roomMobData.aliases[i].indexOf(msg[0]) !== -1) {
-              targetData = roomMobData;
-              targetingObject = false;
-              i = roomMobData.aliases.length;
-            }
-          }
-        }
-      }
-
-      if (targetData === null) {
+      if (target.type === "") {
         userData.user.send(`${emoji.question} _You do not see that here._`);
-        return;
-      } else if (targetingObject) {
+      } else if (target.type === "inventory") {
         let itemTitle = `${emoji.examine} **${
-          targetData.shortDesc.charAt(0).toUpperCase() + targetData.shortDesc.slice(1)
-        }**`;
-        if (targetingObjectInventory) itemTitle += " _(In Inventory)_";
-        itemTitle += "\n";
+          target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
+        }** _(In Inventory)_\n`;
         userData.user.send(`
-            ${itemTitle}${itemConstants.types[targetData.type]}
-          `);
-        if (targetingObjectInventory) {
-          worldState.broadcasts.sendToRoom(
-            worldState,
-            roomNum,
-            userData.eid,
-            false,
-            `${emoji.eye} _${userData.displayName} looks at an object in their inventory._`
-          );
-        } else {
-          worldState.broadcasts.sendToRoom(
-            worldState,
-            roomNum,
-            userData.eid,
-            false,
-            `${emoji.eye} _${userData.displayName} looks at ${targetData.shortDesc}._`
-          );
-        }
-      } else {
+          ${itemTitle}${itemConstants.types[target.data.type]}
+        `);
+        worldState.broadcasts.sendToRoom(
+          worldState,
+          roomNum,
+          userData.eid,
+          false,
+          `${emoji.eye} _${userData.displayName} looks at an object in their inventory._`
+        );
+      } else if (target.type === "item") {
+        let itemTitle = `${emoji.examine} **${
+          target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
+        }**\n`;
         userData.user.send(`
-            ${emoji.examine} _You look at ${targetData.shortDesc}_\n
-            ${targetData.detailedDesc}
+          ${itemTitle}${itemConstants.types[target.data.type]}
+        `);
+        worldState.broadcasts.sendToRoom(
+          worldState,
+          roomNum,
+          userData.eid,
+          false,
+          `${emoji.eye} _${userData.displayName} looks at ${target.data.shortDesc}._`
+        );
+      } else if (target.type === "mob") {
+        userData.user.send(`
+            ${emoji.examine} _You look at ${target.data.shortDesc}_\n
+            ${target.data.detailedDesc}
           `);
         worldState.broadcasts.sendToRoom(
           worldState,
           roomNum,
           userData.eid,
           false,
-          `${emoji.eye} _${userData.displayName} looks at ${targetData.shortDesc}._`
+          `${emoji.eye} _${userData.displayName} looks at ${target.data.shortDesc}._`
         );
       }
     }
