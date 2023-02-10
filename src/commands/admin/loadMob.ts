@@ -18,6 +18,13 @@ export default async function loadMob(worldState, userData, msg) {
       userData.user.send(
         `${emoji.check} Loaded mob #${mobData.id} \`${mobData.shortDesc}\` to entity #${newMobId} in room #${roomNum}`
       );
+      worldState.broadcasts.sendToRoom(
+        worldState,
+        roomNum,
+        userData.eid,
+        false,
+        `${emoji.sparkles} _${userData.displayName} mutters an incantation and ${mobData.shortDesc} magically appears!_`
+      );
     }
   } catch (err) {
     userData.user.send(`${emoji.error} Failed to load mob #${msg[0]}`);

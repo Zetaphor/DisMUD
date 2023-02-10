@@ -73,6 +73,8 @@ export const mobs = {
       worldState.broadcasts.sendToRoom(
         worldState,
         oldRoomNum,
+        -1,
+        false,
         `${emoji.exit} _${mobData.shortDesc} leaves ${directionNames[direction]}._`
       );
 
@@ -80,6 +82,8 @@ export const mobs = {
         worldState.broadcasts.sendToRoom(
           worldState,
           exitData[direction]["roomId"],
+          -1,
+          false,
           `${emoji.enter} _${mobData.shortDesc} has arrived._`
         );
       }

@@ -9,6 +9,14 @@ export default async function loadItem(worldState, userData, msg) {
       if (msg[1]) quantity = Number(msg[1]);
       await worldState.inventories.giveItem(userData.id, itemData, quantity);
       userData.user.send(`${emoji.check} Loaded ${quantity} \`${itemData.shortDesc}\` into your inventory`);
+      const roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
+      worldState.broadcasts.sendToRoom(
+        worldState,
+        roomNum,
+        userData.eid,
+        false,
+        `${emoji.sparkles} _${userData.displayName} mutters an incantation in an unknown language._`
+      );
     }
   } catch (err) {
     userData.user.send(`${emoji.error} Failed to load item #${msg[0]}`);

@@ -25,6 +25,8 @@ export default async function look(worldState, userData, msg) {
     broadcasts.sendToRoom(
       worldState,
       roomNum,
+      userData.eid,
+      false,
       `_${emoji.drop} ${userData.displayName} dropped ${item.data.shortDesc} to the ground._`
     );
   } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);

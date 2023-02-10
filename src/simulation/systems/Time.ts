@@ -41,7 +41,7 @@ const hoursPerDay = 24n;
 const daysPerMonth = 30n; // 1 month = 210 hours = 8.75 days
 const monthsPerYear = 17n; // 1 year = 3,750 hours = 148.75 days = ~6 months
 
-const moveTickRate = 10; // Move every 10 seconds
+const moveTickRate = 15; // Move every 10 seconds
 
 const ticksPerHour = BigInt(ticksPerDay / hoursPerDay);
 const ticksPerMonth = BigInt(ticksPerDay * daysPerMonth);

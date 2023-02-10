@@ -5,6 +5,8 @@ export default function say(worldState, userData, msg) {
   worldState.broadcasts.sendToRoom(
     worldState,
     roomNum,
+    userData.eid,
+    false,
     `${emoji.speak} ${userData.displayName} says "${msg.join(" ")}"`
   );
   console.log(`${userData.user.username} says: ${msg.join(" ")}`);

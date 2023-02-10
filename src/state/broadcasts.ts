@@ -1,9 +1,10 @@
 export const broadcasts = {
-  sendToRoom(worldState, roomNum, message) {
+  sendToRoom(worldState, roomNum, senderId, localBroadcast, message) {
     return new Promise<void>((resolve, reject) => {
       try {
         const roomPlayers = worldState.rooms.getPlayersInRoom(worldState.simulation.world, roomNum);
         for (let i = 0; i < roomPlayers.length; i++) {
+          if (roomPlayers[i] === senderId && !localBroadcast) continue;
           const player = worldState.players.getActiveByEntityId(roomPlayers[i]);
           player.user.send(message);
         }

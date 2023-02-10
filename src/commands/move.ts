@@ -32,7 +32,23 @@ export default async function move(worldState, userData, msg) {
   } else if (roomExits[moveDir].roomId === -1) {
     userData.user.send(`${emoji.error} _You can't go that way!_`);
   } else {
+    const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
+
     await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, userData.eid, roomExits[moveDir].roomId);
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      oldRoomNum,
+      userData.eid,
+      false,
+      `${emoji.exit} _${userData.displayName} leaves ${moveDir}._`
+    );
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      roomExits[moveDir].roomId,
+      userData.eid,
+      false,
+      `${emoji.enter} _${userData.displayName} has arrived._`
+    );
     const newRoomData = await worldState.rooms.getEntityRoomData(
       worldState.db["rooms"],
       worldState.simulation.world,
