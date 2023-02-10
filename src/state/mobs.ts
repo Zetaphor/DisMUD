@@ -16,6 +16,7 @@ export const mobs = {
     return new Promise(async (resolve, reject) => {
       try {
         const mobId = await worldState.simulation.createMobEntity(mobData, roomNum);
+        mobData.items = {};
         this.activeMobs[mobId] = mobData;
         resolve(mobId);
       } catch (err) {
