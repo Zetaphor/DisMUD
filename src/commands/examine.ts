@@ -2,35 +2,76 @@ import emoji from "../messages/emoji";
 import itemConstants from "../messages/itemConstants";
 
 export default async function examine(worldState, userData, msg) {
-  if (msg[0] === "examine") {
-    userData.user.send(`${emoji.question} _Examine what?_`);
-    return;
-  }
+  const roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
+  let target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
 
-  // TODO: Implment examining at object and mobs in room
-  const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
-  let matchedItem = null;
-  for (const id in inventoryAliases) {
-    if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
-      if (inventoryAliases[id].indexOf(msg[0]) !== -1) {
-        matchedItem = id;
-        break;
-      }
-    }
-  }
-  if (matchedItem !== null) {
-    const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
+  if (target.type === "") {
+    userData.user.send(`${emoji.question} _You do not see that here._`);
+  } else if (target.type === "inventory") {
+    let itemTitle = `${emoji.examine} **${
+      target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
+    }** _(In Inventory)_\n`;
+
     let extras = "";
-    for (let i = 0; i < item.data.extra.length; i++) {
-      extras += itemConstants.effects[item.data.extra[i]] + "\n";
+    for (let i = 0; i < target.data.extra.length; i++) {
+      extras += itemConstants.effects[target.data.extra[i]] + "\n";
     }
 
     userData.user.send(`
-      ${emoji.examine} **${item.data.shortDesc}**\n
-      ${emoji.coins} Value: ${item.data.cost}
-      ${itemConstants.types[item.data.type]}
+      ${itemTitle}
+      ${emoji.coins} Value: ${target.data.cost}
+      ${itemConstants.types[target.data.type]}
       ${extras.slice(0, -2)}
-      ${itemConstants.wear[Number(item.data.wear) - 1]}
+      ${itemConstants.wear[Number(target.data.wear) - 1]}
     `);
-  } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
+
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      roomNum,
+      userData.eid,
+      true,
+      `${emoji.examine} _${userData.displayName} closely examines an object in their inventory._`
+    );
+  } else if (target.type === "item") {
+    if (!Number(userData.admin)) {
+      userData.user.send(`${emoji.error} _You need to be holding that in order to examine it more closely!_`);
+      return;
+    }
+
+    let itemTitle = `${emoji.examine} **${
+      target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
+    }**\n`;
+
+    let extras = "";
+    for (let i = 0; i < target.data.extra.length; i++) {
+      extras += itemConstants.effects[target.data.extra[i]] + "\n";
+    }
+
+    userData.user.send(`
+      ${itemTitle}
+      ${emoji.coins} Value: ${target.data.cost}
+      ${itemConstants.types[target.data.type]}
+      ${extras.slice(0, -2)}
+      ${itemConstants.wear[Number(target.data.wear) - 1]}
+    `);
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      roomNum,
+      userData.eid,
+      true,
+      `${emoji.examine} _${userData.displayName} closely examines ${target.data.shortDesc}._`
+    );
+  } else if (target.type === "mob") {
+    userData.user.send(`
+        ${emoji.examine} _You look at ${target.data.shortDesc}_\n
+        ${target.data.detailedDesc}
+      `);
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      roomNum,
+      userData.eid,
+      true,
+      `${emoji.examine} _${userData.displayName} closely examines ${target.data.shortDesc}._`
+    );
+  }
 }
