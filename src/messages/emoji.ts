@@ -43,6 +43,8 @@ export const emoji = {
   drop: "<:rpgdrop:1073374931842256896>",
   enter: "<:rpgenter:1073668220248137748>",
   exit: "<:rpgexit:1073668175574605975>",
+  speak: "<:rpgspeak:1073669166181130290>",
+  info: "<:rpginfo:1073671519928074250>",
 };
 
 export default emoji;

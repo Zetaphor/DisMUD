@@ -1,3 +1,6 @@
-export default function say(worldState, userData, msg) {
-  console.info(`${userData.user.username} emotes: ${msg.join(" ")}`);
+import emoji from "../messages/emoji";
+
+export default function emote(worldState, userData, msg) {
+  const roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
+  worldState.broadcasts.sendToRoom(worldState, roomNum, `${emoji.info} _${userData.displayName} ${msg.join(" ")}_`);
 }
