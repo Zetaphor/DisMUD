@@ -6,7 +6,7 @@ export const players = {
   logout,
   isActiveId,
   isActiveDiscordId,
-  getActiveById,
+  getActiveByEntityId,
   getActiveByDiscordId,
 };
 
@@ -37,11 +37,15 @@ function isActiveDiscordId(discordId) {
 
 /**
  * Get an active player by ID
- * @param playerId - The player's unique identifier
+ * @param eid - The player's entity ID
  * @returns {Object} - The players data
  */
-function getActiveById(playerId) {
-  return players.currentActive[playerId];
+function getActiveByEntityId(eid) {
+  for (var key in players.currentActive) {
+    if (players.currentActive.hasOwnProperty(key) && players.currentActive[key].eid === eid) {
+      return players.currentActive[key];
+    }
+  }
 }
 
 /**

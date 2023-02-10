@@ -10,6 +10,7 @@ import items from "./state/items";
 import rooms from "./state/rooms";
 import mobs from "./state/mobs";
 import timedStateFunctions from "./state/timedStateFunctions";
+import broadcasts from "./state/broadcasts";
 
 const worldState = {
   db,
@@ -20,6 +21,7 @@ const worldState = {
   items,
   rooms,
   mobs,
+  broadcasts,
 };
 
 async function startup() {
