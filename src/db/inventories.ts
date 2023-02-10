@@ -52,7 +52,7 @@ export default function initPlayerInventoriesDb() {
       playerInventoriesDBConn = playerInventoriesDBObject["conn"];
       resolve(playerInventoriesDBObject);
     } catch (err) {
-      console.error(`Error initializing player inventories database: ${err.message}`);
+      console.error(`Error initializing player inventories database: ${err}`);
       reject(err);
     }
   });

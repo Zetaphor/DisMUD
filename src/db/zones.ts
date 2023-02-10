@@ -32,7 +32,7 @@ export default function initZonesDb() {
       zonesDBConn = zonesDBObject["conn"];
       resolve(zonesDBObject);
     } catch (err) {
-      console.error(`Error initializing zones database: ${err.message}`);
+      console.error(`Error initializing zones database: ${err}`);
       reject(err);
     }
   });

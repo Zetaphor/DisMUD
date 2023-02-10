@@ -32,7 +32,7 @@ export default function initItemsDb() {
       itemsDBConn = itemsDBObject["conn"];
       resolve(itemsDBObject);
     } catch (err) {
-      console.error(`Error initializing items database: ${err.message}`);
+      console.error(`Error initializing items database: ${err}`);
       reject(err);
     }
   });

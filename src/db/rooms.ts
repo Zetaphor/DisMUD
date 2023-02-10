@@ -33,7 +33,7 @@ export default function initRoomsDb() {
       roomsDBConn = roomsDBObject["conn"];
       resolve(roomsDBObject);
     } catch (err) {
-      console.error(`Error initializing rooms database: ${err.message}`);
+      console.error(`Error initializing rooms database: ${err}`);
       reject(err);
     }
   });

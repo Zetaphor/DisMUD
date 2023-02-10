@@ -7,7 +7,7 @@ export const items = {
         const object = await db.methods.getItemData(vNum);
         resolve(object);
       } catch (err) {
-        console.error(`Error loading object #${vNum}: ${err.message}`);
+        console.error(`Error loading object #${vNum}: ${err}`);
         reject(err);
       }
     });
@@ -19,7 +19,7 @@ export const items = {
         this.activeItems[objectId] = objectData;
         resolve(objectId);
       } catch (err) {
-        console.error(`Error placing object ${objectData.id} in room #${roomNum}: ${err.message}`);
+        console.error(`Error placing object ${objectData.id} in room #${roomNum}: ${err}`);
         reject(err);
       }
     });

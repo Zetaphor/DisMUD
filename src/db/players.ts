@@ -74,7 +74,7 @@ export default function initPlayersDb() {
       playersDBObject["methods"] = playerMethods;
       resolve(playersDBObject);
     } catch (err) {
-      console.error(`Error initializing players database: ${err.message}`);
+      console.error(`Error initializing players database: ${err}`);
       reject(err);
     }
   });

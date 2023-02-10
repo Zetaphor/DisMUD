@@ -10,7 +10,7 @@ export const mobs = {
         const mob = await db.methods.getMobData(vNum);
         resolve(mob);
       } catch (err) {
-        console.error(`Error loading mob ${vNum}: ${err.message}`);
+        console.error(`Error loading mob ${vNum}: ${err}`);
         reject(err);
       }
     });
@@ -27,7 +27,7 @@ export const mobs = {
         this.activeMobs[mobId] = mobData;
         resolve(mobId);
       } catch (err) {
-        console.error(`Error placing mob ${mobData.id} in room #${roomNum}: ${err.message}`);
+        console.error(`Error placing mob ${mobData.id} in room #${roomNum}: ${err}`);
         reject(err);
       }
     });
@@ -39,7 +39,7 @@ export const mobs = {
         delete this.activeMobs[mobId];
         resolve();
       } catch (err) {
-        console.error(`Error removing mob ${mobId}: ${err.message}`);
+        console.error(`Error removing mob ${mobId}: ${err}`);
         reject(err);
       }
     });

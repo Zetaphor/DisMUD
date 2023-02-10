@@ -32,7 +32,7 @@ export default function initMobsDb() {
       mobsDBConn = mobsDBObject["conn"];
       resolve(mobsDBObject);
     } catch (err) {
-      console.error(`Error initializing mobs database: ${err.message}`);
+      console.error(`Error initializing mobs database: ${err}`);
       reject(err);
     }
   });
