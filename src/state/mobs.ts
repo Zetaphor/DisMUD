@@ -1,4 +1,5 @@
 import { defineQuery } from "bitecs";
+import emoji from "../messages/emoji";
 import globalConstants from "../simulation/constants/global";
 
 export const mobs = {
@@ -72,14 +73,14 @@ export const mobs = {
       worldState.broadcasts.sendToRoom(
         worldState,
         oldRoomNum,
-        `${mobData.shortDesc} leaves ${directionNames[direction]}.`
+        `${emoji.exit} _${mobData.shortDesc} leaves ${directionNames[direction]}._`
       );
 
       if (exitData[direction]["roomId"] !== -1) {
         worldState.broadcasts.sendToRoom(
           worldState,
           exitData[direction]["roomId"],
-          `${mobData.shortDesc} has arrived.`
+          `${emoji.enter} _${mobData.shortDesc} has arrived._`
         );
       }
     }

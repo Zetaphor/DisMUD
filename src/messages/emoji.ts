@@ -41,6 +41,8 @@ export const emoji = {
   cursed: "<:rpgcursed:1072962120947347637>",
   aura: "<:rpgaura:1072962598129111040>",
   drop: "<:rpgdrop:1073374931842256896>",
+  enter: "<:rpgenter:1073668220248137748>",
+  exit: "<:rpgexit:1073668175574605975>",
 };
 
 export default emoji;
