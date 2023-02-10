@@ -96,6 +96,70 @@ export const rooms = {
     }
     return itemList;
   },
+  targetAlias(worldState, userId, roomNum, targetObject, targetInventory, targetMob, alias) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let targetData = null;
+        let targetType = "";
+
+        if (targetInventory) {
+          const inventoryAliases = await worldState.inventories.getInventoryAliases(userId);
+          for (const id in inventoryAliases) {
+            if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
+              if (inventoryAliases[id].indexOf(alias) !== -1) {
+                targetData = await worldState.inventories.getInventoryItem(userId, id);
+                targetData = targetData["data"];
+                targetType = "inventory";
+                break;
+              }
+            }
+          }
+        }
+
+        // We didn't find an object in inventory, look in the room
+        if (targetObject && targetData === null) {
+          const roomItems = worldState.rooms.getItemsInRoom(worldState.simulation.world, roomNum);
+
+          for (let i = 0; i < roomItems.length; i++) {
+            const roomItemData = worldState.items.getActiveItemData(roomItems[i]);
+            for (let i = 0; i < roomItemData.aliases.length; i++) {
+              if (roomItemData.aliases[i].indexOf(alias) !== -1) {
+                targetData = roomItemData;
+                targetType = "item";
+                i = roomItemData.aliases.length;
+              }
+            }
+          }
+        }
+
+        // We didn't find any objects, look for mobs
+        if (targetMob && targetData === null) {
+          const roomMobs = worldState.rooms.getMobsInRoom(worldState.simulation.world, roomNum);
+
+          for (let i = 0; i < roomMobs.length; i++) {
+            const roomMobData = worldState.mobs.getActiveMobData(roomMobs[i]);
+            for (let i = 0; i < roomMobData.aliases.length; i++) {
+              if (roomMobData.aliases[i].indexOf(alias) !== -1) {
+                targetData = roomMobData;
+                targetType = "mob";
+                i = roomMobData.aliases.length;
+              }
+            }
+          }
+
+          // TODO: Target extra room aliases
+        }
+
+        resolve({
+          type: targetType,
+          data: targetData,
+        });
+      } catch (err) {
+        console.error(`Error getting target alias for room ${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
+  },
 };
 
 export default rooms;
