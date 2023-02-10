@@ -9,7 +9,6 @@ import Health from "../components/Health";
 import Mortal from "../components/Mortal";
 import Position from "../components/Position";
 import Scale from "../components/Scale";
-import Velocity from "../components/Velocity";
 import Age from "../components/Age";
 import Killable from "../components/Killable";
 import Player from "../components/Player";
@@ -27,7 +26,6 @@ export default {
   health: Health,
   mortal: Mortal,
   position: Position,
-  velocity: Velocity,
   scale: Scale,
   deathDrops: DeathDrops,
   destroyed: Destroyed,
