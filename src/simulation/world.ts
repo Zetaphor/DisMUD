@@ -6,6 +6,8 @@ import { scaleIndexes } from "./indexes/scaleIndexes";
 import { dropIndexes } from "./indexes/dropIndexes";
 import { defineQuery, removeEntity } from "bitecs";
 import diceRoll from "./utils/diceRoll";
+import { hasBitvector } from "./utils/bitvectors";
+import mobConstants from "./constants/mobs";
 
 export const simulation = {
   world: null,
@@ -71,9 +73,15 @@ export const simulation = {
         const maxHp = diceRoll(mobData.maxHP);
         const attackDamange = diceRoll(mobData.bareHandDamage);
 
+        let wanderingEnabled = globalConstants.TRUE;
+
+        if (hasBitvector(mobConstants.ACTION_BITVECTOR.SENTINEL, mobData.actionBitVector)) {
+          wanderingEnabled = globalConstants.FALSE;
+        }
+
         const newEntity = createEntity(this.world, "mob", {
           mob: { id: mobData.id },
-          wander: { enabled: globalConstants.TRUE, pending: globalConstants.FALSE, lastTick: lastTick },
+          wander: { enabled: wanderingEnabled, pending: globalConstants.FALSE, lastTick: lastTick },
           position: { roomNum: roomNum },
           scale: { scaleIndex: scaleIndexes.MEDIUM },
           mortal: { enabled: globalConstants.FALSE },

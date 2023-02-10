@@ -55,6 +55,7 @@ export const mobConstants = {
     if (alignment <= -350) return this.ALIGNMENT.EVIL;
     else if (alignment <= 349) return this.ALIGNMENT.NEUTRAL;
     else return this.ALIGNMENT.GOOD;
-  },  ;
+  },
+};
 
 export default mobConstants;
