@@ -15,7 +15,7 @@ export default async function look(worldState, userData, msg) {
   }
   if (matchedItem !== null) {
     const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
-    let roomNum = worldState.rooms.getPlayerRoomNum(worldState.simulation.world, userData.eid);
+    let roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
 
     await worldState.inventories.updateQuanity(userData.id, item.data.id, -1);
     await worldState.items.placeItem(worldState, item.data, roomNum);

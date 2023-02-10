@@ -13,8 +13,8 @@ const agingSystem = (world) => {
     const eid = ents[i];
 
     // Increment age if tickRate has passed
-    if (world.time.ticks - Age.lastTick[eid] >= Age.tickRate[eid]) {
-      Age.lastTick[eid] = world.time.ticks;
+    if (world.time.ticks - BigInt(Age.lastTick[eid]) >= BigInt(Age.tickRate[eid])) {
+      Age.lastTick[eid] = Number(world.time.ticks);
       Age.val[eid] += 1;
       // console.log(`Age of ${eid} is now ${Age.val[eid]}`);
     }

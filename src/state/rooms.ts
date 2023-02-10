@@ -15,32 +15,44 @@ export const rooms = {
       }
     });
   },
-  getPlayerRoomNum(world, playerEntityId) {
+  getEntityRoomNum(world, entityId) {
     const Position = world._components["position"];
-    return Position.roomNum[playerEntityId];
+    return Position.roomNum[entityId];
   },
-  async getPlayerRoomData(world, playerEntityId) {
-    return this.getRoomData(this.getPlayerRoomNum(world, playerEntityId));
+  async getEntityRoomData(world, entityId) {
+    return this.getRoomData(this.getEntityRoomNum(world, entityId));
   },
   async getRoomExits(roomNum) {
     const roomData = await this.getRoomData(roomNum);
     return roomData.exits;
   },
-  async getPlayerRoomExits(world, playerEntityId) {
-    const roomData = await this.getPlayerRoomData(world, playerEntityId);
+  async getEntityRoomExits(world, entityId) {
+    const roomData = await this.getEntityRoomData(world, entityId);
     return roomData.exits;
   },
-  updatePlayerRoomNum(world, playerEntityId, roomNum) {
+  updateEntityRoomNum(world, entityId, roomNum) {
     return new Promise<void>((resolve, reject) => {
       try {
         const Position = world._components["position"];
-        Position.roomNum[playerEntityId] = roomNum;
+        Position.roomNum[entityId] = roomNum;
         resolve();
       } catch (err) {
-        console.error(`Failed to update player room num ${roomNum} for ${playerEntityId}: ${err}`);
+        console.error(`Failed to update player room num ${roomNum} for ${entityId}: ${err}`);
         reject(err);
       }
     });
+  },
+  getPlayersInRoom(world, roomNum) {
+    const Player = world._components["player"];
+    const Position = world._components["position"];
+    const playerQuery = defineQuery([Player]);
+    const ents = playerQuery(world);
+
+    let playerList = [];
+    for (let i = 0; i < ents.length; i++) {
+      if (Position.roomNum[ents[i]] === roomNum) playerList.push(ents[i]);
+    }
+    return playerList;
   },
   getMobsInRoom(world, roomNum) {
     const Mob = world._components["mob"];

@@ -13,7 +13,7 @@ export default async function msgUnauthenticated(worldState, msg) {
       // systemMessages.loggedIn(msg.user);
       if (newPlayer) systemMessages.newPlayer(msg.user);
       else systemMessages.returningPlayer(msg.user);
-      const roomData = await worldState.rooms.getPlayerRoomData(
+      const roomData = await worldState.rooms.getEntityRoomData(
         worldState.simulation.world,
         worldState.players.getActiveByDiscordId(BigInt(msg.user.id))["eid"]
       );
