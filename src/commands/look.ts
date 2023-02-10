@@ -40,7 +40,7 @@ export default async function look(worldState, userData, msg) {
           return;
         }
       } else {
-        let target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
+        const target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
 
         if (target.type === "") {
           userData.user.send(`${emoji.question} _You do not see that here._`);

@@ -4,7 +4,7 @@ import itemConstants from "../messages/itemConstants";
 export default async function examine(worldState, userData, msg) {
   try {
     const roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
-    let target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
+    const target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
 
     if (target.type === "") {
       userData.user.send(`${emoji.question} _You do not see that here._`);
