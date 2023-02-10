@@ -1,6 +1,7 @@
 import emoji from "../messages/emoji";
 import itemConstants from "../messages/itemConstants";
 import buildRoom from "../roomBuilder";
+import broadcasts from "../state/broadcasts";
 
 export default async function look(worldState, userData, msg) {
   const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
@@ -21,5 +22,10 @@ export default async function look(worldState, userData, msg) {
     await worldState.items.placeItem(worldState, item.data, roomNum);
 
     userData.user.send(`${emoji.drop} _You dropped ${item.data.shortDesc} to the ground_`);
+    broadcasts.sendToRoom(
+      worldState,
+      roomNum,
+      `_${emoji.drop} ${userData.displayName} dropped ${item.data.shortDesc} to the ground._`
+    );
   } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
 }
