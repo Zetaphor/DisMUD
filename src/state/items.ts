@@ -7,22 +7,34 @@ export const items = {
   loadItemData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
-        const object = await db.methods.getItemData(vNum);
-        resolve(object);
+        const item = await db.methods.getItemData(vNum);
+        resolve(item);
       } catch (err) {
-        console.error(`Error loading object #${vNum}: ${err}`);
+        console.error(`Error loading item #${vNum}: ${err}`);
         reject(err);
       }
     });
   },
-  placeItem(worldState, objectData, roomNum) {
+  placeItem(worldState, itemData, roomNum) {
     return new Promise(async (resolve, reject) => {
       try {
-        const objectId = await worldState.simulation.createItemEntity(objectData, roomNum);
-        this.activeItems[objectId] = objectData;
-        resolve(objectId);
+        const itemId = await worldState.simulation.createItemEntity(itemData, roomNum);
+        this.activeItems[itemId] = itemData;
+        resolve(itemId);
       } catch (err) {
-        console.error(`Error placing object ${objectData.id} in room #${roomNum}: ${err}`);
+        console.error(`Error placing item ${itemData.id} in room #${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  removeItem(worldState, itemId) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        await worldState.simulation.removeWorldEntity(itemId);
+        delete this.activeItems[itemId];
+        resolve();
+      } catch (err) {
+        console.error(`Error removing item ${itemId}: ${err}`);
         reject(err);
       }
     });

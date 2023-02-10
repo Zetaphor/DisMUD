@@ -15,6 +15,7 @@ import move from "./commands/move";
 import news from "./commands/news";
 import policy from "./commands/policy";
 import say from "./commands/say";
+import take from "./commands/take";
 
 export const commands = {
   say,
@@ -32,6 +33,7 @@ export const commands = {
   gold,
   balance,
   drop,
+  take,
 };
 
 export const adminCommands = {
@@ -52,8 +54,9 @@ export const commandAliases = {
   up: move,
   d: move,
   down: move,
-
   go: move,
+
+  get: take,
 };
 
 export const adminCommandList = Object.keys(adminCommands);

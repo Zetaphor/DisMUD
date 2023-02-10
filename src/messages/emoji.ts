@@ -46,6 +46,7 @@ export const emoji = {
   speak: "<:rpgspeak:1073669166181130290>",
   info: "<:rpginfo:1073671519928074250>",
   eye: "<:rpgeye:1073705683444318219>",
+  grab: "<:rpggrab:1073730305812340846>",
 };
 
 export default emoji;

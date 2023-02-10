@@ -12,6 +12,7 @@
 - Add admin stat command to see details stats on player/mob/object
 - Implement remaining mob action bitvectors
 - Implement object bitvectors, like disabling drop for cursed items
+- Implement weight for bags/inventory
 
 ## Commands
 

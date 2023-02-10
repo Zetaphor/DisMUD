@@ -101,6 +101,7 @@ export const rooms = {
       try {
         let targetData = null;
         let targetType = "";
+        let targetId = null;
 
         if (targetInventory) {
           const inventoryAliases = await worldState.inventories.getInventoryAliases(userId);
@@ -110,6 +111,7 @@ export const rooms = {
                 targetData = await worldState.inventories.getInventoryItem(userId, id);
                 targetData = targetData["data"];
                 targetType = "inventory";
+                targetId = id;
                 break;
               }
             }
@@ -126,6 +128,7 @@ export const rooms = {
               if (roomItemData.aliases[i].indexOf(alias) !== -1) {
                 targetData = roomItemData;
                 targetType = "item";
+                targetId = roomItems[i];
                 i = roomItemData.aliases.length;
               }
             }
@@ -142,6 +145,7 @@ export const rooms = {
               if (roomMobData.aliases[i].indexOf(alias) !== -1) {
                 targetData = roomMobData;
                 targetType = "mob";
+                targetId = roomMobs[i];
                 i = roomMobData.aliases.length;
               }
             }
@@ -151,6 +155,7 @@ export const rooms = {
         }
 
         resolve({
+          eid: targetId,
           type: targetType,
           data: targetData,
         });
