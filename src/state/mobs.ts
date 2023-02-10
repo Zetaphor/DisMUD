@@ -4,6 +4,9 @@ import globalConstants from "../simulation/constants/global";
 export const mobs = {
   activeMobs: {}, // { mobEID: mobData }
 
+  getActiveMobData(eid) {
+    return this.activeMobs[eid];
+  },
   loadMobData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -52,8 +55,10 @@ export const mobs = {
     for (let i = 0; i < ents.length; i++) {
       const eid = ents[i];
       if (Wander.pending[eid] === globalConstants.FALSE) continue;
-      const roomExits = await worldState.rooms.getEntityRoomExits(worldState.simulation.world, eid);
+      const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, eid);
+      const roomExits = await worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
       const exitData = Object.values(roomExits);
+      const directionNames = Object.keys(roomExits);
 
       const direction = Math.floor(Math.random() * exitData.length);
       if (exitData[direction]["roomId"] === -1) this.removeMob(worldState, eid);
@@ -62,8 +67,21 @@ export const mobs = {
         Wander.pending[eid] = globalConstants.FALSE;
         Wander.lastTick[eid] = Number(worldState.simulation.world.time.ticks);
       }
-      console.log("Moved entity");
-      // TODO: Broadcast the move here
+
+      const mobData = worldState.mobs.getActiveMobData(eid);
+      worldState.broadcasts.sendToRoom(
+        worldState,
+        oldRoomNum,
+        `${mobData.shortDesc} leaves ${directionNames[direction]}.`
+      );
+
+      if (exitData[direction]["roomId"] !== -1) {
+        worldState.broadcasts.sendToRoom(
+          worldState,
+          exitData[direction]["roomId"],
+          `${mobData.shortDesc} has arrived.`
+        );
+      }
     }
   },
 };

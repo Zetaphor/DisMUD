@@ -1,6 +1,9 @@
 export const items = {
   activeItems: {},
 
+  getActiveItemData(eid) {
+    return this.activeItems[eid];
+  },
   loadItemData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {

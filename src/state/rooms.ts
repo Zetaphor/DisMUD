@@ -1,5 +1,4 @@
 import { defineQuery } from "bitecs";
-import getRoomData from "../simulation/world-data/libs/world/getRoomData";
 
 export const rooms = {
   loadRoomData(db, vNum) {
@@ -17,16 +16,38 @@ export const rooms = {
     const Position = world._components["position"];
     return Position.roomNum[entityId];
   },
-  async getEntityRoomData(world, entityId) {
-    return this.getRoomData(this.getEntityRoomNum(world, entityId));
+  async getEntityRoomData(db, world, entityId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const roomData = await this.loadRoomData(db, this.getEntityRoomNum(world, entityId));
+        resolve(roomData);
+      } catch (err) {
+        console.error(`Error getting room data for entity ${entityId}: ${err}`);
+        reject(err);
+      }
+    });
   },
-  async getRoomExits(roomNum) {
-    const roomData = await this.getRoomData(roomNum);
-    return roomData.exits;
+  getRoomExits(db, roomNum) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const roomData = await this.loadRoomData(db, Number(roomNum));
+        resolve(roomData.exits);
+      } catch (err) {
+        console.error(`Error getting room exits for room ${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
   },
-  async getEntityRoomExits(world, entityId) {
-    const roomData = await this.getEntityRoomData(world, entityId);
-    return roomData.exits;
+  getEntityRoomExits(db, world, entityId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const roomData = await this.getEntityRoomData(db, world, entityId);
+        resolve(roomData.exits);
+      } catch (err) {
+        console.error(`Error getting room exits for entity ${entityId}: ${err}`);
+        reject(err);
+      }
+    });
   },
   updateEntityRoomNum(world, entityId, roomNum) {
     return new Promise<void>((resolve, reject) => {
