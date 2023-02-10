@@ -22,14 +22,22 @@ export default async function move(worldState, userData, msg) {
     return;
   }
 
-  const roomExits = await worldState.rooms.getEntityRoomExits(worldState.simulation.world, userData.eid);
+  const roomExits = await worldState.rooms.getEntityRoomExits(
+    worldState.db["rooms"],
+    worldState.simulation.world,
+    userData.eid
+  );
   if (Object.keys(roomExits).indexOf(moveDir) === -1) {
     userData.user.send(`${emoji.error} _You cannot move ${moveDir} from here!_`);
   } else if (roomExits[moveDir].roomId === -1) {
     userData.user.send(`${emoji.error} _You can't go that way!_`);
   } else {
     await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, userData.eid, roomExits[moveDir].roomId);
-    const newRoomData = await worldState.rooms.getEntityRoomData(worldState.simulation.world, userData.eid);
+    const newRoomData = await worldState.rooms.getEntityRoomData(
+      worldState.db["rooms"],
+      worldState.simulation.world,
+      userData.eid
+    );
     // console.log("newRoomData", newRoomData);
     buildRoom(worldState, userData.user, newRoomData);
     // console.log(`move: ${userData.user.username}, ${moveDir}`);

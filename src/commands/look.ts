@@ -4,7 +4,11 @@ import buildRoom from "../roomBuilder";
 
 export default async function look(worldState, userData, msg) {
   if (msg[0] === "look") {
-    const roomData = await worldState.rooms.getEntityRoomData(worldState.simulation.world, userData.eid);
+    const roomData = await worldState.rooms.getEntityRoomData(
+      worldState.db["rooms"],
+      worldState.simulation.world,
+      userData.eid
+    );
     buildRoom(worldState, userData.user, roomData);
   } else {
     let moveDir = "";
@@ -24,7 +28,11 @@ export default async function look(worldState, userData, msg) {
 
     if (moveDir !== "") {
       // Look move direction
-      const roomExits = await worldState.rooms.getEntityRoomExits(worldState.simulation.world, userData.eid);
+      const roomExits = await worldState.rooms.getEntityRoomExits(
+        worldState.db["rooms"],
+        worldState.simulation.world,
+        userData.eid
+      );
       if (roomExits[moveDir] && roomExits[moveDir]["desc"].length) {
         userData.user.send(`${emoji.binoculars} _${roomExits[moveDir]["desc"]}_`);
       } else {

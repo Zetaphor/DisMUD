@@ -2,15 +2,13 @@ import { defineQuery } from "bitecs";
 import getRoomData from "../simulation/world-data/libs/world/getRoomData";
 
 export const rooms = {
-  getRoomData(roomNum) {
+  loadRoomData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
-        const world = Math.floor(roomNum / 100);
-        const room = ("0" + (roomNum % 100)).slice(-2);
-        const roomData = await getRoomData(world, room);
-        resolve(roomData);
+        const room = await db.methods.getRoomData(vNum);
+        resolve(JSON.parse(room.data));
       } catch (err) {
-        console.error(`Failed to get room data for #${roomNum}: ${err}`);
+        console.error(`Error loading room ${vNum}: ${err}`);
         reject(err);
       }
     });
