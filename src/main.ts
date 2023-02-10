@@ -9,11 +9,13 @@ import inventories from "./state/inventories";
 import items from "./state/items";
 import rooms from "./state/rooms";
 import mobs from "./state/mobs";
+import timedStateFunctions from "./state/timedStateFunctions";
 
 const worldState = {
   db,
   players,
   simulation,
+  timedStateFunctions,
   inventories,
   items,
   rooms,
@@ -29,6 +31,8 @@ async function startup() {
 
     const botInterface = setupBotInterface();
     await botInterface.waitForEvent("ready");
+
+    timedStateFunctions.setupTimedStateFunctions(worldState);
 
     systemMessages.notifyOnline(botInterface.client);
 

@@ -65,7 +65,7 @@ export const simulation = {
       }
     }
   },
-  createMobEntity(mobData, roomNum) {
+  createMobEntity(lastTick, mobData, roomNum) {
     return new Promise((resolve, reject) => {
       try {
         const maxHp = diceRoll(mobData.maxHP);
@@ -73,6 +73,7 @@ export const simulation = {
 
         const newEntity = createEntity(this.world, "mob", {
           mob: { id: mobData.id },
+          wander: { enabled: globalConstants.TRUE, pending: globalConstants.FALSE, lastTick: lastTick },
           position: { roomNum: roomNum },
           scale: { scaleIndex: scaleIndexes.MEDIUM },
           mortal: { enabled: globalConstants.FALSE },
@@ -84,7 +85,7 @@ export const simulation = {
             max: 5,
             adultAge: 5,
             tickRate: 1,
-            lastTick: 0,
+            lastTick: lastTick,
           },
           flammable: {
             enabled: globalConstants.TRUE,

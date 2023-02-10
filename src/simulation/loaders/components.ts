@@ -16,6 +16,7 @@ import MobStats from "../components/MobStats";
 import PlayerStats from "../components/PlayerStats";
 import Mob from "../components/Mob";
 import Item from "../components/Item";
+import Wander from "../components/Wander";
 
 export default {
   breakable: Breakable,
@@ -36,4 +37,5 @@ export default {
   item: Item,
   mobStats: MobStats,
   playerStats: PlayerStats,
+  wander: Wander,
 };

@@ -10,6 +10,7 @@ export const Mob = {
     "killable",
     "deathDrops",
     "mobStats",
+    "wander",
   ],
 };
 
