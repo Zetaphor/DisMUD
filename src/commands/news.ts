@@ -6,6 +6,6 @@ export default async function news(worldState, userData, msg) {
     globalMessages.news(userData.user);
   } catch (err) {
     console.error(`Error using news ${msg}: ${err}`);
-    userData.send(`${emoji.error} _Something went wrong!_`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }

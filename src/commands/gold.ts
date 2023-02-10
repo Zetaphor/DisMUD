@@ -5,6 +5,6 @@ export default async function gold(worldState, userData, msg) {
     userData.user.send(`${emoji.coins} _You currently have **${userData.gold}** gold coins on your person_`);
   } catch (err) {
     console.error(`Error using gold ${msg}: ${err}`);
-    userData.send(`${emoji.error} _Something went wrong!_`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }

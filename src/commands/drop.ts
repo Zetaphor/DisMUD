@@ -30,6 +30,6 @@ export default async function look(worldState, userData, msg) {
     } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
   } catch (err) {
     console.error(`Error using drop ${msg}: ${err}`);
-    userData.send(`${emoji.error} _Something went wrong!_`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }

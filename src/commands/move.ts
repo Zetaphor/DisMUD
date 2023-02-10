@@ -61,6 +61,6 @@ export default async function move(worldState, userData, msg) {
     }
   } catch (err) {
     console.error(`Error using move ${msg}: ${err}`);
-    userData.send(`${emoji.error} _Something went wrong!_`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }

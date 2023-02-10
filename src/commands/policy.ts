@@ -6,6 +6,6 @@ export default async function policy(worldState, userData, msg) {
     globalMessages.policy(userData.user);
   } catch (err) {
     console.error(`Error using policy ${msg}: ${err}`);
-    userData.send(`${emoji.error} _Something went wrong!_`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }

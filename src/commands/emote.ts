@@ -12,6 +12,6 @@ export default function emote(worldState, userData, msg) {
     );
   } catch (err) {
     console.error(`Error using emote ${msg}: ${err}`);
-    userData.send(`${emoji.error} _Something went wrong!_`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }
