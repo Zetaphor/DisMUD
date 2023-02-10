@@ -118,7 +118,7 @@ export const rooms = {
 
         // We didn't find an object in inventory, look in the room
         if (targetObject && targetData === null) {
-          const roomItems = worldState.rooms.getItemsInRoom(worldState.simulation.world, roomNum);
+          const roomItems = this.getItemsInRoom(worldState.simulation.world, roomNum);
 
           for (let i = 0; i < roomItems.length; i++) {
             const roomItemData = worldState.items.getActiveItemData(roomItems[i]);
@@ -134,7 +134,7 @@ export const rooms = {
 
         // We didn't find any objects, look for mobs
         if (targetMob && targetData === null) {
-          const roomMobs = worldState.rooms.getMobsInRoom(worldState.simulation.world, roomNum);
+          const roomMobs = this.getMobsInRoom(worldState.simulation.world, roomNum);
 
           for (let i = 0; i < roomMobs.length; i++) {
             const roomMobData = worldState.mobs.getActiveMobData(roomMobs[i]);
