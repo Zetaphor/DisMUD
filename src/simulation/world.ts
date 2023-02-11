@@ -25,7 +25,7 @@ export const simulation = {
       }
     });
   },
-  createPlayerEntity(playerId, roomNum) {
+  createPlayerEntity(playerId, roomNum, playerStats) {
     return new Promise((resolve, reject) => {
       try {
         const newEntity = createEntity(this.world, "player", {
@@ -48,6 +48,7 @@ export const simulation = {
             causesDamage: globalConstants.TRUE,
             damage: 10,
           },
+          playerStats: playerStats,
         });
         resolve(newEntity);
       } catch (err) {
@@ -131,6 +132,23 @@ export const simulation = {
         resolve(newEntity);
       } catch (err) {
         console.error(`Failed to create item entity #${itemData.id} ${itemData.shortDesc} in room #${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  getPlayerStat(entityId, statName) {
+    return new Promise((resolve, reject) => {
+      try {
+        const PlayerStats = this.world._components["playerStats"];
+        const playerStatsQuery = defineQuery([PlayerStats]);
+        const ents = playerStatsQuery(this.world);
+        for (let i = 0; i < ents.length; i++) {
+          if (ents[i] === entityId) {
+            resolve(PlayerStats[statName][ents[i]]);
+          }
+        }
+      } catch (err) {
+        console.error(`Failed to get player stat ${statName} for entity ${entityId}: ${err}`);
         reject(err);
       }
     });

@@ -1,4 +1,5 @@
 import globalConstants from "../simulation/constants/global";
+import playerStatConstants from "../simulation/constants/playerStats";
 
 export const players = {
   currentActive: {},
@@ -56,7 +57,8 @@ export const players = {
         }
         const playerEntityId = await worldState.simulation.createPlayerEntity(
           playerData.id,
-          globalConstants.NEW_USER_ROOMNUM
+          globalConstants.NEW_USER_ROOMNUM,
+          playerStatConstants.START_STATS.warrior.stats // TODO: Load stats from the DB
         );
         playerData["newPlayer"] = newPlayer;
         playerData["eid"] = playerEntityId;
@@ -80,6 +82,9 @@ export const players = {
         reject(error);
       }
     });
+  },
+  save(id, players, simulation, user) {
+    // TODO: Save
   },
 };
 
