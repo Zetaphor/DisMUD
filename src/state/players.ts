@@ -75,7 +75,9 @@ async function login(worldState, user) {
     try {
       let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(BigInt(user.id));
       let playerInventory = {};
+      let newPlayer = false;
       if (!playerData) {
+        newPlayer = true;
         console.log(`Creating new player ${user.username}`);
         playerData = await worldState.db["players"].methods.createPlayer({
           discordId: BigInt(user.id),
@@ -97,10 +99,11 @@ async function login(worldState, user) {
         playerData.id,
         globalConstants.NEW_USER_ROOMNUM
       );
+      playerData["newPlayer"] = newPlayer;
       playerData["eid"] = playerEntityId;
       playerData["user"] = user;
       players["currentActive"][playerData.id] = playerData;
-      resolve(!playerData);
+      resolve(playerData);
     } catch (err) {
       console.error(`Error logging in ${user.username}:`, err);
       reject(err);

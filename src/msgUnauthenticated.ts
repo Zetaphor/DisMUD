@@ -1,3 +1,4 @@
+import emoji from "./messages/emoji";
 import systemMessages from "./messages/system";
 import buildRoom from "./roomBuilder";
 
@@ -9,16 +10,23 @@ import buildRoom from "./roomBuilder";
 export default async function msgUnauthenticated(worldState, msg) {
   if (msg.content.toLowerCase() === "login") {
     try {
-      const newPlayer = await worldState.players.login(worldState, msg.user);
+      const playerData = await worldState.players.login(worldState, msg.user);
       // systemMessages.loggedIn(msg.user);
-      if (newPlayer) systemMessages.newPlayer(msg.user);
+      if (playerData.newPlayer) systemMessages.newPlayer(msg.user);
       else systemMessages.returningPlayer(msg.user);
       const roomData = await worldState.rooms.getEntityRoomData(
         worldState.db["rooms"],
         worldState.simulation.world,
-        worldState.players.getActiveByDiscordId(BigInt(msg.user.id))["eid"]
+        playerData.eid
       );
       buildRoom(worldState, msg.user, roomData);
+      worldState.broadcasts.sendToRoom(
+        worldState,
+        roomData.id,
+        playerData.eid,
+        false,
+        `${emoji.glowing} _${playerData.displayName} has joined the world._`
+      );
     } catch (err) {
       console.error(`Failed to login ${msg.user.username}`, err);
       systemMessages.loginFailed(msg.user);
