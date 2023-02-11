@@ -58,7 +58,7 @@ async function dropItem(worldState, userData, roomNum, item, quantity) {
     await worldState.items.placeItem(worldState, item.data, roomNum);
 
     userData.user.send(
-      `${emoji.drop} _You dropped ${quantity < -1 ? quantity : ""} ${item.data.shortDesc}${
+      `${emoji.drop} _You dropped ${quantity < -1 ? Math.abs(quantity) : ""} ${item.data.shortDesc}${
         quantity < -1 ? "s" : ""
       } to the ground_`
     );
@@ -66,10 +66,10 @@ async function dropItem(worldState, userData, roomNum, item, quantity) {
       worldState,
       roomNum,
       userData.eid,
-      true,
-      `_${emoji.drop} ${userData.displayName} dropped ${quantity < -1 ? quantity : ""} ${item.data.shortDesc}${
-        quantity < -1 ? "s" : ""
-      } to the ground._`
+      false,
+      `_${emoji.drop} ${userData.displayName} dropped ${quantity < -1 ? Math.abs(quantity) : ""} ${
+        item.data.shortDesc
+      }${quantity < -1 ? "s" : ""} to the ground._`
     );
   } catch (err) {
     console.error(`Error using dropItem ${item}: ${err}`);
