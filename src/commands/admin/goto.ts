@@ -7,7 +7,7 @@ export default async function goto(worldState, userData, msg) {
     if (newRoomData) {
       const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
       await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, userData.eid, newRoomData.id);
-      buildRoom(worldState, userData.user, newRoomData, userData.admin);
+      buildRoom(worldState, userData.user, userData.eid, newRoomData, userData.admin);
       worldState.broadcasts.sendToRoom(
         worldState,
         oldRoomNum,

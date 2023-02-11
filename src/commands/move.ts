@@ -56,7 +56,7 @@ export default async function move(worldState, userData, msg) {
         userData.eid
       );
       // console.log("newRoomData", newRoomData);
-      buildRoom(worldState, userData.user, newRoomData, userData.admin);
+      buildRoom(worldState, userData.user, userData.eid, newRoomData, userData.admin);
       // console.log(`move: ${userData.user.username}, ${moveDir}`);
     }
   } catch (err) {
