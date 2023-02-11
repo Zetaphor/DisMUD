@@ -5,6 +5,7 @@ export const roomMessages = {
       ${roomData.desc}\n
       ${roomData.itemDescriptions}
       ${roomData.mobDescriptions}
+      ${roomData.playerDescriptions}
     `);
   },
 };

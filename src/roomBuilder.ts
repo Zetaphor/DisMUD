@@ -1,4 +1,5 @@
-import mobConstants from "./messages/mobConstants";
+import emoji from "./messages/emoji";
+import globalConstants from "./messages/globalConstants";
 import roomMessages from "./messages/room";
 
 /**
@@ -8,11 +9,12 @@ import roomMessages from "./messages/room";
  * @param {object} roomData - Data for the world
  * @returns {Promise<void>} - Returns a promise that resolves with void
  */
-export default function buildRoom(worldState, user, roomData, admin = false) {
+export default function buildRoom(worldState, user, userId, roomData, admin = false) {
   return new Promise<void>(async (resolve, reject) => {
     try {
       const roomMobs = worldState.rooms.getMobsInRoom(worldState.simulation.world, roomData.id);
       const roomItems = worldState.rooms.getItemsInRoom(worldState.simulation.world, roomData.id);
+      const roomPlayers = worldState.rooms.getPlayersInRoom(worldState.simulation.world, roomData.id);
 
       let mobDescriptions = "";
 
@@ -23,7 +25,7 @@ export default function buildRoom(worldState, user, roomData, admin = false) {
         if (MobStats.state[mobId] === MobStats.defaultState[mobId]) {
           mobDescriptions += `${mobData.longDesc}\n`;
         } else {
-          mobDescriptions += `${mobData.shortDesc} ${mobConstants.positions[MobStats.state[mobId]]}\n`;
+          mobDescriptions += `${mobData.shortDesc} ${globalConstants.mobPlayerStates[MobStats.state[mobId]]}\n`;
         }
       }
 
@@ -35,11 +37,22 @@ export default function buildRoom(worldState, user, roomData, admin = false) {
         itemDescriptions += `${itemData.longDesc}\n`;
       }
 
+      let playerDescriptions = "";
+
+      for (let i = 0; i < roomPlayers.length; i++) {
+        const playerId = roomPlayers[i];
+        if (playerId === userId) continue;
+        const playerData = worldState.players.getActiveByEntityId(playerId);
+        const playerState = await worldState.simulation.getPlayerStat(playerId, "state");
+        playerDescriptions += `${emoji.knight} ${playerData.displayName} ${globalConstants.mobPlayerStates[playerState]}\n`;
+      }
+
       const displayData = {
         name: `${roomData.name}`,
         desc: roomData.desc,
         mobDescriptions,
         itemDescriptions,
+        playerDescriptions,
         adminTag: admin ? `_(${roomData.id})_` : "",
       };
       roomMessages.displayRoom(user, displayData);
