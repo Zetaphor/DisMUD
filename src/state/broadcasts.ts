@@ -18,7 +18,7 @@ export const broadcasts = {
   sendToPlayer(worldState, id, message) {
     return new Promise<void>((resolve, reject) => {
       try {
-        const player = worldState.players.getActiveById(id);
+        const player = worldState.players.getActiveByEntityId(id);
         player.user.send(message);
         resolve();
       } catch (err) {
