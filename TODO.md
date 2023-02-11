@@ -13,6 +13,8 @@
 - Implement remaining mob action bitvectors
 - Implement object bitvectors, like disabling drop for cursed items
 - Implement weight for bags/inventory
+- Make sure everything has try/catch to stop server from dying
+- Implement logging
 
 ## Commands
 
