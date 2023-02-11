@@ -36,7 +36,6 @@ equipment - Show equipment
 fill - Fill container
 flee - Exit battle
 follow - Follow someone
-get, take
 give
 grab, hold
 kick

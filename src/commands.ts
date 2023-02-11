@@ -17,6 +17,7 @@ import news from "./commands/news";
 import policy from "./commands/policy";
 import say from "./commands/say";
 import take from "./commands/take";
+import time from "./commands/time";
 import who from "./commands/who";
 
 export const commands = {
@@ -37,6 +38,7 @@ export const commands = {
   drop,
   take,
   who,
+  time,
 };
 
 export const adminCommands = {
