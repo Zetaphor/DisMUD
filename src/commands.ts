@@ -1,3 +1,4 @@
+import goto from "./commands/admin/goto";
 import loadItem from "./commands/admin/loadItem";
 import loadMob from "./commands/admin/loadMob";
 import balance from "./commands/balance";
@@ -41,6 +42,7 @@ export const commands = {
 export const adminCommands = {
   loaditem: loadItem,
   loadmob: loadMob,
+  goto,
 };
 
 export const commandAliases = {
