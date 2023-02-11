@@ -1,5 +1,5 @@
-export const mobConstants = {
-  positions: {
+export const globalConstants = {
+  mobPlayerStates: {
     0: "is lying here, dead.",
     1: "is lying here, mortally wounded.",
     2: "is lying here, incapacitated.",
@@ -12,4 +12,4 @@ export const mobConstants = {
   },
 };
 
-export default mobConstants;
+export default globalConstants;
