@@ -7,7 +7,7 @@ let playersDBConn = null;
 const createPlayersTable = `
 CREATE TABLE IF NOT EXISTS Players (
   id INTEGER PRIMARY KEY,
-  discordId INTEGER UNIQUE,
+  discordId TEXT UNIQUE,
   discordUsername TEXT,
   displayName TEXT,
   roomNum INTEGER,
@@ -28,7 +28,6 @@ const playerMethods = {
       try {
         const newPlayerId = await createRecord(playersDBConn, "Players", data);
         const newPlayer = await getRecord(playersDBConn, "Players", "id", newPlayerId);
-        newPlayer["discordId"] = BigInt(newPlayer["discordId"]);
         resolve(newPlayer);
       } catch (err) {
         console.error(`Error creating player:`, err);
@@ -36,11 +35,10 @@ const playerMethods = {
       }
     });
   },
-  getPlayerDataByDiscordId: (discordId: BigInt) => {
+  getPlayerDataByDiscordId: (discordId) => {
     return new Promise(async (resolve, reject) => {
       try {
         const playerData = await getRecord(playersDBConn, "Players", "discordId", discordId);
-        if (playerData) playerData["discordId"] = BigInt(playerData["discordId"]);
         resolve(playerData);
       } catch (err) {
         console.error(`Error checking if player exists:`, err);

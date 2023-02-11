@@ -39,7 +39,7 @@ async function startup() {
     systemMessages.notifyOnline(botInterface.client);
 
     botInterface.on("playerMsg", (msg) => {
-      if (!players.isActiveDiscordId(BigInt(msg.user.id))) msgUnauthenticated(worldState, msg);
+      if (!players.isActiveDiscordId(`k${msg.user.id}`)) msgUnauthenticated(worldState, msg);
       else msgAuthenticated(worldState, msg);
     });
   } catch (err) {

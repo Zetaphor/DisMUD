@@ -18,6 +18,6 @@ export default async function msgAuthenticated(worldState, msg) {
   } else if (msg.content.toLowerCase() === "login") {
     systemMessages.alreadyLoggedIn(msg.user);
   } else {
-    parseCommand(worldState, worldState.players.getActiveByDiscordId(BigInt(msg.user.id)), msg.content);
+    parseCommand(worldState, worldState.players.getActiveByDiscordId(`k${msg.user.id}`), msg.content);
   }
 }

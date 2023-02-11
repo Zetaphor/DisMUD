@@ -73,21 +73,22 @@ function getActiveByDiscordId(discordId) {
 async function login(worldState, user) {
   return new Promise<Object>(async (resolve, reject) => {
     try {
-      let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(BigInt(user.id));
+      let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(`k${user.id}`);
       let playerInventory = {};
       let newPlayer = false;
       if (!playerData) {
         newPlayer = true;
-        console.log(`Creating new player ${user.username}`);
+        console.info(`Creating new player ${user.username} with discordId: ${user.id}`);
         playerData = await worldState.db["players"].methods.createPlayer({
-          discordId: BigInt(user.id),
+          discordId: `k${user.id}`,
           discordUsername: `${user.username}#${user.discriminator}`,
           displayName: user.username,
           roomNum: globalConstants.NEW_USER_ROOMNUM,
         });
-        console.log(`Creating new player ${user.username}'s inventory`);
+        console.info(`Creating new player ${user.username}'s inventory`);
         await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
       } else {
+        console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
         const loadedInventory = await worldState.db["playerInventories"].methods.getPlayerInventory(
           BigInt(playerData.id)
         );
