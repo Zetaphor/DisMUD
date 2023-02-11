@@ -33,6 +33,7 @@ export const Stats = defineComponent({
   level: Types.ui32,
   exp: Types.ui32,
   state: Types.ui8,
+  defaultState: Types.ui8,
   gender: Types.ui8,
 });
 
