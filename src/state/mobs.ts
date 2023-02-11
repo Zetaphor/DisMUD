@@ -48,6 +48,78 @@ export const mobs = {
       }
     });
   },
+  getMobInventory(mobId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        return this.activeMobs[mobId].items;
+      } catch (err) {
+        console.error(`Error getting mob inventory for ${mobId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  mobHasItem(mobId, itemId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const mob = this.activeMobs[mobId];
+        if (mob.items[itemId] !== undefined) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } catch (err) {
+        console.error(`Error checking mob inventory for ${mobId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  updateMobItemQty(mobId, itemId, qty) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        if (this.activeMobs[mobId].items[itemId] !== undefined) {
+          this.activeMobs[mobId].items[itemId].qty += qty;
+          if (this.activeMobs[mobId].items[itemId].qty === 0) {
+            delete this.activeMobs[mobId].items[itemId];
+          }
+        }
+        resolve();
+      } catch (err) {
+        console.error(`Error update mob ${mobId} item ${itemId} qty ${qty}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  giveMobItem(mobId, itemData, quantity) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        if (typeof this.activeMobs[mobId].items[itemData.id] === "undefined") {
+          this.activeMobs[mobId].items[itemData.id] = {
+            qty: quantity,
+            data: itemData,
+          };
+        } else this.activeMobs[mobId].items[itemData.id].qty += quantity;
+        resolve();
+        this.activeMobs[mobId].items[itemData.id] = itemData;
+        resolve();
+      } catch (err) {
+        console.error(`Error giving mob ${mobId} item ${itemData.id}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  removeMobItem(mobId, itemId) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        if (this.activeMobs[mobId].items[itemId] !== undefined) {
+          delete this.activeMobs[mobId].items[itemId];
+        }
+        resolve();
+      } catch (err) {
+        console.error(`Error removing mob ${mobId} item ${itemId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   async timedMobMovement(worldState) {
     const Wander = worldState.simulation.world._components["wander"];
     const wanderQuery = defineQuery([Wander]);

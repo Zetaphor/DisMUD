@@ -28,6 +28,7 @@ export const inventories = {
   },
   removeItem(playerId, itemId) {
     playerId = playerId.toString();
+    itemId = itemId.toString();
     return new Promise<void>((resolve, reject) => {
       try {
         if (typeof this.playerInventories[playerId][itemId] !== "undefined") {
@@ -40,15 +41,34 @@ export const inventories = {
       }
     });
   },
+  hasItem(playerId, itemId) {
+    playerId = playerId.toString();
+    itemId = itemId.toString();
+    return new Promise((resolve, reject) => {
+      try {
+        if (typeof this.playerInventories[playerId][itemId] !== "undefined") {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } catch (err) {
+        console.error(`Failed to check for item ${itemId} in player ${playerId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   updateQuanity(playerId, itemId, quantity) {
     playerId = playerId.toString();
     itemId = itemId.toString();
     return new Promise<void>(async (resolve, reject) => {
       try {
-        if (typeof this.playerInventories[playerId][itemId.toString()] !== "undefined") {
+        if (typeof this.playerInventories[playerId][itemId] !== "undefined") {
           if (this.playerInventories[playerId][itemId]["qty"] + quantity <= 0) {
             delete this.playerInventories[playerId][itemId];
           } else this.playerInventories[playerId][itemId]["qty"] += quantity;
+        } else {
+          if (this.playerInventories[playerId][itemId]["qty"] + quantity >= 1) {
+          }
         }
         resolve();
       } catch (err) {

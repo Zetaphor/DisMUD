@@ -6,6 +6,7 @@ import drop from "./commands/drop";
 import emote from "./commands/emote";
 import examine from "./commands/examine";
 import exits from "./commands/exits";
+import give from "./commands/give";
 import gold from "./commands/gold";
 import info from "./commands/info";
 import inventory from "./commands/inventory";
@@ -39,6 +40,7 @@ export const commands = {
   take,
   who,
   time,
+  give,
 };
 
 export const adminCommands = {
