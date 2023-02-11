@@ -23,7 +23,7 @@ export default async function loadMob(worldState, userData, msg) {
         roomNum,
         userData.eid,
         false,
-        `${emoji.sparkles} _${userData.displayName} mutters an incantation and ${mobData.shortDesc} magically appears!_`
+        `${emoji.sparkles} _${userData.displayName} whispers an incantation and ${mobData.shortDesc} magically appears!_`
       );
     }
   } catch (err) {

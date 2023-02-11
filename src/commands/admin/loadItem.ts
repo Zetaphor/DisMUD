@@ -15,7 +15,7 @@ export default async function loadItem(worldState, userData, msg) {
         roomNum,
         userData.eid,
         false,
-        `${emoji.sparkles} _${userData.displayName} mutters an incantation in an unknown language._`
+        `${emoji.sparkles} _${userData.displayName} whispers an incantation in an unknown language._`
       );
     }
   } catch (err) {
