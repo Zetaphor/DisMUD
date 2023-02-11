@@ -54,8 +54,9 @@ export default async function drop(worldState, userData, msg) {
 
 async function dropItem(worldState, userData, roomNum, item, quantity) {
   try {
+    console.log("Update quantity", quantity);
     await worldState.inventories.updateQuanity(userData.id, item.data.id, quantity);
-    await worldState.items.placeItem(worldState, item.data, roomNum);
+    await worldState.items.placeItem(worldState, item.data, roomNum, Math.abs(quantity));
 
     userData.user.send(
       `${emoji.drop} _You dropped ${quantity < -1 ? Math.abs(quantity) : ""} ${item.data.shortDesc}${

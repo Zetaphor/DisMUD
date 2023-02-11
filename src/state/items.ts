@@ -15,12 +15,16 @@ export const items = {
       }
     });
   },
-  placeItem(worldState, itemData, roomNum) {
+  placeItem(worldState, itemData, roomNum, quantity) {
     return new Promise(async (resolve, reject) => {
       try {
-        const itemId = await worldState.simulation.createItemEntity(itemData, roomNum);
-        this.activeItems[itemId] = itemData;
-        resolve(itemId);
+        let itemIds = [];
+        for (let i = 0; i < quantity; i++) {
+          const itemId = await worldState.simulation.createItemEntity(itemData, roomNum);
+          this.activeItems[itemId] = itemData;
+          itemIds.push(itemId);
+        }
+        resolve(itemIds);
       } catch (err) {
         console.error(`Error placing item ${itemData.id} in room #${roomNum}: ${err}`);
         reject(err);
