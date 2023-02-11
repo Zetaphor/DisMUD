@@ -12,7 +12,7 @@ export default async function drop(worldState, userData, msg) {
           dropItem(worldState, userData, roomNum, item, item.qty);
         }
       }
-    } else if (!Number.isNaN(msg[0])) {
+    } else if (/^-?\d+(\.\d+)?$/.test(msg[0])) {
       const dropQuantity = Number(msg[0]);
       const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
       let matchedItem = null;
