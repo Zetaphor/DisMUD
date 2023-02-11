@@ -1,6 +1,9 @@
 export const inventories = {
   playerInventories: {},
 
+  getActiveInventory(playerId) {
+    return this.playerInventories[playerId];
+  },
   setInventory(playerId, inventory) {
     this.playerInventories[playerId] = inventory;
   },

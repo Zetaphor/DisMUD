@@ -1,35 +1,78 @@
 import emoji from "../messages/emoji";
 
-export default async function look(worldState, userData, msg) {
+export default async function drop(worldState, userData, msg) {
   try {
-    const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
-    let matchedItem = null;
-    for (const id in inventoryAliases) {
-      if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
-        if (inventoryAliases[id].indexOf(msg[0]) !== -1) {
-          matchedItem = id;
-          break;
+    let roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
+
+    if (msg[0] === "all") {
+      const inventoryItems = worldState.inventories.getActiveInventory(userData.id);
+      for (const id in inventoryItems) {
+        if (Object.prototype.hasOwnProperty.call(inventoryItems, id)) {
+          const item = inventoryItems[id];
+          dropItem(worldState, userData, roomNum, item, item.qty);
         }
       }
+    } else if (!Number.isNaN(msg[0])) {
+      const dropQuantity = Number(msg[0]);
+      const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
+      let matchedItem = null;
+      for (const id in inventoryAliases) {
+        if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
+          if (inventoryAliases[id].indexOf(msg[1]) !== -1) {
+            matchedItem = id;
+            break;
+          }
+        }
+      }
+      if (matchedItem !== null) {
+        const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
+        if (item.qty < dropQuantity)
+          userData.user.send(`${emoji.error} _You do not have that many of \`${item.data.shortDesc}\`._`);
+        else dropItem(worldState, userData, roomNum, item, 0 - dropQuantity);
+      } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
+    } else {
+      const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
+      let matchedItem = null;
+      for (const id in inventoryAliases) {
+        if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
+          if (inventoryAliases[id].indexOf(msg[0]) !== -1) {
+            matchedItem = id;
+            break;
+          }
+        }
+      }
+      if (matchedItem !== null) {
+        const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
+        dropItem(worldState, userData, roomNum, item, -1);
+      } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
     }
-    if (matchedItem !== null) {
-      const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
-      let roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
-
-      await worldState.inventories.updateQuanity(userData.id, item.data.id, -1);
-      await worldState.items.placeItem(worldState, item.data, roomNum);
-
-      userData.user.send(`${emoji.drop} _You dropped ${item.data.shortDesc} to the ground_`);
-      worldState.broadcasts.sendToRoom(
-        worldState,
-        roomNum,
-        userData.eid,
-        false,
-        `_${emoji.drop} ${userData.displayName} dropped ${item.data.shortDesc} to the ground._`
-      );
-    } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
   } catch (err) {
     console.error(`Error using drop ${msg}: ${err}`);
+    userData.user.send(`${emoji.error} _Something went wrong!_`);
+  }
+}
+
+async function dropItem(worldState, userData, roomNum, item, quantity) {
+  try {
+    await worldState.inventories.updateQuanity(userData.id, item.data.id, quantity);
+    await worldState.items.placeItem(worldState, item.data, roomNum);
+
+    userData.user.send(
+      `${emoji.drop} _You dropped ${quantity < -1 ? quantity : ""} ${item.data.shortDesc}${
+        quantity < -1 ? "s" : ""
+      } to the ground_`
+    );
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      roomNum,
+      userData.eid,
+      true,
+      `_${emoji.drop} ${userData.displayName} dropped ${quantity < -1 ? quantity : ""} ${item.data.shortDesc}${
+        quantity < -1 ? "s" : ""
+      } to the ground._`
+    );
+  } catch (err) {
+    console.error(`Error using dropItem ${item}: ${err}`);
     userData.user.send(`${emoji.error} _Something went wrong!_`);
   }
 }
