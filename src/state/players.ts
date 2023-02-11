@@ -3,7 +3,7 @@ import globalConstants from "../simulation/constants/global";
 export const players = {
   currentActive: {},
 
-  isActiveId(playerId) {
+  isActiveEntityId(playerId) {
     if (Object.keys(players.currentActive).indexOf(playerId) !== -1) return true;
     return false;
   },
@@ -46,7 +46,7 @@ export const players = {
           console.info(`Creating new player ${user.username}'s inventory`);
           await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
         } else {
-          console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
+          // console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
           const loadedInventory = await worldState.db["playerInventories"].methods.getPlayerInventory(
             BigInt(playerData.id)
           );
