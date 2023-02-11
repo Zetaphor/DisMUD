@@ -19,7 +19,7 @@ export default async function msgUnauthenticated(worldState, msg) {
         worldState.simulation.world,
         playerData.eid
       );
-      buildRoom(worldState, msg.user, roomData);
+      buildRoom(worldState, msg.user, roomData, playerData.admin);
       worldState.broadcasts.sendToRoom(
         worldState,
         roomData.id,
