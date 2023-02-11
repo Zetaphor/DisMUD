@@ -132,7 +132,7 @@ export function updateRecord(db: any, table: String, data: Object, whereName: St
         console.error("Update error:", err, "\n", query, "\n", setFields);
         reject();
       } else {
-        console.info(`${table} row(s) updated: ${this.changes}`);
+        // console.info(`${table} row(s) updated: ${this.changes}`);
         resolve();
       }
     });
