@@ -52,12 +52,10 @@ quaff - Drink potion
 recite - Recite scroll
 save
 score - Show your stats
-time
 track
 use - Use a wand or staff
 wake, rest, sleep, sit, stand
 wear
 where
-who, online
 wield
 wimpy
