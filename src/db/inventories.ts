@@ -1,4 +1,4 @@
-import { createRecord, getRecord, initDb, removeRecord } from "./util";
+import { createRecord, getRecord, initDb, removeRecord, updateRecord } from "./util";
 
 const dbPath = "src/databases/playerInventories.db";
 
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS PlayerInventories (
   id INTEGER PRIMARY KEY,
   playerId INTEGER UNIQUE,
   inventoryString TEXT,
-  lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
+  lastSaved TEXT DEFAULT (datetime('now', 'utc'))
 )
 `;
 
@@ -33,6 +33,18 @@ const playerInventoryMethods = {
     });
   },
   removePlayerInventory: (id: BigInt) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
+  savePlayerInventory: (id: BigInt, inventory: String) =>
+    updateRecord(
+      playerInventoriesDBConn,
+      "PlayerInventories",
+      {
+        playerId: id,
+        inventoryString: encodeURIComponent(JSON.stringify(inventory)),
+        lastSaved: new Date().toISOString().slice(0, 19).replace("T", " "),
+      },
+      "playerId",
+      id
+    ),
 };
 
 /**

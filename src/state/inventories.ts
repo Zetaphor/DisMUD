@@ -132,14 +132,25 @@ export const inventories = {
 
         let playerInventoryData = await db.methods.getPlayerInventory(playerId);
         if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
-        if (playerInventoryData["inventoryString"] !== "") {
-          playerInventory = JSON.parse(playerInventoryData["inventoryString"]);
+        if (playerInventoryData["inventoryString"] !== "" && playerInventoryData["inventoryString"] !== "null") {
+          playerInventory = JSON.parse(decodeURIComponent(playerInventoryData["inventoryString"]));
         }
 
         this.playerInventories[playerId] = playerInventory;
         resolve(playerInventory);
       } catch (err) {
         console.error(`Error loading inventory for ${playerId}:`, err);
+        reject(err);
+      }
+    });
+  },
+  saveInventory(db, playerId, inventory) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        await db.methods.savePlayerInventory(playerId, inventory);
+        resolve();
+      } catch (err) {
+        console.error(`Error saving inventory for ${playerId}:`, err);
         reject(err);
       }
     });

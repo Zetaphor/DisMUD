@@ -48,10 +48,10 @@ export const players = {
           await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
         } else {
           // console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
-          const loadedInventory = await worldState.db["playerInventories"].methods.getPlayerInventory(
-            BigInt(playerData.id)
+          const playerInventory = await worldState.inventories.loadInventory(
+            worldState.db["playerInventories"],
+            playerData.id
           );
-          if (loadedInventory.inventoryString !== "") playerInventory = JSON.parse(loadedInventory.inventoryString);
           worldState.inventories.setInventory(playerData.id, playerInventory);
           await worldState.db["players"].methods.updateLastLogin(BigInt(playerData["id"]));
         }
@@ -83,8 +83,19 @@ export const players = {
       }
     });
   },
-  save(id, players, simulation, user) {
-    // TODO: Save
+  save(worldState, userData) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        const serializedPlayerEntity = await worldState.simulation.serializePlayer(userData.eid);
+        const playerInventory = worldState.inventories.getActiveInventory(userData.id);
+        await worldState.db["players"].methods.savePlayer(userData.id, userData, serializedPlayerEntity);
+        await worldState.inventories.saveInventory(worldState.db["playerInventories"], userData.id, playerInventory);
+        resolve();
+      } catch (error) {
+        console.error(`Error saving player ${userData.id} ${userData.displayName}:`, error);
+        reject(error);
+      }
+    });
   },
 };
 

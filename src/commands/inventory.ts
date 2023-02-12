@@ -4,7 +4,7 @@ export default async function say(worldState, userData, msg) {
   try {
     let playerInventory = await worldState.inventories.getInventory(worldState.db["playerInventories"], userData.id);
 
-    if (Object.keys(playerInventory).length === 0) {
+    if (playerInventory === null || Object.keys(playerInventory).length === 0) {
       userData.user.send(`${emoji.backpack} _You don't have any items in your inventory. Get out and find some loot!_`);
     } else {
       let inventoryMessage = "";

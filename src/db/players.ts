@@ -13,8 +13,10 @@ CREATE TABLE IF NOT EXISTS Players (
   roomNum INTEGER,
   gold INTEGER DEFAULT 10,
   bank INTEGER DEFAULT 0,
+  simulationData TEXT,
   creationDate TEXT DEFAULT (datetime('now', 'utc')),
   lastLogin TEXT DEFAULT (datetime('now', 'utc')),
+  lastSaved TEXT DEFAULT (datetime('now', 'utc')),
   enabled BOOLEAN DEFAULT true,
   admin BOOLEAN DEFAULT false
 )
@@ -55,6 +57,20 @@ const playerMethods = {
       playersDBConn,
       "Players",
       { id: id, lastLogin: new Date().toISOString().slice(0, 19).replace("T", " ") },
+      "id",
+      id
+    ),
+  savePlayer: (id: BigInt, userData: Object, simulationData: Object) =>
+    updateRecord(
+      playersDBConn,
+      "Players",
+      {
+        roomNum: simulationData["position"]["roomNum"],
+        gold: userData["gold"],
+        bank: userData["bank"],
+        lastSaved: new Date().toISOString().slice(0, 19).replace("T", " "),
+        simulationData: encodeURIComponent(JSON.stringify(simulationData)),
+      },
       "id",
       id
     ),

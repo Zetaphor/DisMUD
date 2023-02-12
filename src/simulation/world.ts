@@ -8,6 +8,7 @@ import { defineQuery, removeEntity } from "bitecs";
 import diceRoll from "./utils/diceRoll";
 import { hasBitvector } from "./utils/bitvectors";
 import mobConstants from "./constants/mobs";
+import PlayerDefinition from "./entities/Player";
 
 export const simulation = {
   world: null,
@@ -153,6 +154,27 @@ export const simulation = {
       }
     });
   },
+  serializePlayer(playerEntityId) {
+    return new Promise((resolve, reject) => {
+      try {
+        const completePlayerEntity = {};
+        const playerEntityDefinition = PlayerDefinition.components;
+        for (let i = 0; i < playerEntityDefinition.length; i++) {
+          const component = playerEntityDefinition[i];
+          const componentProperties = Object.keys(this.world["_components"][component]);
+          completePlayerEntity[component] = {};
+          for (let j = 0; j < componentProperties.length; j++) {
+            const property = componentProperties[j];
+            completePlayerEntity[component][property] = this.world["_components"][component][property][playerEntityId];
+          }
+        }
+        resolve(completePlayerEntity);
+      } catch (err) {
+        console.error(`Failed to serialize player entity ${playerEntityId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
 };
 
 export default simulation;
@@ -216,34 +238,34 @@ export default simulation;
 // addComponentWithProperty(world, "person", newEntity, "burning", "enabled", globalConstants.TRUE);
 
 // // Validate components
-// console.log(newEntity);
-// console.log(
+// console.info(newEntity);
+// console.info(
 //   "position:",
 //   hasComponent(world, world["_components"]["position"], newEntity)
 // );
-// console.log(
+// console.info(
 //   "durability:",
 //   hasComponent(world, world["_components"]["durability"], newEntity)
 // );
-// console.log(
+// console.info(
 //   "breakable:",
 //   hasComponent(world, world["_components"]["breakable"], newEntity)
 // );
-// console.log(
+// console.info(
 //   "flammable:",
 //   hasComponent(world, world["_components"]["flammable"], newEntity)
 // );
-// console.log(
+// console.info(
 //   "scale:",
 //   hasComponent(world, world["_components"]["scale"], newEntity)
 // );
-// console.log(
+// console.info(
 //   "deathDrops:",
 //   hasComponent(world, world["_components"]["deathDrops"], newEntity)
 // );
 
 // // Update components directly
-// console.log("Value:", world["_components"]["position"]["x"][newEntity]);
+// console.info("Value:", world["_components"]["position"]["x"][newEntity]);
 // setComponentProperty(world, newEntity, "position", "x", 100);
 // setComponentValue(world, newEntity, "position", { x: 100, y: 100 });
-// console.log("Value:", world["_components"]["position"]["x"][newEntity]);
+// console.info("Value:", world["_components"]["position"]["x"][newEntity]);

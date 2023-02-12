@@ -16,6 +16,7 @@ import motd from "./commands/motd";
 import move from "./commands/move";
 import news from "./commands/news";
 import policy from "./commands/policy";
+import save from "./commands/save";
 import say from "./commands/say";
 import take from "./commands/take";
 import time from "./commands/time";
@@ -41,6 +42,7 @@ export const commands = {
   who,
   time,
   give,
+  save,
 };
 
 export const adminCommands = {
