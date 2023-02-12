@@ -1,3 +1,4 @@
+import giveGold from "./commands/admin/giveGold";
 import goto from "./commands/admin/goto";
 import loadItem from "./commands/admin/loadItem";
 import loadMob from "./commands/admin/loadMob";
@@ -49,6 +50,7 @@ export const adminCommands = {
   loaditem: loadItem,
   loadmob: loadMob,
   goto,
+  givegold: giveGold,
 };
 
 export const commandAliases = {

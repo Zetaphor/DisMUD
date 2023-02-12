@@ -22,11 +22,39 @@ export const players = {
       }
     }
   },
+  getActiveByPlayerId(playerId) {
+    for (var key in players.currentActive) {
+      if (players.currentActive.hasOwnProperty(key) && players.currentActive[key].id === playerId) {
+        return players.currentActive[key];
+      }
+    }
+  },
   getActiveByDiscordId(discordId) {
     for (var key in players.currentActive) {
       if (players.currentActive.hasOwnProperty(key) && players.currentActive[key].discordId === discordId) {
         return players.currentActive[key];
       }
+    }
+  },
+  getActiveByDisplayName(name) {
+    for (var key in players.currentActive) {
+      if (
+        players.currentActive.hasOwnProperty(key) &&
+        players.currentActive[key].displayName.toLowerCase().includes(name.toLowerCase())
+      ) {
+        return players.currentActive[key];
+      }
+    }
+    return null;
+  },
+  updatePlayerGold(playerId, amount) {
+    if (players.currentActive.hasOwnProperty(playerId)) {
+      players.currentActive[playerId].gold += amount;
+    }
+  },
+  updatePlayerBank(playerId, amount) {
+    if (players.currentActive.hasOwnProperty(playerId)) {
+      players.currentActive[playerId].bank += amount;
     }
   },
   login(worldState, user) {
