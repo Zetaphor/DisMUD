@@ -147,7 +147,12 @@ export const inventories = {
 
         let playerInventoryData = await db.methods.getPlayerInventory(playerId);
         if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
-        if (playerInventoryData["inventoryString"] !== "" && playerInventoryData["inventoryString"] !== "null") {
+        if (
+          typeof playerInventoryData === "string" &&
+          playerInventoryData["inventoryString"] !== "" &&
+          playerInventoryData["inventoryString"] !== "null" &&
+          playerInventoryData["inventoryString"] !== "undefined"
+        ) {
           playerInventory = JSON.parse(decodeURIComponent(playerInventoryData["inventoryString"]));
         }
 

@@ -92,7 +92,11 @@ export const players = {
           console.info(`Creating new player ${user.username}'s inventory`);
           await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
         } else {
-          if (playerData.equipment !== "" && playerData.equipment !== "null") {
+          if (
+            typeof playerData.equipment === "string" &&
+            playerData.equipment !== "" &&
+            playerData.equipment !== "null"
+          ) {
             playerData.equipment = JSON.parse(decodeURIComponent(playerData.equipment));
           } else playerData.equipment = {};
           // console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);

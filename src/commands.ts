@@ -22,6 +22,8 @@ import say from "./commands/say";
 import take from "./commands/take";
 import time from "./commands/time";
 import who from "./commands/who";
+import wear from "./commands/wear";
+import remove from "./commands/remove";
 
 export const commands = {
   say,
@@ -44,6 +46,8 @@ export const commands = {
   time,
   give,
   save,
+  wear,
+  remove,
 };
 
 export const adminCommands = {

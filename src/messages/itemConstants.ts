@@ -64,6 +64,40 @@ export const itemConstants = {
     8192: `This item can be wielded.`, // Item can be wielded; e.g. weapons.
     16384: `This item can be held.`, // Item can be held (the ``hold'' command).
   },
+
+  wear_messages: {
+    2: "This item is being worn on your fingers",
+    4: "This item is being worn around your neck",
+    8: "This item is being worn on your body",
+    16: "This item is being worn on your head",
+    32: "This item is being worn on your legs",
+    64: "This item is being worn on your feet",
+    128: "This item is being worn on your hands",
+    256: "This item is being worn on your arms",
+    512: "This item is being used as a shield",
+    1024: "This item is being worn around your body",
+    2048: "This item is being worn around your waist",
+    4096: "This item is around your wrist",
+    8192: "This item is being wielded",
+    16384: "This item is being held",
+  },
+
+  slot_names: {
+    2: "on your fingers",
+    4: "around your neck",
+    8: "on your torso",
+    16: "on your head",
+    32: "on your legs",
+    64: "on your feet",
+    128: "on your hands",
+    256: "on your arms",
+    512: "in your shield holster",
+    1024: "around your body",
+    2048: "around your waist",
+    4096: "around your wrist",
+    8192: "in your weapon holster",
+    16384: "in your hand",
+  },
 };
 
 export default itemConstants;
