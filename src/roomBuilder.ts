@@ -23,9 +23,11 @@ export default function buildRoom(worldState, user, userId, roomData, admin = fa
         const mobData = worldState.mobs.getActiveMobData(mobId);
         const MobStats = worldState.simulation.world["_components"]["mobStats"];
         if (MobStats.state[mobId] === MobStats.defaultState[mobId]) {
-          mobDescriptions += `${mobData.longDesc}\n`;
+          mobDescriptions += `${emoji.cloak} ${mobData.longDesc}\n`;
         } else {
-          mobDescriptions += `${mobData.shortDesc} ${globalConstants.mobPlayerStates[MobStats.state[mobId]]}\n`;
+          mobDescriptions += `${emoji.cloak} ${mobData.shortDesc} ${
+            globalConstants.mobPlayerStates[MobStats.state[mobId]]
+          }\n`;
         }
       }
 
