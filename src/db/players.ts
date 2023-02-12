@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS Players (
   roomNum INTEGER,
   gold INTEGER DEFAULT 10,
   bank INTEGER DEFAULT 0,
+  equipment TEXT,
   simulationData TEXT,
   creationDate TEXT DEFAULT (datetime('now', 'utc')),
   lastLogin TEXT DEFAULT (datetime('now', 'utc')),
@@ -70,6 +71,7 @@ const playerMethods = {
         bank: userData["bank"],
         lastSaved: new Date().toISOString().slice(0, 19).replace("T", " "),
         simulationData: encodeURIComponent(JSON.stringify(simulationData)),
+        equipment: encodeURIComponent(JSON.stringify(userData["equipment"])),
       },
       "id",
       id

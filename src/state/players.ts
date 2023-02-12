@@ -78,7 +78,6 @@ export const players = {
     return new Promise<Object>(async (resolve, reject) => {
       try {
         let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(`k${user.id}`);
-        let playerInventory = {};
         let newPlayer = false;
         if (!playerData) {
           newPlayer = true;
@@ -88,10 +87,14 @@ export const players = {
             discordUsername: `${user.username}#${user.discriminator}`,
             displayName: user.username,
             roomNum: globalConstants.NEW_USER_ROOMNUM,
+            equipment: null,
           });
           console.info(`Creating new player ${user.username}'s inventory`);
           await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
         } else {
+          if (playerData.equipment !== "" && playerData.equipment !== "null") {
+            playerData.equipment = JSON.parse(decodeURIComponent(playerData.equipment));
+          } else playerData.equipment = {};
           // console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
           const playerInventory = await worldState.inventories.loadInventory(
             worldState.db["playerInventories"],

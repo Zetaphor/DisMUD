@@ -28,6 +28,7 @@ export const mobs = {
           roomNum
         );
         mobData.items = {};
+        mobData.equipment = {};
         this.activeMobs[mobId] = mobData;
         resolve(mobId);
       } catch (err) {
