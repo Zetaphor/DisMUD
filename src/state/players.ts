@@ -4,6 +4,23 @@ import playerStatConstants from "../simulation/constants/playerStats";
 export const players = {
   currentActive: {},
 
+  removePlayer(worldState, playerId) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        const player = this.currentActive[playerId];
+        if (player) {
+          worldState.simulation.removeWorldEntity(player.id);
+          delete this.currentActive[playerId];
+          await worldState.inventories.removeInventory(playerId);
+          resolve();
+        } else {
+          reject(new Error(`Player ${playerId} not found`));
+        }
+      } catch (err) {
+        console.error(`Failed to remove player ${playerId}: ${err}`);
+      }
+    });
+  },
   isActiveEntityId(playerId) {
     if (Object.keys(players.currentActive).indexOf(playerId) !== -1) return true;
     return false;
@@ -99,14 +116,15 @@ export const players = {
       }
     });
   },
-  logout(id, players, simulation, user) {
-    return new Promise<void>((resolve, reject) => {
+  logout(worldState, discordId) {
+    return new Promise<void>(async (resolve, reject) => {
       try {
-        simulation.removeWorldEntity(players["currentActive"][id].eid);
-        delete players["currentActive"][user.id];
+        const userData = this.getActiveByDiscordId(`k${discordId}`);
+        await this.save(worldState, userData);
+        await this.removePlayer(worldState, userData.id);
         resolve();
       } catch (error) {
-        console.error(`Error logging out ${user.username}:`, error);
+        console.error(`Error logging out ${discordId}:`, error);
         reject(error);
       }
     });

@@ -9,7 +9,7 @@ import parseCommand from "./parseCommand";
 export default async function msgAuthenticated(worldState, msg) {
   if (msg.content.toLowerCase() === "logout" || msg.content.toLowerCase() === "quit") {
     try {
-      await worldState.players.logout(worldState.players, worldState.simulation, msg.user);
+      await worldState.players.logout(worldState, msg.user.id);
       systemMessages.logout(msg.user);
     } catch (err) {
       console.error(`Error logging out user ${msg.user.id}`);

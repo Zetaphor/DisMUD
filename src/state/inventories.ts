@@ -1,6 +1,21 @@
 export const inventories = {
   playerInventories: {},
 
+  removeInventory(playerId) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        const player = this.playerInventories[playerId];
+        if (player) {
+          delete this.playerInventories[playerId];
+          resolve();
+        } else {
+          reject(new Error(`Player ${playerId} not found`));
+        }
+      } catch (err) {
+        console.error(`Failed to remove player inventory ${playerId}: ${err}`);
+      }
+    });
+  },
   getActiveInventory(playerId) {
     return this.playerInventories[playerId];
   },
