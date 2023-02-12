@@ -46,6 +46,24 @@ export const globalConstants = {
     POSITION_FIGHTING: 7,
     POSITION_STANDING: 8,
   },
+
+  ALIGNMENT: {
+    EVIL: 0, // Mob is evil-aligned.
+    NEUTRAL: 1, // Mob is neutral-aligned.
+    GOOD: 2, // Mob is good-aligned.
+  },
+
+  calculateAlignment(alignment) {
+    if (alignment <= -350) return this.ALIGNMENT.EVIL;
+    else if (alignment <= 349) return this.ALIGNMENT.NEUTRAL;
+    else return this.ALIGNMENT.GOOD;
+  },
+
+  calculateAlignmentString(alignment) {
+    if (alignment <= -350) return "Evil";
+    else if (alignment <= 349) return "Neutral";
+    else return "Good";
+  },
 };
 
 export default globalConstants;

@@ -44,18 +44,6 @@ export const mobConstants = {
     UNUSED20: "u", // Unused (room for future expansion).
     CHARM: "v", // Reserved for internal use.  Do not set.
   },
-
-  ALIGNMENT: {
-    EVIL: 0, // Mob is evil-aligned.
-    NEUTRAL: 1, // Mob is neutral-aligned.
-    GOOD: 2, // Mob is good-aligned.
-  },
-
-  calculateAlignment(alignment) {
-    if (alignment <= -350) return this.ALIGNMENT.EVIL;
-    else if (alignment <= 349) return this.ALIGNMENT.NEUTRAL;
-    else return this.ALIGNMENT.GOOD;
-  },
 };
 
 export default mobConstants;

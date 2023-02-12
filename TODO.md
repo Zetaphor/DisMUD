@@ -39,7 +39,6 @@ consider - Determine if you can attack
 diagnose - Check wounds
 donate - Donate items to donation room
 eat, drink, sip, taste
-equipment - Show equipment
 fill - Fill container
 flee - Exit battle
 follow - Follow someone
@@ -55,12 +54,9 @@ pick - pick locks
 pour
 quaff - Drink potion
 recite - Recite scroll
-save
-score - Show your stats
 track
 use - Use a wand or staff
 wake, rest, sleep, sit, stand
-wear
 where
 wield
 wimpy

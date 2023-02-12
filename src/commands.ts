@@ -25,6 +25,7 @@ import who from "./commands/who";
 import wear from "./commands/wear";
 import remove from "./commands/remove";
 import equipment from "./commands/equipment";
+import score from "./commands/score";
 
 export const commands = {
   say,
@@ -50,6 +51,7 @@ export const commands = {
   wear,
   remove,
   equipment,
+  score,
 };
 
 export const adminCommands = {

@@ -154,6 +154,29 @@ export const simulation = {
       }
     });
   },
+  getPlayerStats(playerId) {
+    return new Promise((resolve, reject) => {
+      try {
+        const PlayerStats = this.world._components["playerStats"];
+        const playerStatsQuery = defineQuery([PlayerStats]);
+        const ents = playerStatsQuery(this.world);
+        let foundStats = {};
+        for (let i = 0; i < ents.length; i++) {
+          if (ents[i] === playerId) {
+            const statProperties = Object.keys(PlayerStats);
+            for (let j = 0; j < statProperties.length; j++) {
+              foundStats[statProperties[j]] = PlayerStats[statProperties[j]][ents[i]];
+            }
+            i = ents.length;
+          }
+        }
+        resolve(foundStats);
+      } catch (err) {
+        console.error(`Failed to get player stats for player ${playerId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   serializePlayer(playerEntityId) {
     return new Promise((resolve, reject) => {
       try {
