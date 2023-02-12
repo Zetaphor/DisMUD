@@ -48,6 +48,7 @@ export const emoji = {
   eye: "<:rpgeye:1073705683444318219>",
   grab: "<:rpggrab:1073730305812340846>",
   give: "<:rpggive:1074087385756880916>",
+  dashedCircle: "<:rpgdashedcircle:1074442328036626512>",
 };
 
 export default emoji;

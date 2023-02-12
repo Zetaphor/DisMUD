@@ -13,7 +13,7 @@ export const itemConstants = {
     9: `${emoji.armor} This item can be worn as armor.`, // Item is armor.
     10: `${emoji.potion} This item is a magical potion.`, // Item is a magical potion.
     11: `This item should not have this property, report this to an admin!`, // Currently not implemented.  Do not use.
-    12: `This is a miscellaneous object.`, // Miscellaneous object with no special properties.
+    12: `${emoji.dashedCircle} This is a miscellaneous object.`, // Miscellaneous object with no special properties.
     13: `${emoji.junk} This is item is junk.`, // Trash -- junked by cleaners, not bought by shopkeepers.
     14: `This item should not have this property, report this to an admin!`, // Currently not implemented.  Do not use.
     15: `${emoji.chest} This item is a container that can hold other items.`, // Item is a container.
@@ -25,6 +25,19 @@ export const itemConstants = {
     21: `${emoji.pen} This is a pen that can be used to write notes.`, // Item is a pen.
     22: `${emoji.boat} This is a boat that can be used to traverse water.`, // Item is a boat; allows you to traverse SECT_WATER_NOSWIM.
     23: `${emoji.fountain} This is a fountain that contains a liquid.`, // Item is a fountain.
+  },
+
+  equipEmoji: {
+    1: `${emoji.lantern}`, // Item is a light source.
+    2: `${emoji.scroll}`, // Item is a magical scroll.
+    3: `${emoji.magicWand}`, // Item is a magical wand.
+    4: `${emoji.magicStaff}`, // Item is a magical staff.
+    5: `${emoji.sword}`, // Item is a weapon.
+    8: `${emoji.treasure}`, // Item is treasure other than gold coins (e.g. gems)
+    9: `${emoji.armor}`, // Item is armor.
+    12: `${emoji.dashedCircle}`, // Miscellaneous object with no special properties.
+    13: `${emoji.junk}`, // Trash -- junked by cleaners, not bought by shopkeepers.
+    21: `${emoji.pen}`, // Item is a pen.
   },
 
   effects: {

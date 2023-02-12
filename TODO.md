@@ -17,10 +17,11 @@
 - Implement logging
 - Lowercase all the command inputs
 - Figure out what in Circlemud lets you look into another persons inventory
-- Implement ability to give gold to other players (non-admin) and to drop gold as an item
+- Implement ability to give gold to other players (non-admin) and to drop gold as an item (Look into item values, type flag 20)
 - Check for wear_take in the get command
 - Use ChatGPT to fill in missing actionDescs
 - Show aliases in examine command
+- Apply object modifers on equip
 
 ## Commands
 

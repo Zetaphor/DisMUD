@@ -1,4 +1,5 @@
 import emoji from "../messages/emoji";
+import itemConstants from "../messages/itemConstants";
 
 export default async function remove(worldState, userData, msg) {
   try {
@@ -20,7 +21,9 @@ export default async function remove(worldState, userData, msg) {
     if (matchedSlot !== null && matchedItem !== null) {
       await worldState.inventories.giveItem(userData.id, matchedItem, 1);
       delete userData.equipment[matchedSlot];
-      userData.user.send(`${emoji.check} _You removed ${matchedItem.shortDesc}._`);
+      userData.user.send(
+        `${emoji.check} _You removed the ${matchedItem.shortDesc} you were had ${itemConstants.slot_names[matchedSlot]}.._`
+      );
     } else {
       userData.user.send(`${emoji.question} _You're not wearing anything with that name_`);
     }

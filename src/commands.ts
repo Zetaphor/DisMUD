@@ -24,6 +24,7 @@ import time from "./commands/time";
 import who from "./commands/who";
 import wear from "./commands/wear";
 import remove from "./commands/remove";
+import equipment from "./commands/equipment";
 
 export const commands = {
   say,
@@ -48,6 +49,7 @@ export const commands = {
   save,
   wear,
   remove,
+  equipment,
 };
 
 export const adminCommands = {
