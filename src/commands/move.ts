@@ -55,9 +55,7 @@ export default async function move(worldState, userData, msg) {
         worldState.simulation.world,
         userData.eid
       );
-      // console.log("newRoomData", newRoomData);
       buildRoom(worldState, userData.user, userData.eid, newRoomData, userData.admin);
-      // console.log(`move: ${userData.user.username}, ${moveDir}`);
     }
   } catch (err) {
     console.error(`Error using move ${msg}: ${err}`);

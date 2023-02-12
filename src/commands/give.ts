@@ -13,7 +13,6 @@ export default async function give(worldState, userData, msg) {
       let targetItem = "";
       if (/^-?\d+(\.\d+)?$/.test(msg[0])) {
         giveQty = Number(msg[0]);
-        console.log("Matched number", msg);
         targetItem = msg[1].toLowerCase();
         targetName = msg[2].toLowerCase();
       } else {
@@ -21,7 +20,7 @@ export default async function give(worldState, userData, msg) {
         targetName = msg[1].toLowerCase();
       }
 
-      console.log(`targetItem: ${targetItem} targetName: ${targetName} giveQty: ${giveQty}`);
+      // console.info(`targetItem: ${targetItem} targetName: ${targetName} giveQty: ${giveQty}`);
 
       let giveTarget = null;
 
