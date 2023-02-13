@@ -139,12 +139,11 @@ export const mobs = {
   },
   removeFollower(mobId, eid) {
     try {
-      const index = this.activeMobs[mobId].followers.indexOf(eid);
-      if (index !== -1) {
-        this.activeMobs[mobId].followers.splice(index, 1);
+      if (typeof this.activeMobs[mobId].followers[eid] !== "undefined") {
+        delete this.activeMobs[mobId].followers[eid];
       }
     } catch (err) {
-      console.error(`Error removing mob ${mobId} follower ${eid}: ${err}`);
+      console.error(`Error removing ${mobId}'s follower ${eid}: ${err}`);
     }
   },
   setFollowing(mobId, eid, name, player = false) {
