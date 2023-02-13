@@ -202,7 +202,8 @@ export const players = {
   sendCommandAsUser(worldState, playerId, command) {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        parseCommand(worldState, worldState.players.getActiveByPlayerId(playerId), command);
+        const userData = worldState.players.getActiveByPlayerId(playerId);
+        parseCommand(worldState, userData, command);
         resolve();
       } catch (err) {
         console.error(`Error sending command ${command} as player ${playerId}:`, err);

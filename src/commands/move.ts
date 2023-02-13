@@ -85,8 +85,9 @@ export default async function move(worldState, userData, msg) {
 
               worldState.broadcasts.sendToRoom(
                 worldState,
-                roomExits[moveDir].roomId - 1,
-                false,
+                roomExits[moveDir].roomId,
+                userData.eid,
+                true,
                 `${emoji.enter} _${mobData.shortDesc} has arrived._`
               );
             }
