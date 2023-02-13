@@ -18,6 +18,11 @@ export default async function msgAuthenticated(worldState, msg) {
   } else if (msg.content.toLowerCase() === "login") {
     systemMessages.alreadyLoggedIn(msg.user);
   } else {
-    parseCommand(worldState, worldState.players.getActiveByDiscordId(`k${msg.user.id}`), msg.content);
+    if (msg.content.includes("; ")) {
+      const commands = msg.content.split("; ");
+      for (let i = 0; i < commands.length; i++) {
+        await parseCommand(worldState, worldState.players.getActiveByDiscordId(`k${msg.user.id}`), commands[i]);
+      }
+    } else parseCommand(worldState, worldState.players.getActiveByDiscordId(`k${msg.user.id}`), msg.content);
   }
 }
