@@ -28,7 +28,9 @@ import equipment from "./commands/equipment";
 import score from "./commands/score";
 import follow from "./commands/follow";
 import unfollow from "./commands/unfollow";
+import mobFollow from "./commands/admin/mobFollow";
 import debug from "./commands/admin/debug";
+import mobUnfollow from "./commands/admin/mobUnfollow";
 
 export const commands = {
   say,
@@ -64,6 +66,8 @@ export const adminCommands = {
   loadmob: loadMob,
   goto,
   givegold: giveGold,
+  mobfollow: mobFollow,
+  mobunfollow: mobUnfollow,
   debug,
 };
 

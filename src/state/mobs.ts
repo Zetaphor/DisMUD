@@ -183,7 +183,6 @@ export const mobs = {
         Wander.lastTick[eid] = Number(worldState.simulation.world.time.ticks);
       }
 
-      const mobData = worldState.mobs.getActiveMobData(eid);
       worldState.broadcasts.sendToRoom(
         worldState,
         oldRoomNum,
@@ -234,7 +233,8 @@ export const mobs = {
 
               worldState.broadcasts.sendToRoom(
                 worldState,
-                roomExits[directionNames[direction]].roomId - 1,
+                roomExits[directionNames[direction]].roomId,
+                -1,
                 false,
                 `${emoji.enter} _${mobData.shortDesc} has arrived._`
               );
