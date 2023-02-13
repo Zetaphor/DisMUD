@@ -141,8 +141,8 @@ export const rooms = {
 
           for (let i = 0; i < roomMobs.length; i++) {
             const roomMobData = worldState.mobs.getActiveMobData(roomMobs[i]);
-            for (let i = 0; i < roomMobData.aliases.length; i++) {
-              if (roomMobData.aliases[i].indexOf(alias) !== -1) {
+            for (let j = 0; j < roomMobData.aliases.length; j++) {
+              if (roomMobData.aliases[j].indexOf(alias) !== -1) {
                 targetData = roomMobData;
                 targetType = "mob";
                 targetId = roomMobs[i];
