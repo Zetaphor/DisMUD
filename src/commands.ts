@@ -31,6 +31,7 @@ import unfollow from "./commands/unfollow";
 import mobFollow from "./commands/admin/mobFollow";
 import debug from "./commands/admin/debug";
 import mobUnfollow from "./commands/admin/mobUnfollow";
+import force from "./commands/admin/force";
 
 export const commands = {
   say,
@@ -69,6 +70,7 @@ export const adminCommands = {
   mobfollow: mobFollow,
   mobunfollow: mobUnfollow,
   debug,
+  force,
 };
 
 export const commandAliases = {
