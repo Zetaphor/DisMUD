@@ -74,7 +74,7 @@ export default async function follow(worldState, userData, msg) {
       }
 
       worldState.mobs.addFollower(followTarget.eid, userData.eid, true);
-      worldState.players.setFollowing(userData.id, followTarget.id, followTarget.data.shortDesc, false);
+      worldState.players.setFollowing(userData.id, followTarget.eid, followTarget.data.shortDesc, false);
       userData.sendMessage(userData.user, `${emoji.follow} _You start following ${followTarget.data.shortDesc}._`);
     }
   } catch (err) {
