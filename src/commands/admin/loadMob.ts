@@ -10,6 +10,11 @@ export default async function loadMob(worldState, userData, msg) {
         quantity = msg[2];
       }
     }
+
+    if (/^-?\d+(\.\d+)?$/.test(msg[0]) === false) {
+      userData.user.send(`${emoji.error} _You must specify a mob vNum!_`);
+      return;
+    }
     const mob = await worldState.mobs.loadMobData(worldState.db["mobs"], BigInt(msg[0]));
     const mobData = JSON.parse(mob.data);
 
