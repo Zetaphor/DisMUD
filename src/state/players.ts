@@ -1,3 +1,4 @@
+import parseCommand from "../parseCommand";
 import globalConstants from "../simulation/constants/global";
 import playerStatConstants from "../simulation/constants/playerStats";
 
@@ -89,6 +90,10 @@ export const players = {
             roomNum: globalConstants.NEW_USER_ROOMNUM,
             equipment: null,
           });
+          playerData.followers = {};
+          playerData.following = null;
+          playerData.followingPlayer = false;
+          playerData.followingName = "";
           console.info(`Creating new player ${user.username}'s inventory`);
           await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
         } else {
@@ -99,6 +104,10 @@ export const players = {
           ) {
             playerData.equipment = JSON.parse(decodeURIComponent(playerData.equipment));
           } else playerData.equipment = {};
+          playerData.followers = {};
+          playerData.following = null;
+          playerData.followingPlayer = false;
+          playerData.followingName = "";
           // console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
           const playerInventory = await worldState.inventories.loadInventory(
             worldState.db["playerInventories"],
@@ -147,6 +156,54 @@ export const players = {
       } catch (error) {
         console.error(`Error saving player ${userData.id} ${userData.displayName}:`, error);
         reject(error);
+      }
+    });
+  },
+  addFollower(playerId, eid, player = false) {
+    try {
+      if (typeof this.currentActive[playerId].followers[eid] === "undefined") {
+        this.currentActive[playerId].followers[eid] = {
+          eid: eid,
+          player: player,
+        };
+      }
+    } catch (err) {
+      console.error(`Error adding ${player ? "player" : "mob"} ${playerId} follower ${eid}: ${err}`);
+    }
+  },
+  removeFollower(eid, followerEid) {
+    try {
+      let player = this.getActiveByEntityId(eid);
+      delete this.currentActive[player.id].followers[followerEid];
+    } catch (err) {
+      console.error(`Error removing player ${eid}'s follower ${followerEid}: ${err}`);
+    }
+  },
+  isFollower(playerId, followerEid) {
+    try {
+      return this.currentActive[playerId].followers[followerEid] !== undefined;
+    } catch (err) {
+      console.error(`Error checking player ${playerId}'s follower ${followerEid}: ${err}`);
+    }
+  },
+  setFollowing(playerId, eid, name, player = false) {
+    this.currentActive[playerId].following = eid;
+    this.currentActive[playerId].followingName = name;
+    this.currentActive[playerId].followingPlayer = player;
+  },
+  stopFollowing(playerId) {
+    this.currentActive[playerId].following = null;
+    this.currentActive[playerId].followingName = "";
+    this.currentActive[playerId].followingPlayer = false;
+  },
+  sendCommandAsUser(worldState, playerId, command) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        parseCommand(worldState, worldState.players.getActiveByPlayerId(playerId), command);
+        resolve();
+      } catch (err) {
+        console.error(`Error sending command ${command} as player ${playerId}:`, err);
+        reject(err);
       }
     });
   },

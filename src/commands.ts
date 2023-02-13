@@ -26,6 +26,8 @@ import wear from "./commands/wear";
 import remove from "./commands/remove";
 import equipment from "./commands/equipment";
 import score from "./commands/score";
+import follow from "./commands/follow";
+import unfollow from "./commands/unfollow";
 
 export const commands = {
   say,

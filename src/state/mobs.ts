@@ -29,6 +29,10 @@ export const mobs = {
         );
         mobData.items = {};
         mobData.equipment = {};
+        mobData.followers = {};
+        mobData.following = null;
+        mobData.followingPlayer = false;
+        mobData.followingName = "";
         this.activeMobs[mobId] = mobData;
         resolve(mobId);
       } catch (err) {
@@ -121,6 +125,38 @@ export const mobs = {
       }
     });
   },
+  addFollower(mobId, eid, player = false) {
+    try {
+      if (typeof this.activeMobs[mobId].followers[eid] === "undefined") {
+        this.activeMobs[mobId].followers[eid] = {
+          eid: eid,
+          player: player,
+        };
+      }
+    } catch (err) {
+      console.error(`Error adding ${player ? "player" : "mob"} ${mobId} follower ${eid}: ${err}`);
+    }
+  },
+  removeFollower(mobId, eid) {
+    try {
+      const index = this.activeMobs[mobId].followers.indexOf(eid);
+      if (index !== -1) {
+        this.activeMobs[mobId].followers.splice(index, 1);
+      }
+    } catch (err) {
+      console.error(`Error removing mob ${mobId} follower ${eid}: ${err}`);
+    }
+  },
+  setFollowing(mobId, eid, name, player = false) {
+    this.activeMobs[mobId].following = eid;
+    this.activeMobs[mobId].followingName = name;
+    this.activeMobs[mobId].followingPlayer = player;
+  },
+  stopFollowing(mobId) {
+    this.activeMobs[mobId].following = null;
+    this.activeMobs[mobId].followingName = "";
+    this.activeMobs[mobId].followingPlayer = false;
+  },
   async timedMobMovement(worldState) {
     const Wander = worldState.simulation.world._components["wander"];
     const wanderQuery = defineQuery([Wander]);
@@ -159,6 +195,47 @@ export const mobs = {
           false,
           `${emoji.enter} _${mobData.shortDesc} has arrived._`
         );
+      }
+
+      for (const follower in mobData.followers) {
+        if (Object.prototype.hasOwnProperty.call(mobData.followers, follower)) {
+          const followerData = mobData.followers[follower];
+          const followerRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, followerData.eid);
+
+          if (followerRoomNum === oldRoomNum) {
+            if (followerData.player) {
+              const followerPlayer = await worldState.players.getActiveByEntityId(followerData.eid);
+              await worldState.players.sendCommandAsUser(
+                worldState,
+                followerPlayer.id,
+                `move ${directionNames[direction]}`
+              );
+            } else {
+              const followerMobData = worldState.mobs.getActiveMobData(followerData.eid);
+
+              await worldState.rooms.updateEntityRoomNum(
+                worldState.simulation.world,
+                followerData.eid,
+                exitData[direction]["roomId"]
+              );
+
+              worldState.broadcasts.sendToRoom(
+                worldState,
+                oldRoomNum,
+                -1,
+                false,
+                `${emoji.exit} _${followerMobData.shortDesc} leaves ${directionNames[direction]}._`
+              );
+
+              worldState.broadcasts.sendToRoom(
+                worldState,
+                roomExits[directionNames[direction]].roomId - 1,
+                false,
+                `${emoji.enter} _${mobData.shortDesc} has arrived._`
+              );
+            }
+          }
+        }
       }
     }
   },

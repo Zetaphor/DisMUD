@@ -29,6 +29,7 @@ export default async function give(worldState, userData, msg) {
         if (player.displayName.toLowerCase().includes(targetName)) {
           giveTarget = player;
           targetIsPlayer = true;
+          i = roomUsers.length;
         }
       }
 

@@ -56,6 +56,43 @@ export default async function move(worldState, userData, msg) {
         userData.eid
       );
       buildRoom(worldState, userData.user, userData.eid, newRoomData, userData.admin);
+
+      for (const follower in userData.followers) {
+        if (Object.prototype.hasOwnProperty.call(userData.followers, follower)) {
+          const followerData = userData.followers[follower];
+          const followerRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, followerData.eid);
+
+          if (followerRoomNum === oldRoomNum) {
+            if (followerData.player) {
+              const followerPlayer = await worldState.players.getActiveByEntityId(followerData.eid);
+              await worldState.players.sendCommandAsUser(worldState, followerPlayer.id, `move ${moveDir}`);
+            } else {
+              const mobData = worldState.mobs.getActiveMobData(followerData.eid);
+
+              await worldState.rooms.updateEntityRoomNum(
+                worldState.simulation.world,
+                followerData.eid,
+                roomExits[moveDir].roomId
+              );
+
+              worldState.broadcasts.sendToRoom(
+                worldState,
+                oldRoomNum,
+                -1,
+                false,
+                `${emoji.exit} _${mobData.shortDesc} leaves ${moveDir}._`
+              );
+
+              worldState.broadcasts.sendToRoom(
+                worldState,
+                roomExits[moveDir].roomId - 1,
+                false,
+                `${emoji.enter} _${mobData.shortDesc} has arrived._`
+              );
+            }
+          }
+        }
+      }
     }
   } catch (err) {
     console.error(`Error using move ${msg}: ${err}`);

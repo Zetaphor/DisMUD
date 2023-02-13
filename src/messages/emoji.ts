@@ -49,6 +49,8 @@ export const emoji = {
   grab: "<:rpggrab:1073730305812340846>",
   give: "<:rpggive:1074087385756880916>",
   dashedCircle: "<:rpgdashedcircle:1074442328036626512>",
+  follow: "<:rpgfollow:1074649242704027720>",
+  nofollow: "<:rpgnofollow:1074652875021635584>",
 };
 
 export default emoji;
