@@ -2,6 +2,11 @@ import emoji from "../../messages/emoji";
 
 export default async function loadItem(worldState, userData, msg) {
   try {
+    if (/^-?\d+(\.\d+)?$/.test(msg[0]) === false) {
+      userData.user.send(`${emoji.error} _You must specify an item vNum!_`);
+      return;
+    }
+
     const item = await worldState.items.loadItemData(worldState.db["items"], BigInt(msg[0]));
     if (item) {
       const itemData = JSON.parse(item.data);
