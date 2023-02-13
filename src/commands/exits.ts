@@ -6,6 +6,7 @@ export default async function move(worldState, userData, msg) {
       await worldState.rooms.getEntityRoomExits(worldState.db["rooms"], worldState.simulation.world, userData.eid)
     );
     userData.sendMessage(
+      userData.user,
       `${emoji.directions} _You can see an exit in the following directions:_ **${roomExits.join(", ")}**`
     );
   } catch (err) {
