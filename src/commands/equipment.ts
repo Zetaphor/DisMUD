@@ -7,7 +7,6 @@ export default function equipment(worldState, userData, msg) {
     for (const id in userData.equipment) {
       if (Object.prototype.hasOwnProperty.call(userData.equipment, id)) {
         const item = userData.equipment[id];
-        console.log(item.type);
         equipmentStrings.push(
           `${itemConstants.equipEmoji[item.type]} ${item.shortDesc} - ${itemConstants.wear_messages[id]}`
         );

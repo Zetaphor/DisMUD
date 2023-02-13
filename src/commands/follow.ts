@@ -37,7 +37,17 @@ export default async function follow(worldState, userData, msg) {
       }
     }
 
+    if (userData.following !== null) {
+      userData.sendMessage(userData.user, `${emoji.nofollow} _You are already following ${userData.followingName}!_`);
+      return;
+    }
+
     if (targetIsPlayer) {
+      if (followTarget.eid === userData.eid) {
+        userData.sendMessage(userData.user, `${emoji.error} _You can't follow yourself!_`);
+        return;
+      }
+
       if (worldState.players.isFollower(userData.id, followTarget.eid)) {
         userData.sendMessage(
           userData.user,

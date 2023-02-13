@@ -169,6 +169,12 @@ export const mobs = {
       const exitData = Object.values(roomExits);
       const directionNames = Object.keys(roomExits);
 
+      const mobData = worldState.mobs.getActiveMobData(eid);
+
+      if (mobData.following !== null) {
+        continue; // Don't randomly move if we're following someone
+      }
+
       const direction = Math.floor(Math.random() * exitData.length);
       if (exitData[direction]["roomId"] === -1) continue;
       else {
