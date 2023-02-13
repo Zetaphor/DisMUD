@@ -7,13 +7,14 @@ export default async function who(worldState, userData, msg) {
     for (let i = 0; i < playersData.length; i++) {
       playerList.push(`${playersData[i]["displayName"]} _(${playersData[i]["discordUsername"]})_`);
     }
-    userData.user.send(
+    userData.sendMessage(
+      userData.user,
       `${emoji.book} **__${playerList.length} Players Currently Online__** ${emoji.sparkles}\n\n${playerList.join(
         "\n"
       )}`
     );
   } catch (err) {
     console.error(`Error using who ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

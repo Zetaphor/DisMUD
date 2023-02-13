@@ -33,24 +33,27 @@ export default async function look(worldState, userData, msg) {
         // Look move direction
         const roomExits = await worldState.rooms.getRoomExits(worldState.db["rooms"], roomNum);
         if (roomExits[moveDir] && roomExits[moveDir]["desc"].length) {
-          userData.user.send(`${emoji.binoculars} _${roomExits[moveDir]["desc"]}_`);
+          userData.sendMessage(userData.user, `${emoji.binoculars} _${roomExits[moveDir]["desc"]}_`);
           return;
         } else {
-          userData.user.send(`${emoji.blind} _You can't see anything in that direction._`);
+          userData.sendMessage(userData.user, `${emoji.blind} _You can't see anything in that direction._`);
           return;
         }
       } else {
         const target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
 
         if (target.type === "") {
-          userData.user.send(`${emoji.question} _You do not see that here._`);
+          userData.sendMessage(userData.user, `${emoji.question} _You do not see that here._`);
         } else if (target.type === "inventory") {
           let itemTitle = `${emoji.examine} **${
             target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
           }** _(In Inventory)_\n`;
-          userData.user.send(`
+          userData.sendMessage(
+            userData.user,
+            `
             ${itemTitle}${itemConstants.types[target.data.type]}
-          `);
+          `
+          );
           worldState.broadcasts.sendToRoom(
             worldState,
             roomNum,
@@ -62,9 +65,12 @@ export default async function look(worldState, userData, msg) {
           let itemTitle = `${emoji.examine} **${
             target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
           }**\n`;
-          userData.user.send(`
+          userData.sendMessage(
+            userData.user,
+            `
             ${itemTitle}${itemConstants.types[target.data.type]}
-          `);
+          `
+          );
           worldState.broadcasts.sendToRoom(
             worldState,
             roomNum,
@@ -73,10 +79,13 @@ export default async function look(worldState, userData, msg) {
             `${emoji.eye} _${userData.displayName} looks at ${target.data.shortDesc}._`
           );
         } else if (target.type === "mob") {
-          userData.user.send(`
+          userData.sendMessage(
+            userData.user,
+            `
               ${emoji.examine} _You look at ${target.data.shortDesc}_\n
               ${target.data.detailedDesc}
-            `);
+            `
+          );
           worldState.broadcasts.sendToRoom(
             worldState,
             roomNum,
@@ -89,6 +98,6 @@ export default async function look(worldState, userData, msg) {
     }
   } catch (err) {
     console.error(`Error using look ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

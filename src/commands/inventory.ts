@@ -5,7 +5,10 @@ export default async function say(worldState, userData, msg) {
     let playerInventory = await worldState.inventories.getInventory(worldState.db["playerInventories"], userData.id);
 
     if (playerInventory === null || Object.keys(playerInventory).length === 0) {
-      userData.user.send(`${emoji.backpack} _You don't have any items in your inventory. Get out and find some loot!_`);
+      userData.sendMessage(
+        userData.user,
+        `${emoji.backpack} _You don't have any items in your inventory. Get out and find some loot!_`
+      );
     } else {
       let inventoryMessage = "";
       let totalQty = 0;
@@ -23,13 +26,16 @@ export default async function say(worldState, userData, msg) {
         totalQty += playerInventory[item]["qty"];
       }
 
-      userData.user.send(`
+      userData.sendMessage(
+        userData.user,
+        `
         ${emoji.backpack} __**INVENTORY**__ _${totalQty} item${totalQty > 1 ? "s" : ""}_\n
         ${inventoryMessage}
-      `);
+      `
+      );
     }
   } catch (err) {
     console.error(`Error using inventory ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

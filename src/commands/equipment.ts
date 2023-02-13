@@ -14,13 +14,14 @@ export default function equipment(worldState, userData, msg) {
       }
     }
 
-    userData.user.send(
+    userData.sendMessage(
+      userData.user,
       `${emoji.swordShield} **__${equipmentStrings.length} Items Currently Equipped__**\n\n${equipmentStrings.join(
         "\n"
       )}`
     );
   } catch (err) {
     console.error(`Error using equipment ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

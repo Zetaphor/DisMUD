@@ -13,6 +13,6 @@ export default function say(worldState, userData, msg) {
     // console.info(`${userData.user.username} says: ${msg.join(" ")}`);
   } catch (error) {
     console.error(`Error using say ${msg}: ${error}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

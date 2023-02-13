@@ -27,9 +27,12 @@ export default async function drop(worldState, userData, msg) {
       if (matchedItem !== null) {
         const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
         if (item.qty < dropQuantity)
-          userData.user.send(`${emoji.error} _You do not have that many of \`${item.data.shortDesc}\`._`);
+          userData.sendMessage(
+            userData.user,
+            `${emoji.error} _You do not have that many of \`${item.data.shortDesc}\`._`
+          );
         else dropItem(worldState, userData, roomNum, item, 0 - dropQuantity);
-      } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
+      } else userData.sendMessage(userData.user, `${emoji.question} _You don't have an item with that name_`);
     } else {
       const inventoryAliases = await worldState.inventories.getInventoryAliases(userData.id);
       let matchedItem = null;
@@ -44,11 +47,11 @@ export default async function drop(worldState, userData, msg) {
       if (matchedItem !== null) {
         const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
         dropItem(worldState, userData, roomNum, item, -1);
-      } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
+      } else userData.sendMessage(userData.user, `${emoji.question} _You don't have an item with that name_`);
     }
   } catch (err) {
     console.error(`Error using drop ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }
 
@@ -57,7 +60,8 @@ async function dropItem(worldState, userData, roomNum, item, quantity) {
     await worldState.inventories.updateQuanity(userData.id, item.data.id, quantity);
     await worldState.items.placeItem(worldState, item.data, roomNum, Math.abs(quantity));
 
-    userData.user.send(
+    userData.sendMessage(
+      userData.user,
       `${emoji.drop} _You dropped ${quantity < -1 ? Math.abs(quantity) : ""} ${item.data.shortDesc}${
         quantity < -1 ? "s" : ""
       } to the ground_`
@@ -73,6 +77,6 @@ async function dropItem(worldState, userData, roomNum, item, quantity) {
     );
   } catch (err) {
     console.error(`Error using dropItem ${item}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

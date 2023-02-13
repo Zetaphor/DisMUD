@@ -8,10 +8,10 @@ export default function time(worldState, userData, msg) {
     } in the ${globalConstants.MONTHS[worldState.simulation.world.time.month]} of the ${numberToWord(
       worldState.simulation.world.time.year + 1
     )} Year`;
-    userData.user.send(`${emoji.scrollText} _${timeString}_`);
+    userData.sendMessage(userData.user, `${emoji.scrollText} _${timeString}_`);
   } catch (err) {
     console.error(`Error using time ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }
 

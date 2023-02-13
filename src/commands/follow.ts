@@ -29,7 +29,7 @@ export default async function follow(worldState, userData, msg) {
       );
 
       if (target.type === "") {
-        userData.user.send(`${emoji.error} _That person is not here with you!_`);
+        userData.sendMessage(userData.user, `${emoji.error} _That person is not here with you!_`);
         return;
       } else if (target.type === "mob") {
         followTarget = target;
@@ -39,7 +39,8 @@ export default async function follow(worldState, userData, msg) {
 
     if (targetIsPlayer) {
       if (worldState.players.isFollower(userData.id, followTarget.eid)) {
-        userData.user.send(
+        userData.sendMessage(
+          userData.user,
           `${emoji.error} _You can't follow ${followTarget.displayName} because they're already following you!_`
         );
         return;
@@ -47,7 +48,7 @@ export default async function follow(worldState, userData, msg) {
 
       worldState.players.addFollower(followTarget.id, userData.eid, true);
       worldState.players.setFollowing(userData.id, followTarget.eid, followTarget.displayName, true);
-      userData.user.send(`${emoji.follow} _You start following ${followTarget.displayName}._`);
+      userData.sendMessage(userData.user, `${emoji.follow} _You start following ${followTarget.displayName}._`);
       worldState.broadcasts.sendToPlayer(
         worldState,
         followTarget.eid,
@@ -55,7 +56,8 @@ export default async function follow(worldState, userData, msg) {
       );
     } else {
       if (worldState.players.isFollower(userData.id, followTarget.eid)) {
-        userData.user.send(
+        userData.sendMessage(
+          userData.user,
           `${emoji.error} _You can't follow ${followTarget.displayName} because they're already following you!_`
         );
         return;
@@ -63,10 +65,10 @@ export default async function follow(worldState, userData, msg) {
 
       worldState.mobs.addFollower(followTarget.eid, userData.eid, true);
       worldState.players.setFollowing(userData.id, followTarget.id, followTarget.data.shortDesc, false);
-      userData.user.send(`${emoji.follow} _You start following ${followTarget.data.shortDesc}._`);
+      userData.sendMessage(userData.user, `${emoji.follow} _You start following ${followTarget.data.shortDesc}._`);
     }
   } catch (err) {
     console.error(`Error using follow ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

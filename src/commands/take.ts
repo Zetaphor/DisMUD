@@ -17,14 +17,14 @@ export default async function take(worldState, userData, msg) {
       const target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, false, false, msg[0]);
 
       if (target.type === "") {
-        userData.user.send(`${emoji.question} _You do not see that here._`);
+        userData.sendMessage(userData.user, `${emoji.question} _You do not see that here._`);
       } else {
         takeItem(worldState, userData, roomNum, target);
       }
     }
   } catch (err) {
     console.error(`Error using take ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }
 
@@ -32,7 +32,10 @@ async function takeItem(worldState, userData, roomNum, target) {
   try {
     await worldState.inventories.giveItem(userData.id, target.data, 1);
     await worldState.items.removeItem(worldState, target.eid);
-    userData.user.send(`${emoji.grab} _You picked up ${target.data.shortDesc}_ and put it in your inventory.`);
+    userData.sendMessage(
+      userData.user,
+      `${emoji.grab} _You picked up ${target.data.shortDesc}_ and put it in your inventory.`
+    );
     worldState.broadcasts.sendToRoom(
       worldState,
       roomNum,
@@ -42,6 +45,6 @@ async function takeItem(worldState, userData, roomNum, target) {
     );
   } catch (err) {
     console.error(`Error using takeItem ${target}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

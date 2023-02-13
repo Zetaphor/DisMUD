@@ -45,7 +45,7 @@ export default async function give(worldState, userData, msg) {
         );
 
         if (target.type === "") {
-          userData.user.send(`${emoji.error} _That person is not here with you!_`);
+          userData.sendMessage(userData.user, `${emoji.error} _That person is not here with you!_`);
           resolve(false);
           return;
         } else if (target.type === "mob") {
@@ -68,7 +68,7 @@ export default async function give(worldState, userData, msg) {
         const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
 
         if (item.qty < giveQty) {
-          userData.user.send(`${emoji.error} You don't have enough of that!`);
+          userData.sendMessage(userData.user, `${emoji.error} You don't have enough of that!`);
           resolve(false);
           return;
         }
@@ -81,7 +81,8 @@ export default async function give(worldState, userData, msg) {
           // Remove the quantity from the givers inventory
           worldState.inventories.updateQuanity(userData.id, item.data.id, 0 - giveQty);
 
-          userData.user.send(
+          userData.sendMessage(
+            userData.user,
             `${emoji.give} _You given ${giveQty} of \`${item.data.shortDesc}\` to ${giveTarget.shortDesc}._`
           );
           worldState.broadcasts.sendToRoom(
@@ -102,7 +103,8 @@ export default async function give(worldState, userData, msg) {
           // Remove the quantity from the givers inventory
           worldState.inventories.updateQuanity(userData.id, item.data.id, 0 - giveQty);
 
-          userData.user.send(
+          userData.sendMessage(
+            userData.user,
             `${emoji.give} _You given ${giveQty} of \`${item.data.shortDesc}\` to ${giveTarget.displayName}._`
           );
           worldState.broadcasts.sendToRoom(
@@ -119,10 +121,10 @@ export default async function give(worldState, userData, msg) {
           );
           resolve(true);
         }
-      } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
+      } else userData.sendMessage(userData.user, `${emoji.question} _You don't have an item with that name_`);
     } catch (err) {
       console.error(`Error using give ${msg}: ${err}`);
-      userData.user.send(`${emoji.error} _Something went wrong!_`);
+      userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
       reject();
     }
   });

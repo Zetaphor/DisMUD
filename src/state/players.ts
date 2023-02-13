@@ -1,3 +1,4 @@
+import sendMessage from "../messages/sendMessage";
 import parseCommand from "../parseCommand";
 import globalConstants from "../simulation/constants/global";
 import playerStatConstants from "../simulation/constants/playerStats";
@@ -104,6 +105,7 @@ export const players = {
           ) {
             playerData.equipment = JSON.parse(decodeURIComponent(playerData.equipment));
           } else playerData.equipment = {};
+          playerData.sendMessage = sendMessage;
           playerData.followers = {};
           playerData.following = null;
           playerData.followingPlayer = false;
@@ -124,6 +126,7 @@ export const players = {
         playerData["newPlayer"] = newPlayer;
         playerData["eid"] = playerEntityId;
         playerData["user"] = user;
+        playerData.sendMessage = sendMessage;
         players["currentActive"][playerData.id] = playerData;
         resolve(playerData);
       } catch (err) {

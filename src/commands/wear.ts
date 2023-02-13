@@ -17,16 +17,22 @@ export default async function wear(worldState, userData, msg) {
       const item = await worldState.inventories.getInventoryItem(userData.id, matchedItem);
       const equipSlot = Number(item.data.wear) - 1;
       if (typeof userData.equipment[equipSlot] !== "undefined") {
-        userData.user.send(`${emoji.error} _You already wearing something ${itemConstants.slot_names[equipSlot]}!_`);
+        userData.sendMessage(
+          userData.user,
+          `${emoji.error} _You already wearing something ${itemConstants.slot_names[equipSlot]}!_`
+        );
         return;
       } else {
         await worldState.inventories.updateQuanity(userData.id, item.data.id, -1);
         userData.equipment[equipSlot] = item.data;
-        userData.user.send(`${emoji.check} _You put ${item.data.shortDesc} ${itemConstants.slot_names[equipSlot]}._`);
+        userData.sendMessage(
+          userData.user,
+          `${emoji.check} _You put ${item.data.shortDesc} ${itemConstants.slot_names[equipSlot]}._`
+        );
       }
-    } else userData.user.send(`${emoji.question} _You don't have an item with that name_`);
+    } else userData.sendMessage(userData.user, `${emoji.question} _You don't have an item with that name_`);
   } catch (err) {
     console.error(`Error using wear ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

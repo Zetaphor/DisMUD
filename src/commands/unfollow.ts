@@ -12,11 +12,11 @@ export default function unfollow(worldState, userData, msg) {
         );
         worldState.players.removeFollower(userData.following, userData.eid);
       }
-      userData.user.send(`${emoji.nofollow} _You stop following ${userData.followingName}._`);
+      userData.sendMessage(userData.user, `${emoji.nofollow} _You stop following ${userData.followingName}._`);
       worldState.players.stopFollowing(userData.id);
     }
   } catch (err) {
     console.error(`Error using unfollow ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

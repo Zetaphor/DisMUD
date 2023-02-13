@@ -4,7 +4,7 @@ export default async function goto(worldState, userData, msg) {
   try {
     const player = worldState.players.getActiveByDisplayName(msg[0]);
     if (player === null) {
-      userData.user.send(`${emoji.error} _Unable to find an online player named ${msg[0]}!_`);
+      userData.sendMessage(userData.user, `${emoji.error} _Unable to find an online player named ${msg[0]}!_`);
       return;
     }
 
@@ -15,7 +15,8 @@ export default async function goto(worldState, userData, msg) {
 
     if (bank) {
       worldState.players.updatePlayerBank(player.id, qty);
-      userData.user.send(
+      userData.sendMessage(
+        userData.user,
         `${emoji.coins} _You added ${qty} gold coins to ${player.displayName}'s bank. Their balance is now ${player.bank}._`
       );
       worldState.broadcasts.sendToPlayer(
@@ -25,7 +26,8 @@ export default async function goto(worldState, userData, msg) {
       );
     } else {
       worldState.players.updatePlayerGold(player.id, qty);
-      userData.user.send(
+      userData.sendMessage(
+        userData.user,
         `${emoji.coins} _You gave ${qty} gold coins to ${player.displayName}. They now have ${player.gold}._`
       );
       worldState.broadcasts.sendToPlayer(
@@ -44,7 +46,7 @@ export default async function goto(worldState, userData, msg) {
       `${emoji.sparkles} _${userData.displayName} whispers an incantation in an unknown language._`
     );
   } catch (err) {
-    userData.user.send(`${emoji.error} Failed to give gold ${msg[0]}`);
+    userData.sendMessage(userData.user, `${emoji.error} Failed to give gold ${msg[0]}`);
     console.error(`Error using give gold ${msg[0]}: ${err}`);
   }
 }

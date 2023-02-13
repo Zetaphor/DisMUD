@@ -12,7 +12,7 @@ export default async function loadMob(worldState, userData, msg) {
     }
 
     if (/^-?\d+(\.\d+)?$/.test(msg[0]) === false) {
-      userData.user.send(`${emoji.error} _You must specify a mob vNum!_`);
+      userData.sendMessage(userData.user, `${emoji.error} _You must specify a mob vNum!_`);
       return;
     }
     const mob = await worldState.mobs.loadMobData(worldState.db["mobs"], BigInt(msg[0]));
@@ -20,7 +20,8 @@ export default async function loadMob(worldState, userData, msg) {
 
     for (let i = 0; i < quantity; i++) {
       const newMobId = await worldState.mobs.placeMob(worldState, mobData, roomNum);
-      userData.user.send(
+      userData.sendMessage(
+        userData.user,
         `${emoji.check} Loaded mob #${mobData.id} \`${mobData.shortDesc}\` to entity #${newMobId} in room #${roomNum}`
       );
       worldState.broadcasts.sendToRoom(
@@ -32,7 +33,7 @@ export default async function loadMob(worldState, userData, msg) {
       );
     }
   } catch (err) {
-    userData.user.send(`${emoji.error} Failed to load mob #${msg[0]}`);
+    userData.sendMessage(userData.user, `${emoji.error} Failed to load mob #${msg[0]}`);
     console.error(`Error loading mob #${msg[0]}: ${err}`);
   }
 }

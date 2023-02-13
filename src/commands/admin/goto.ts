@@ -24,7 +24,7 @@ export default async function goto(worldState, userData, msg) {
       );
     }
   } catch (err) {
-    userData.user.send(`${emoji.error} Failed to goto #${msg[0]}`);
+    userData.sendMessage(userData.user, `${emoji.error} Failed to goto #${msg[0]}`);
     console.error(`Error using goto #${msg[0]}: ${err}`);
   }
 }

@@ -19,7 +19,7 @@ export default async function move(worldState, userData, msg) {
     } else if (dir === "d" || dir === "down") {
       moveDir = "down";
     } else {
-      userData.user.send(`${emoji.question} _Unknown direction: **${dir}**_`);
+      userData.sendMessage(userData.user, `${emoji.question} _Unknown direction: **${dir}**_`);
       return;
     }
 
@@ -29,9 +29,9 @@ export default async function move(worldState, userData, msg) {
       userData.eid
     );
     if (Object.keys(roomExits).indexOf(moveDir) === -1) {
-      userData.user.send(`${emoji.error} _You cannot move ${moveDir} from here!_`);
+      userData.sendMessage(userData.user, `${emoji.error} _You cannot move ${moveDir} from here!_`);
     } else if (roomExits[moveDir].roomId === -1) {
-      userData.user.send(`${emoji.error} _You can't go that way!_`);
+      userData.sendMessage(userData.user, `${emoji.error} _You can't go that way!_`);
     } else {
       const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
 
@@ -96,6 +96,6 @@ export default async function move(worldState, userData, msg) {
     }
   } catch (err) {
     console.error(`Error using move ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

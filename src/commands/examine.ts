@@ -7,7 +7,7 @@ export default async function examine(worldState, userData, msg) {
     const target = await worldState.rooms.targetAlias(worldState, userData.id, roomNum, true, true, true, msg[0]);
 
     if (target.type === "") {
-      userData.user.send(`${emoji.question} _You do not see that here._`);
+      userData.sendMessage(userData.user, `${emoji.question} _You do not see that here._`);
     } else if (target.type === "inventory") {
       let itemTitle = `${emoji.examine} **${
         target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
@@ -18,13 +18,16 @@ export default async function examine(worldState, userData, msg) {
         extras += itemConstants.effects[target.data.extra[i]] + "\n";
       }
 
-      userData.user.send(`
+      userData.sendMessage(
+        userData.user,
+        `
         ${itemTitle}
         ${emoji.coins} Value: ${target.data.cost}
         ${itemConstants.types[target.data.type]}
         ${extras.slice(0, -2)}
         ${itemConstants.wear[Number(target.data.wear) - 1]}
-      `);
+      `
+      );
 
       worldState.broadcasts.sendToRoom(
         worldState,
@@ -35,7 +38,10 @@ export default async function examine(worldState, userData, msg) {
       );
     } else if (target.type === "item") {
       if (!Number(userData.admin)) {
-        userData.user.send(`${emoji.error} _You need to be holding that in order to examine it more closely!_`);
+        userData.sendMessage(
+          userData.user,
+          `${emoji.error} _You need to be holding that in order to examine it more closely!_`
+        );
         return;
       }
 
@@ -48,13 +54,16 @@ export default async function examine(worldState, userData, msg) {
         extras += itemConstants.effects[target.data.extra[i]] + "\n";
       }
 
-      userData.user.send(`
+      userData.sendMessage(
+        userData.user,
+        `
         ${itemTitle}
         ${emoji.coins} Value: ${target.data.cost}
         ${itemConstants.types[target.data.type]}
         ${extras.slice(0, -2)}
         ${itemConstants.wear[Number(target.data.wear) - 1]}
-      `);
+      `
+      );
       worldState.broadcasts.sendToRoom(
         worldState,
         roomNum,
@@ -63,10 +72,13 @@ export default async function examine(worldState, userData, msg) {
         `${emoji.examine} _${userData.displayName} closely examines ${target.data.shortDesc}._`
       );
     } else if (target.type === "mob") {
-      userData.user.send(`
+      userData.sendMessage(
+        userData.user,
+        `
           ${emoji.examine} _You look at ${target.data.shortDesc}_\n
           ${target.data.detailedDesc}
-        `);
+        `
+      );
       worldState.broadcasts.sendToRoom(
         worldState,
         roomNum,
@@ -77,6 +89,6 @@ export default async function examine(worldState, userData, msg) {
     }
   } catch (err) {
     console.error(`Error using examine ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

@@ -6,11 +6,12 @@ export default async function listCommands(worldState, userData, msg) {
     let availableCommands = commandList;
     if (Number(userData.admin)) availableCommands = adminCommandList.concat(availableCommands);
 
-    userData.user.send(
+    userData.sendMessage(
+      userData.user,
       `${emoji.openScroll} _The following commmands are available to you:_\n**${availableCommands.join(", ")}**`
     );
   } catch (err) {
     console.error(`Error using listCommands ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

@@ -21,14 +21,15 @@ export default async function remove(worldState, userData, msg) {
     if (matchedSlot !== null && matchedItem !== null) {
       await worldState.inventories.giveItem(userData.id, matchedItem, 1);
       delete userData.equipment[matchedSlot];
-      userData.user.send(
+      userData.sendMessage(
+        userData.user,
         `${emoji.check} _You removed the ${matchedItem.shortDesc} you were had ${itemConstants.slot_names[matchedSlot]}.._`
       );
     } else {
-      userData.user.send(`${emoji.question} _You're not wearing anything with that name_`);
+      userData.sendMessage(userData.user, `${emoji.question} _You're not wearing anything with that name_`);
     }
   } catch (err) {
     console.error(`Error using remove ${msg}: ${err}`);
-    userData.user.send(`${emoji.error} _Something went wrong!_`);
+    userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }
