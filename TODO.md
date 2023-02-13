@@ -22,6 +22,7 @@
 - Use ChatGPT to fill in missing actionDescs
 - Show aliases in examine command
 - Apply object modifers on equip
+- Add nofollow userpref
 
 ## Commands
 
@@ -41,7 +42,6 @@ donate - Donate items to donation room
 eat, drink, sip, taste
 fill - Fill container
 flee - Exit battle
-follow - Follow someone
 grab, hold
 kick
 kill, hit - Start attacking
