@@ -106,13 +106,12 @@ export const players = {
         await worldState.db["playerInventories"].methods.initPlayerInventory(playerData["id"]);
         resolve(playerData);
       } catch (err) {
-        console.log(user);
         console.error(`Error creating new player ${user.discordId} ${user.username}:`, err);
         reject(err);
       }
     });
   },
-  login(worldState, user) {
+  login(worldState, user, newPlayer = false) {
     return new Promise<Object>(async (resolve, reject) => {
       try {
         let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(`k${user.id}`);
@@ -120,6 +119,7 @@ export const players = {
           console.error(`Player not found ${user.discordId} ${user.username}`);
           reject();
         } else {
+          playerData["newPlayer"] = newPlayer;
           if (
             typeof playerData.equipment === "string" &&
             playerData.equipment !== "" &&
@@ -140,16 +140,24 @@ export const players = {
           worldState.inventories.setInventory(playerData.id, playerInventory);
           await worldState.db["players"].methods.updateLastLogin(BigInt(playerData["id"]));
         }
-        const playerEntityId = await worldState.simulation.createPlayerEntity(
-          playerData.id,
-          globalConstants.NEW_USER_ROOMNUM,
-          playerStatConstants.START_STATS.warrior.stats // TODO: Load stats from the DB
-        );
-        playerData["newPlayer"] = false;
+
+        let playerEntityId = null;
+        if (newPlayer) {
+          playerEntityId = await worldState.simulation.createNewPlayerEntity(
+            playerData.id,
+            globalConstants.NEW_USER_ROOMNUM,
+            playerStatConstants.START_STATS[playerData.className]["stats"] // TODO: Load stats from the DB
+          );
+        } else {
+          const simulationData = JSON.parse(decodeURIComponent(playerData.simulationData));
+          playerData["roomNum"] = simulationData["position"]["roomNum"];
+          playerEntityId = await worldState.simulation.createExistingPlayerEntity(playerData.id, simulationData);
+        }
         playerData["eid"] = playerEntityId;
         playerData["user"] = user;
         playerData.sendMessage = sendMessage;
         players["currentActive"][playerData.id] = playerData;
+        await this.save(worldState, playerData);
         resolve(playerData);
       } catch (err) {
         console.error(`Error logging in ${user.username}:`, err);

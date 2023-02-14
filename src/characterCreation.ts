@@ -93,7 +93,7 @@ export const characterCreation = {
   exitCreationQueue: async function (worldState, queueData) {
     try {
       await worldState.players.createNewPlayer(worldState, queueData.user, queueData.className, queueData.displayName);
-      const playerData = await worldState.players.login(worldState, queueData.user);
+      const playerData = await worldState.players.login(worldState, queueData.user, true);
       characterCreationMessages.newPlayer(queueData.user);
       worldState.players.startPlayer(worldState, playerData);
       delete this.creationQueue[`k${queueData.user.id}`];

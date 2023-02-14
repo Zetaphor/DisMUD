@@ -26,7 +26,7 @@ export const simulation = {
       }
     });
   },
-  createPlayerEntity(playerId, roomNum, playerStats) {
+  createNewPlayerEntity(playerId, roomNum, playerStats) {
     return new Promise((resolve, reject) => {
       try {
         const newEntity = createEntity(this.world, "player", {
@@ -51,6 +51,17 @@ export const simulation = {
           },
           playerStats: playerStats,
         });
+        resolve(newEntity);
+      } catch (err) {
+        console.error(`Failed to create player entity ${playerId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  createExistingPlayerEntity(playerId, simulationData) {
+    return new Promise((resolve, reject) => {
+      try {
+        const newEntity = createEntity(this.world, "player", simulationData);
         resolve(newEntity);
       } catch (err) {
         console.error(`Failed to create player entity ${playerId}: ${err}`);

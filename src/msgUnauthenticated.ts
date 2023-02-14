@@ -15,9 +15,10 @@ export default async function msgUnauthenticated(worldState, msg) {
       characterCreation.enterCreationQueue(msg.user);
     }
   } else {
+    // Returning user
     if (msg.content.toLowerCase() === "login") {
       try {
-        const playerData = await worldState.players.login(worldState, msg.user);
+        const playerData = await worldState.players.login(worldState, msg.user, false);
         systemMessages.returningPlayer(msg.user);
         worldState.players.startPlayer(worldState, playerData);
       } catch (err) {
