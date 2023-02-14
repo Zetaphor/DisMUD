@@ -1,3 +1,5 @@
 node_modules/
 .env
-src/databases/*.db
+src/databases/*
+!src/databases/imported/*.db
+!src/databases/.gitkeep
