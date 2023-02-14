@@ -79,42 +79,18 @@ botInterface.client.on(Events.MessageCreate, (msg) => {
   }
 });
 
+// botInterface.client.on(Events.MessageReactionAdd, (reaction, user) => {
+//   // Don't listen to reactions from the bot or reactions on the users messages
+//   if (user.bot || !reaction.message.author.bot) return;
+//   botInterface.emit("msgReaction", {
+//     reaction,
+//     user,
+//   });
+//   reaction.message.react("🇳");
+// });
+
 export default function setupBotInterface() {
   console.info("Starting bot...");
   botInterface.client.login(token);
   return botInterface;
 }
-
-//   msg.react("🇳");
-//   msg.react("🇪");
-//   msg.react("🇸");
-//   msg.react("🇼");
-//   msg.react("🇺");
-//   msg.react("🇩");
-// } else if (activeSessions.indexOf(msg.author.id) === -1) {
-//   botInterface.client.users.fetch(targetUserId).then((targetUser) => messages.menu.newSessionMessage(targetUser));
-// } else if (msg.author.id) {
-//   console.log(msg.author.id, `${msg.author.username}#${msg.author.discriminator}`);
-//   console.log(msg.content);
-//   msg.react("⚔️");
-// }
-
-// const emojiDirections = {
-//   "🇳": "north",
-//   "🇪": "east",
-//   "🇸": "south",
-//   "🇼": "west",
-//   "🇺": "up",
-//   "🇩": "down",
-// };
-
-// const emojiDirectionKeys = Object.keys(emojiDirections);
-
-// botInterface.client.on(Events.MessageReactionAdd, (reaction, user) => {
-//   // Don't listen to reactions from the bot or reactions on the users messages
-//   if (user.bot || !reaction.message.author.bot) return;
-//   const dirName = emojiDirections[reaction._emoji.name];
-//   if (typeof dirName !== "undefined") {
-//     targetUser.send(dirName);
-//   }
-// });
