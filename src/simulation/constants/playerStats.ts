@@ -111,7 +111,7 @@ export const playerStatConstants = {
         hpMod: 13,
       },
     },
-    wizard: {
+    sorcerer: {
       stats: {
         exp: 0,
         alignment: 0,
