@@ -1,4 +1,3 @@
 node_modules/
 .env
-src/databases/players.db
-src/databases/playerInventories.db
+src/databases/*.db
