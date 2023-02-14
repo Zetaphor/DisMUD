@@ -13,9 +13,8 @@
 - Implement remaining mob action bitvectors
 - Implement object bitvectors, like disabling drop for cursed items
 - Implement weight for bags/inventory
-- Make sure everything has try/catch to stop server from dying
 - Implement logging
-- Lowercase all the command inputs
+- Lowercase all the command inputs (What? I think I'm already doing this?)
 - Figure out what in Circlemud lets you look into another persons inventory
 - Implement ability to give gold to other players (non-admin) and to drop gold as an item (Look into item values, type flag 20)
 - Check for wear_take in the get command
@@ -23,6 +22,7 @@
 - Show aliases in examine command
 - Apply object modifers on equip
 - Add nofollow userpref
+- Add hide Discord name/ID userpref
 
 ## Commands
 
@@ -42,6 +42,7 @@ donate - Donate items to donation room
 eat, drink, sip, taste
 fill - Fill container
 flee - Exit battle
+junk - Destroy an item
 grab, hold
 kick
 kill, hit - Start attacking

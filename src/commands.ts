@@ -32,6 +32,7 @@ import mobFollow from "./commands/admin/mobFollow";
 import debug from "./commands/admin/debug";
 import mobUnfollow from "./commands/admin/mobUnfollow";
 import force from "./commands/admin/force";
+import help from "./commands/help";
 
 export const commands = {
   say,
@@ -60,6 +61,7 @@ export const commands = {
   score,
   follow,
   unfollow,
+  help,
 };
 
 export const adminCommands = {
