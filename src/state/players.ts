@@ -5,7 +5,17 @@ import playerStatConstants from "../simulation/constants/playerStats";
 
 export const players = {
   currentActive: {},
-
+  displayNameExists(db, displayName) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const exists = await db.methods.displayNameExists(displayName);
+        resolve(exists);
+      } catch (err) {
+        console.error(`Error checking if player exists ${displayName}:`, err);
+        reject(err);
+      }
+    });
+  },
   removePlayer(worldState, playerId) {
     return new Promise<void>(async (resolve, reject) => {
       try {
