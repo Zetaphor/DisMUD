@@ -11,6 +11,7 @@ import rooms from "./state/rooms";
 import mobs from "./state/mobs";
 import timedStateFunctions from "./state/timedStateFunctions";
 import broadcasts from "./state/broadcasts";
+import { containsBannedWord, stripString } from "./wordFilter";
 
 const worldState = {
   db,
@@ -22,6 +23,8 @@ const worldState = {
   rooms,
   mobs,
   broadcasts,
+  containsBannedWord,
+  stripString,
 };
 
 async function startup() {
