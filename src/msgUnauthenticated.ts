@@ -1,6 +1,5 @@
-import emoji from "./messages/emoji";
+import characterCreation from "./characterCreation";
 import systemMessages from "./messages/system";
-import buildRoom from "./roomBuilder";
 
 /**
  * Handle messages from unauthenticated users
@@ -8,32 +7,28 @@ import buildRoom from "./roomBuilder";
  * @param {Object} msg - message object
  */
 export default async function msgUnauthenticated(worldState, msg) {
-  if (msg.content.toLowerCase() === "login") {
-    try {
-      const playerData = await worldState.players.login(worldState, msg.user);
-      // systemMessages.loggedIn(msg.user);
-      if (playerData.newPlayer) systemMessages.newPlayer(msg.user);
-      else systemMessages.returningPlayer(msg.user);
-      const roomData = await worldState.rooms.getEntityRoomData(
-        worldState.db["rooms"],
-        worldState.simulation.world,
-        playerData.eid
-      );
-      buildRoom(worldState, msg.user, playerData.eid, roomData, playerData.admin);
-      worldState.broadcasts.sendToRoom(
-        worldState,
-        roomData.id,
-        playerData.eid,
-        false,
-        `${emoji.glowing} _${playerData.displayName} has joined the world._`
-      );
-    } catch (err) {
-      console.error(`Failed to login ${msg.user.username}`, err);
-      systemMessages.loginFailed(msg.user);
-      worldState.players.logout();
-      // worldState.simulation.removeWorldEntity(); // This is going to fail, there's no entity ID
+  const playerExists = await worldState.db["players"].methods.playerExists(`k${msg.user.id}`);
+  if (!playerExists) {
+    if (characterCreation.inCreationQueue(`k${msg.user.id}`)) {
+      characterCreation.creationQueueStep(worldState, `k${msg.user.id}`, msg.content);
+    } else {
+      characterCreation.enterCreationQueue(msg.user);
     }
   } else {
-    systemMessages.newSession(msg.user);
+    if (msg.content.toLowerCase() === "login") {
+      try {
+        const playerData = await worldState.players.login(worldState, msg.user);
+        systemMessages.returningPlayer(msg.user);
+        worldState.players.startPlayer(worldState, playerData);
+      } catch (err) {
+        console.error(`Failed to login ${msg.user.username}`, err);
+        systemMessages.loginFailed(msg.user);
+        worldState.players.logout();
+        // worldState.simulation.removeWorldEntity(); // This is going to fail, there's no entity ID
+        // TODO: Create automated process to clean up dangling entities
+      }
+    } else {
+      systemMessages.returningSession(msg.user);
+    }
   }
 }

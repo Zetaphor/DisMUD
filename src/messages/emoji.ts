@@ -51,6 +51,10 @@ export const emoji = {
   dashedCircle: "<:rpgdashedcircle:1074442328036626512>",
   follow: "<:rpgfollow:1074649242704027720>",
   nofollow: "<:rpgnofollow:1074652875021635584>",
+  classWarrrior: "<:rpgwarriorclass:1074817309971058708>",
+  classThief: "<:rpgthiefclass:1074817672157601854>",
+  classCleric: "<:rpgclericclass:1074818041671594055>",
+  classSorcerer: "<:rpgsorcererclass:1074817723583955097>",
 };
 
 export default emoji;

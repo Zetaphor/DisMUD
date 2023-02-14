@@ -6,17 +6,10 @@ export const systemMessages = {
       user.send("🟢 System Online");
     });
   },
-  newSession: function (user) {
+  returningSession: function (user) {
     user.send(`
       ${emoji.sword} **__RPG Bot__** ${emoji.shield}
-      \nWelcome to RPG Bot ${user.username}!\n\n${emoji.sparkles} You are currently unauthenticated, type \`login\` to join the world.
-      \nIf you are new, a player account will automatically be created for you ${emoji.sparkles}
-    `);
-  },
-  newPlayer: function (user) {
-    user.send(`
-      ${emoji.sword} **__RPG Bot__** ${emoji.shield}
-      \n${emoji.sparkles} Welcome to RPG Bot ${user.username}!\n\n You now have a user account.\n\nEnjoy the world! ${emoji.sparkles}
+      \nWelcome back to RPG Bot ${user.username}!\n\n${emoji.sparkles} You are not currently logged in, type \`login\` to join the world.
     `);
   },
   returningPlayer: function (user) {

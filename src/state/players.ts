@@ -1,5 +1,7 @@
+import emoji from "../messages/emoji";
 import sendMessage from "../messages/sendMessage";
 import parseCommand from "../parseCommand";
+import buildRoom from "../roomBuilder";
 import globalConstants from "../simulation/constants/global";
 import playerStatConstants from "../simulation/constants/playerStats";
 
@@ -86,27 +88,37 @@ export const players = {
       players.currentActive[playerId].bank += amount;
     }
   },
+  async createNewPlayer(worldState, user, className, displayName) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let playerData = {};
+        console.info(`Creating new player ${user.username} with discordId: ${user.id}`);
+        playerData = await worldState.db["players"].methods.createPlayer({
+          discordId: `k${user.id}`,
+          discordUsername: `${user.username}#${user.discriminator}`,
+          displayName: displayName,
+          roomNum: globalConstants.NEW_USER_ROOMNUM,
+          equipment: "",
+          simulationData: "",
+          className: className,
+        });
+        console.info(`Creating new player ${user.username}'s inventory`);
+        await worldState.db["playerInventories"].methods.initPlayerInventory(playerData["id"]);
+        resolve(playerData);
+      } catch (err) {
+        console.log(user);
+        console.error(`Error creating new player ${user.discordId} ${user.username}:`, err);
+        reject(err);
+      }
+    });
+  },
   login(worldState, user) {
     return new Promise<Object>(async (resolve, reject) => {
       try {
         let playerData = await worldState.db["players"].methods.getPlayerDataByDiscordId(`k${user.id}`);
-        let newPlayer = false;
         if (!playerData) {
-          newPlayer = true;
-          console.info(`Creating new player ${user.username} with discordId: ${user.id}`);
-          playerData = await worldState.db["players"].methods.createPlayer({
-            discordId: `k${user.id}`,
-            discordUsername: `${user.username}#${user.discriminator}`,
-            displayName: user.username,
-            roomNum: globalConstants.NEW_USER_ROOMNUM,
-            equipment: null,
-          });
-          playerData.followers = {};
-          playerData.following = null;
-          playerData.followingPlayer = false;
-          playerData.followingName = "";
-          console.info(`Creating new player ${user.username}'s inventory`);
-          await worldState.db["playerInventories"].methods.initPlayerInventory(playerData.id);
+          console.error(`Player not found ${user.discordId} ${user.username}`);
+          reject();
         } else {
           if (
             typeof playerData.equipment === "string" &&
@@ -133,7 +145,7 @@ export const players = {
           globalConstants.NEW_USER_ROOMNUM,
           playerStatConstants.START_STATS.warrior.stats // TODO: Load stats from the DB
         );
-        playerData["newPlayer"] = newPlayer;
+        playerData["newPlayer"] = false;
         playerData["eid"] = playerEntityId;
         playerData["user"] = user;
         playerData.sendMessage = sendMessage;
@@ -157,6 +169,21 @@ export const players = {
         reject(error);
       }
     });
+  },
+  async startPlayer(worldState, playerData) {
+    const roomData = await worldState.rooms.getEntityRoomData(
+      worldState.db["rooms"],
+      worldState.simulation.world,
+      playerData.eid
+    );
+    buildRoom(worldState, playerData.user, playerData.eid, roomData, playerData.admin);
+    worldState.broadcasts.sendToRoom(
+      worldState,
+      roomData.id,
+      playerData.eid,
+      false,
+      `${emoji.glowing} _${playerData.displayName} has joined the world._`
+    );
   },
   save(worldState, userData) {
     return new Promise<void>(async (resolve, reject) => {

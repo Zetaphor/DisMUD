@@ -1,4 +1,4 @@
-import { createRecord, getRecord, initDb, updateRecord } from "./util";
+import { createRecord, getRecord, initDb, recordExists, updateRecord } from "./util";
 
 const dbPath = "src/databases/players.db";
 
@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS Players (
   bank INTEGER DEFAULT 0,
   equipment TEXT,
   simulationData TEXT,
+  className TEXT,
   creationDate TEXT DEFAULT (datetime('now', 'utc')),
   lastLogin TEXT DEFAULT (datetime('now', 'utc')),
   lastSaved TEXT DEFAULT (datetime('now', 'utc')),
