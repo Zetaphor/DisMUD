@@ -33,6 +33,7 @@ import debug from "./commands/admin/debug";
 import mobUnfollow from "./commands/admin/mobUnfollow";
 import force from "./commands/admin/force";
 import help from "./commands/help";
+import drink from "./commands/drink";
 
 export const commands = {
   say,
@@ -62,6 +63,7 @@ export const commands = {
   follow,
   unfollow,
   help,
+  drink,
 };
 
 export const adminCommands = {
@@ -92,6 +94,7 @@ export const commandAliases = {
 
   get: take,
   online: who,
+  sip: drink,
 };
 
 export const adminCommandList = Object.keys(adminCommands);

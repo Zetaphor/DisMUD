@@ -3,6 +3,7 @@ export const helpMessages = {
   balance: `**BALANCE**\nUsage: \`balance\`\nShows your current bank balance.`,
   commands: `**COMMANDS**\nUsage: \`commands\`\nThe \`commands\` command gives a canonical list of all the known verbs.\nEach command listed should have help available by typing \`help <command>\`.`,
   drop: `DROP\nUsage: \`drop <item>\`, \`drop all\`, \`drop <number> bread\`\nIf you lose interest in a carried item, you can drop it on the ground.\n\nSee also: \`donate\`, \`get\`, \`junk\``,
+  drink: `DRINK\nUsage: \`drink [from] <container>\`\nDrink from a liquid container.\n\nSee also: \`eat\`, \`pour\`, \`fill\``,
   emote: `**EMOTE**\nUsage: \`emote <message>\`\nShow people what you're feeling.\n\`emote <string>\` will display your name, then the string.\nExample:\nIf your name is "Zetaphor",\n\`emote is feeling very sad today.\` will display:\nZetaphor is feeling very sad today.`,
   equipment: `**EQUIPMENT**\nUsage: \`equipment\`\nGives you a list of all the equipment you're wearing, holding, and wielding.`,
   gold: `**GOLD**\nUsage: \`gold\`\nDisplays how much gold your carrying.\n\nSee also: \`balance\`, \`deposit\`, \`withdraw\``,

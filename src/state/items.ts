@@ -32,7 +32,7 @@ export const items = {
           stateData["liquidType"] = Number(item.data.values[2]);
           stateData["poisoned"] = Number(item.data.values[3]);
         }
-        item["stateData"] = stateData;
+        item["data"]["stateData"] = stateData;
         resolve(item);
       } catch (err) {
         console.error(`Error loading item #${vNum}: ${err}`);
@@ -64,6 +64,18 @@ export const items = {
         resolve();
       } catch (err) {
         console.error(`Error removing item ${itemId}: ${err}`);
+        reject(err);
+      }
+    });
+  },
+  updateItemStateData(itemId, key, val) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        const item = this.activeItems[itemId];
+        item.data.stateData[key] = val;
+        resolve();
+      } catch (err) {
+        console.error(`Error updating item ${itemId} stateData: ${err}`);
         reject(err);
       }
     });

@@ -173,6 +173,19 @@ export const inventories = {
       }
     });
   },
+  updateItemStateData(playerId, itemId, key, val) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        const item = this.playerInventories[playerId][itemId];
+        console.log("playerId", playerId, "itemId", itemId, "key", key, "val", val);
+        item.data.stateData[key] = val;
+        resolve();
+      } catch (err) {
+        console.error(`Error updating item ${itemId} stateData: ${err}`);
+        reject(err);
+      }
+    });
+  },
 };
 
 export default inventories;
