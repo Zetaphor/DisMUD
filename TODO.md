@@ -40,7 +40,6 @@ consider - Determine if you can attack
 diagnose - Check wounds
 donate - Donate items to donation room
 eat, taste
-fill - Fill container
 flee - Exit battle
 junk - Destroy an item
 grab, hold
@@ -52,7 +51,6 @@ noshout - Don't hear shouts
 notell - Ignore tells
 open, close, lock, unlock
 pick - pick locks
-pour
 quaff - Drink potion
 recite - Recite scroll
 track
