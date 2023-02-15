@@ -144,16 +144,14 @@ export const inventories = {
     return new Promise(async (resolve, reject) => {
       try {
         let playerInventory = {};
-
         let playerInventoryData = await db.methods.getPlayerInventory(playerId);
         if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
-        if (
-          typeof playerInventoryData === "string" &&
-          playerInventoryData["inventoryString"] !== "" &&
-          playerInventoryData["inventoryString"] !== "null" &&
-          playerInventoryData["inventoryString"] !== "undefined"
-        ) {
+        try {
           playerInventory = JSON.parse(decodeURIComponent(playerInventoryData["inventoryString"]));
+        } catch (err) {
+          console.error(`Failed to decode player inventory ${playerId}: ${playerInventory}`);
+          console.error(err);
+          playerInventory = {};
         }
 
         this.playerInventories[playerId] = playerInventory;
