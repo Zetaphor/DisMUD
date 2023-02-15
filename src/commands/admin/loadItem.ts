@@ -9,13 +9,12 @@ export default async function loadItem(worldState, userData, msg) {
 
     const item = await worldState.items.loadItemData(worldState.db["items"], BigInt(msg[0]));
     if (item) {
-      const itemData = JSON.parse(item.data);
       let quantity = 1;
       if (msg[1]) quantity = Number(msg[1]);
-      await worldState.inventories.giveItem(userData.id, itemData, quantity);
+      await worldState.inventories.giveItem(userData.id, item.data, quantity);
       userData.sendMessage(
         userData.user,
-        `${emoji.check} Loaded ${quantity} \`${itemData.shortDesc}\` into your inventory`
+        `${emoji.check} Loaded ${quantity} \`${item.data.shortDesc}\` into your inventory`
       );
       const roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
       worldState.broadcasts.sendToRoom(

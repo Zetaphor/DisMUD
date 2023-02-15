@@ -8,6 +8,31 @@ export const items = {
     return new Promise(async (resolve, reject) => {
       try {
         const item = await db.methods.getItemData(vNum);
+        let stateData = {};
+        item.data = JSON.parse(item.data);
+        if (Number(item.data.type) === 15) {
+          // Container
+          stateData["type"] = "container";
+          stateData["capacity"] = Number(item.data.values[0]);
+          stateData["flag"] = Number(item.data.values[1]);
+          stateData["key"] = Number(item.data.values[2]);
+          stateData["contents"] = {};
+        } else if (Number(item.data.type) === 17) {
+          // Drink Container
+          stateData["type"] = "drinkContainer";
+          stateData["capacity"] = Number(item.data.values[0]);
+          stateData["current"] = Number(item.data.values[1]);
+          stateData["liquidType"] = Number(item.data.values[2]);
+          stateData["poisoned"] = Number(item.data.values[3]);
+        } else if (Number(item.data.type) === 23) {
+          // Fountain
+          stateData["type"] = "fountain";
+          stateData["capacity"] = Number(item.data.values[0]);
+          stateData["current"] = Number(item.data.values[1]);
+          stateData["liquidType"] = Number(item.data.values[2]);
+          stateData["poisoned"] = Number(item.data.values[3]);
+        }
+        item["stateData"] = stateData;
         resolve(item);
       } catch (err) {
         console.error(`Error loading item #${vNum}: ${err}`);
@@ -15,7 +40,7 @@ export const items = {
       }
     });
   },
-  placeItem(worldState, itemData, roomNum, quantity) {
+  placeItem(worldState, itemData, roomNum, quantity, itemState = {}) {
     return new Promise(async (resolve, reject) => {
       try {
         let itemIds = [];

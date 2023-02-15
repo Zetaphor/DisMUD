@@ -53,14 +53,12 @@ export const simulation = {
           hunger: {
             val: 0,
             max: 5,
-            adultAge: 5,
             tickRate: 1,
             lastTick: 0,
           },
           thirst: {
             val: 0,
             max: 5,
-            adultAge: 5,
             tickRate: 1,
             lastTick: 0,
           },
