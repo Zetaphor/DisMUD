@@ -50,6 +50,20 @@ export const simulation = {
             damage: 10,
           },
           playerStats: playerStats,
+          hunger: {
+            val: 0,
+            max: 5,
+            adultAge: 5,
+            tickRate: 1,
+            lastTick: 0,
+          },
+          thirst: {
+            val: 0,
+            max: 5,
+            adultAge: 5,
+            tickRate: 1,
+            lastTick: 0,
+          },
         });
         resolve(newEntity);
       } catch (err) {

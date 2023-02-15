@@ -10,6 +10,8 @@ export const Player = {
     "killable",
     "deathDrops",
     "playerStats",
+    "hunger",
+    "thirst",
   ],
 };
 

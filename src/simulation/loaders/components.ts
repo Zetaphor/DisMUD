@@ -17,6 +17,8 @@ import PlayerStats from "../components/PlayerStats";
 import Mob from "../components/Mob";
 import Item from "../components/Item";
 import Wander from "../components/Wander";
+import Hunger from "../components/Hunger";
+import Thirst from "../components/Thirst";
 
 export default {
   breakable: Breakable,
@@ -38,4 +40,6 @@ export default {
   mobStats: MobStats,
   playerStats: PlayerStats,
   wander: Wander,
+  hunger: Hunger,
+  thirst: Thirst,
 };
