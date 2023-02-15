@@ -3,8 +3,8 @@ import emoji from "./emoji";
 export const characterCreationMessages = {
   startCreation: function (user) {
     user.send(`
-      ${emoji.sword} **__RPG Bot__** ${emoji.shield}
-      \n${emoji.sparkles} Welcome to RPG Bot ${user.username}!\n\n You do not yet have a user account and will begin the character creation process! ${emoji.sparkles}
+      ${emoji.sword} **__DisMUD__** ${emoji.shield}
+      \n${emoji.sparkles} Welcome to DisMUD ${user.username}!\n\n You do not yet have a user account and will begin the character creation process! ${emoji.sparkles}
     `);
   },
   chooseDisplayName: function (user) {
@@ -23,7 +23,7 @@ export const characterCreationMessages = {
   },
   chooseClass: function (user) {
     user.send(
-      `Welcome to RPG Bot, choose your class:\n${emoji.classWarrrior} **(W)**arrior\n${emoji.classCleric} **(C)**leric\n${emoji.classThief} **(T)**hief\n${emoji.classSorcerer} **(S)**orcerer`
+      `Welcome to DisMUD, choose your class:\n${emoji.classWarrrior} **(W)**arrior\n${emoji.classCleric} **(C)**leric\n${emoji.classThief} **(T)**hief\n${emoji.classSorcerer} **(S)**orcerer`
     );
   },
   invalidClass: function (user) {
@@ -38,8 +38,8 @@ export const characterCreationMessages = {
   },
   newPlayer: function (user) {
     user.send(`
-      ${emoji.sword} **__RPG Bot__** ${emoji.shield}
-      \n${emoji.sparkles} Welcome to RPG Bot ${user.username}!\n\n You now have a user account.\n\nEnjoy the world! ${emoji.sparkles}
+      ${emoji.sword} **__DisMUD__** ${emoji.shield}
+      \n${emoji.sparkles} Welcome to DisMUD ${user.username}!\n\n You now have a user account.\n\nEnjoy the world! ${emoji.sparkles}
     `);
   },
 };
