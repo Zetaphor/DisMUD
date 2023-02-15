@@ -39,7 +39,7 @@ brief - Only show room name and occupants/items
 consider - Determine if you can attack
 diagnose - Check wounds
 donate - Donate items to donation room
-eat, drink, sip, taste
+eat, taste
 fill - Fill container
 flee - Exit battle
 junk - Destroy an item
