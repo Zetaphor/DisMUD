@@ -1,4 +1,5 @@
 import emoji from "../messages/emoji";
+import globalConstants from "../messages/globalConstants";
 
 export default async function drink(worldState, userData, msg) {
   try {
@@ -31,7 +32,12 @@ export default async function drink(worldState, userData, msg) {
           "current",
           item["data"]["stateData"]["current"] - 1
         );
-        userData.sendMessage(userData.user, `${emoji.bottle} _You drink from ${item.data.shortDesc}_`);
+        userData.sendMessage(
+          userData.user,
+          `${emoji.bottle} _You drink ${
+            globalConstants.liquidTypes[item.data.stateData.liquidType.toString()]["type"]
+          } from ${item.data.shortDesc}._`
+        );
         let roomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
         worldState.broadcasts.sendToRoom(
           worldState,
@@ -43,7 +49,7 @@ export default async function drink(worldState, userData, msg) {
       }
     } else userData.sendMessage(userData.user, `${emoji.question} _You don't have an item with that name_`);
   } catch (err) {
-    console.error(`Error using emote ${msg}: ${err}`);
+    console.error(`Error using drink ${msg}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }
