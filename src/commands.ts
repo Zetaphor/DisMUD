@@ -34,6 +34,8 @@ import mobUnfollow from "./commands/admin/mobUnfollow";
 import force from "./commands/admin/force";
 import help from "./commands/help";
 import drink from "./commands/drink";
+import fill from "./commands/fill";
+import pour from "./commands/pour";
 
 export const commands = {
   say,
@@ -64,6 +66,8 @@ export const commands = {
   unfollow,
   help,
   drink,
+  fill,
+  pour,
 };
 
 export const adminCommands = {
