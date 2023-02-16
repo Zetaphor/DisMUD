@@ -43,6 +43,24 @@ export function getRecord(db: any, table: String, key: String, val: any) {
 }
 
 /**
+ * Get all recoes from the database
+ * @param db - database connection object
+ * @param table - table name
+ * @returns {Array<any>} - returns an array of records
+ */
+export function getAllRecords(db: any, table: String, orderBy = "id") {
+  return new Promise<any[]>((resolve, reject) => {
+    db.all(`SELECT * FROM ${table} ORDER BY ${orderBy}`, (err, rows) => {
+      if (err) {
+        console.error("Failed to get records:", err);
+        reject();
+      }
+      resolve(rows);
+    });
+  });
+}
+
+/**
  * Create a new record in the database
  * @param {any} db - database connection object
  * @param {String} table - table name

@@ -1,4 +1,4 @@
-import { getRecord, initDb } from "./util";
+import { getAllRecords, getRecord, initDb } from "./util";
 
 const dbPath = "src/databases/zones.db";
 
@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS Zones (
 const createZonesIndexes = `CREATE INDEX idx_vNum ON Zones (vNum);`;
 
 const zonesMethods = {
+  getAllZones: () => getAllRecords(zonesDBConn, "Zones", "vnum"),
   getZoneData: (vnum: BigInt) => getRecord(zonesDBConn, "Zones", "vnum", vnum),
 };
 
