@@ -35,7 +35,7 @@ export const items = {
         item["data"]["stateData"] = stateData;
         resolve(item);
       } catch (err) {
-        console.error(`Error loading item #${vNum}: ${err}`);
+        console.error(`Error loading item data #${vNum}: ${err}`);
         reject(err);
       }
     });

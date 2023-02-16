@@ -4,6 +4,7 @@ import globalConstants from "../simulation/constants/global";
 
 export const mobs = {
   activeMobs: {}, // { mobEID: mobData }
+  mobCounts: {},
 
   getActiveMobData(eid) {
     return this.activeMobs[eid];
@@ -19,7 +20,7 @@ export const mobs = {
       }
     });
   },
-  placeMob(worldState, mobData, roomNum) {
+  placeMob(worldState, mobData, roomNum, maxExisting = -1) {
     return new Promise(async (resolve, reject) => {
       try {
         const mobId = await worldState.simulation.createMobEntity(
@@ -34,6 +35,10 @@ export const mobs = {
         mobData.followingPlayer = false;
         mobData.followingName = "";
         this.activeMobs[mobId] = mobData;
+
+        if (this.mobCounts[mobData.id] === undefined) {
+          this.mobCounts[mobData.id] = { qty: 1, max: maxExisting };
+        } else this.mobCounts[mobData.id]["qty"] += 1;
         resolve(mobId);
       } catch (err) {
         console.error(`Error placing mob ${mobData.id} in room #${roomNum}: ${err}`);
@@ -46,6 +51,7 @@ export const mobs = {
       try {
         await worldState.simulation.removeWorldEntity(mobId);
         delete this.activeMobs[mobId];
+        this.mobCounts[mobId]--;
         resolve();
       } catch (err) {
         console.error(`Error removing mob ${mobId}: ${err}`);
@@ -103,8 +109,6 @@ export const mobs = {
             data: itemData,
           };
         } else this.activeMobs[mobId].items[itemData.id].qty += quantity;
-        resolve();
-        this.activeMobs[mobId].items[itemData.id] = itemData;
         resolve();
       } catch (err) {
         console.error(`Error giving mob ${mobId} item ${itemData.id}: ${err}`);

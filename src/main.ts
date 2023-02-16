@@ -9,6 +9,7 @@ import inventories from "./state/inventories";
 import items from "./state/items";
 import rooms from "./state/rooms";
 import mobs from "./state/mobs";
+import zones from "./state/zones";
 import timedStateFunctions from "./state/timedStateFunctions";
 import broadcasts from "./state/broadcasts";
 import { containsBannedWord, stripString } from "./wordFilter";
@@ -22,6 +23,7 @@ const worldState = {
   items,
   rooms,
   mobs,
+  zones,
   broadcasts,
   containsBannedWord,
   stripString,
@@ -33,6 +35,9 @@ async function startup() {
 
     await db.init();
     console.info("Databases loaded...");
+
+    await worldState.zones.loadZones(worldState);
+    console.info("Zones loaded...");
 
     const botInterface = setupBotInterface();
     await botInterface.waitForEvent("ready");
