@@ -125,6 +125,22 @@ export const mobs = {
       }
     });
   },
+  equipMobItem(mobId, itemData, position) {
+    return new Promise<void>(async (resolve, reject) => {
+      try {
+        if (typeof this.activeMobs[mobId].equipment[itemData.id] === "undefined") {
+          this.activeMobs[mobId].equipment[itemData.id] = {
+            position: position,
+            data: itemData,
+          };
+        }
+        resolve();
+      } catch (err) {
+        console.error(`Error equipping mob ${mobId} item ${itemData.id}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   addFollower(mobId, eid, player = false) {
     try {
       if (typeof this.activeMobs[mobId].followers[eid] === "undefined") {
