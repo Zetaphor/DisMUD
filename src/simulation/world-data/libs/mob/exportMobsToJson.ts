@@ -30,7 +30,7 @@ const fs = require("fs");
 // const mobNum = 79;
 // const mobNum = 120;
 // const mobNum = 150;
-// const mobNum = 186;
+const mobNum = 186;
 
 fs.readFile(`src/simulation/world-data/data/circlemud/mob/${mobNum}.mob`, "utf-8", (err, data) => {
   if (err) {

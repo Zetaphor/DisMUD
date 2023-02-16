@@ -1,15 +1,16 @@
 // Converts an array of mob mobs to JSON.
 export default function parseMob(mobText) {
   const lines = mobText.split("\n");
-  lines.splice(-1, 1);
-  // console.log(lines);
 
   let newMob = {};
+  // console.log(lines[0]);
   newMob["id"] = parseInt(lines[0].slice(1));
   newMob["aliases"] = lines[1].slice(0, -1).toLowerCase().split(" ");
   newMob["shortDesc"] = lines[2].slice(0, -1);
   newMob["longDesc"] = lines[3];
   newMob["detailedDesc"] = lines[5];
+
+  // console.log(lines[5]);
 
   let endDescIndex = 5;
 
@@ -48,6 +49,7 @@ export default function parseMob(mobText) {
   if (newMob["type"] === "E") {
     newMob["extraSpec"] = {};
     for (let i = endDescIndex + 5; i < lines.length - 1; i++) {
+      if (lines[i] === "" || lines[i] === "$") continue;
       const extraSpec = lines[i].split(":");
       newMob["extraSpec"]["name"] = extraSpec[0];
       newMob["extraSpec"]["value"] = extraSpec[1];
