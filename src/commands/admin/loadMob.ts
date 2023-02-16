@@ -34,6 +34,6 @@ export default async function loadMob(worldState, userData, msg) {
     }
   } catch (err) {
     userData.sendMessage(userData.user, `${emoji.error} Failed to load mob #${msg[0]}`);
-    console.error(`Error loading mob #${msg[0]}: ${err}`);
+    console.error(`Error admin loading mob #${msg[0]}: ${err}`);
   }
 }
