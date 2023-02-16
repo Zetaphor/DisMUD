@@ -1,1 +1,1 @@
-{"id":0,"name":"Limbo - Internal","topRoom":"0","lifespan":"99","resetMode":"10","commands":[{"type":"loadMob","ifFlag":"0","mobNum":"1","maxExisting":"1","roomNum":"1","objects":[],"equip":[]}]}
+{"id":0,"name":"Limbo - Internal","topRoom":"0","lifespan":"99","resetMode":"10","commands":[{"type":"loadMob","ifFlag":"0","mobNum":"1","maxExisting":"1","roomNum":"1","items":{},"equip":[]}]}

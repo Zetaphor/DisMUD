@@ -15,20 +15,29 @@ export default function parseZon(zone) {
 
   let lastMob = {};
   let lastObj = {};
+  let lastInstruction = "";
 
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].startsWith("*")) continue;
     const lineParts = lines[i].split(" ");
     if (lineParts[0] === "M") {
+      // console.log(lines[i]);
+      // console.log("0", lineParts[0]);
+      // console.log("1", lineParts[1]);
+      // console.log("2", lineParts[2]);
+      // console.log("3", lineParts[3]);
+      // console.log("4", lineParts[4]);
+      // console.log("\n\n");
       lastMob = {
         type: "loadMob",
         ifFlag: lineParts[1],
         mobNum: lineParts[2],
         maxExisting: lineParts[3],
         roomNum: lineParts[4],
-        items: [],
+        items: {},
         equip: [],
       };
+      lastInstruction = "M";
       newZone["commands"].push(lastMob);
     } else if (lineParts[0] === "O") {
       lastObj = {
@@ -37,20 +46,37 @@ export default function parseZon(zone) {
         objNum: lineParts[2],
         maxExisting: lineParts[3],
         roomNum: lineParts[4],
-        contains: [],
+        contains: {},
       };
+      lastInstruction = "O";
       newZone["commands"].push(lastObj);
     } else if (lineParts[0] === "G") {
-      lastMob["items"].push(lineParts[2]);
+      lastMob["items"][lineParts[2]] = {
+        id: lineParts[2],
+        qty: lineParts[3],
+        contains: {},
+      };
+      lastInstruction = "G";
     } else if (lineParts[0] === "E") {
       lastMob["equip"].push({
         position: lineParts[4],
         objNum: lineParts[2],
       });
+      lastInstruction = "E";
     } else if (lineParts[0] === "P") {
-      lastObj["contains"].push({
-        sourceNum: lineParts[2],
-      });
+      if (lastInstruction === "G") {
+        lastMob["items"][lineParts[4]].contains[lineParts[1]] = {
+          id: lineParts[1],
+          maxExisting: lineParts[3],
+          contains: {},
+        };
+      } else if (lastInstruction === "O") {
+        lastObj["contains"][lineParts[2]] = {
+          id: lineParts[2],
+          maxExisting: lineParts[3],
+        };
+      }
+      lastInstruction = "P";
     } else if (lineParts[0] === "D") {
       newZone["commands"].push({
         type: "setDoor",
@@ -59,6 +85,7 @@ export default function parseZon(zone) {
         exitNum: lineParts[3],
         state: lineParts[4],
       });
+      lastInstruction = "D";
     } else if (lineParts[0] === "R") {
       newZone["commands"].push({
         type: "removeObj",
@@ -66,6 +93,7 @@ export default function parseZon(zone) {
         roomNum: lineParts[2],
         objNum: lineParts[3],
       });
+      lastInstruction = "R";
     }
   }
 
