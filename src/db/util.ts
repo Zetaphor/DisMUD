@@ -268,8 +268,17 @@ export function createDBFile(filePath) {
         console.error(`Failed to open database ${filePath}:`, err);
         reject(err);
       } else {
-        db.close();
-        resolve();
+        db.serialize(function () {
+          db.run("PRAGMA journal_mode = wal;", function (err) {
+            if (err) {
+              console.error(err.message);
+              reject(err);
+            } else {
+              db.close();
+              resolve();
+            }
+          });
+        });
       }
     });
   });
