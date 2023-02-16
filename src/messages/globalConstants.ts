@@ -55,7 +55,7 @@ export const globalConstants = {
       thirst: 8,
     },
     "7": {
-      type: "fire breath",
+      type: "firebreather",
       drunk: 10,
       hunger: 0,
       thirst: 0,
