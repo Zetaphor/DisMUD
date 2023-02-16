@@ -685,5 +685,21 @@
     "zoneNum": 63,
     "roomBitVector": "",
     "sectorType": 2
+  },
+  {
+    "exits": {
+      "east": { "direction": 1, "desc": "", "tags": [], "flag": 0, "keyNum": -1, "roomId": 6392 },
+      "down": { "direction": 5, "desc": "", "tags": [], "flag": 63, "keyNum": null, "roomId": 2 },
+      "north": { "direction": 0, "desc": "", "tags": ["door"], "flag": 2, "keyNum": 6300, "roomId": 6399 },
+      "west": { "direction": 3, "desc": "", "tags": [], "flag": 63, "keyNum": null, "roomId": 2 },
+      "south": { "direction": 2, "desc": "", "tags": ["door"], "flag": 2, "keyNum": 6300, "roomId": 6392 }
+    },
+    "extra": { "tags": [], "desc": "" },
+    "id": 6391,
+    "name": "The Sticky Chamber",
+    "desc": "You can still bail out since your knees are shaking from the anticipation (or is it fear?).  The sky is clear on this strand of  web, surprisingly unsticky.  The strand does not vibrate like the  others.  A few ballooning spiders pass by, cackling 'You're gonna die, you're gonna fry.  Good bye!'",
+    "zoneNum": 63,
+    "roomBitVector": "",
+    "sectorType": 2
   }
 ]

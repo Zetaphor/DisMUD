@@ -11,6 +11,7 @@ const ROOM_DIRS = {
 export default function parseWorld(roomList) {
   let rooms = [];
   for (let roomIndex = 0; roomIndex < roomList.length; roomIndex++) {
+    if (!roomList[roomIndex].length) continue;
     const lines = roomList[roomIndex].split("\n");
 
     // Remove the blank line and the S elements at the end of the data
@@ -18,6 +19,7 @@ export default function parseWorld(roomList) {
 
     // console.log(lines);
     let newRoom = { exits: {}, extra: { tags: [], desc: "" } };
+    // console.log(lines[0]);
     newRoom["id"] = parseInt(lines[0].slice(1));
     newRoom["name"] = lines[1].slice(0, -1);
     newRoom["desc"] = lines[2];
@@ -37,10 +39,12 @@ export default function parseWorld(roomList) {
           parsingDescription = false;
 
           // Zone, room and sector data comes immediately after desc
-          const zoneRoomSector = lines[lineIndex + 1].split(" ");
-          newRoom["zoneNum"] = parseInt(zoneRoomSector[0]);
-          newRoom["roomBitVector"] = zoneRoomSector[1] === "0" ? "" : zoneRoomSector[1];
-          newRoom["sectorType"] = parseInt(zoneRoomSector[2]);
+          if (typeof lines[lineIndex + 1] !== "undefined") {
+            const zoneRoomSector = lines[lineIndex + 1].split(" ");
+            newRoom["zoneNum"] = parseInt(zoneRoomSector[0]);
+            newRoom["roomBitVector"] = zoneRoomSector[1] === "0" ? "" : zoneRoomSector[1];
+            newRoom["sectorType"] = parseInt(zoneRoomSector[2]);
+          }
 
           // console.log("Description:", newRoom["desc"], "\n");
           // console.log(newRoom["zoneNum"], newRoom["roomBitVector"], newRoom["sectorType"]);
