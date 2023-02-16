@@ -1,0 +1,81 @@
+#14
+The Lizard Lair Safari~
+1499 25 1
+* Mobiles
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1400 8 1402         Serpent
+M 0 1401 2 1403         Sentry
+E 1 1401 100 16                 Claymore
+E 1 1407 100 11                 Shield
+E 1 1402 100 12                 Robes
+M 0 1401 2 1403         Sentry
+E 1 1401 100 16                 Claymore
+E 1 1407 100 11                 Shield
+E 1 1402 100 12                 Robes
+M 0 1402 1 1406         Wizard
+G 1 1406 10                     Magic Rod
+E 1 1402 100 12                 Robes
+M 0 1403 1 1406         Elemental
+M 0 1404 12 1411        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1411        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1411        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1411        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1412        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1412        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1412        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1412        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1413        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1413        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1413        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1404 12 1413        Guard
+E 1 1401 100 16                 Claymore
+E 1 1402 100 12                 Robes
+M 0 1405 1 1413         Prince
+G 1 1405 1                      Green Key For The Exit
+E 1 1400 20 6                   Crown
+E 1 1401 100 16                 Claymore
+M 0 1406 1 1418         Mr. Hooper - Shopkeeper
+G 1 1409 99                     Milk Barrel
+G 1 1410 99                     Milk Glass
+G 1 1411 99                     Small Cookie
+* Objects
+O 0 1408 10 1416        LUCKY (key)
+O 0 1403 1 1408         Useless Key
+O 0 1404 1 1413         Altar
+* Doors
+D 0 1402 0 1            LUCKY (Room) Door
+D 0 1416 2 1            
+D 0 1405 3 2            Conjuring Chamber Door
+D 0 1406 1 2            
+D 0 1413 1 2            End Door
+D 0 1414 3 2            
+D 0 1417 2 2            False Door At The End Of The World
+S

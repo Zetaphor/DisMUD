@@ -1,0 +1,45 @@
+Hi, just a quick explanation of Space Station Alpha.
+I built it for Circle 3.0 DIKU based muds but I am sure it will not
+take all that much work to modify it for other derivations.
+
+The tar file contains 15.wld 15.obj 15.zon 15.mob along with this README file.
+
+Esentially this area is a Sci-fi based area. A space station has been in orbit
+around <your planet> and something has gone terribly wrong. Predator aliens and
+introduced Alien aliens into the station to hunt along with the humans! The 
+station is completely infested and the crew of Space Station Alpha is doing
+their best to hold out and clear the station. Too bad the captain has snapped
+and more than half the crew has been killed or committed suicide. 
+
+Room #1561 is a space shuttle that is the enterance to the station from 
+the rest of the world. Edit it to fit in yours. 
+
+Other than that it should be pretty much plug and play. It contains 1 deathtrap,
+a room that has been sealed off that the players will definately have to ignore
+all the warnings to get killed in. It will serve them right if they are dumb
+enough to walk into a sealed room that has a hull breach and no pressure!
+
+This area is nasty. Not for people who are simply hack & slash. It will take 
+some thinking to clear. Best not to go alone too. 
+
+2 or 3 higher level characters should be able to clear it if they follow a 
+hit and run campaign. Since all but a few of the rooms are no magic spell 
+casters should map out which rooms magic will work in and cast protection spells
+there or before they enter the station.  Magic works in the hagars and a few
+other rooms. Best bet is to set up a base camp in the main hagar and clear the
+immeadiate area of wandering aliens. Then heal up in the hagar and explore until
+the next battle. Then drop back, heal up and head back out into it. Pick the
+mobs off one at a time if possible. You really don't want to go into a combat 
+wounded. Plus fleeing here can get you killed too. 
+
+I recommend setting the zone reset bit so that it doesn't reload while
+players are in the station. I don't think I have it set that way as the 
+default. 
+
+
+Anyway, enjoy. 
+
+
+Magnus/Stan Rohrer
+
+magnus@ix.netcom.com

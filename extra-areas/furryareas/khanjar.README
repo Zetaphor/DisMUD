@@ -1,0 +1,16 @@
+This is a modest zone with about 65 rooms.  It is a little forest,
+maybe east of Midgaard.  The area was originally written for low-level
+(say 1-10) players.
+
+The syntax should be more or less that of Stock Circle 3.x
+
+-- Update September 17, 2000
+I was converting this area very recently to the Merc-style syntax,
+and noticed a few invalid exits among a few other problems.
+
+They should be fixed now.  I also changed the files to use vnums 95xx 
+instead of 25xx, and made some cosmetical desc changes (which hopefully
+didn't add even more spell and grammar errors :p).
+
+-Methem
+(mputkone@rieska.oulu.fi)

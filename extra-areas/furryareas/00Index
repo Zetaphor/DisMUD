@@ -1,0 +1,137 @@
+CircleMUD Area Archive
+----------------------
+00Index			This Index file.
+
+3areas.tar.gz		3 areas: chess, graye and totb
+			(Chess, The Graye Area, and Temple of the
+			Bull)  By Aten of GenericMud.
+			[These areas can also be found separately as:
+			  chess.tar.gz, graye.tar.gz, and totb.tar.gz]
+3areas.README		Info on the areas of 3areas.tar.gz
+
+ape_village.zip		It's based on the original 1968 Planet of the Apes
+			movie, and features approximately 100 rooms, 1 shop,
+			several new items, and a bunch of new mobs. This zone
+			is good for characters in the level 10 - 20 range.
+ape_village.README	Information for ape_village.zip
+
+blackforest.tar.gz	A small forest and tower area.  From Silverangel of
+			Ironic Building MUD.
+blackforest.README	Brief information on blackforest.tar.gz
+
+castle_of_desire.tar.gz		A small castle area from DesireMud.
+castle_of_desire.README		Information on castle_of_desire.tar.gz
+
+Caw/			C.A.W. areas maintained by furry@circlemud.org
+
+chess.tar.gz		This is a possible addendum to Moria, with a
+			life of its own.  It appears to be in Circle
+			2.2 format.  (see also 3areas.README)
+
+dspyre.tar.gz		The first level of the Dragonspyre area.
+
+elven.tar.gz		An Elven town with shops etc.
+elven.README		Information on elven.tar.gz
+
+galaxy.tar.gz		A porting of the Merc Galaxy to CircleMUD format.
+galaxy.README		Information on galaxy.tar.gz
+
+ghenna.tar.gz		D&D style town of Ghenna.
+
+goblin.tar.gz		A goblin village.
+goblin.README		Information on goblin.tar.gz
+
+grave.tar.gz		A graveyard area.  By Rasta of KallistiMUD.
+grave.README		Information on grave.tar.gz
+
+graye.tar.gz		This is a small forested area, complete with
+			cliff, small town, and small castle.  It appears
+			to be in Circle 2.2 format.  (see also 3areas.README)
+
+hell.tar.gz		Descent to Hell by Strahd
+hell.README		Information on hell.tar.gz
+
+jedi.tar.gz		A Jedi Clan Headquarters.
+
+jungle.tar.gz		A small jungle area.
+jungle.README		Information on jungle.tar.gz
+
+kaan.tar.gz		A collection of areas built by Kaan.  More
+			information can be found at
+			http://dibrova.betterbox.net/~dibrova/
+kaan.README		Some brief information on kaan.tar.gz
+
+kaanII.zip		A second collection of areas built by Kaan.  More
+			information can be found at
+			http://dibrova.betterbox.net/~dibrova/
+kaanII.README		Some brief information on kaanII.zip
+
+kerjim.tar.gz		The Pit Of Kerjim.  By Raf.
+
+khanjar.tar.gz		A small forest to sit east of Midgaard by Methem.
+khanjar.README		Some brief information on kahnjar.tar.gz
+
+house.tar.gz		A Haunted House.  By Maddog.
+house.README		Information on house.tar.gz
+
+mboard.tar.gz		An area based upon a motherboard from a computer.
+			By Ryan Kelley.
+mboard.README		Information on mboard.tar.gz
+
+nether.tar.gz		The Nether by Kaan of Dibrova.
+nether.README		Information on nether.tar.gz
+
+new_sparta.tar.gz	The city of New Sparta.  By Naved.
+
+newgodzone.tar.gz	God zone (zone 12) from Tazmania.
+
+notredame.tar.gz	An area (zone 82) based on the Notre Dame Cathedral
+			in Paris and the Three Muskateers.  By Apollo.
+
+oceania.tar.gz		Oceania Proper, part 1 of a 5 part area.
+			By Questor of StrangeMUD.
+
+prison.zip		A small jail that ties into south_midgaard.zip
+prison.README		Information on prison.zip
+
+rome.tar.gz		Rome.  By Onivel of JediMUD.
+
+shire.tar.gz		This is the classic Shire area.  It is in a mixed
+			format, part Merc 2.2, part standard Diku.
+
+smurf.tar.gz		A Smurf village.  By Brett Lynnes and Andy McLeod.
+smurf.README		Information on smurf.tar.gz (incl. special procs)
+
+snowy_valley.zip	Originally a place to connect new zones north of
+			Midgaard. Later added a ski hill and underground temple.
+			This zone contains about 100 rooms, 3 shops, 1 death
+			trap, several new items, and a bunch of new mobs.
+snow_valley.README	Information on snowy_valley.zip
+
+southD.tar.gz		Southern Desert area.  By Freak.
+southD.README		Information on southD.tar.gz
+
+south_midgaard.zip	A new verison of Southern Midgaard.
+south_midgaard.README	Infomation on south_midgaard.zip
+
+spaceA.tar.gz		Space Station Alpha area.
+spaceA.README		Information on spaceA.tar.gz
+
+star_trek.zip		The Starship: Enterprise.  Features many items and
+			characters from the shows.
+star_trek.README	Information on star_trek.zip
+
+sundhaven.tar.gz	Newbie starting town, possible Midgaard replacement
+			From Mercy of ExileMUD.
+
+totb.tar.gz		The Temple of the Bull.  It appears to be in Circle
+			2.2 format.  (see also 3areas.README)
+
+vice.island.v2.tar.gz	Vice Island, part 2 of a 5 part area.
+			(Oceania is part 1).  By Questor of StrangeMUD.
+
+wasteland.tar.gz	Wasteland area.
+wasteland.specials	Specials info on wasteland.tar.gz
+wasteland.README	Information on wasteland.tar.gz
+
+woods.wld.gz		A wooded area.  .wld file only.

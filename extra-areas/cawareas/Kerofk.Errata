@@ -1,0 +1,53 @@
+			*Errata -- Kerofk
+			
+
+
+1.0	12/07/93	First Release.
+
+1.1	1/4/94		kerofk.wld:  QQ47--missing flag line
+				     QQ09--typo: obvious -> oblivious
+				     QK31--door flag north should be 1
+			kerofk.obj:  QQ36--misplaced tilde in extra desc.
+			kerofk.mob:  QQ12--type: gamber -> gambler
+			kerofk.zon:  2nd well should be obj QQ47
+
+1.2	2/4/94		kerofk.wld:  QQ02, QQ03, QQ47, QQ48, QQ49, QQ52,
+				       QQ61, QQ62 all had faulty key fields
+				       for their doors.
+				     QQ48--door keywords added
+				     QQ01--added extra keywords to desc.
+			kerofk.obj:  QQ00--wear positions changed
+				     QQ03--typo in extra desc.
+				     QQ22--apply should be negative
+				     QQ31--value and rent changed
+
+1.3	2/10/94		kerofk.wld:  The key fixes above were UNfixed...
+				       (this all came about due to confusion
+                                       about non-standard key fields on the
+                                       muds this was playtested on...)
+
+
+1.4	4/20/94		kerofk.wld:  QQ47 room flag should have had 'QQ' for
+					the zone #, instead of 18.
+				     QQ06, QQ26, QQ37, QQ40, QQ61 room typos
+				     Room QQ82 & QQ84 exits fixed.
+			kerofk.obj:  QQ03 -- extra desc typo.
+				     QQ27 -- short desc had a unneeded period.
+			kerofk.mob:  QQ28 -- 'seargeant' --> 'sargeant'
+
+
+1.41	7/9/94		kerofk.wld:  QQ06 -- has --> hasn't
+				     QQ18 -- vine -encrusted --> vine-encrusted
+				     QQ39 -- Extra <cr> removed.
+
+1.42	7/10/94		kerofk.wld   QQ04, QQ06, QQ16 -- room names changed 
+					to 'East'
+				     QQ25 -- room name changed to 'West'
+
+1.43	9/14/94		kerofk.wld   QQ51 -- added keyword for the door
+
+1.44    5/10/95         kerofk.wld   QK31 -- added keyword for the door
+                        kerofk.zon   ended the file with a 'S' marking
+
+1.45    7/9/95          README renamed to kerofk.doc and updated.
+

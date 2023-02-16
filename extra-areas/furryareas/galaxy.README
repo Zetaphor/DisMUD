@@ -1,0 +1,22 @@
+This zone was written by Doctor of EnvyMUD.  I did the minimal changes
+needed to change it to CircleMUD format.
+
+This included the proper headers for the .zon file and the proper file
+terminators.
+
+To use this zone, make sure that SOMEWHERE in the zone, near the begining,
+the authors name is visible to the players, a sign or edesc in a room
+works very well.
+
+Include the area and the author (perhaps the EnvyMUD name also) in your
+help file for areas.  And even a small mention in your credits file would
+be nice.  One of the IMP's suggested if you are feeling generous that you
+mention that the other areas can be gleaned from the EnvyMUD 2.2 on the
+ftp.envy.org site
+
+I myself need no mention, as the work I did was very minimal, and quite
+truthfully, selfish in nature *8).
+
+Many thanks to the EnvyMUD people for allowing this to be shared.
+
+Ghost Shaidan, IMP of Questionable Sanity, agis.ag.net (204.164.158.2) 4000

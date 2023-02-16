@@ -1,0 +1,22 @@
+Errata/Releases
+
+
+
+1.0   (9/7/93)	First Release
+
+1.1   (9/25/93)	Major bug in .mob in position types fixed.
+		Added this file.
+
+1.2   (11/10/93) Various and sundry typos and mispellings fixed.
+
+1.3   (11/18/93) Bartenders and Werith made sentinel.
+		 Drink repetition 'glass of beer of beer' fixed.
+
+1.4   (2/4/94)	 Typo in zone file:  Q0 instead of QQ.  Caused two
+		 horses not to be loaded.
+		 Typos in room QQ14 and object QQ05 fixed.
+		 added more keywords to object QQ14.
+
+1.41  (7/9/95)   Renamed README to WHouse.doc and updated the document
+                 with the new Address.
+

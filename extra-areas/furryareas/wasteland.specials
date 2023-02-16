@@ -1,0 +1,43 @@
+/*
+Specials for wasteland zone (CircleMUD-3.0)
+======================
+
+From Anders S Adamsson, Sweden
+
+Assign these original specials..
+9102 - Snake
+9112 - Magic User
+
+And this new..
+9111 - icewizard (see below) I know ice and fire don't mix, but as
+                             there ain't no powerful cold spell in the
+                             code so far, it'll have to do for now. :)
+====================================
+
+Haven't tested the special... :-/ ,but hopfully it'll work :-)
+*/
+
+SPECIAL(icewizard){
+
+  struct char_data *tch *vict;
+  int low_on_hits = 10000;
+
+  if (cmd)
+    return (FALSE);
+
+  /* Find out who has the lowest hitpoints and burn his ass off */
+  for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room){
+    if (!IS_NPC(tch))
+      if (tch->point.hit < low_on_hits){
+	low_on_hits = tch->point.hit;
+	vict = tch;
+      }
+  }  
+  
+  act("$n screams 'Bonjour! you tiny, little looser!!'", FALSE, ch, 0, 0, TO_ROOM);
+  act("$n looks at $N", 1, ch, 0, vict, TO_NOTVICT);
+  act("$n looks at YOU!", 1, ch, 0, vict, TO_VICT);
+  cast_spell(ch, vict, 0, SPELL_FIREBALL);
+  return TRUE;
+}
+

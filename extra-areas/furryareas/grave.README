@@ -1,0 +1,42 @@
+The Graveyard
+
+Written by Rasta (Eric Pilcher) for KallistiMUD
+Original Version Debut, March, '93
+Public Domain Version, July '96
+Email as of June '96:  epilcher@digiforest.com
+                       rasta@peak.org
+
+The following files should be inluded with this README file:
+  grave.wld    --  The graveyard world file.
+  grave.mob    --  The graveyard mobile file.
+  grave.obj    --  The graveyard object file.
+  grave.zon    --  The graveyard zone file.
+  spec_grave.c --  Special procedures for graveyard mobiles.
+
+In spite of it being my first attempt at an area, it didn't turn out
+to bad.  In fact, I was a bit shocked to receive praise now and then.
+
+I've converted it to Circle 2.2 format and toned it down quite a bit.
+(Naturally as a novice builder I had contributed to some of the
+escallation which plauges all muds.)
+
+The area connect to South Midgaard at the grate (sexton has key).  It
+includes, although they are modified, the original path amongst the
+evergreens and chapel that is found stock diku.
+
+It should be obvious which mobs get which spec procs.
+
+I recommend you do the following:
+
+1.  Replace the name "Someone" on the tombstones (.wld file) with
+the names of some of your past players, gods, or your own creative
+names.  On Kallisti, I used the Gods.  The collesuim belonging to the
+Implementor.
+
+2.  Vary the contents of the tombstones.  These are containers you
+can put small items in.
+
+3.  If you have a problem with key hoarders, concider a second entrance
+to the catacombs.  Perhaps through the sewers.
+
+4.  Most of all, enjoy!

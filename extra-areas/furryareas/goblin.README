@@ -1,0 +1,20 @@
+   * * * * The Land of Lonoya * * * * 
+   ----------------------------------
+         Made A. D. 1997 by Pippin
+
+   This zone contains a small town and a
+   rather large dungeon full of goblins.
+   A few objects have magical effects, 
+   written into the code this way:
+
+   C    
+   jk
+
+   The C is like the A used in affect flags,
+   the jk uses the mob-affect bitvector. 
+   However, these should be removed or changed
+   should your MUD be unable to handle them.
+
+   This zone has been thoroughly checked.
+   Believe me.  There were LOTS of bugs at
+   first.

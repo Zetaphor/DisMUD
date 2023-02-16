@@ -1,0 +1,46 @@
+********************************************************
+********************************************************
+**    The Southern Desert                             **
+**    SouthD.txt                                      **
+**    Completed 12-30-95                              **
+**    By  Ian Smith / Freak, Dark Master of Thieves   **
+**    e-mail   ian@kirk.anderson.edu                  **
+********************************************************
+********************************************************
+*
+*
+Here is the zone entitled 'The Southern Desert.'  It sports a total of 67  
+rooms, 13 different mobs, and 10 different objects.
+You should have the files:
+     SouthD.txt
+     SouthD.mob
+     SouthD.obj
+     SouthD.wld
+     SouthD.zon
+
+If you do not have all of these files, pleas e-mail me at the above address 
+and we can work the file transfer arrangements out.  All of the files above
+are necessary for the zone, save this .txt file.  I ask that you do not remove
+my credits, but go ahead and change anything you want, adding to the credits
+if you wish.  The zone was written for a 60 level CircleMud 3.00, so beware
+there are 1 or 2 high-level mobs that may or may not be adequate for your
+mud.  This also goes for the objects file, there is one awesome dagger that
+might upset the balance of your mud (it is a 5d6 black dagger.)
+
+The best connection points are rooms #QQ00, #QQ24, and #QQ14.  The zone is
+currently #QQ, so you can set the zone# to be whatever number most favorable
+to your mud.  Any Text-editor can make the change in one easy move.  If you
+really want a map of the zone I'll xerox you a copy via snail-mail. (its a
+lot easier than mapping it out yourself.)   :P  Anyhow, e-mail me for any
+comments, hints, or suggestions on this or any other zone!
+
+If there is any way you can make the 'lemming' mob automatically follow 
+whoever walks through the same room, that would be ideal.  I designed the
+poor lemming with that in mind.
+
+Note added 11-16-1997 by author
+the 2 main things needing debugging in these files are the number of mobs, 
+which need to be just about cut in half-especially near the forst rooms;
+and there is a door that needs to be fixed. 
+
+Ian Smith

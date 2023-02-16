@@ -1,0 +1,539 @@
+Builders' Handbook, Appendix 1:  Charts.
+
+*** ROOM ARCHETYPE
+#vnum
+Room Title~
+Room's Description
+~
+<zone number> <room flag> <sector type>
+D<direction number>
+exit description field
+~
+door keyword list~
+<door type> <key vnum> <exit-to-room vnum>
+<more exits here, if needed>
+E
+extra description keyword list~
+extra description
+~
+<more extra descriptions here, if needed>
+S
+
+*** ARCHETYPE MOB (simple)
+#vnum
+name list~
+short desc~
+long desc
+~
+mob desc
+~
+<action flags> <affection flags> <alignment> S
+<level> <thaco> <ac> <hitpoints> <damage>
+<gold> <experience>
+<loading position> <default position> <gender>
+
+*** ARCHETYPE MOB (complex)
+#vnum
+name list~
+short desc~
+long desc
+~
+mob desc
+~
+<action flags> <affection flags> <alignment> <anything but an S>
+<strength> <intelligence> <wisdom> <dexterity> <constitution>
+<hit low> <hit high> <armour> <mana> <movement> <gold> <exp>
+<position> <default> <sex> <class> <level> <age> <weight> <height>
+<condition 0> <condition 1> <condition 2>
+<savingthrow 0> <savingthrow 1> <savingthrow 2> <savingthrow 3> <savingthrow 4>
+
+*** OBJECT ARCHETYPE
+#vnum
+namelist~
+short desc~
+long desc~
+~
+<object type> <object flag> <wear flag>
+<object values (four digits)>
+<weight> <value> <rent cost>
+E
+keywords~
+Extra desc
+~
+A
+<apply type> <apply amount>
+
+*** SHOP ARCHETYPE
+#vnum~
+<item sold vnum 1>
+<item sold vnum 2>
+<item sold vnum 3>
+<item sold vnum 4>
+<item sold vnum 5>
+<multiple for selling items>
+<multiple for buying items>
+<item type bought 1>
+<item type bought 2>
+<item type bought 3>
+<item type bought 4>
+<item type bought 5>
+<message 1>
+<message 2>
+<message 3>
+<message 4>
+<message 5>
+<message 6>
+<message 7>
+<temper 1>
+<temper 2>
+<shopkeeper vnum>
+0
+<room vnum>
+<open 1>
+<close 1>
+<open 2>
+<close 2>
+
+*** ZONE ARCHETYPE
+#<zone #>
+name of area~
+<last room in area> <reset time> <reset type>
+<zone commands>
+S
+
+*** ROOM FLAGS
+0   No Flag
+1   Dark         - character cannot see without a light source.
+2   Death        - death trap
+4   No_mob       - monsters cannot enter this room.
+8   Indoors      - players in this room will not get weather messages.
+16  * Lawful     - not implemented in some versions
+32  * Neutral    - not implemented in some versions
+64  * Chaotic    - not implemented in some versions
+128 * No_magic   - not implemented in some versions
+256 * Tunnel     - not implemented in some versions
+512 Private      - only 2 player may be in this room at a time.
+
+*** SECTOR TYPES
+0 Inside
+1 City Streets
+2 Field
+3 Forest
+4 Hills
+5 Mountain
+6 Water, swimmable (not implemented on some muds)
+7 Water, not swimmable (need boat-type item to cross)
+
+*** EXITS
+0 - north
+1 - east
+2 - south
+3 - west
+4 - up
+5 - down
+
+*** ACTION FLAGS
+1       Special         - Special routine which can be found in the file
+                          spec_proc.c .  Ask the admins of your mud for
+                          more information on specials.
+2       Sentinel        - This mob stays put.
+4       Scavenger       - This mob picks up stuff lying on the ground.
+8       * IsNPC         - Reserved.  Do not use.
+16      Nice to Thieves - Will not attack a player trying to steal from it.
+32      Aggressive      - Automatically attacks players it can see.
+64      Stays in zone   - Will not enter a room with a different zone #
+                          than its own.  See 'zone numbers' in section 3.
+128     Wimpy           - Will flee when hurt badly.
+
+*** AFFECTION FLAGS
+1       * Blind          - Reserved for players, or internal use only.
+2       Invisible        - mob is invisible
+4       * Detect Evil    - Reserved for players, or internal use only.
+8       Detect Invis     - mob can see invisible players
+16      * Detect Magic   - Reserved for players, or internal use only.
+32      * Sense Life     - Reserved for players, or internal use only.
+64      * Hold           - Reserved for players, or internal use only.
+128     Sanctuary        - mob is affected by the 'sanctuary' spell.
+256     * Group          - Reserved for players, or internal use only.
+1024    * Cursed         - Reserved for players, or internal use only.
+2048    * Flaming        - Reserved for players, or internal use only.
+4096    * Poisoned       - Reserved for players, or internal use only.
+8192    * Protected/Evil - Reserved for players, or internal use only.
+16384   * Paralyzed      - Reserved for players, or internal use only.
+32768   * Morden Sword   - Reserved for players, or internal use only.
+131072  * Slept          - Reserved for players, or internal use only.
+262144  * Dodging        - Reserved for players, or internal use only.
+524288  Sneaking         - mob cannot be seen entering or leaving a room.
+1048576 Hiding           - mob is hidden
+2097152 * Afraid         - Reserved for players, or internal use only.
+4194304 Charmed          - mob will act charmed if 'follow <player>' is entered.
+8388608 * Following      - Reserved for players, or internal use only.
+
+*** POSITION
+4       Sleeping
+5       Resting
+6       Sitting
+8       Standing
+
+*** SUGGESTED MOB STANDARDS
+Level Hp.        Exp.   Thaco   Armor   Damage  Notes
+-----------------------------------------------------
+  0   1-10          25    20     10     1d4+0
+  1   11-22        100    20      9     1d5+0
+  2   23-35        200    19      8     1d6+0
+  3   36-47        350    18      7     1d7+0
+  4   48-60        600    17      6     1d8+0
+
+  5   61-72        900    16      5     2d4+0
+  6   73-85       1500    15      4     1d8+1
+  7   86-97       2250    14      4     2d4+1
+  8   98-110      3750    13      3     2d5+1
+  9   111-122     6000    12      3     2d5+1
+
+ 10   123-135     9000    11      2     2d6+1
+ 11   136-147    11000    10      2     2d6+1
+ 12   148-160    13000     9      2     2d7+1
+ 13   161-172    16000     8      2     2d7+1
+ 14   173-185    18000     7      1     2d8+1
+
+ 15   186-197    21000     6      1     2d8+2
+ 16   198-210    24000     5      1     2d8+2
+ 17   211-222    28000     4      1     3d6+2
+ 18   223-235    30000     3      0     3d6+2
+ 19   236-247    35000     2      0     3d6+3
+
+ 20   248-260    40000     1      0     3d6+4  Minor Demons
+ 21   261-350    50000     0     -1     3d7+4
+ 22   351-400    60000     0     -1     3d8+4
+ 23   401-450    80000     0     -2     3d8+4  Shopkeepers
+ 24   451-500   100000     0     -3     3d8+4  Guildmasters
+
+ 25   501-550   130000     0     -4     4d6+4
+ 26   551-600   155000     0     -6     4d6+4  Major Demons
+ 27   601-650   200000     0     -7     4d6+4  Demigods
+ 28   651-700   310000     0     -8     4d6+5  Lesser Gods
+ 29   701-900   450000     0     -9     4d7+5  Demon Lords/Arch Devils
+
+ 30   901-1000  600000     0    -10     4d8+5  Greater Gods
+
+*** OBJECT TYPES
+1       Light
+2       Scroll
+3       Wand
+4       Staff
+5       Weapon
+6       * Fireweapon     - not implemented in standard diku
+7       * Missile        - not implemented in standard diku
+8       Treasure
+9       Armor
+10      Potion
+11      * Worn           - not implemented in standard diku
+12      Other
+13      Trash
+14      * Trap           - not implemented in standard diku
+15      Container
+16      * Note           - not implemented in standard diku
+17      Drink Container
+18      Key
+19      Food
+20      Money
+21      * Pen            - not implemented in standard diku
+22      Boat
+
+*** OBJECT FLAGS
+1       Glow    - item glows
+2       Hum     - item hums
+4       Dark    - Not Implemented
+8       Lock    - Not Implemented
+16      Evil    - Not Implemented
+32      Invis   - item is invisible
+64      Magic   - item has a magic aura
+128     Nodrop  - item cannot be dropped
+256     Bless   - item is blessed
+512     A-Good  - not usable by good aligned.  Not imp'ed in some versions.
+1024    A-Evil  - not usable by evil aligned.  Not imp'ed in some versions.
+2048    A-Neut  - not usable by neutral aligned.  Not imp'ed in some versions.
+
+*** WEAR FLAGS
+1       Take            - item is takeable (IMPORTANT!)
+2       Finger
+4       Neck
+8       Body
+16      Head
+32      Legs
+64      Feet
+128     Hands
+256     Arms
+512     Shield
+1024    About body      - not always usable on some muds
+2048    Waist
+4096    Wrist
+8192    Wield
+16384   Hold
+32768   Throw           - not implemented
+
+*** OBJECT VALUES
+LIGHT (1)
+Value[0]: Not Used
+Value[1]: Not Used
+Value[2]: Number of hours the light can be used for. Zero hours means that
+          the light has gone out. A negative number will create an eternal
+          light source.
+Value[3]: Not Used
+
+SCROLL (2)
+Value[0]: Level of the spell on the scroll.
+Value[1]: Which spell (see 'Spell ID's below for more information on this)
+Value[2]: Which spell (unused spells should be set to -1)
+Value[3]: Which spell
+
+WAND (3)
+Value[0]: Level of spell in wand.
+Value[1]: Max Charges (1..X)
+Value[2]: Charges Left
+Value[3]: Which spell in wand (see 'Spell ID's below for more information)
+
+STAFF (4)
+Value[0]: Level of spell in staff.
+Value[1]: Max Charges (1..X)
+Value[2]: Charges Left
+Value[3]: Which spell in staff (see 'Spell ID's below for more information)
+
+WEAPON (5)
+Value[0]: Not Used
+Value[1]: Number of dice to roll for damage
+Value[2]: Size of dice to roll for damage
+Value[3]: The weapon type. Type is one of:
+         NUMBER  CATEGORY   Message type
+            2  : Slash         "whip/whips"
+            3  : Slash         "slash/slashes"
+            6  : Bludgeon      "crush/crushes"
+            7  : Bludgeon      "pound/pounds"
+           11  : Pierce        "pierce/pierces"
+
+TREASURE   (8)
+[all values are 0...a treasure is an item with a high <value> field,
+basically]
+
+ARMOR      (9)
+Value[0]: The effective AC.  A positive value is a bonus, a negative is
+          a penalty.
+Value[1]: -
+Value[2]: -
+Value[3]: -
+
+POTION    (10)
+Value[0]: Level of the spell in the potion.
+Value[1]: Which spell (see 'Spell ID's below for more information)
+Value[2]: Which spell (unused values should be set to -1)
+Value[3]: Which spell
+ 
+WORN      (11)
+Value[0]: Protection from cold.
+Value[1]: Protection from hot.
+Value[2]: -
+Value[3]: -
+
+OTHER     (12)
+[all values should be set to 0]
+
+TRASH     (13)
+[all values should be set to 0]
+
+CONTAINER (15)
+Value[0]: Maximum weight the container can contain.
+Value[1]: Container flags:
+   CLOSEABLE     1
+   PICKPROOF     2
+   CLOSED        4
+   LOCKED        8
+Value[2]: The key vnum of the container.  No lock = -1.
+Value[3]: Internal use for Corpses that must "rot".
+
+DRINK CONTAINER  (17)
+Value[0]: Maximum drink-units the drink-container can contain.
+Value[1]: Number of drink-units that are left in the container.
+Value[2]: The type of liquid in the drink-container, one of:
+              Type       nr.    Drunkness   Fullness   Thirst
+              WATER      0      0           1           10
+              BEER       1      3           2           5
+              WINE       2      5           2           5
+              ALE        3      2           2           5
+              DARKALE    4      1           2           5
+              WHISKY     5      6           1           4
+              LEMONADE   6      0           1           8
+              FIREBREATH 7      10          0           0
+              LOCALSPC   8      3           3           3
+              SLIME      9      0           4           -8
+              MILK       10     0           3           6
+              TEA        11     0           1           6
+              COFFE      12     0           1           6
+              BLOOD      13     0           2           -1
+              SALTWATER  14     0           1           -2
+              COKE       15     0           1           5
+
+          The above values for drunkness/fullness/thirst are used per
+          four "units" drunk. The values are expressed in HOURS!
+          Example:
+            Dragon empties a bottle (say 7 units) of saltwater.
+            His Drunkness is not changed ((7/4)*0)
+            His Fullness increases by ((7/4)*1) hours
+            His Thirst increases by ((7/4)*-2) hours, thus making
+               him More thirsty.
+          The hours above are numbers between 0 and 24. 24 hours is
+          maximum for drunkness/fullness/thirst.
+
+Value[3]: if this value is non-zero, then the drink is poisoned.
+
+KEY       (18)
+Value[0]: The key-type. This value should be the same as the object number.
+Value[1]: -
+Value[2]: -
+Value[3]: -
+
+FOOD      (19)
+Value[0]: The number of hours, that this food will fill the stomach
+Value[1]: -
+Value[2]: -
+Value[3]: If this value is non-zero, the food is poisoned.
+
+MONEY     (20)
+Value[0]: The number of gold coins "in the pile of coins".
+Value[1]: -
+Value[2]: -
+Value[3]: -
+
+ITEM_BOAT      (22)
+[all values should be set to 0]
+
+*** SPELL ID #'s
+                        ID #   POTION  SCROLL WAND   STAFF
+ARMOR                   1      Y       Y      Y      N
+TELEPORT                2      Y       Y      Y      Y
+BLESS                   3      Y       Y      Y      N
+BLINDNESS               4      Y       Y      Y      Y
+BURNING_HANDS           5      N       N      N      N
+CALL_LIGHTNING          6      Y       Y      N      Y
+CHARM_PERSON            7      N       Y      N      Y
+CHILL_TOUCH             8      N       N      N      N
+CLONE                   9      Y       Y      Y      N
+COLOUR_SPRAY           10      N       Y      Y      N
+CONTROL_WEATHER        11      N       N      N      N
+CREATE_FOOD            12      N       Y      N      N
+CREATE_WATER           13      N       N      N      N
+CURE_BLIND             14      Y       N      N      Y
+CURE_CRITIC            15      Y       N      N      Y
+CURE_LIGHT             16      Y       N      N      Y
+CURSE                  17      Y       Y      N      Y
+DETECT_EVIL            18      Y       N      N      Y
+DETECT_INVISIBLE       19      Y       N      N      Y
+DETECT_MAGIC           20      Y       N      N      Y
+DETECT_POISON          21      Y       Y      N      N
+DISPEL_EVIL            22      Y       Y      Y      Y
+EARTHQUAKE             23      N       Y      N      Y
+ENCHANT_WEAPON         24      N       Y      N      N
+ENERGY_DRAIN           25      Y       Y      Y      Y
+FIREBALL               26      N       Y      Y      N
+HARM                   27      Y       N      N      Y
+HEAL                   28      Y       N      N      Y
+INVISIBLE              29      Y       Y      Y      Y
+LIGHTNING_BOLT         30      N       Y      Y      N
+LOCATE_OBJECT          31      N       N      N      N
+MAGIC_MISSILE          32      N       Y      Y      N
+POISON                 33      Y       N      N      Y
+PROTECT_FROM_EVIL      34      Y       Y      Y      Y
+REMOVE_CURSE           35      Y       Y      N      Y
+SANCTUARY              36      Y       Y      N      Y
+SHOCKING_GRASP         37      N       N      N      N
+SLEEP                  38      Y       Y      Y      Y
+STRENGTH               39      Y       Y      N      Y
+SUMMON                 40      N       N      N      N
+VENTRILOQUATE          41      N       N      N      N
+WORD_OF_RECALL         42      Y       Y      Y      Y
+REMOVE_POISON          43      Y       N      N      Y
+SENSE_LIFE             44      Y       N      N      Y
+IDENTIFY              *53*     N       Y      N      N
+
+*** OBJECT APPLIES
+1       Strength
+2       Dex
+3       Int
+4       Wis
+5       Con
+6       Gender          - Internal use only... do not use.
+7       Class           - Internal use only... do not use.
+8       Level           - Internal use only... do not use.
+9       Age
+10      Weight
+11      Height
+12      Mana            - adds to max value
+13      Hitpoints       - adds to max value
+14      Move points     - adds to max value
+15      Gold            - Internal use only... do not use.
+16      Experience      - Internal use only... do not use.
+17      Armor Class
+18      Hitroll         - bonus/penalty to hit
+19      Damage roll     - bonus/penalty to damage done by user
+20      Anti-Para       - bonus/penalty to resistance roll
+21      Anti-Rod        - bonus/penalty to resistance roll
+22      Anti-Petrify    - bonus/penalty to resistance roll
+23      Anti-Breath     - bonus/penalty to resistance roll
+24      Anti-Spell      - bonus/penalty to resistance roll (most used)
+
+*** SHOP MESSAGES
+What the shopkeeper says when...
+
+1)... he doesn't have that object to sell.
+2)... the player doesn't have that object to sell.
+3)... he doesn't buy that type of item.
+4)... he doesn't have enough money to buy an object.
+5)... the player doesn't have enough money to buy an object.
+6)... he sells an object.
+7)... he buys an object.
+
+*** TEMPERS
+Temper 1:
+Value [0] The shopkeeper spits at the player
+Value [1] The shopkeeper smokes a joint.
+
+Temper 2:
+Value [0] The shopkeeper warns the player, and attacks!
+Value [1] The shopkeeper insults the player, and no combat takes place.
+
+*** ZONE COMMANDS
+M <if-flag> <mob vnum> <max #> <room vnum>
+O <if-flag> <object vnum> <max #> <room vnum>
+G <if-flag> <object vnum> <max #>
+E <if-flag> <object vnum> <max #> <equipment position>
+P <if-flag> <loaded object vnum> <max #> <container vnum>
+D <if-flag> <room vnum> <exit #> <doorstate>
+R <if-flag> <room vnum> <object vnum>
+
+*** POSITIONS IN THE ZONE FILE
+0       Light
+1       Right Finger
+2       Left Finger
+3       Neck (first slot)
+4       Neck (second slot)
+5       Body
+6       Head
+7       Legs
+8       Feet
+9       Hands
+10      Arms
+11      Shield
+12      About Body
+13      Waist
+14      Right Wrist
+15      Left Wrist
+16      Wield
+17      Hold
+
+*** DOOR STATES
+0       Open
+1       Closed
+2       Closed and Locked
+
+Matrix
+C.A.W.
+10/1/94

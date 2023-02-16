@@ -1,0 +1,421 @@
+#1400
+The Entrance To The Lizard Lair Safari~
+This is the opulent entrance to the exciting Lizard Lair Safari Park.
+Around you stand many other adventurers awaiting their chance to try
+their luck in the quest set before them.  And you.
+This quest consists of the recovery of the Golden treasure in the depths
+of the lair of the lizardmen.  If you wish to test your luck, you can
+push your way through the exit to the south...
+If not, you can leave the Safari Park to the east.
+There is a large sign here.
+~
+14 12 4
+D1
+The Real World is to the east.
+~
+~
+0 -1 1417
+D2
+The quest begins to the south.
+~
+~
+0 -1 1401
+E
+sign large~
+The sign reads as follows:
+ 
+   This area is not suggested if your character is less than 15th level
+   since there are several tough aggressive monsters.  There are one or
+   two essential skills to have... either a knock spell or item, or the
+         ability to pick locks.  If you are LUCKY you might find
+                  an item to open locks....
+ 
+                                                Matrix
+ 
+~
+S
+#1401
+The Quest Preparation Room~
+In this room are various items of preparation for the upkeep of the
+quest.  A guide explains to you what the object is:  To get the gold.
+Looking around, you see that the exit to the north has disappeared and
+you are left with only the one exit down... into the water.
+As you ready yourself to begin the quest, the guide gives you a potion
+and tells you to quaff it.  You do so and feel like your movements are
+easier, and much more free.  The guide suddenly vanishes and you begin
+the quest.
+~
+14 12 0
+D5
+The water below you looks rather ominous.
+~
+~
+0 -1 1402
+S
+#1402
+A Tunnel~
+This tunnel is filled with water and your light sheds all of the light
+that gives you visibility here.  There are two exits.  One is to the
+east and one above you.
+~
+14 9 6
+D0
+A LUCKY blocks your view of whatever is north.
+~
+lucky~
+1 -1 1416
+D1
+The tunnel stretches off to the east.
+~
+~
+0 -1 1403
+D4
+The quest preparation room is above you.
+~
+~
+0 -1 1415
+S
+#1403
+A Tunnel~
+This tunnel is filled with water.  There are exits to the east and west.
+The tunnel stretches off in both directions.
+~
+14 9 6
+D1
+The tunnel stretches off to the east.
+~
+~
+0 -1 1404
+D3
+The tunnel stretches off to the west.
+~
+~
+0 -1 1402
+S
+#1404
+A Tunnel~
+The tunnel comes to an abrupt end as there is a rock wall right in
+front of you.  Fortunately, there are two exits, one to the west and
+one through a hole in the floor.
+~
+14 9 6
+D3
+The tunnel stretches off to the west.
+~
+~
+0 -1 1403
+D5
+There is a hole in the floor leading down.
+~
+~
+0 -1 1405
+E
+hole~
+The hole leads down.
+~
+S
+#1405
+Tunnel End~
+The tunnel ends here.  There is a hole in the ceiling and a large door
+to the west.
+~
+14 9 6
+D3
+There is a door here.
+~
+door~
+1 1408 1406
+D4
+There is a hole in the ceiling leading up.
+~
+~
+0 -1 1404
+E
+hole~
+The hole leads up.  Big surprise since you've already seen it.
+~
+E
+door~
+You have to be able to Pick or Knock this door open, unless you got LUCKY.
+~
+S
+#1406
+The Conjuring Chamber~
+This large room is dominated by a whirlpool.  There are two exits.  To
+the east you can see a door and to the west you can see a waterfilled
+hallway stretching off.  The whirlpool is threatening to pull you down,
+but you are certain that you would drown in it.
+~
+14 9 6
+D0
+There is a strange store that seems suspiciously out of place just to
+the north.
+~
+~
+0 -1 1418
+D1
+A door blocks your way, unless it is open in which case it doesn't block
+your way.
+~
+door~
+1 1400 1405
+D3
+A hallway begins to move to the east.
+~
+~
+0 -1 1408
+D5
+The whirlpool is threatening to pull you down to your death.
+~
+~
+0 -1 1407
+E
+door~
+This is a big door, but not as big as it looked from the other side.
+~
+E
+whirlpool~
+This just looks scary and EXTREMELY dangerous.
+~
+S
+#1407
+The Whirlpool~
+ 
+ 
+                It was not a good idea to come here.
+ 
+                You have died from water inhalation.
+ 
+                          You are dead.
+ 
+ 
+ 
+                           R . I . P .
+ 
+~
+14 10 0
+D4
+~
+~
+0 -1 1406
+S
+#1408
+A Hallway~
+The hallway naturally twists so that is seems to head east and down, but
+the hallway doesn't seem to be curved or bent in any way.
+~
+14 9 6
+D1
+There is a large room to the east.
+~
+~
+0 -1 1406
+D5
+The hallway continues to the south... er... below.
+~
+~
+0 -1 1409
+E
+hallway hall~
+It is dead straight but it goes down and east... M.C.Escher has struck
+again!
+~
+S
+#1409
+A Hallway~
+The hallway here is bent in a big way.  It goes up and east.
+~
+14 9 6
+D1
+There is a large chamber to the east.
+~
+~
+0 -1 1411
+D4
+The hall continues up.
+~
+~
+0 -1 1408
+E
+hallway hall~
+This hall is BENT!
+~
+S
+#1410
+A Completely Useless Room~
+This is a room to keep the continuity going of the numbering system.  Other
+than that it serves no purpose.  This area was conceived and built by
+                Matrix of The Curious Area Workshop
+ 
+If you have questions or complaints please contact furry@cambot.res.jhu
+~
+14 0 0
+S
+#1411
+The Throne Room Annex~
+This is the entrance to the Throne room which lies to the east.  A hall
+leads off to the west.  The room is lavishly decorated but there is not
+much to see.
+~
+14 9 6
+D1
+The Throne Room looms to the east.
+~
+~
+0 -1 1412
+D3
+A hall looms to the west.
+~
+~
+0 -1 1409
+E
+loom~
+What a descriptive word that is.  Loom.
+~
+S
+#1412
+Throne Room~
+This large room is rather large.  A throne sits on the east wall below a
+hole in the ceiling.  The throne almost dominates the room.  No one is
+sitting in it.  The wall is decorated to look like pillars surround the
+room.  The annex is to the west whilst you are not sure what is above.
+~
+14 9 6
+D3
+The Throne Room Annex is to the west.
+~
+~
+0 -1 1411
+D4
+You can't see what is above this room.
+~
+~
+0 -1 1413
+E
+throne~
+This is a large ugly thing that you are repulsed by.  You can think of
+no conceivable reason why the lizardmen keep it here.
+~
+E
+pillars wall~
+What a useless concept.  Why didn't the designer just put actual pillars
+in?
+~
+S
+#1413
+Temple Of Morgash~
+This is the temple to the Lizardmen's evil deity, Morgash.  It is
+quite ugly.  At least in your opinion it is... you are certain that
+the lizardmen like it though.
+There are two exits.  Down and through the large door to the east.
+~
+14 9 6
+D1
+A large door blocks your way.
+~
+door~
+2 1405 1414
+D5
+There is a hole leading down.  Obvious eh?
+~
+~
+0 -1 1412
+E
+door~
+It is quite large with a small keyhole.
+~
+S
+#1414
+Quest End~
+You have completed the quest!
+ 
+CONGRATULATIONS!!
+ 
+There are two exits back into the quest through the door and back to the
+outer world which lies to the east.
+~
+14 4 0
+D1
+The way back to te real world is to the east.
+~
+~
+0 -1 1417
+D3
+The quest is back to the west.
+~
+door~
+2 1401 1413
+S
+#1415
+Quest Preparation Room~
+This room is exactly as you left it.  One exit... down...
+~
+14 12 0
+D5
+The water below still looks ominous.
+~
+~
+0 -1 1402
+S
+#1416
+LUCKY~
+This room is empty.  There is a LUCKY blocking your way to the south.
+There is a sign on the wall.
+~
+14 8 0
+D2
+The is a LUCKY blocking your view.
+~
+lucky~
+1 -1 1402
+E
+sign~
+The sign says:
+ 
+                        Boy are you ever LUCKY!!!!
+ 
+~
+S
+#1417
+The Real World Ends Here~
+This is the point where the real world ends...
+ 
+                        PROCEED AT YOUR OWN RISK!
+ 
+The entrance to the Lizard Lair Safari is to the west.
+There is a huge metal door to the south.
+~
+14 0 0
+D2
+Wow, that looks like one of those huge studio doors!  I wonder what could be
+beyond it?
+~
+door metal huge~
+2 0 -1
+D3
+This is the entrance way to the Safari.
+~
+~
+0 -1 1400
+E
+door metal huge~
+It's one of those huge studio-like doors.  It seems pretty strong.
+~
+S
+#1418
+Mr. Hooper's store~
+This is your friendly neighbourhood convenience store and restaurant.
+There are many interesting things that you can buy here.
+~
+14 12 1
+D2
+The conjuring chamber is still to the south.
+~
+~
+0 -1 1406
+E
+counter~
+The counter is nice and clean.  Mr. Hooper looks at you expectantly.
+~
+S
+

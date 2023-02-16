@@ -1,0 +1,23 @@
+Errata/Releases
+
+
+
+1.0   (9/7/93)	First Release
+
+1.1   (9/9/93)	Fixed error with .obj applies: some values were incorrect.
+		Added this file.
+
+1.2   (9/13/93) Much to Builder_5's chagrin, he had forgotten to put a number
+		of 'Indoors' flags on his areas.  This has been fixed in the
+		.wld file.
+
+1.3   (9/25/93) Object QQ03 made wieldable.
+		Major bug in .mob in position types fixed.
+
+1.4   (1/4/93)  A few 'undocumented features' in the .obj file fixed,
+		and a typo in the .wld file (KKKKK for QQQQQ) fixed.
+
+1.5   (2/4/93)  Typos in rooms QQ35, QQ53 fixed.
+
+1.51  (7/9/95)  README renamed to Trade.doc and updated.
+

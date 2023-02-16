@@ -1,0 +1,21 @@
+These zones are all free for the taking, however they are not formatted 
+to stock Circle as the zones in 'kaan' are. There are additional 
+bitvectors in every file of every zone and the zones are all numbered.
+
+The zones are all built from a Circle based MUD, however there have
+been many modifications to the MUD they hail from. In most of the obj
+files, the color format that is used is: /c (and the first letter of
+the color). The obj files are primarily the files that use color, maybe
+even the only files (there are 16 zones here.. I don't really remember
+if any of the wld or mob files make use of any color ;-) so you will
+want to check them all thoroughly or else every obj in the zone will
+read '/cwa /ccsharp /cwsword/c0'.
+
+If you have any trouble with the zones or want to see them 'live and
+in person' log onto bb4.betterbox.net port 5150 and check them out.
+I'm usually on most every day.
+
+
+Have fun -
+
+Kaan

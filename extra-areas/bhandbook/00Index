@@ -1,0 +1,15 @@
+The Curious Areas Workshop Archive
+----------------------------------
+00Index			This Index file.
+
+README			Information on the contents of each file.
+
+BHndbk-2.2		The main document on building areas for DikuMUDs
+
+Appendix.1		A reference set of all the charts used in BhndBk-2.2
+
+Handbook.mob		An example mobile (NPC) file
+Handbook.obj		An example object file
+Handbook.shp		An example shop file
+Handbook.wld		An example world (rooms) file
+Handbook.zon		An example zone file

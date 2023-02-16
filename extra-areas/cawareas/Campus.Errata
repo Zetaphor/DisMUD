@@ -1,0 +1,13 @@
+			*Errata -- Campus
+
+
+
+1.0	9/16/94		First Release
+1.1    11/26/94         Several small zone file bugs fixed
+                        Some typos fixed
+1.2     5/07/95         Mob #QQ22 given a thac0
+			Two invalid door lines in the zone file fixed
+1.21    5/07/95		Another silly door line fixed
+1.22    6/03/95         Fixed 'Eastern' entrance and made it the western
+                        Made 'northen' entrance into the 'Northern' entrance
+1.23    7/9/95          Renamed README to campus.doc and updated.

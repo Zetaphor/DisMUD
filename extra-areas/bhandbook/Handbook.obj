@@ -1,0 +1,189 @@
+#1400
+crown gold~
+a crown of gold~
+A crown of gold lies forgotten here.~
+~
+8 64 17
+0 0 0 0
+30 50000 50000
+E
+crown gold~
+This golden crown looks to be worth its weight in gold...
+~
+#1401
+claymore~
+a claymore~
+An almost new claymore lies here on the ground.~
+~
+5 128 8193
+0 2 6 11
+2 1100 110
+E
+claymore~
+This claymore has a similar shape to a dagger except that the hilt is
+perpendicular to the blade not parallel.
+~
+A
+18 1
+#1402
+robes lizardman~
+a set of lizardman robes~
+A pile of clothing has been left here.  It looks like robes.~
+~
+9 65 1025
+5 0 0 0
+5 30000 10000
+E
+robes lizardman~
+These robes have intricate designs on them with a flavour towards the
+religion of the lizardmen.  They are a deep blue colour.
+~
+A
+12 10
+A
+1 2
+#1403
+key useless~
+a useless key~
+A completely useless key lies here.~
+~
+18 0 2
+1403 0 0 0
+0 0 0
+E
+key useless~
+This key is completely useless since it cannot be picked up and to get
+to it, the door it unlocks must be unlocked... hmmmmm, I'm sure that
+there is some obscure reason for it though...
+~
+E
+reason~
+There is absolutely no reason for this key except to be an ignorant item
+that no one can get.  The bonuses are in case some Id's it and should be
+ignored since the item cannot be used anyways.
+~
+A
+1 4
+#1404
+altar~
+a large altar~
+An astronomically huge altar stands in the middle of the room.~
+~
+9 1 17
+15 0 0 0
+400 1 1
+E
+altar~
+This altar is really BIG.  It has neat little incomprehensible writing
+all over it.
+~
+E
+twit~
+It can be worn on your head, you twit!
+~
+E
+writing~
+Not to insult your intelligence or anything, but it happens to be
+completely and utterly incomprehensible.
+~
+A
+14 -30
+A
+13 30
+#1405
+key green~
+a green key for the exit~
+A large green key lies here.~
+~
+18 67 16385
+1405 0 0 0
+0 10 1000000
+E
+key green~
+This key is to be used for the exit.  Nothing else.
+~
+#1406
+scroll magic~
+a magic scroll~
+A magical scroll sits here.~
+~
+2 32 16385
+17 36 3 0
+5 20000 3672
+E
+magic scroll~
+This magical scroll has the word 'EEFRTFG' on it.
+~
+E
+eefrtfg~
+Actually, I was sort of hoping you knew what it meant... since I haven't
+the foggiest.
+~
+A
+14 10
+#1407
+shield~
+a shield~
+A shield is laying here on the ground.~
+~
+9 1 513
+8 0 0 0
+13 513 513
+E
+shield~
+This is a very plain shield as if the creator had gotten extremely annoyed by
+the time he, she or it got to this point.
+~
+A
+9 -3
+#1408
+lucky~
+a LUCKY~
+A LUCKY is lying here on the ground.~
+~
+18 0 16385
+1408 0 0 0
+0 0 1000000
+E
+lucky~
+Boy are you lucky you found this... IT opens the door in the tunnels.
+~
+#1409
+milk barrel~
+the barrel~
+A milk barrel has been left here.~
+~
+17 0 1
+50 50 10 0
+65 60 20
+E
+milk barrel~
+This barrel is a standard Sesame Street milk barrel, normally found in
+Mr. Hooper's Store.
+~
+#1411
+milk glass~
+a glass~
+A milk glass is sitting here waiting for an eager drinker.~
+~
+17 0 16385
+5 5 10 0
+6 10 2
+E
+milk glass~
+This is an ordinary glass with the Sesame Street emblem engraved on
+the side.
+~
+#1412
+cookie choclate chip small~
+a small chocolate chip cookie~
+A small chocolate chip cookie has been left here.~
+~
+19 0 16385
+6 0 0 0
+1 7 3
+E
+cookie chocolate chip small~
+This is essentially just a small version of the VERY BIG CHOCOLATE CHIP
+COOKIE found elsewhere.
+~

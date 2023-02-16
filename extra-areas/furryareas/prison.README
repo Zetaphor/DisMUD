@@ -1,0 +1,47 @@
+
+                                  
+    x---------------------------------------------------------------------x
+    |                                                                     |
+    |                  COOLAND PRISON - FOR CIRCLEMUD 3.0                 |
+    |                                                                     |
+    |                     Written in 2002 by Crazyman                     |
+    |                         www.nt.net/saarinen                         |
+    |                                                                     |
+    x---------------------------------------------------------------------x
+                                                                 
+    
+     This zone is the jail on my MUD. Although highly unlikely, it is 
+     possible to escape. On my MUD, I don't like throwing people into the 
+     icebox or freezing them. When this happens, the player has no control 
+     over anything. By putting them in a jail, the player has the 
+     opportunity to escape, giving them control of the situation. The 
+     locked jail cells can only be opened with a key found on the prison 
+     guards, and since they are inaccessible by someone in a cell, a GOD or 
+     IMP has to open the doors. Besides, a GOD or an IMP should visit the 
+     player in jail anyway to advise them of their situation. The cell room 
+     numbers are as follows:
+
+         Cell A1 - room # 800           Cell A2 - room # 808
+         Cell B1 - room # 801           Cell B2 - room # 809 (death trap)
+         Cell C1 - room # 802           Cell C2 - room # 810
+
+     As you can see, there are five functional jail cells, as cell B2 is a
+     death trap. If you need more than that, I think you're being pretty 
+     mean to your players! :)
+
+     Ensure that the entrance to the jail (I have mine attached to the
+     my New Southern Midgaard, room # 3111) is either locked or inaccessible, 
+     because you wouldn't want anyone to accidentally enter and be killed. I 
+     like making the jail door accessible to everyone, that way a player 
+     outside the jail has the chance to get in and rescue someone inside. I 
+     have a jail bulletin board set up in the cafeteria, so you'll have to 
+     remove it (or add your own) or else it's going to give you errors.
+                 
+     Written entirely from scratch in WordPad. Feel free to edit, modify,
+     and do what you want with this zone!
+
+
+    x---------------------------------------------------------------------x
+    x---------------------------------------------------------------------x
+
+

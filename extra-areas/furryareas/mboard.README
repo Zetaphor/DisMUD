@@ -1,0 +1,10 @@
+This is a small zone file built for 3.0bpl11.  However, stock CircleMUD
+is not right for this zone unless a) there are extremely powerful items 
+on your MUD(weakest mob in this zone has around 1000 hp) b) your MUD is 
+not stock, and has added levels, etc or c) you alter the .mob to fit 
+your MUD.  The "theme" to this zone is being on a gigantic motherboard 
+in Astral Space.  There's more info in the readme file included in the
+mboard.tgz file.  That said, have fun.
+
+Author: Ryan Kelley
+E-mail: rkelley@exis.net

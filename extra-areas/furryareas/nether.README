@@ -1,0 +1,33 @@
+The Nether
+Written by Kaan for Dibrova
+200 rooms
+18 mobs
+14 objs
+
+The Nether is by far the most difficult zone on Dibrova. This is
+mainly due to the level of the mobs that inhabit the Nether, but it
+is also due to the number of secret doors and secret paths within
+the Nether. All mobs are aggro, all are magic resistant (if your
+mud does not support magic resistance, obviously they will not be
+magically resistant) and all are of the highest levels in Dibrova.
+In Dibrova, our mobs go as high as level 200 - if your mud's levels
+do not go as high, you will need to edit the mobs' levels and stats
+to match your own mud.
+
+The Maw: There are a number of rooms titled 'Within the Maw' which
+have little to no description. This is because Dibrova uses a flag
+for these rooms which is called IMPENETRABLE in which no light
+permeates, not even magical light. These rooms could be simply made
+DARK, however anyone with a light would be able to see in them (these
+rooms were meant as a trap).
+
+If your mud uses secret doors, the following are secret doors:
+from QQ60 down into QQ65
+from QQ87 north into QQ99
+from ZZ57 east into ZZ58
+
+In QQ99 the exit east is a 'wimp-exit' meant to give those who wish
+to wimp out a chance to do so.
+In ZZ58 the exit north is the only way out of the Nether by mundane
+means; a player must go the entire way through the Nether to use
+this exit.
