@@ -30,7 +30,7 @@ const fs = require("fs");
 // const objNum = 79;
 // const objNum = 120;
 // const objNum = 150;
-// const objNum = 186;
+const objNum = 186;
 
 fs.readFile(`src/simulation/world-data/data/circlemud/obj/${objNum}.obj`, "utf-8", (err, data) => {
   if (err) {

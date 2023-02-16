@@ -1,10 +1,10 @@
 // Converts an array of obj items to JSON.
 export default function parseObj(objText) {
   const lines = objText.split("\n");
-  lines.splice(-1, 1);
 
   let newObj = { extra: {}, affects: [] };
   newObj["id"] = parseInt(lines[0].slice(1));
+
   newObj["aliases"] = lines[1].slice(0, -1).toLowerCase().split(" ");
   newObj["shortDesc"] = lines[2].slice(0, -1);
   newObj["longDesc"] = lines[3].endsWith("~") ? lines[3].slice(0, -1) : lines[3];
@@ -24,6 +24,7 @@ export default function parseObj(objText) {
 
   let inExtra = false;
   for (let i = 9; i < lines.length; i++) {
+    if (lines[i] === "" || lines[i] === "$") continue;
     if (inExtra) {
       if (lines[i] !== "~") newObj["extra"]["desc"] += ` ${lines[i]}`;
       else {
