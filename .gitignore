@@ -3,3 +3,4 @@ node_modules/
 src/databases/*
 !src/databases/imported/*.db
 !src/databases/.gitkeep
+logs/*.log
