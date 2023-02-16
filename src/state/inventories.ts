@@ -145,13 +145,14 @@ export const inventories = {
       try {
         let playerInventory = {};
         let playerInventoryData = await db.methods.getPlayerInventory(playerId);
-        if (!playerInventoryData) playerInventoryData = await db.methods.initPlayerInventory(playerId);
-        try {
-          playerInventory = JSON.parse(decodeURIComponent(playerInventoryData["inventoryString"]));
-        } catch (err) {
-          console.error(`Failed to decode player inventory ${playerId}: ${playerInventory}`);
-          console.error(err);
-          playerInventory = {};
+        if (playerInventoryData.inventoryString.length) {
+          try {
+            playerInventory = JSON.parse(decodeURIComponent(playerInventoryData["inventoryString"]));
+          } catch (err) {
+            console.error(`Failed to decode player inventory ${playerId}: ${playerInventory}`);
+            console.error(err);
+            playerInventory = {};
+          }
         }
 
         this.playerInventories[playerId] = playerInventory;
