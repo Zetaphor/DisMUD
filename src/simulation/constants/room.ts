@@ -5,6 +5,21 @@ export const roomConstants = {
     PICKPROOF: 2, // Pickproof doors: if locked, can be opened only with the key.
   },
 
+  DOOR_STATES: {
+    0: "open",
+    1: "closed",
+    2: "locked",
+  },
+
+  DOOR_DIRS: {
+    0: "north",
+    1: "east",
+    2: "south",
+    3: "west",
+    4: "up",
+    5: "down",
+  },
+
   ROOM_BITVECTORS: {
     DARK: "a", // Room is dark.
     DEATH: "b", // Room is a death trap; char dies (no xp lost).

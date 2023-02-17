@@ -1,3 +1,5 @@
+import roomConstants from "../simulation/constants/room";
+
 let totalMobs = 0;
 let totalItems = 0;
 let totalSetDoors = 0;
@@ -24,8 +26,8 @@ export const zones = {
                 await loadMob(worldState, command, zoneData.vNum);
                 placedMobs++;
               } else if (command.type === "setDoor") {
-                // await setDoor(worldState, command);
-                // setDoors++;
+                await setDoor(worldState, command);
+                setDoors++;
               } else if (command.type === "loadObj") {
                 await loadObj(worldState, command);
                 placedItems++;
@@ -109,6 +111,9 @@ async function loadMob(worldState, command, zoneNum) {
 function setDoor(worldState, command) {
   return new Promise<void>(async (resolve, reject) => {
     try {
+      const exitName = roomConstants.DOOR_DIRS[command.exitNum];
+      const doorState = roomConstants.DOOR_STATES[command.state];
+      worldState.rooms.setRoomDoorState(command.roomNum, exitName, doorState);
       resolve();
     } catch (err) {
       console.error(`Error setting door: ${err}`);

@@ -1,6 +1,8 @@
 import { defineQuery } from "bitecs";
 
 export const rooms = {
+  doorStates: {},
+
   loadRoomData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -11,6 +13,25 @@ export const rooms = {
         reject(err);
       }
     });
+  },
+  setRoomDoorState(roomNum, exitName, state) {
+    if (typeof this.doorStates[roomNum] === "undefined") this.doorStates[roomNum] = {};
+    if (typeof this.doorStates[roomNum][exitName] === "undefined") this.doorStates[roomNum][exitName] = state;
+    else this.doorStates[roomNum][exitName] = state;
+  },
+  getRoomDoorState(roomNum, exitName) {
+    return this.doorStates[roomNum][exitName];
+  },
+  getRoomDoors(roomNum) {
+    this.doorStates[roomNum];
+  },
+  getRoomExitOpen(roomNum, exitName) {
+    if (typeof this.doorStates[roomNum] === "undefined") return true;
+    return this.doorStates[roomNum][exitName] === "open";
+  },
+  getRoomExitLocked(roomNum, exitName) {
+    if (typeof this.doorStates[roomNum] === "undefined") return false;
+    return this.doorStates[roomNum][exitName] === "locked";
   },
   getEntityRoomNum(world, entityId) {
     const Position = world._components["position"];

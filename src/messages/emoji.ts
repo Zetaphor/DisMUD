@@ -55,6 +55,8 @@ export const emoji = {
   classThief: "<:rpgthiefclass:1074817672157601854>",
   classCleric: "<:rpgclericclass:1074818041671594055>",
   classSorcerer: "<:rpgsorcererclass:1074817723583955097>",
+  lock: "<:rpglock:1076272206839042069>",
+  door: "<:rpgdoor:1076272438381387826>",
 };
 
 export default emoji;
