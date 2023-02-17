@@ -41,7 +41,7 @@ async function startup() {
     console.info("Databases loaded...");
 
     await worldState.zones.loadZones(worldState);
-    console.info("Zones loaded...");
+    console.info("Zones loaded...\n");
 
     const botInterface = setupBotInterface();
     await botInterface.waitForEvent("ready");

@@ -32,6 +32,7 @@ export const items = {
           stateData["liquidType"] = Number(item.data.values[2]);
           stateData["poisoned"] = Number(item.data.values[3]);
         }
+
         item["data"]["stateData"] = stateData;
         resolve(item);
       } catch (err) {
@@ -40,7 +41,7 @@ export const items = {
       }
     });
   },
-  placeItem(worldState, itemData, roomNum, quantity, itemState = {}) {
+  placeItem(worldState, itemData, roomNum, quantity) {
     return new Promise(async (resolve, reject) => {
       try {
         let itemIds = [];
@@ -72,7 +73,7 @@ export const items = {
     return new Promise<void>((resolve, reject) => {
       try {
         const item = this.activeItems[itemId];
-        item.data.stateData[key] = val;
+        item.stateData[key] = val;
         resolve();
       } catch (err) {
         console.error(`Error updating item ${itemId} stateData: ${err}`);

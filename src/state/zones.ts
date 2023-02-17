@@ -7,7 +7,7 @@ export const zones = {
   loadZones: async (worldState) => {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        console.info("Loading zones...");
+        console.info("\nLoading zones...\n");
         const zones = await worldState.db["zones"].methods.getAllZones();
         for (let zoneIndex = 0; zoneIndex < zones.length; zoneIndex++) {
           const zoneData = zones[zoneIndex];
@@ -27,8 +27,8 @@ export const zones = {
                 // await setDoor(worldState, command);
                 // setDoors++;
               } else if (command.type === "loadObj") {
-                // await loadObj(worldState, command);
-                // placedItems++;
+                await loadObj(worldState, command);
+                placedItems++;
               } else if (command.type === "removeObj") {
                 // await removeObj(worldState, command);
                 // removedObjects++;
@@ -51,7 +51,7 @@ export const zones = {
           }
         }
         console.info(
-          `Loaded ${totalMobs} mobs, ${totalItems} items, set ${totalSetDoors} doors, and removed ${totalRemovedItems} items`
+          `\nLoaded ${totalMobs} mobs, ${totalItems} items, set ${totalSetDoors} doors, and removed ${totalRemovedItems} items\n`
         );
         resolve();
       } catch (err) {
@@ -120,7 +120,26 @@ function setDoor(worldState, command) {
 function loadObj(worldState, command) {
   return new Promise<void>(async (resolve, reject) => {
     try {
-      // TODO: Implement this
+      const item = await worldState.items.loadItemData(worldState.db["items"], BigInt(command.objNum));
+      let newItemIds = await worldState.items.placeItem(worldState, item.data, Number(command.roomNum), 1);
+      const newItemId = newItemIds[0];
+      if (Object.keys(command.contains).length > 0) {
+        for (const itemKey in command.contains) {
+          if (Object.prototype.hasOwnProperty.call(command.contains, itemKey)) {
+            const contentsItemData = command.contains[itemKey];
+            const contentsItem = await worldState.items.loadItemData(
+              worldState.db["items"],
+              BigInt(contentsItemData.id)
+            );
+            let containsData = {};
+            containsData[contentsItem.data.id] = {
+              qty: contentsItemData.qty,
+              data: contentsItem.data,
+            };
+            await worldState.items.updateItemStateData(newItemId, "contents", containsData);
+          }
+        }
+      }
       resolve();
     } catch (err) {
       console.error(`Error loading item: ${err}`);
