@@ -196,7 +196,13 @@ export const mobs = {
       }
 
       const direction = Math.floor(Math.random() * exitData.length);
-      if (!exitData.length || exitData[direction]["roomId"] === -1) continue;
+      if (
+        !exitData.length ||
+        exitData[direction]["roomId"] === -1 ||
+        !worldState.rooms.getRoomExitOpen(oldRoomNum, directionNames[direction]) ||
+        worldState.rooms.getRoomExitLocked(oldRoomNum, directionNames[direction])
+      )
+        continue;
       else {
         await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, eid, exitData[direction]["roomId"]);
         Wander.pending[eid] = globalConstants.FALSE;

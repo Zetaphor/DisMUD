@@ -23,18 +23,21 @@ export default async function move(worldState, userData, msg) {
       return;
     }
 
-    const roomExits = await worldState.rooms.getEntityRoomExits(
-      worldState.db["rooms"],
-      worldState.simulation.world,
-      userData.eid
-    );
+    const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
+    const roomExits = await worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
     if (Object.keys(roomExits).indexOf(moveDir) === -1) {
       userData.sendMessage(userData.user, `${emoji.error} _You cannot move ${moveDir} from here!_`);
+      return;
     } else if (roomExits[moveDir].roomId === -1) {
       userData.sendMessage(userData.user, `${emoji.error} _You can't go that way!_`);
+      return;
+    } else if (worldState.rooms.getRoomExitLocked(oldRoomNum, moveDir)) {
+      userData.sendMessage(userData.user, `${emoji.lock} _You can't go that way, the exit is locked!_`);
+      return;
+    } else if (!worldState.rooms.getRoomExitOpen(oldRoomNum, moveDir)) {
+      userData.sendMessage(userData.user, `${emoji.door} _You can't go that way, the exit is closed!_`);
+      return;
     } else {
-      const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
-
       await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, userData.eid, roomExits[moveDir].roomId);
       worldState.broadcasts.sendToRoom(
         worldState,
