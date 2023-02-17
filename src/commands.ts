@@ -103,6 +103,7 @@ export const commandAliases = {
   get: take,
   online: who,
   sip: drink,
+  rules: policy,
 };
 
 export const adminCommandList = Object.keys(adminCommands);
