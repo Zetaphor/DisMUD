@@ -12,7 +12,8 @@ import mobs from "./state/mobs";
 import zones from "./state/zones";
 import timedStateFunctions from "./state/timedStateFunctions";
 import broadcasts from "./state/broadcasts";
-import { containsBannedWord, stripString } from "./wordFilter";
+import { containsBannedWord, stripString } from "./util/wordFilter";
+import capitalizeFirst from "./util/capitalizeFirst";
 
 const worldState = {
   db,
@@ -25,8 +26,11 @@ const worldState = {
   mobs,
   zones,
   broadcasts,
-  containsBannedWord,
-  stripString,
+  utils: {
+    containsBannedWord,
+    stripString,
+    capitalizeFirst,
+  },
 };
 
 async function startup() {

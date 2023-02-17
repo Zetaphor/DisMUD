@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const worldList = [];
-const worldListFile = "src/bannedWords.txt";
+const worldListFile = "src/util/bannedWords.txt";
 
 try {
   const data = fs.readFileSync(worldListFile, "utf8");

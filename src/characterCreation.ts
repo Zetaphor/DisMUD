@@ -32,14 +32,14 @@ export const characterCreation = {
 
     if (queueData.step === 0) {
       // Select display name
-      if (worldState.containsBannedWord(message)) {
+      if (worldState.utils.containsBannedWord(message)) {
         characterCreationMessages.invalidDisplayName(queueData.user);
       } else if (
-        await worldState.players.displayNameExists(worldState.db["players"], worldState.stripString(message))
+        await worldState.players.displayNameExists(worldState.db["players"], worldState.utils.stripString(message))
       ) {
         characterCreationMessages.takenDisplayName(queueData.user);
       } else {
-        let displayName = worldState.stripString(message);
+        let displayName = worldState.utils.stripString(message);
         displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
         queueData.displayName = displayName;
         queueData.step = 1;
