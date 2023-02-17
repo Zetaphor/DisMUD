@@ -30,11 +30,7 @@ export const characterCreationMessages = {
     user.send(`${emoji.error} Invalid class selection, please try again.`);
   },
   confirmClass: function (user, className) {
-    user.send(
-      `You have chosen the ${
-        className.charAt(0).toUpperCase() + className.slice(1)
-      } class.\nAre you sure you want to continue? **(y/n)**`
-    );
+    user.send(`You have chosen the ${className} class.\nAre you sure you want to continue? **(y/n)**`);
   },
   newPlayer: function (user) {
     user.send(`

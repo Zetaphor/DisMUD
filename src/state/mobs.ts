@@ -208,7 +208,7 @@ export const mobs = {
         oldRoomNum,
         -1,
         false,
-        `${emoji.exit} _${mobData.shortDesc} leaves ${directionNames[direction]}._`
+        `${emoji.exit} _${worldState.utils.capitalizeFirst(mobData.shortDesc)} leaves ${directionNames[direction]}._`
       );
 
       if (exitData[direction]["roomId"] !== -1) {
@@ -217,7 +217,7 @@ export const mobs = {
           exitData[direction]["roomId"],
           -1,
           false,
-          `${emoji.enter} _${mobData.shortDesc} has arrived._`
+          `${emoji.enter} _${worldState.utils.capitalizeFirst(mobData.shortDesc)} has arrived._`
         );
       }
 
@@ -248,7 +248,9 @@ export const mobs = {
                 oldRoomNum,
                 -1,
                 false,
-                `${emoji.exit} _${followerMobData.shortDesc} leaves ${directionNames[direction]}._`
+                `${emoji.exit} _${worldState.utils.capitalizeFirst(followerMobData.shortDesc)} leaves ${
+                  directionNames[direction]
+                }._`
               );
 
               worldState.broadcasts.sendToRoom(
@@ -256,7 +258,7 @@ export const mobs = {
                 roomExits[directionNames[direction]].roomId,
                 -1,
                 false,
-                `${emoji.enter} _${mobData.shortDesc} has arrived._`
+                `${emoji.enter} _${worldState.utils.captailizeFirst(mobData.shortDesc)} has arrived._`
               );
             }
           }

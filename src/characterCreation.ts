@@ -40,7 +40,7 @@ export const characterCreation = {
         characterCreationMessages.takenDisplayName(queueData.user);
       } else {
         let displayName = worldState.utils.stripString(message);
-        displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+        displayName = worldState.utils.capitalizeFirst(displayName);
         queueData.displayName = displayName;
         queueData.step = 1;
         characterCreationMessages.chosenDisplayName(queueData.user, queueData.displayName);
@@ -68,7 +68,7 @@ export const characterCreation = {
         queueData.step = 3;
         if (classIndex !== -1) queueData.className = classes[classIndex];
         else queueData.className = classes[classCharIndex];
-        characterCreationMessages.confirmClass(queueData.user, queueData.className);
+        characterCreationMessages.confirmClass(queueData.user, worldState.utils.capitalizeFirst(queueData.className));
       } else {
         characterCreationMessages.invalidClass(queueData.user);
         characterCreationMessages.chooseClass(queueData.user);

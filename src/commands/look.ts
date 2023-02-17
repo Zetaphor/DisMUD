@@ -45,9 +45,9 @@ export default async function look(worldState, userData, msg) {
         if (target.type === "") {
           userData.sendMessage(userData.user, `${emoji.question} _You do not see that here._`);
         } else if (target.type === "inventory") {
-          let itemTitle = `${emoji.examine} **${
-            target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
-          }** _(In Inventory)_\n`;
+          let itemTitle = `${emoji.examine} **${worldState.utils.capitalizeFirst(
+            target.data.shortDesc
+          )}** _(In Inventory)_\n`;
           userData.sendMessage(
             userData.user,
             `
@@ -62,9 +62,7 @@ export default async function look(worldState, userData, msg) {
             `${emoji.eye} _${userData.displayName} looks at an object in their inventory._`
           );
         } else if (target.type === "item") {
-          let itemTitle = `${emoji.examine} **${
-            target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
-          }**\n`;
+          let itemTitle = `${emoji.examine} **${worldState.utils.capitalizeFirst(target.data.shortDesc)}**\n`;
           userData.sendMessage(
             userData.user,
             `

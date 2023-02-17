@@ -14,9 +14,7 @@ export default async function say(worldState, userData, msg) {
       let totalQty = 0;
       for (const item in playerInventory) {
         if (!Object.prototype.hasOwnProperty.call(playerInventory, item)) continue;
-        const itemDesc =
-          playerInventory[item]["data"].shortDesc.charAt(0).toUpperCase() +
-          playerInventory[item]["data"].shortDesc.slice(1);
+        const itemDesc = worldState.utils.capitalizeFirst(playerInventory[item]["data"].shortDesc);
 
         if (playerInventory[item]["qty"] > 1) {
           inventoryMessage += `(${playerInventory[item]["qty"]}) ${itemDesc}\n`;

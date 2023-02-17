@@ -9,9 +9,9 @@ export default async function examine(worldState, userData, msg) {
     if (target.type === "") {
       userData.sendMessage(userData.user, `${emoji.question} _You do not see that here._`);
     } else if (target.type === "inventory") {
-      let itemTitle = `${emoji.examine} **${
-        target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
-      }** _(In Inventory)_\n`;
+      let itemTitle = `${emoji.examine} **${worldState.utils.capitalizeFirst(
+        target.data.shortDesc
+      )}** _(In Inventory)_\n`;
 
       let extras = "";
       for (let i = 0; i < target.data.extra.length; i++) {
@@ -45,9 +45,7 @@ export default async function examine(worldState, userData, msg) {
         return;
       }
 
-      let itemTitle = `${emoji.examine} **${
-        target.data.shortDesc.charAt(0).toUpperCase() + target.data.shortDesc.slice(1)
-      }**\n`;
+      let itemTitle = `${emoji.examine} **${worldState.utils.capitalizeFirst(target.data.shortDesc)}**\n`;
 
       let extras = "";
       for (let i = 0; i < target.data.extra.length; i++) {
