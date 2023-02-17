@@ -47,6 +47,6 @@ export default async function goto(worldState, userData, msg) {
     );
   } catch (err) {
     userData.sendMessage(userData.user, `${emoji.error} Failed to give gold ${msg[0]}`);
-    console.error(`Error using give gold ${msg[0]}: ${err}`);
+    console.error(`Error using admin give gold ${msg[0]}: ${err}`);
   }
 }

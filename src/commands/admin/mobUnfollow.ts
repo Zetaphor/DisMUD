@@ -43,7 +43,7 @@ export default async function mobunfollow(worldState, userData, msg) {
       }
     }
   } catch (err) {
-    console.error(`Error using mobunfollow ${msg}: ${err}`);
+    console.error(`Error using admin mobunfollow ${msg}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

@@ -41,7 +41,7 @@ export default async function force(worldState, userData, msg) {
       `${emoji.check} You forced ${forceTarget.displayName} to ${msg.slice(1).join(" ")}`
     );
   } catch (err) {
-    console.error(`Error using force ${msg}: ${err}`);
+    console.error(`Error using admin force ${msg}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

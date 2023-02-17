@@ -76,7 +76,7 @@ async function dropItem(worldState, userData, roomNum, item, quantity) {
       }${quantity < -1 ? "s" : ""} to the ground._`
     );
   } catch (err) {
-    console.error(`Error using dropItem ${item}: ${err}`);
+    console.error(`Error using drop ${item}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

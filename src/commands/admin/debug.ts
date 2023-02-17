@@ -13,10 +13,10 @@ export default async function debug(worldState, userData, msg) {
       msg[0].toLowerCase()
     );
 
-    userData.sendMessage(userData.user, `${emoji.info} Debug target sent to console`);
-    console.info("Debug Target:", debugTarget);
+    userData.sendMessage(userData.user, `${emoji.info} _Debug target sent to console._`);
+    console.info("\nDebug Target:", debugTarget, "\n");
   } catch (err) {
-    console.error(`Error using debug ${msg}: ${err}`);
+    console.error(`Error using admin debug ${msg}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

@@ -89,7 +89,7 @@ export default async function mobFollow(worldState, userData, msg) {
       }
     }
   } catch (err) {
-    console.error(`Error using mobfollow ${msg}: ${err}`);
+    console.error(`Error using admin mobfollow ${msg}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

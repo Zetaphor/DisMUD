@@ -19,7 +19,7 @@ export default async function score(worldState, userData, msg) {
     } gold coins.\nYou need 1499 exp to reach your next level.`;
     userData.sendMessage(userData.user, scoreString);
   } catch (err) {
-    console.error(`Error using save ${msg}: ${err}`);
+    console.error(`Error using score ${msg}: ${err}`);
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }
