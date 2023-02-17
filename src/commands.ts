@@ -36,6 +36,8 @@ import help from "./commands/help";
 import drink from "./commands/drink";
 import fill from "./commands/fill";
 import pour from "./commands/pour";
+import junk from "./commands/junk";
+import donate from "./commands/donate";
 
 export const commands = {
   say,
@@ -68,6 +70,8 @@ export const commands = {
   drink,
   fill,
   pour,
+  junk,
+  donate,
 };
 
 export const adminCommands = {

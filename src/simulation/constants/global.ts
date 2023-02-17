@@ -4,6 +4,7 @@ export const globalConstants = {
   TRUE: 1,
 
   NEW_USER_ROOMNUM: 18600,
+  DONATION_ROOMNUM: 3063,
 
   WEEKDAYS: {
     0: "the Day of the Moon",

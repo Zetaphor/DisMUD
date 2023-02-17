@@ -2,10 +2,6 @@ let totalMobs = 0;
 let totalItems = 0;
 let totalSetDoors = 0;
 let totalRemovedItems = 0;
-let invalidMobs = {};
-let invalidMobItems = {};
-let invalidMobEquips = {};
-let invalidItems = {};
 
 export const zones = {
   loadZones: async (worldState) => {
@@ -28,14 +24,14 @@ export const zones = {
                 await loadMob(worldState, command, zoneData.vNum);
                 placedMobs++;
               } else if (command.type === "setDoor") {
-                await setDoor(worldState, command);
-                setDoors++;
+                // await setDoor(worldState, command);
+                // setDoors++;
               } else if (command.type === "loadObj") {
-                await loadObj(worldState, command);
-                placedItems++;
+                // await loadObj(worldState, command);
+                // placedItems++;
               } else if (command.type === "removeObj") {
-                await removeObj(worldState, command);
-                removedObjects++;
+                // await removeObj(worldState, command);
+                // removedObjects++;
               }
             }
             // if (placedMobs) console.info(`Placed ${placedMobs} mobs in zone ${zoneData.vNum}`);
@@ -57,9 +53,6 @@ export const zones = {
         console.info(
           `Loaded ${totalMobs} mobs, ${totalItems} items, set ${totalSetDoors} doors, and removed ${totalRemovedItems} items`
         );
-        console.info(`Invalid mobs: ${Object.keys(invalidMobs).length}`);
-        console.info(`Invalid mobs items: ${Object.keys(invalidMobs).length}`);
-        console.info(`Invalid mobs equips: ${Object.keys(invalidMobs).length}`);
         resolve();
       } catch (err) {
         console.error("Error loading zones:", err);
@@ -73,13 +66,7 @@ async function loadMob(worldState, command, zoneNum) {
   return new Promise<void>(async (resolve, reject) => {
     try {
       const mob = await worldState.mobs.loadMobData(worldState.db["mobs"], BigInt(command.mobNum));
-      if (typeof mob["data"] === "undefined") {
-        invalidMobs[command.mobNum] = {
-          vnum: command.mobNum,
-          zoneNum: zoneNum,
-        };
-        reject();
-      }
+      if (typeof mob["data"] === "undefined") reject();
       const mobData = JSON.parse(mob.data);
       const newMobId = await worldState.mobs.placeMob(
         worldState,
@@ -96,11 +83,6 @@ async function loadMob(worldState, command, zoneNum) {
             await worldState.mobs.giveMobItem(newMobId, item.data, itemData.qty);
           } catch (err) {
             console.error(`Error loading mob #${command.mobNum} item #${itemData.qty}: ${err}`);
-            invalidMobItems[itemData.id] = {
-              vnum: itemData.id,
-              zoneNum: zoneNum,
-              mobNum: command.mobNum,
-            };
             reject(err);
           }
         }
@@ -113,11 +95,6 @@ async function loadMob(worldState, command, zoneNum) {
           resolve();
         } catch (err) {
           console.error(`Error loading mob #${command.mobNum} equip #${command.equip[j]}: ${err}`);
-          invalidMobEquips[command.equip[j]] = {
-            vnum: command.equip[j],
-            zoneNum: zoneNum,
-            mobNum: command.mobNum,
-          };
           reject(err);
         }
       }
@@ -143,6 +120,7 @@ function setDoor(worldState, command) {
 function loadObj(worldState, command) {
   return new Promise<void>(async (resolve, reject) => {
     try {
+      // TODO: Implement this
       resolve();
     } catch (err) {
       console.error(`Error loading item: ${err}`);
@@ -154,6 +132,7 @@ function loadObj(worldState, command) {
 function removeObj(worldState, command) {
   return new Promise<void>(async (resolve, reject) => {
     try {
+      // TODO: Implement this
       resolve();
     } catch (err) {
       console.error(`Error removing object: ${err}`);
