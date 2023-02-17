@@ -38,6 +38,7 @@ import fill from "./commands/fill";
 import pour from "./commands/pour";
 import junk from "./commands/junk";
 import donate from "./commands/donate";
+import debugExits from "./commands/admin/debugExits";
 
 export const commands = {
   say,
@@ -83,6 +84,7 @@ export const adminCommands = {
   mobunfollow: mobUnfollow,
   debug,
   force,
+  debugexits: debugExits,
 };
 
 export const commandAliases = {
