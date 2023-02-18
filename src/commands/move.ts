@@ -58,7 +58,15 @@ export default async function move(worldState, userData, msg) {
         worldState.simulation.world,
         userData.eid
       );
-      buildRoom(worldState, userData.user, userData.eid, newRoomData, userData.admin);
+      buildRoom(
+        worldState,
+        userData.user,
+        userData.eid,
+        newRoomData,
+        userData.admin,
+        userData.userPrefs.autoExits,
+        userData.userPrefs.roomBrief
+      );
 
       for (const follower in userData.followers) {
         if (Object.prototype.hasOwnProperty.call(userData.followers, follower)) {

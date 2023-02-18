@@ -10,7 +10,7 @@ export default async function look(worldState, userData, msg) {
         worldState.simulation.world,
         userData.eid
       );
-      buildRoom(worldState, userData.user, userData.eid, roomData, userData.admin);
+      buildRoom(worldState, userData.user, userData.eid, roomData, userData.admin, userData.userPrefs.autoExits, false);
     } else {
       let moveDir = "";
       if (msg[0] === "n" || msg[0] === "north") {

@@ -9,7 +9,7 @@ import roomMessages from "./messages/room";
  * @param {object} roomData - Data for the world
  * @returns {Promise<void>} - Returns a promise that resolves with void
  */
-export default function buildRoom(worldState, user, userId, roomData, admin = false) {
+export default function buildRoom(worldState, user, userId, roomData, admin = false, showExits = false, brief = false) {
   return new Promise<void>(async (resolve, reject) => {
     try {
       const roomMobs = worldState.rooms.getMobsInRoom(worldState.simulation.world, roomData.id);
@@ -51,13 +51,17 @@ export default function buildRoom(worldState, user, userId, roomData, admin = fa
 
       const displayData = {
         name: `${roomData.name}`,
-        desc: roomData.desc,
+        desc: brief ? "" : roomData.desc,
         mobDescriptions,
         itemDescriptions,
         playerDescriptions,
         adminTag: admin ? `_(${roomData.id})_` : "",
       };
       roomMessages.displayRoom(user, displayData);
+      if (showExits) {
+        await worldState.players.sendCommandAsUser(worldState, userId, `exits`);
+      }
+      resolve();
 
       resolve();
     } catch (err) {

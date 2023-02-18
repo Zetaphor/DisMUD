@@ -196,7 +196,15 @@ export const players = {
       worldState.simulation.world,
       playerData.eid
     );
-    buildRoom(worldState, playerData.user, playerData.eid, roomData, playerData.admin);
+    buildRoom(
+      worldState,
+      playerData.user,
+      playerData.eid,
+      roomData,
+      playerData.admin,
+      playerData.userPrefs.autoExits,
+      playerData.userPrefs.roomBrief
+    );
     worldState.broadcasts.sendToRoom(
       worldState,
       roomData.id,
