@@ -34,7 +34,6 @@
 alias, aliases
 eat, taste
 grab, hold
-notell - Ignore tells
 lock, unlock
 pick - pick locks
 quaff - Drink potion
