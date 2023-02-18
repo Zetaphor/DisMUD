@@ -7,7 +7,7 @@ export default function say(worldState, userData, msg) {
       worldState,
       roomNum,
       userData.eid,
-      false,
+      userData.userPrefs.localRepeat,
       `${emoji.speak} ${userData.displayName} says "${msg.join(" ")}"`
     );
     // console.info(`${userData.user.username} says: ${msg.join(" ")}`);
