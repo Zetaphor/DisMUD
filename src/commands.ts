@@ -41,6 +41,7 @@ import donate from "./commands/donate";
 import debugExits from "./commands/admin/debugExits";
 import open from "./commands/open";
 import close from "./commands/close";
+import debugUser from "./commands/admin/debugUser";
 
 export const commands = {
   say,
@@ -89,6 +90,7 @@ export const adminCommands = {
   debug,
   force,
   debugexits: debugExits,
+  debuguser: debugUser,
 };
 
 export const commandAliases = {
