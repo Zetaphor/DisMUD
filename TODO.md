@@ -22,6 +22,7 @@
 - Add nofollow userpref
 - Add hide Discord name/ID userpref.
 - Look into why so many rooms have a -1 exit, probably a parsing bug in the world parser
+- Implement the sentinel flag in mob movement
 
 ## Commands
 

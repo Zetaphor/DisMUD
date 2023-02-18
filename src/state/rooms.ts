@@ -117,6 +117,29 @@ export const rooms = {
     }
     return itemList;
   },
+  targetExitAlias(worldState, roomNum, alias) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let targetExit = null;
+        const roomExits = await this.getRoomExits(worldState.db["rooms"], roomNum);
+        for (const direction in roomExits) {
+          if (Object.prototype.hasOwnProperty.call(roomExits, direction)) {
+            const exit = roomExits[direction];
+            if (exit.tags.indexOf(alias) !== -1) {
+              targetExit = {
+                dir: direction,
+                data: roomExits[direction],
+              };
+            }
+          }
+        }
+        resolve(targetExit);
+      } catch (err) {
+        console.error(`Error getting exit ${alias} for room ${roomNum}: ${err}`);
+        reject(err);
+      }
+    });
+  },
   targetAlias(worldState, userId, roomNum, targetObject, targetInventory, targetMob, alias) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -171,9 +194,10 @@ export const rooms = {
               }
             }
           }
-
-          // TODO: Target extra room aliases
         }
+
+        // TODO: Target extra room aliases
+        // TODO: Add room door aliases
 
         resolve({
           eid: targetId,

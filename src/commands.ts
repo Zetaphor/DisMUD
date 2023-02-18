@@ -39,6 +39,8 @@ import pour from "./commands/pour";
 import junk from "./commands/junk";
 import donate from "./commands/donate";
 import debugExits from "./commands/admin/debugExits";
+import open from "./commands/open";
+import close from "./commands/close";
 
 export const commands = {
   say,
@@ -73,6 +75,8 @@ export const commands = {
   pour,
   junk,
   donate,
+  open,
+  close,
 };
 
 export const adminCommands = {

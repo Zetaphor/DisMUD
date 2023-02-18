@@ -30,6 +30,8 @@ export const helpMessages = {
   wear: `**WEAR**\nUsage: \`wear <item>\`\nIf you want to wear some clothes, armor or the likes.\n\nSee also: \`drop\`, \`put\``,
   who: `**WHO**\nUsage: \`who\`\nLists the people currently in the game.\n\nSee also: \`follow\`, \`unfollow\``,
   unfollow: `**UNFOLLOW**\nUsage: \`unfollow\`\nUse unfollow to stop following someone else.\n\nSee also: \`follow\`, \`who\``,
+  open: `**OPEN**\nUsage: \`open <direction>\`, \`open [the] <door name>\`\nOpen a door allowing passage through that exit. If the door is locked you will first need to unlock it with a key.\n\nSee also: \`close\`, \`lock\`, \`unlock\``,
+  close: `**CLOSE**\nUsage: \`close <direction>\`, \`close [the] <door name>\`\nClose a door, blocking passage through that exit. If you have the door is lockable and you have a key it can then be locked.\n\nSee also: \`open\`, \`lock\`, \`unlock\``,
 };
 
 export const helpKeys = Object.keys(helpMessages);
