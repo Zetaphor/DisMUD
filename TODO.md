@@ -31,21 +31,9 @@
 
 ! - Repeat last command
 alias, aliases
-assist - Start attacking something someone else is attacking
 auction, grats, gossip noauction, nogossip, nograts - Global channels
-autoexit - Toggles showing exits
-backstab - Attack
-bash - Attack
-brief - Only show room name and occupants/items
-consider - Determine if you can attack
-diagnose - Check wounds
 eat, taste
-flee - Exit battle
 grab, hold
-kick
-kill, hit - Start attacking
-murder - Kill but only PVP
-norepeat - Don't echo communication
 noshout - Don't hear shouts
 notell - Ignore tells
 lock, unlock
@@ -57,4 +45,16 @@ use - Use a wand or staff
 wake, rest, sleep, sit, stand
 where
 wield
+
+### Combat
+
+kick
+kill, hit - Start attacking
+backstab - Attack
+bash - Attack
+consider - Determine if you can attack
+diagnose - Check wounds
+murder - Kill but only PVP
+assist - Start attacking something someone else is attacking
+flee - Exit battle
 wimpy
