@@ -67,8 +67,7 @@ export default async function move(worldState, userData, msg) {
 
           if (followerRoomNum === oldRoomNum) {
             if (followerData.player) {
-              const followerPlayer = await worldState.players.getActiveByEntityId(followerData.eid);
-              await worldState.players.sendCommandAsUser(worldState, followerPlayer.id, `move ${moveDir}`);
+              await worldState.players.sendCommandAsUser(worldState, followerData.eid, `move ${moveDir}`);
             } else {
               const mobData = worldState.mobs.getActiveMobData(followerData.eid);
 

@@ -234,10 +234,9 @@ export const mobs = {
 
           if (followerRoomNum === oldRoomNum) {
             if (followerData.player) {
-              const followerPlayer = await worldState.players.getActiveByEntityId(followerData.eid);
               await worldState.players.sendCommandAsUser(
                 worldState,
-                followerPlayer.id,
+                followerData.eid,
                 `move ${directionNames[direction]}`
               );
             } else {

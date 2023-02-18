@@ -34,7 +34,7 @@ export default async function force(worldState, userData, msg) {
       `${emoji.sparkles} _You feel your body being posessed!_`
     );
 
-    worldState.players.sendCommandAsUser(worldState, forceTarget.id, msg.slice(1).join(" "));
+    worldState.players.sendCommandAsUser(worldState, forceTarget.eid, msg.slice(1).join(" "));
 
     userData.sendMessage(
       userData.user,

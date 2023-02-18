@@ -256,14 +256,14 @@ export const players = {
     this.currentActive[playerId].followingName = "";
     this.currentActive[playerId].followingPlayer = false;
   },
-  sendCommandAsUser(worldState, playerId, command) {
+  sendCommandAsUser(worldState, playerEntityId, command) {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        const userData = worldState.players.getActiveByPlayerId(playerId);
+        const userData = worldState.players.getActiveByEntityId(playerEntityId);
         parseCommand(worldState, userData, command);
         resolve();
       } catch (err) {
-        console.error(`Error sending command ${command} as player ${playerId}:`, err);
+        console.error(`Error sending command ${command} as player ${playerEntityId}:`, err);
         reject(err);
       }
     });
