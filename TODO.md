@@ -19,13 +19,12 @@
 - Use ChatGPT to fill in missing actionDescs
 - Show aliases in examine command
 - Apply object modifers on equip
-- Add nofollow userpref
-- Add hide Discord name/ID userpref.
 - Look into why so many rooms have a -1 exit, probably a parsing bug in the world parser
 - Implement the sentinel flag in mob movement
 - Split up commands list to show categories
 - Implement movement point drain, needs to be based on areas
 - Implement movement point recovery based on time/position
+- Implement drinking liquids affecting drunk/thirst
 
 ## Commands
 

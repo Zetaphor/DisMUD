@@ -5,7 +5,10 @@ export default async function who(worldState, userData, msg) {
     let playersData = Object.values(worldState.players.currentActive);
     let playerList = [];
     for (let i = 0; i < playersData.length; i++) {
-      playerList.push(`${playersData[i]["displayName"]} _(${playersData[i]["discordUsername"]})_`);
+      let playerString = `${playersData[i]["displayName"]}`;
+      if (playersData[i]["userPrefs"]["discordId"]) playerString += ` (${playersData[i]["discordUsername"]})`;
+      if (playersData[i]["admin"]) playerString += ` **(ADMIN)**`;
+      playerList.push(playerString);
     }
     userData.sendMessage(
       userData.user,

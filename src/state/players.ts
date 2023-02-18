@@ -111,6 +111,7 @@ export const players = {
               roomBrief: false,
               autoExits: false,
               follow: true,
+              discordId: true,
             })
           ),
         });

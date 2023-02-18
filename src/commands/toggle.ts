@@ -21,7 +21,9 @@ export default function toggle(worldState, userData, msg) {
           userData.userPrefs.autoExits ? "**Enabled**" : "_Disabled_"
         } - exits _(Show exits)_\n${emoji.follow} ${
           userData.userPrefs.follow ? "**Enabled**" : "_Disabled_"
-        } - follow _(Enable followers)_\n\n_Use \`help toggle\` to learn more._`
+        } - follow _(Enable followers)_\n${emoji.discord} ${
+          userData.userPrefs.discordId ? "**Enabled**" : "_Disabled_"
+        } - discord _(Show Discord User)_\n\n_Use \`help toggle\` to learn more._`
       );
     } else {
       if (msg[0] === "echo") {
@@ -94,6 +96,16 @@ export default function toggle(worldState, userData, msg) {
           userData.user,
           `${emoji.follow} ${
             userData.userPrefs.follow ? `_You can now be followed._` : `_You can no longer be followed._`
+          }`
+        );
+      } else if (msg[0] === "discord") {
+        userData.userPrefs.discordId = !userData.userPrefs.discordId;
+        userData.sendMessage(
+          userData.user,
+          `${emoji.discord} ${
+            userData.userPrefs.discordId
+              ? `_Your Discord ID is now visible to other users._`
+              : `_You Discord ID is no longer visible to other users._`
           }`
         );
       } else {

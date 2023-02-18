@@ -64,6 +64,7 @@ export const emoji = {
   shout: "<:rpgshout:1076548398515240970>",
   echo: "<:rpgecho:1076548444082159626>",
   brief: "<:rpgbrief:1076550388456624269>",
+  discord: "<:rpgdiscord:1076608192110407840>",
 };
 
 export default emoji;
