@@ -1,3 +1,5 @@
+import emoji from "./emoji";
+
 export const helpMessages = {
   help: `Help searches for a match of the entered word and displays syntax and other useful information\n\nSee also: \`commands\``,
   balance: `**BALANCE**\nUsage: \`balance\`\nShows your current bank balance.`,
@@ -10,7 +12,7 @@ export const helpMessages = {
   gold: `**GOLD**\nUsage: \`gold\`\nDisplays how much gold your carrying.\n\nSee also: \`balance\`, \`deposit\`, \`withdraw\``,
   examine: `**EXAMINE**\nUsage: \`examine <thing to examine>\nMay give you some valuable information about an item or monster.\n\nSee also: \`look\``,
   exits: `**EXITS**\nUsage: \`exits\`\nGives you a list of the obvious exits from your location. Of course, the less obvious ones won't show up here - you have to think in order to locate those.`,
-  follow: `**FOLLOW**\nUsage: \`follow <person>\`\nUse follow to automatically follow someone else.\n\nSee also: \`unfollow\``,
+  follow: `**FOLLOW**\nUsage: \`follow <target>\`\nUse follow to automatically follow someone else. Players can optionally disable being followed by disabling the follow toggle.\n\nSee also: \`unfollow\`, \`toggle\``,
   get: `**GET TAKE**\nUsage: \`get | take <item>\`, \`get | take all\`\n"Get" and "take" are exactly the same and can be used interchangeably.\nIf you find something interesting on the ground, you may use 'get' to pick it up.  \`get\` can also be used to extract items from containers.\n\nSee also: \`drop\`, \`put\``,
   take: `**GET TAKE**\nUsage: \`get | take <item>\`, \`get | take all\`\n"Get" and "take" are exactly the same and can be used interchangeably.\nIf you find something interesting on the ground, you may use 'get' to pick it up.  \`get\` can also be used to extract items from containers.\n\nSee also: \`drop\`, \`put\``,
   give: `**GIVE**\nUsage: \`give <item> <victim>\`, \`give <number> <item> <victim>\`\nIf you feel benevolent, you may give some stuff to someone in need.\n\nSee also: \`drop\`, \`take\``,
@@ -28,10 +30,15 @@ export const helpMessages = {
   score: `**SCORE**\nUsage: \`score\`\nProvides useful information on your status such as age, hit points, mana, movement points, armor class, alignment, experience points, gold on hand, how long you've been playing, and your level.`,
   time: `**TIME**\nUsage: \`time\`\nGives you the current game time.  Your initial reaction to the output of this command may be one of surprise, but you'll get used to it.  You'll have to, at any rate, since certain things in the game depend on this particular notion of time; the opening hours of the shops, for example.`,
   wear: `**WEAR**\nUsage: \`wear <item>\`\nIf you want to wear some clothes, armor or the likes.\n\nSee also: \`drop\`, \`put\``,
-  who: `**WHO**\nUsage: \`who\`\nLists the people currently in the game.\n\nSee also: \`follow\`, \`unfollow\``,
+  who: `**WHO**\nUsage: \`who\`\nLists the people currently in the game.\n\nSee also: \`follow\`, \`unfollow\`, \`toggle\``,
   unfollow: `**UNFOLLOW**\nUsage: \`unfollow\`\nUse unfollow to stop following someone else.\n\nSee also: \`follow\`, \`who\``,
   open: `**OPEN**\nUsage: \`open <direction>\`, \`open [the] <door name>\`\nOpen a door allowing passage through that exit. If the door is locked you will first need to unlock it with a key.\n\nSee also: \`close\`, \`lock\`, \`unlock\``,
   close: `**CLOSE**\nUsage: \`close <direction>\`, \`close [the] <door name>\`\nClose a door, blocking passage through that exit. If you have the door is lockable and you have a key it can then be locked.\n\nSee also: \`open\`, \`lock\`, \`unlock\``,
+  toggle: `**TOGGLE**\nUsage: \`toggle <setting name>\`\nAllows you to toggle preferences on and off.\nThe following preferences can be enabled or disabled by using the toggle command followed by the setting name.\n\n**echo** - Enabling this will send the output of any player communication messages to you, like \`say\`, or \`tell\`.\n**tell** - Disabling this will prevent you from hearing tells sent from other players in the room with you.\n**shout** - Disabling this will prevent you from hearing shouts from other players in the same zone as you.\n**global** - Disabling this will prevent you from receiving messages from the global chat channel\n**auction** - Disabling this will prevent you from receiving messages from the global auction channel.\n**brief** - Enabling this will prevent you from seeing area descriptions after moving to a new area. They will still be available if you manually \`look\` in the area.\n**exits** - Enabling this will automatically display any available exits after you \`move\` to a new area or \`look\` in your currente area.\n**follow** - Disabling this will prevent other users from automatically following your movement with the \`follow\` command.\n**discord** - Disabling this will prevent your Discord username from being shown to other players in the \`who\` global player list.\n\nSee also: \`say\`, \`tell\`, \`shout\`, \`global\`, \`auction\`, \`exits\`, \`follow\``,
+  global: `**GLOBAL**\nUsage: \`global <message>\`\nSend a message to the global player channel. This channel can be seen by all players in the world who have the global toggle enabled.\n\nSee also: \`say\`, \`tell\`, \`auction\`, \`shout\`, \`toggle\``,
+  auction: `**AUCTION**\nUsage: \`global <message>\`\nSend a message to the auction channel. This channel is for coordinating the sale and trade of items across areas. This channel can be seen by all players in the world who have the auction channel enabled.\n\nSee also: \`say\`, \`tell\`, \`auction\`, \`shout\`, \`toggle\``,
+  shout: `**SHOUT**\nUsage: \`shout <message>\`\nSend a message to all players in your current zone. Players will only see your message if they have not disabled the shout toggle.\n\nSee also: \`say\`, \`tell\`, \`global\`, \`auction\`, \`toggle\``,
+  tell: `**TELL**\nUsage: \`tell | whisper <person> <message>\`\nWhisper a message directly to a player in the same area as you. The player will only see your message if they have the receive tell toggle enabled.\n\nSee also: \`say\`, \`global\`, \`auction\`, \`shout\`, \`toggle\``,
 };
 
 export const helpKeys = Object.keys(helpMessages);
