@@ -46,6 +46,7 @@ import debugUser from "./commands/admin/debugUser";
 import auctionChat from "./commands/auctionChat";
 import globalChat from "./commands/globalChat";
 import shout from "./commands/shout";
+import tell from "./commands/tell";
 
 export const commands = {
   say,
@@ -86,6 +87,7 @@ export const commands = {
   auction: auctionChat,
   global: globalChat,
   shout,
+  tell,
 };
 
 export const adminCommands = {
@@ -120,6 +122,7 @@ export const commandAliases = {
   online: who,
   sip: drink,
   rules: policy,
+  whisper: tell,
 };
 
 export const adminCommandList = Object.keys(adminCommands);
