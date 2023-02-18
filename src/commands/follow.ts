@@ -46,6 +46,12 @@ export default async function follow(worldState, userData, msg) {
       if (followTarget.eid === userData.eid) {
         userData.sendMessage(userData.user, `${emoji.error} _You can't follow yourself!_`);
         return;
+      } else if (!followTarget.userPrefs.follow) {
+        userData.sendMessage(
+          userData.user,
+          `${emoji.error} _You can't follow ${followTarget.displayName} because they have disabled following!_`
+        );
+        return;
       }
 
       if (worldState.players.isFollower(userData.id, followTarget.eid)) {

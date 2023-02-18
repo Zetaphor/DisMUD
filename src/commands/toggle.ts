@@ -19,7 +19,9 @@ export default function toggle(worldState, userData, msg) {
           userData.userPrefs.roomBrief ? "**Enabled**" : "_Disabled_"
         } - brief _(Brief areas)_\n${emoji.directions} ${
           userData.userPrefs.autoExits ? "**Enabled**" : "_Disabled_"
-        } - exits _(Show exits)_\n\n_Use \`help toggle\` to learn more._`
+        } - exits _(Show exits)_\n${emoji.follow} ${
+          userData.userPrefs.follow ? "**Enabled**" : "_Disabled_"
+        } - follow _(Enable followers)_\n\n_Use \`help toggle\` to learn more._`
       );
     } else {
       if (msg[0] === "echo") {
@@ -84,6 +86,14 @@ export default function toggle(worldState, userData, msg) {
             userData.userPrefs.autoExits
               ? `_You will now automatically see room exits._`
               : `_You will no longer automatically see room exits._`
+          }`
+        );
+      } else if (msg[0] === "follow") {
+        userData.userPrefs.follow = !userData.userPrefs.follow;
+        userData.sendMessage(
+          userData.user,
+          `${emoji.follow} ${
+            userData.userPrefs.follow ? `_You can now be followed._` : `_You can no longer be followed._`
           }`
         );
       } else {

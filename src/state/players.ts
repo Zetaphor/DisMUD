@@ -110,6 +110,7 @@ export const players = {
               chanAuction: true,
               roomBrief: false,
               autoExits: false,
+              follow: true,
             })
           ),
         });
