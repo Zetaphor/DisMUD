@@ -41,6 +41,7 @@ import donate from "./commands/donate";
 import debugExits from "./commands/admin/debugExits";
 import open from "./commands/open";
 import close from "./commands/close";
+import toggle from "./commands/toggle";
 import debugUser from "./commands/admin/debugUser";
 
 export const commands = {
@@ -78,6 +79,7 @@ export const commands = {
   donate,
   open,
   close,
+  toggle,
 };
 
 export const adminCommands = {

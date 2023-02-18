@@ -57,6 +57,13 @@ export const emoji = {
   classSorcerer: "<:rpgsorcererclass:1074817723583955097>",
   lock: "<:rpglock:1076272206839042069>",
   door: "<:rpgdoor:1076272438381387826>",
+  settings: "<:rpgsettings:1076542281185759232>",
+  globalChat: "<:rpgglobal:1076548536688197662>",
+  auctionChat: "<:rpgauction:1076548420774408242>",
+  whisper: "<:rpgwhisper:1076548362733617323>",
+  shout: "<:rpgshout:1076548398515240970>",
+  echo: "<:rpgecho:1076548444082159626>",
+  brief: "<:rpgbrief:1076550388456624269>",
 };
 
 export default emoji;

@@ -101,6 +101,17 @@ export const players = {
           equipment: "",
           simulationData: "",
           className: className,
+          userPrefs: encodeURIComponent(
+            JSON.stringify({
+              localRepeat: false,
+              hearTell: true,
+              hearShout: true,
+              chanGlobal: true,
+              chanAuction: true,
+              roomBrief: false,
+              autoExits: false,
+            })
+          ),
         });
         console.info(`Creating new player ${user.username}'s inventory`);
         await worldState.db["playerInventories"].methods.initPlayerInventory(playerData["id"]);
@@ -132,6 +143,7 @@ export const players = {
           playerData.following = null;
           playerData.followingPlayer = false;
           playerData.followingName = "";
+          playerData.userPrefs = JSON.parse(decodeURIComponent(playerData.userPrefs));
           // console.info(`Logging in existing player ${user.username} with discordId: ${playerData["discordId"]}`);
           const playerInventory = await worldState.inventories.loadInventory(
             worldState.db["playerInventories"],

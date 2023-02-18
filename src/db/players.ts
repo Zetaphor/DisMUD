@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS Players (
   bank INTEGER DEFAULT 0,
   equipment TEXT,
   simulationData TEXT,
+  userPrefs TEXT,
   className TEXT,
   creationDate TEXT DEFAULT (datetime('now', 'utc')),
   lastLogin TEXT DEFAULT (datetime('now', 'utc')),
@@ -75,6 +76,7 @@ const playerMethods = {
         lastSaved: new Date().toISOString().slice(0, 19).replace("T", " "),
         simulationData: encodeURIComponent(JSON.stringify(simulationData)),
         equipment: encodeURIComponent(JSON.stringify(userData["equipment"])),
+        userPrefs: encodeURIComponent(JSON.stringify(userData["userPrefs"])),
       },
       "id",
       id
