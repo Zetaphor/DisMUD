@@ -23,6 +23,7 @@
 - Add hide Discord name/ID userpref.
 - Look into why so many rooms have a -1 exit, probably a parsing bug in the world parser
 - Implement the sentinel flag in mob movement
+- Split up commands list to show categories
 
 ## Commands
 
@@ -38,10 +39,8 @@ bash - Attack
 brief - Only show room name and occupants/items
 consider - Determine if you can attack
 diagnose - Check wounds
-donate - Donate items to donation room
 eat, taste
 flee - Exit battle
-junk - Destroy an item
 grab, hold
 kick
 kill, hit - Start attacking
@@ -49,7 +48,7 @@ murder - Kill but only PVP
 norepeat - Don't echo communication
 noshout - Don't hear shouts
 notell - Ignore tells
-open, close, lock, unlock
+lock, unlock
 pick - pick locks
 quaff - Drink potion
 recite - Recite scroll

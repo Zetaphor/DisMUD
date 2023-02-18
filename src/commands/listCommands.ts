@@ -8,7 +8,11 @@ export default async function listCommands(worldState, userData, msg) {
 
     userData.sendMessage(
       userData.user,
-      `${emoji.openScroll} _The following commmands are available to you:_\n**${availableCommands.join(", ")}**`
+      `${
+        emoji.openScroll
+      } _Type_ \`help <command name>\` _to get help on a specific command._\n_The following commmands are available to you:_\n**${availableCommands.join(
+        ", "
+      )}**`
     );
   } catch (err) {
     console.error(`Error using listCommands ${msg}: ${err}`);
