@@ -17,7 +17,7 @@ export default function globalChat(worldState, userData, msg) {
         worldState.broadcasts.sendToPlayer(
           worldState,
           player["eid"],
-          `${emoji.globalChat} _${userData.displayName}: ${msg.join(" ")}_`
+          `${emoji.globalChat} (GLOBAL) _${userData.displayName}: ${msg.join(" ")}_`
         );
       }
     }

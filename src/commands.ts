@@ -45,6 +45,7 @@ import toggle from "./commands/toggle";
 import debugUser from "./commands/admin/debugUser";
 import auctionChat from "./commands/auctionChat";
 import globalChat from "./commands/globalChat";
+import shout from "./commands/shout";
 
 export const commands = {
   say,
@@ -84,6 +85,7 @@ export const commands = {
   toggle,
   auction: auctionChat,
   global: globalChat,
+  shout,
 };
 
 export const adminCommands = {

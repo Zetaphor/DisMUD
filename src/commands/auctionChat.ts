@@ -17,7 +17,7 @@ export default function auctionChat(worldState, userData, msg) {
         worldState.broadcasts.sendToPlayer(
           worldState,
           player["eid"],
-          `${emoji.auctionChat} _${userData.displayName}: ${msg.join(" ")}_`
+          `${emoji.auctionChat} (AUCTION) _${userData.displayName}: ${msg.join(" ")}_`
         );
       }
     }

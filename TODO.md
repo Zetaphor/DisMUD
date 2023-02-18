@@ -24,6 +24,8 @@
 - Look into why so many rooms have a -1 exit, probably a parsing bug in the world parser
 - Implement the sentinel flag in mob movement
 - Split up commands list to show categories
+- Implement movement point drain, needs to be based on areas
+- Implement movement point recovery based on time/position
 
 ## Commands
 
@@ -31,10 +33,8 @@
 
 ! - Repeat last command
 alias, aliases
-auction, grats, gossip noauction, nogossip, nograts - Global channels
 eat, taste
 grab, hold
-noshout - Don't hear shouts
 notell - Ignore tells
 lock, unlock
 pick - pick locks

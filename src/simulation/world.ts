@@ -221,6 +221,26 @@ export const simulation = {
       }
     });
   },
+  getPlayersInZone(zoneNum) {
+    return new Promise((resolve, reject) => {
+      try {
+        const Player = this.world._components["player"];
+        const Position = this.world._components["position"];
+        const playerQuery = defineQuery([Player]);
+        const ents = playerQuery(this.world);
+        const playersInZone = [];
+        for (let i = 0; i < ents.length; i++) {
+          if (Math.floor(Position["roomNum"][ents[i]] / 100) === zoneNum) {
+            playersInZone.push(ents[i]);
+          }
+        }
+        resolve(playersInZone);
+      } catch (err) {
+        console.error(`Failed to get players in zone ${zoneNum}: ${err}`);
+        reject(err);
+      }
+    });
+  },
 };
 
 export default simulation;
