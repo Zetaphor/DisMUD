@@ -43,6 +43,8 @@ import open from "./commands/open";
 import close from "./commands/close";
 import toggle from "./commands/toggle";
 import debugUser from "./commands/admin/debugUser";
+import auctionChat from "./commands/auctionChat";
+import globalChat from "./commands/globalChat";
 
 export const commands = {
   say,
@@ -80,6 +82,8 @@ export const commands = {
   open,
   close,
   toggle,
+  auction: auctionChat,
+  global: globalChat,
 };
 
 export const adminCommands = {
