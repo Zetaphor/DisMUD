@@ -27,6 +27,7 @@
   "dependencies": {
     "bitecs": "github:NateTheGreatt/bitECS#master",
     "discord.js": "^14.7.1",
+    "discord.js-light": "^4.10.0",
     "dotenv": "^16.0.3",
     "sqlite3": "^5.1.4",
     "ts-node": "^10.9.1",
