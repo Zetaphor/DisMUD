@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const { Client, Events, GatewayIntentBits, Partials } = require("discord.js");
+// const { Client, Events, GatewayIntentBits, Partials } = require("discord.js");
+const Discord = require("discord.js-light");
 const token = process.env.DISCORD_TOKEN;
 
 let botId = null;
@@ -16,9 +17,45 @@ let botId = null;
  * @property {function} waitForEvent - A function to wait for a specific event to occur before resolving
  */
 const botInterface = {
-  client: new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
-    partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+  // client: new Client({
+  //   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions],
+  //   partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+  // }),
+  client: new Discord.Client({
+    // default caching options, feel free to copy and modify. more info on caching options below.
+    makeCache: Discord.Options.cacheWithLimits({
+      ApplicationCommandManager: 0, // guild.commands
+      BaseGuildEmojiManager: 0, // guild.emojis
+      ChannelManager: 0, // client.channels
+      GuildChannelManager: 0, // guild.channels
+      GuildBanManager: 0, // guild.bans
+      GuildInviteManager: 0, // guild.invites
+      GuildManager: Infinity, // client.guilds
+      GuildMemberManager: 0, // guild.members
+      GuildStickerManager: 0, // guild.stickers
+      GuildScheduledEventManager: 0, // guild.scheduledEvents
+      MessageManager: 0, // channel.messages
+      PermissionOverwriteManager: 0, // channel.permissionOverwrites
+      PresenceManager: 0, // guild.presences
+      ReactionManager: 0, // message.reactions
+      ReactionUserManager: 0, // reaction.users
+      RoleManager: 0, // guild.roles
+      StageInstanceManager: 0, // guild.stageInstances
+      ThreadManager: 0, // channel.threads
+      ThreadMemberManager: 0, // threadchannel.members
+      UserManager: 0, // client.users
+      VoiceStateManager: 0, // guild.voiceStates
+    }),
+    intents: [
+      Discord.Intents.FLAGS.GUILDS,
+      // Discord.Intents.FLAGS.GUILD_MEMBERS,
+      // Discord.Intents.FLAGS.GUILD_MESSAGES,
+      // Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+      // Discord.Intents.FLAGS.GUILD_MESSAGE_TYPING,
+      Discord.Intents.FLAGS.DIRECT_MESSAGES,
+      Discord.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+      // Discord.Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+    ],
   }),
   getUser,
   listeners: {},
@@ -35,7 +72,7 @@ const botInterface = {
   },
   async waitForEvent(event) {
     return new Promise((resolve) => {
-      this.client.once(Events.ClientReady, (c) => {
+      this.client.on("ready", (c) => {
         resolve(event);
       });
     });
@@ -62,13 +99,14 @@ async function getUser(id) {
   });
 }
 
-botInterface.client.once(Events.ClientReady, (c) => {
+// botInterface.client.once('ready')
+botInterface.client.on("ready", (c) => {
   botId = c.user.id;
   console.info(`Ready! Logged in as ${c.user.tag} with ID ${c.user.id}`);
   botInterface.emit("ready", null);
 });
 
-botInterface.client.on(Events.MessageCreate, (msg) => {
+botInterface.client.on("messageCreate", (msg) => {
   if (msg.author.id === botId) {
     // console.info("Saw bot message");
   } else {
