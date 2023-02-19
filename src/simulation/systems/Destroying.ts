@@ -1,13 +1,19 @@
-import { defineQuery, hasComponent, removeEntity } from "bitecs";
+import { defineQuery, removeEntity } from "bitecs";
 import { getDropByIndex } from "../indexes/dropIndexes";
 import createEntity from "../utils/createEntity";
 
-const destroyingSystem = (world) => {
-  const Destroyed = world._components["destroyed"];
-  const DeathDrops = world._components["deathDrops"];
+let Destroyed,
+  DeathDrops,
+  destroyedDropsQuery,
+  destroyedQuery = null;
 
-  const destroyedDropsQuery = defineQuery([Destroyed, DeathDrops]);
-  const destroyedQuery = defineQuery([Destroyed]);
+const destroyingSystem = (world) => {
+  if (destroyedQuery === null) {
+    Destroyed = world._components["destroyed"];
+    DeathDrops = world._components["deathDrops"];
+    destroyedDropsQuery = defineQuery([Destroyed, DeathDrops]);
+    destroyedQuery = defineQuery([Destroyed]);
+  }
 
   // Destroy entities that have a drop defined
   let ents = destroyedDropsQuery(world);

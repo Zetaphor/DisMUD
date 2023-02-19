@@ -1,12 +1,15 @@
-import { addComponent, defineQuery, hasComponent } from "bitecs";
+import { defineQuery } from "bitecs";
 import globalConstants from "../constants/global";
+
+let Wander,
+  wanderQuery = null;
 
 const wanderingSystem = (world) => {
   // Only execute on the moveTickRate
-
-  const Wander = world._components["wander"];
-
-  const wanderQuery = defineQuery([Wander]);
+  if (wanderQuery === null) {
+    Wander = world._components["wander"];
+    wanderQuery = defineQuery([Wander]);
+  }
 
   const ents = wanderQuery(world);
   for (let i = 0; i < ents.length; i++) {

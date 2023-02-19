@@ -2,12 +2,18 @@ import { addComponent, defineQuery, hasComponent } from "bitecs";
 import globalConstants from "../constants/global";
 import { lookupDamageIndex } from "../indexes/damageIndexes";
 
-const mortalitySystem = (world) => {
-  const Health = world._components["health"];
-  const Killable = world._components["killable"];
-  const Destroyed = world._components["destroyed"];
+let Health,
+  Killable,
+  Destroyed,
+  healthQuery = null;
 
-  const healthQuery = defineQuery([Health]);
+const mortalitySystem = (world) => {
+  if (healthQuery === null) {
+    Health = world._components["health"];
+    Killable = world._components["killable"];
+    Destroyed = world._components["destroyed"];
+    healthQuery = defineQuery([Health]);
+  }
 
   const ents = healthQuery(world);
   for (let i = 0; i < ents.length; i++) {

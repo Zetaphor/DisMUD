@@ -1,12 +1,19 @@
 import { defineQuery, removeComponent } from "bitecs";
 
-const damagingSystem = (world) => {
-  const Damage = world._components["damage"];
-  const Health = world._components["health"];
-  const Durability = world._components["durability"];
+let Damage,
+  Health,
+  Durability,
+  healthQuery,
+  durabilityQuery = null;
 
-  const healthQuery = defineQuery([Damage, Health]);
-  const durabilityQuery = defineQuery([Damage, Durability]);
+const damagingSystem = (world) => {
+  if (durabilityQuery === null) {
+    Damage = world._components["damage"];
+    Health = world._components["health"];
+    Durability = world._components["durability"];
+    healthQuery = defineQuery([Damage, Health]);
+    durabilityQuery = defineQuery([Damage, Durability]);
+  }
 
   const healthEnts = healthQuery(world);
   for (let i = 0; i < healthEnts.length; i++) {

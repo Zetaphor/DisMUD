@@ -3,6 +3,7 @@ export const timedStateFunctions = {
   interval: null,
 
   setupTimedStateFunctions(worldState) {
+    worldState.mobs.setupMobMovementQuery(worldState);
     worldState.mobs.timedMobMovement(worldState);
     this.interval = setInterval(() => {
       worldState.mobs.timedMobMovement(worldState, worldState.simulation.world.time);

@@ -2,13 +2,20 @@ import { addComponent, defineQuery, hasComponent } from "bitecs";
 import globalConstants from "../constants/global";
 import { damageIndexes } from "../indexes/damageIndexes";
 
-const burningSystem = (world) => {
-  const Flammable = world._components["flammable"];
-  const Burning = world._components["burning"];
-  const Damage = world._components["damage"];
-  const Breakable = world._components["breakable"];
+let Flammable,
+  Burning,
+  Damage,
+  Breakable,
+  flammableQuery = null;
 
-  const flammableQuery = defineQuery([Flammable, Burning]);
+const burningSystem = (world) => {
+  if (flammableQuery === null) {
+    Flammable = world._components["flammable"];
+    Burning = world._components["burning"];
+    Damage = world._components["damage"];
+    Breakable = world._components["breakable"];
+    flammableQuery = defineQuery([Flammable, Burning]);
+  }
 
   const ents = flammableQuery(world);
   for (let i = 0; i < ents.length; i++) {

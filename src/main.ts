@@ -37,6 +37,8 @@ async function startup() {
   try {
     simulation.start();
 
+    worldState.rooms.setupQueries(worldState.simulation.world);
+
     await db.init();
     console.info("Databases loaded...");
 

@@ -1,9 +1,13 @@
 import { defineQuery } from "bitecs";
 
-const thirstSystem = (world) => {
-  const Thirst = world._components["thirst"];
+let Thirst,
+  thirstQuery = null;
 
-  const thirstQuery = defineQuery([Thirst]);
+const thirstSystem = (world) => {
+  if (thirstQuery === null) {
+    Thirst = world._components["thirst"];
+    thirstQuery = defineQuery([Thirst]);
+  }
 
   const ents = thirstQuery(world);
   for (let i = 0; i < ents.length; i++) {

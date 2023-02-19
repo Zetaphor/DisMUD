@@ -1,12 +1,18 @@
 import { addComponent, defineQuery, hasComponent } from "bitecs";
 import globalConstants from "../constants/global";
 
-const agingSystem = (world) => {
-  const Age = world._components["age"];
-  const Mortal = world._components["mortal"];
-  const Destroyed = world._components["destroyed"];
+let Age,
+  Mortal,
+  Destroyed,
+  ageQuery = null;
 
-  const ageQuery = defineQuery([Age]);
+const agingSystem = (world) => {
+  if (ageQuery === null) {
+    Age = world._components["age"];
+    Mortal = world._components["mortal"];
+    Destroyed = world._components["destroyed"];
+    ageQuery = defineQuery([Age]);
+  }
 
   const ents = ageQuery(world);
   for (let i = 0; i < ents.length; i++) {

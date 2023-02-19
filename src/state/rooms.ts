@@ -3,6 +3,22 @@ import { defineQuery } from "bitecs";
 export const rooms = {
   doorStates: {},
 
+  playerQuery: null,
+  mobQuery: null,
+  itemQuery: null,
+  playerComponent: null,
+  positionComponent: null,
+  itemComponent: null,
+
+  setupQueries(world) {
+    this.itemComponent = world._components["item"];
+    this.positionComponent = world._components["position"];
+    this.itemQuery = defineQuery([this.itemComponent]);
+    this.playerComponent = world._components["player"];
+    this.playerQuery = defineQuery([this.playerComponent]);
+    this.mobQuery = defineQuery([world._components["mob"]]);
+  },
+
   loadRoomData(db, vNum) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -83,37 +99,28 @@ export const rooms = {
     });
   },
   getPlayersInRoom(world, roomNum) {
-    const Player = world._components["player"];
-    const Position = world._components["position"];
-    const playerQuery = defineQuery([Player]);
-    const ents = playerQuery(world);
+    const ents = this.playerQuery(world);
 
     let playerList = [];
     for (let i = 0; i < ents.length; i++) {
-      if (Position.roomNum[ents[i]] === roomNum) playerList.push(ents[i]);
+      if (this.positionComponent.roomNum[ents[i]] === roomNum) playerList.push(ents[i]);
     }
     return playerList;
   },
   getMobsInRoom(world, roomNum) {
-    const Mob = world._components["mob"];
-    const Position = world._components["position"];
-    const mobQuery = defineQuery([Mob]);
-    const ents = mobQuery(world);
+    const ents = this.mobQuery(world);
 
     let mobList = [];
     for (let i = 0; i < ents.length; i++) {
-      if (Position.roomNum[ents[i]] === roomNum) mobList.push(ents[i]);
+      if (this.positionComponent.roomNum[ents[i]] === roomNum) mobList.push(ents[i]);
     }
     return mobList;
   },
   getItemsInRoom(world, roomNum) {
-    const Item = world._components["item"];
-    const Position = world._components["position"];
-    const itemQuery = defineQuery([Item]);
-    const ents = itemQuery(world);
+    const ents = this.itemQuery(world);
     let itemList = [];
     for (let i = 0; i < ents.length; i++) {
-      if (Position.roomNum[ents[i]] === roomNum) itemList.push(ents[i]);
+      if (this.positionComponent.roomNum[ents[i]] === roomNum) itemList.push(ents[i]);
     }
     return itemList;
   },

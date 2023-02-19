@@ -1,9 +1,8 @@
 const { performance } = require("perf_hooks");
 
 const timeSystem = (world) => {
-  const time = world.time;
   const now = performance.now();
-  const delta = now - time.then;
+  const delta = now - world.time.then;
 
   world.time.delta = delta;
   world.time.elapsed += delta;

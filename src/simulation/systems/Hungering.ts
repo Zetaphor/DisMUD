@@ -1,9 +1,13 @@
 import { defineQuery } from "bitecs";
 
-const hungerSystem = (world) => {
-  const Hunger = world._components["hunger"];
+let Hunger,
+  hungerQuery = null;
 
-  const hungerQuery = defineQuery([Hunger]);
+const hungerSystem = (world) => {
+  if (hungerQuery === null) {
+    Hunger = world._components["hunger"];
+    hungerQuery = defineQuery([Hunger]);
+  }
 
   const ents = hungerQuery(world);
   for (let i = 0; i < ents.length; i++) {

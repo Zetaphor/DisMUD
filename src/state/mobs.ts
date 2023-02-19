@@ -176,14 +176,17 @@ export const mobs = {
     this.activeMobs[mobId].followingName = "";
     this.activeMobs[mobId].followingPlayer = false;
   },
+  wanderQuery: null,
+  wanderComponent: null,
+  setupMobMovementQuery(worldState) {
+    this.wanderComponent = worldState.simulation.world._components["wander"];
+    this.wanderQuery = defineQuery([this.wanderComponent]);
+  },
   async timedMobMovement(worldState) {
-    const Wander = worldState.simulation.world._components["wander"];
-    const wanderQuery = defineQuery([Wander]);
-
-    const ents = wanderQuery(worldState.simulation.world);
+    const ents = this.wanderQuery(worldState.simulation.world);
     for (let i = 0; i < ents.length; i++) {
       const eid = ents[i];
-      if (Wander.pending[eid] === globalConstants.FALSE) continue;
+      if (this.wanderComponent.pending[eid] === globalConstants.FALSE) continue;
       const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, eid);
       const roomExits = await worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
       const exitData = Object.values(roomExits);
@@ -205,8 +208,8 @@ export const mobs = {
         continue;
       else {
         await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, eid, exitData[direction]["roomId"]);
-        Wander.pending[eid] = globalConstants.FALSE;
-        Wander.lastTick[eid] = Number(worldState.simulation.world.time.ticks);
+        this.wanderComponent.pending[eid] = globalConstants.FALSE;
+        this.wanderComponent.lastTick[eid] = Number(worldState.simulation.world.time.ticks);
       }
 
       worldState.broadcasts.sendToRoom(
