@@ -15,7 +15,7 @@ export default function parseWorld(roomList) {
     const lines = roomList[roomIndex].split("\n");
 
     // Remove the blank line and the S elements at the end of the data
-    lines.splice(-2, 2);
+    lines.splice(-1, 1);
 
     // console.log(lines);
     let newRoom = { exits: {}, extra: { tags: [], desc: "" } };
@@ -50,11 +50,11 @@ export default function parseWorld(roomList) {
           // console.log(newRoom["zoneNum"], newRoom["roomBitVector"], newRoom["sectorType"]);
         }
       } else {
-        if (/^D[0-5]/.test(lines[lineIndex])) {
-          // console.log(`Found doorIndex at line ${lineIndex}`, lines[lineIndex]);
+        if (/^D[0-5]$/.test(lines[lineIndex])) {
+          // console.log(`Found ${newRoom["id"]} doorIndex at line ${lineIndex + 1}: `, lines[lineIndex]);
           exitIndexes.push(lineIndex);
         } else if (lines[lineIndex] === "E") {
-          // console.log(`Found extraIndex at line ${lineIndex}`, lines[lineIndex]);
+          // console.log(`Found ${newRoom["id"]} extraIndex at line ${lineIndex + 1}`, lines[lineIndex]);
           extraIndexes.push(lineIndex);
         }
       }
@@ -75,28 +75,29 @@ export default function parseWorld(roomList) {
         roomId: -1,
       };
 
-      const flagKeyLinked = lines[nextExitIndex - 1].split(" ");
-      if (flagKeyLinked.length === 3) {
-        newExit["flag"] = parseInt(flagKeyLinked[0]);
-        newExit["keyNum"] = parseInt(flagKeyLinked[1]);
-        newExit["roomId"] = parseInt(flagKeyLinked[2]);
-        // console.log(newExit["flag"], newExit["keyNum"], newExit["roomId"]);
-      }
-
-      if (lines[nextExitIndex - 2].length !== 1 && lines[nextExitIndex - 2].endsWith("~")) {
-        newExit["tags"] = lines[nextExitIndex - 2].slice(0, -1).split(" ");
-        // console.log(newExit["tags"]);
-      }
-
       if (lines[currentExitIndex + 1] !== "~") {
-        for (let j = currentExitIndex + 1; j < nextExitIndex - 2; j++) {
-          if (lines[j] !== "~") {
-            newExit["desc"] += lines[j] + " ";
-          } else j = nextExitIndex;
-        }
-        newExit["desc"] = newExit["desc"].trim();
-        // console.log(newExit.desc);
+        newExit["desc"] = lines[currentExitIndex + 1];
       }
+
+      let flagKeyLinked = null;
+
+      if (
+        typeof lines[currentExitIndex + 3] !== "undefined" &&
+        lines[currentExitIndex + 3] !== "~" &&
+        lines[currentExitIndex + 3].endsWith("~")
+      ) {
+        newExit["tags"] = lines[currentExitIndex + 3].slice(0, -1).split(" ");
+        flagKeyLinked = lines[currentExitIndex + 4];
+      } else if (typeof lines[currentExitIndex + 3] !== "undefined" && lines[currentExitIndex + 3] !== "~") {
+        flagKeyLinked = lines[currentExitIndex + 3];
+      } else if (lines[currentExitIndex + 3] === "~") {
+        flagKeyLinked = lines[currentExitIndex + 4];
+      }
+
+      flagKeyLinked = flagKeyLinked.split(" ");
+      newExit["flag"] = parseInt(flagKeyLinked[0]);
+      newExit["keyNum"] = parseInt(flagKeyLinked[1]);
+      newExit["roomId"] = parseInt(flagKeyLinked[2]);
 
       newRoom["exits"][ROOM_DIRS[newExit.direction]] = newExit;
       // console.log(newRoom["id"], newExit);
@@ -108,7 +109,7 @@ export default function parseWorld(roomList) {
       // console.log(newRoom["extra"]["tags"]);
 
       for (let j = extraIndex + 2; j < lines.length - 1; j++) {
-        newRoom["extra"]["desc"] += lines[j] + " ";
+        if (lines[j] !== "~" && lines[j] !== "S") newRoom["extra"]["desc"] += lines[j] + " ";
       }
       // console.log(newRoom["extra"]["desc"]);
     }
