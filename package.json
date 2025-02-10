@@ -9,10 +9,12 @@
     "parse-obj": "ts-node src/simulation/world-data/libs/obj/exportObjsToJson.ts",
     "parse-mob": "ts-node src/simulation/world-data/libs/mob/exportMobsToJson.ts",
     "parse-zon": "ts-node src/simulation/world-data/libs/zone/exportZonToJson.ts",
+    "parse-all": "npm run parse-world && npm run parse-obj && npm run parse-mob && npm run parse-zon",
     "import-world": "ts-node src/simulation/world-data/libs/world/writeWldJsonToDb.ts",
     "import-obj": "ts-node src/simulation/world-data/libs/obj/writeObjJsonToDb.ts",
     "import-mob": "ts-node src/simulation/world-data/libs/mob/writeMobJsonToDb.ts",
-    "import-zone": "ts-node src/simulation/world-data/libs/zone/writeZonJsonToDb.ts"
+    "import-zone": "ts-node src/simulation/world-data/libs/zone/writeZonJsonToDb.ts",
+    "import-all": "npm run import-world && npm run import-obj && npm run import-mob && npm run import-zone"
   },
   "repository": {
     "type": "git",
