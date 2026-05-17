@@ -14,27 +14,16 @@ CREATE TABLE IF NOT EXISTS Zones (
 )
 `;
 
-const createZonesIndexes = `CREATE INDEX idx_vNum ON Zones (vNum);`;
+const createZonesIndexes = `CREATE INDEX IF NOT EXISTS idx_vNum ON Zones (vNum);`;
 
 const zonesMethods = {
   getAllZones: () => getAllRecords(zonesDBConn, "Zones", "vnum"),
-  getZoneData: (vnum: BigInt) => getRecord(zonesDBConn, "Zones", "vnum", vnum),
+  getZoneData: (vnum) => getRecord(zonesDBConn, "Zones", "vnum", vnum),
 };
 
-/**
- * Initializes the zones database.
- * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
- */
 export default function initZonesDb() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const zonesDBObject = await initDb(dbPath, "Zones", createZonesTable, createZonesIndexes);
-      zonesDBObject["methods"] = zonesMethods;
-      zonesDBConn = zonesDBObject["conn"];
-      resolve(zonesDBObject);
-    } catch (err) {
-      console.error(`Error initializing zones database: ${err}`);
-      reject(err);
-    }
-  });
+  const zonesDBObject = initDb(dbPath, "Zones", createZonesTable, createZonesIndexes);
+  zonesDBObject["methods"] = zonesMethods;
+  zonesDBConn = zonesDBObject["conn"];
+  return zonesDBObject;
 }

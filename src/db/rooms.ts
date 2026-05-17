@@ -15,26 +15,15 @@ CREATE TABLE IF NOT EXISTS Rooms (
 )
 `;
 
-const createRoomIndexes = `CREATE INDEX idx_vNum ON Rooms (vNum)`;
+const createRoomIndexes = `CREATE INDEX IF NOT EXISTS idx_vNum ON Rooms (vNum)`;
 
 const roomsMethods = {
-  getRoomData: (vnum: BigInt) => getRecord(roomsDBConn, "Rooms", "vnum", vnum),
+  getRoomData: (vnum) => getRecord(roomsDBConn, "Rooms", "vnum", vnum),
 };
 
-/**
- * Initializes the rooms database.
- * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
- */
 export default function initRoomsDb() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const roomsDBObject = await initDb(dbPath, "Rooms", createRoomsTable, createRoomIndexes);
-      roomsDBObject["methods"] = roomsMethods;
-      roomsDBConn = roomsDBObject["conn"];
-      resolve(roomsDBObject);
-    } catch (err) {
-      console.error(`Error initializing rooms database: ${err}`);
-      reject(err);
-    }
-  });
+  const roomsDBObject = initDb(dbPath, "Rooms", createRoomsTable, createRoomIndexes);
+  roomsDBObject["methods"] = roomsMethods;
+  roomsDBConn = roomsDBObject["conn"];
+  return roomsDBObject;
 }

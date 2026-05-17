@@ -14,26 +14,15 @@ CREATE TABLE IF NOT EXISTS Mobs (
 )
 `;
 
-const createMobIndexes = `CREATE INDEX idx_vNum ON Mobs (vNum);`;
+const createMobIndexes = `CREATE INDEX IF NOT EXISTS idx_vNum ON Mobs (vNum);`;
 
 const mobMethods = {
-  getMobData: (vnum: BigInt) => getRecord(mobsDBConn, "Mobs", "vnum", vnum),
+  getMobData: (vnum) => getRecord(mobsDBConn, "Mobs", "vnum", vnum),
 };
 
-/**
- * Initializes the mobs database.
- * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
- */
 export default function initMobsDb() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const mobsDBObject = await initDb(dbPath, "Mobs", createMobsTable, createMobIndexes);
-      mobsDBObject["methods"] = mobMethods;
-      mobsDBConn = mobsDBObject["conn"];
-      resolve(mobsDBObject);
-    } catch (err) {
-      console.error(`Error initializing mobs database: ${err}`);
-      reject(err);
-    }
-  });
+  const mobsDBObject = initDb(dbPath, "Mobs", createMobsTable, createMobIndexes);
+  mobsDBObject["methods"] = mobMethods;
+  mobsDBConn = mobsDBObject["conn"];
+  return mobsDBObject;
 }

@@ -25,39 +25,22 @@ CREATE TABLE IF NOT EXISTS Players (
 )
 `;
 
-const createPlayerIndexes = `CREATE INDEX idx_roomNum ON Players (roomNum)`;
+const createPlayerIndexes = `CREATE INDEX IF NOT EXISTS idx_roomNum ON Players (roomNum)`;
 
 const playerMethods = {
   displayNameExists: (displayName) => recordExists(playersDBConn, "Players", "displayName", displayName),
   playerExists: (discordId) => recordExists(playersDBConn, "Players", "discordId", discordId),
-  createPlayer: (data: Object) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const newPlayerId = await createRecord(playersDBConn, "Players", data);
-        const newPlayer = await getRecord(playersDBConn, "Players", "id", newPlayerId);
-        resolve(newPlayer);
-      } catch (err) {
-        console.error(`Error creating player:`, err);
-        reject(err);
-      }
-    });
+  createPlayer(data: object) {
+    const newPlayerId = createRecord(playersDBConn, "Players", data);
+    return getRecord(playersDBConn, "Players", "id", newPlayerId);
   },
-  getPlayerDataByDiscordId: (discordId) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const playerData = await getRecord(playersDBConn, "Players", "discordId", discordId);
-        resolve(playerData);
-      } catch (err) {
-        console.error(`Error checking if player exists:`, err);
-        reject(err);
-      }
-    });
+  getPlayerDataByDiscordId(discordId) {
+    return getRecord(playersDBConn, "Players", "discordId", discordId);
   },
-  setPlayerName: (id: BigInt, name: String) =>
-    updateRecord(playersDBConn, "Players", { id: id, displayName: name }, "id", id),
-  setPlayerEnabled: (id: BigInt, enabled: Boolean) =>
+  setPlayerName: (id, name) => updateRecord(playersDBConn, "Players", { id: id, displayName: name }, "id", id),
+  setPlayerEnabled: (id, enabled) =>
     updateRecord(playersDBConn, "Players", { id: id, enabled: enabled }, "id", id),
-  updateLastLogin: (id: BigInt) =>
+  updateLastLogin: (id) =>
     updateRecord(
       playersDBConn,
       "Players",
@@ -65,7 +48,7 @@ const playerMethods = {
       "id",
       id
     ),
-  savePlayer: (id: BigInt, userData: Object, simulationData: Object) =>
+  savePlayer: (id, userData, simulationData) =>
     updateRecord(
       playersDBConn,
       "Players",
@@ -83,20 +66,9 @@ const playerMethods = {
     ),
 };
 
-/**
- * Initializes the players database.
- * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
- */
 export default function initPlayersDb() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const playersDBObject = await initDb(dbPath, "Players", createPlayersTable, createPlayerIndexes);
-      playersDBConn = playersDBObject["conn"];
-      playersDBObject["methods"] = playerMethods;
-      resolve(playersDBObject);
-    } catch (err) {
-      console.error(`Error initializing players database: ${err}`);
-      reject(err);
-    }
-  });
+  const playersDBObject = initDb(dbPath, "Players", createPlayersTable, createPlayerIndexes);
+  playersDBConn = playersDBObject["conn"];
+  playersDBObject["methods"] = playerMethods;
+  return playersDBObject;
 }

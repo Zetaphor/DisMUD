@@ -14,26 +14,15 @@ CREATE TABLE IF NOT EXISTS Items (
 )
 `;
 
-const createItemsIndexes = `CREATE INDEX idx_vNum ON Items (vNum);`;
+const createItemsIndexes = `CREATE INDEX IF NOT EXISTS idx_vNum ON Items (vNum);`;
 
 const itemMethods = {
-  getItemData: (vnum: BigInt) => getRecord(itemsDBConn, "Items", "vnum", vnum),
+  getItemData: (vnum) => getRecord(itemsDBConn, "Items", "vnum", vnum),
 };
 
-/**
- * Initializes the items database.
- * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
- */
 export default function initItemsDb() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const itemsDBObject = await initDb(dbPath, "Items", createItemsTable, createItemsIndexes);
-      itemsDBObject["methods"] = itemMethods;
-      itemsDBConn = itemsDBObject["conn"];
-      resolve(itemsDBObject);
-    } catch (err) {
-      console.error(`Error initializing items database: ${err}`);
-      reject(err);
-    }
-  });
+  const itemsDBObject = initDb(dbPath, "Items", createItemsTable, createItemsIndexes);
+  itemsDBObject["methods"] = itemMethods;
+  itemsDBConn = itemsDBObject["conn"];
+  return itemsDBObject;
 }

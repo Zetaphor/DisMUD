@@ -13,27 +13,19 @@ CREATE TABLE IF NOT EXISTS PlayerInventories (
 )
 `;
 
-const createPlayerInventoryIndexes = `CREATE INDEX idx_playerId ON PlayerInventories (playerId);`;
+const createPlayerInventoryIndexes = `CREATE INDEX IF NOT EXISTS idx_playerId ON PlayerInventories (playerId);`;
 
 const playerInventoryMethods = {
-  getPlayerInventory: (id: BigInt) => getRecord(playerInventoriesDBConn, "PlayerInventories", "playerId", id),
-  initPlayerInventory: (id: BigInt) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const newInventoryId = await createRecord(playerInventoriesDBConn, "PlayerInventories", {
-          playerId: id,
-          inventoryString: "",
-        });
-        const newInventory = await getRecord(playerInventoriesDBConn, "PlayerInventories", "id", newInventoryId);
-        resolve(newInventory);
-      } catch (err) {
-        console.error(`Error initializing player inventory for ${id}:`, err);
-        reject(err);
-      }
+  getPlayerInventory: (id) => getRecord(playerInventoriesDBConn, "PlayerInventories", "playerId", id),
+  initPlayerInventory(id) {
+    const newInventoryId = createRecord(playerInventoriesDBConn, "PlayerInventories", {
+      playerId: id,
+      inventoryString: "",
     });
+    return getRecord(playerInventoriesDBConn, "PlayerInventories", "id", newInventoryId);
   },
-  removePlayerInventory: (id: BigInt) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
-  savePlayerInventory: (id: BigInt, inventory: String) =>
+  removePlayerInventory: (id) => removeRecord(playerInventoriesDBConn, "PlayerInventories", id),
+  savePlayerInventory: (id, inventory) =>
     updateRecord(
       playerInventoriesDBConn,
       "PlayerInventories",
@@ -47,25 +39,14 @@ const playerInventoryMethods = {
     ),
 };
 
-/**
- * Initializes the players database.
- * @returns {Promise} A promise that resolves to an object containing the database connection and methods.
- */
 export default function initPlayerInventoriesDb() {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const playerInventoriesDBObject = await initDb(
-        dbPath,
-        "PlayerInventories",
-        createPlayerInventoriesTable,
-        createPlayerInventoryIndexes
-      );
-      playerInventoriesDBObject["methods"] = playerInventoryMethods;
-      playerInventoriesDBConn = playerInventoriesDBObject["conn"];
-      resolve(playerInventoriesDBObject);
-    } catch (err) {
-      console.error(`Error initializing player inventories database: ${err}`);
-      reject(err);
-    }
-  });
+  const playerInventoriesDBObject = initDb(
+    dbPath,
+    "PlayerInventories",
+    createPlayerInventoriesTable,
+    createPlayerInventoryIndexes
+  );
+  playerInventoriesDBObject["methods"] = playerInventoryMethods;
+  playerInventoriesDBConn = playerInventoriesDBObject["conn"];
+  return playerInventoriesDBObject;
 }
