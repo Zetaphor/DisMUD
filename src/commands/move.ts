@@ -1,30 +1,20 @@
 import emoji from "../messages/emoji";
 import buildRoom from "../roomBuilder";
+import { resolveDirection } from "../util/directions";
+import logger from "../util/logger";
 
-export default async function move(worldState, userData, msg) {
+export default function move(worldState, userData, msg) {
   try {
     const dir = msg.length === 1 ? msg[0] : msg[1];
-    let moveDir = "";
+    const moveDir = resolveDirection(dir);
 
-    if (dir === "n" || dir === "north") {
-      moveDir = "north";
-    } else if (dir === "s" || dir === "south") {
-      moveDir = "south";
-    } else if (dir === "e" || dir === "east") {
-      moveDir = "east";
-    } else if (dir === "w" || dir === "west") {
-      moveDir = "west";
-    } else if (dir === "u" || dir === "up") {
-      moveDir = "up";
-    } else if (dir === "d" || dir === "down") {
-      moveDir = "down";
-    } else {
+    if (!moveDir) {
       userData.sendMessage(userData.user, `${emoji.question} _Unknown direction: **${dir}**_`);
       return;
     }
 
     const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, userData.eid);
-    const roomExits = await worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
+    const roomExits = worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
     if (Object.keys(roomExits).indexOf(moveDir) === -1) {
       userData.sendMessage(userData.user, `${emoji.error} _You cannot move ${moveDir} from here!_`);
       return;
@@ -38,7 +28,7 @@ export default async function move(worldState, userData, msg) {
       userData.sendMessage(userData.user, `${emoji.door} _You can't go that way, the exit is closed!_`);
       return;
     } else {
-      await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, userData.eid, roomExits[moveDir].roomId);
+      worldState.rooms.updateEntityRoomNum(worldState.simulation.world, userData.eid, roomExits[moveDir].roomId);
       worldState.broadcasts.sendToRoom(
         worldState,
         oldRoomNum,
@@ -53,7 +43,7 @@ export default async function move(worldState, userData, msg) {
         false,
         `${emoji.enter} _${userData.displayName} has arrived._`
       );
-      const newRoomData = await worldState.rooms.getEntityRoomData(
+      const newRoomData = worldState.rooms.getEntityRoomData(
         worldState.db["rooms"],
         worldState.simulation.world,
         userData.eid
@@ -75,11 +65,11 @@ export default async function move(worldState, userData, msg) {
 
           if (followerRoomNum === oldRoomNum) {
             if (followerData.player) {
-              await worldState.players.sendCommandAsUser(worldState, followerData.eid, `move ${moveDir}`);
+              worldState.players.sendCommandAsUser(worldState, followerData.eid, `move ${moveDir}`);
             } else {
               const mobData = worldState.mobs.getActiveMobData(followerData.eid);
 
-              await worldState.rooms.updateEntityRoomNum(
+              worldState.rooms.updateEntityRoomNum(
                 worldState.simulation.world,
                 followerData.eid,
                 roomExits[moveDir].roomId
@@ -106,7 +96,7 @@ export default async function move(worldState, userData, msg) {
       }
     }
   } catch (err) {
-    console.error(`Error using move ${msg}: ${err}`);
+    logger.error({ err }, "Error using move");
     userData.sendMessage(userData.user, `${emoji.error} _Something went wrong!_`);
   }
 }

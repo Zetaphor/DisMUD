@@ -1,3 +1,4 @@
+import { WorldState } from "./types";
 import db from "./db/init";
 import setupBotInterface from "./bot/interface";
 import simulation from "./simulation/world";
@@ -14,8 +15,9 @@ import timedStateFunctions from "./state/timedStateFunctions";
 import broadcasts from "./state/broadcasts";
 import { containsBannedWord, stripString } from "./util/wordFilter";
 import capitalizeFirst from "./util/capitalizeFirst";
+import logger from "./util/logger";
 
-const worldState = {
+const worldState: WorldState = {
   db,
   players,
   simulation,
@@ -39,11 +41,11 @@ async function startup() {
 
     worldState.rooms.setupQueries(worldState.simulation.world);
 
-    await db.init();
-    console.info("Databases loaded...");
+    db.init();
+    logger.info("Databases loaded...");
 
-    await worldState.zones.loadZones(worldState);
-    console.info("Zones loaded...\n");
+    worldState.zones.loadZones(worldState);
+    logger.info("Zones loaded...\n");
 
     const botInterface = setupBotInterface();
     await botInterface.waitForEvent("ready");
@@ -57,7 +59,7 @@ async function startup() {
       else msgAuthenticated(worldState, msg);
     });
   } catch (err) {
-    console.error("Startup error:", err);
+    logger.error({ err }, "Startup error");
   }
 }
 

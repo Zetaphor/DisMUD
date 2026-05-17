@@ -1,13 +1,15 @@
+import logger from "../util/logger";
+
 export default function sendMessage(user, message) {
   try {
     if (typeof user === "string") {
-      console.error("Sent string as userdata: " + user);
+      logger.error("Sent string as userdata: " + user);
     } else if (message === "undefined" || !message.length) {
-      console.error("Trying to send an empty message!");
+      logger.error("Trying to send an empty message!");
     } else {
       user.send(message);
     }
   } catch (err) {
-    console.error(`Error sending message: ${err}`);
+    logger.error({ err }, "Error sending message");
   }
 }

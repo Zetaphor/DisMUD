@@ -1,3 +1,4 @@
+import logger from "./util/logger";
 import characterCreationMessages from "./messages/characterCreation";
 import systemMessages from "./messages/system";
 
@@ -15,7 +16,7 @@ export const characterCreation = {
   },
 
   enterCreationQueue: async function (user) {
-    console.log("Enter creation queue");
+    logger.info("Enter creation queue");
     this.creationQueue[`k${user.id}`] = {
       step: 0,
       user: user,
@@ -98,9 +99,9 @@ export const characterCreation = {
       worldState.players.startPlayer(worldState, playerData);
       delete this.creationQueue[`k${queueData.user.id}`];
     } catch (err) {
-      console.error(`Failed to login ${queueData.user.username}`, err);
+      logger.error({ err }, `Failed to login ${queueData.user.username}`);
       systemMessages.loginFailed(queueData.user);
-      worldState.players.logout();
+      worldState.players.logout(worldState, `k${queueData.user.id}`);
       // worldState.simulation.removeWorldEntity(); // This is going to fail, there's no entity ID
     }
   },
