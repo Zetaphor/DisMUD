@@ -20,15 +20,11 @@ export const rooms = {
   },
 
   loadRoomData(db, vNum) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const room = await db.methods.getRoomData(vNum);
-        resolve(JSON.parse(room.data));
-      } catch (err) {
-        console.error(`Error loading room ${vNum}: ${err}`);
-        reject(err);
-      }
-    });
+    const room = db.methods.getRoomData(vNum);
+    if (!room) {
+      throw new Error(`Room with vNum ${vNum} not found in database`);
+    }
+    return JSON.parse(room.data);
   },
   setRoomDoorState(roomNum, exitName, state) {
     if (typeof this.doorStates[roomNum] === "undefined") this.doorStates[roomNum] = {};
@@ -39,7 +35,7 @@ export const rooms = {
     return this.doorStates[roomNum][exitName];
   },
   getRoomDoors(roomNum) {
-    this.doorStates[roomNum];
+    return this.doorStates[roomNum];
   },
   getRoomExitOpen(roomNum, exitName) {
     if (typeof this.doorStates[roomNum] === "undefined") return true;
@@ -53,50 +49,20 @@ export const rooms = {
     const Position = world._components["position"];
     return Position.roomNum[entityId];
   },
-  async getEntityRoomData(db, world, entityId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const roomData = await this.loadRoomData(db, this.getEntityRoomNum(world, entityId));
-        resolve(roomData);
-      } catch (err) {
-        console.error(`Error getting room data for entity ${entityId}: ${err}`);
-        reject(err);
-      }
-    });
+  getEntityRoomData(db, world, entityId) {
+    return this.loadRoomData(db, this.getEntityRoomNum(world, entityId));
   },
   getRoomExits(db, roomNum) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const roomData = await this.loadRoomData(db, Number(roomNum));
-        resolve(roomData.exits);
-      } catch (err) {
-        console.error(`Error getting room exits for room ${roomNum}: ${err}`);
-        reject(err);
-      }
-    });
+    const roomData = this.loadRoomData(db, Number(roomNum));
+    return roomData.exits;
   },
   getEntityRoomExits(db, world, entityId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const roomData = await this.getEntityRoomData(db, world, entityId);
-        resolve(roomData.exits);
-      } catch (err) {
-        console.error(`Error getting room exits for entity ${entityId}: ${err}`);
-        reject(err);
-      }
-    });
+    const roomData = this.getEntityRoomData(db, world, entityId);
+    return roomData.exits;
   },
   updateEntityRoomNum(world, entityId, roomNum) {
-    return new Promise<void>((resolve, reject) => {
-      try {
-        const Position = world._components["position"];
-        Position.roomNum[entityId] = roomNum;
-        resolve();
-      } catch (err) {
-        console.error(`Failed to update player room num ${roomNum} for ${entityId}: ${err}`);
-        reject(err);
-      }
-    });
+    const Position = world._components["position"];
+    Position.roomNum[entityId] = roomNum;
   },
   getPlayersInRoom(world, roomNum) {
     const ents = this.playerQuery(world);
@@ -125,97 +91,81 @@ export const rooms = {
     return itemList;
   },
   targetExitAlias(worldState, roomNum, alias) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let targetExit = null;
-        const roomExits = await this.getRoomExits(worldState.db["rooms"], roomNum);
-        for (const direction in roomExits) {
-          if (Object.prototype.hasOwnProperty.call(roomExits, direction)) {
-            const exit = roomExits[direction];
-            if (exit.tags.indexOf(alias) !== -1) {
-              targetExit = {
-                dir: direction,
-                data: roomExits[direction],
-              };
-            }
-          }
+    let targetExit = null;
+    const roomExits = this.getRoomExits(worldState.db["rooms"], roomNum);
+    for (const direction in roomExits) {
+      if (Object.prototype.hasOwnProperty.call(roomExits, direction)) {
+        const exit = roomExits[direction];
+        if (exit.tags.indexOf(alias) !== -1) {
+          targetExit = {
+            dir: direction,
+            data: roomExits[direction],
+          };
         }
-        resolve(targetExit);
-      } catch (err) {
-        console.error(`Error getting exit ${alias} for room ${roomNum}: ${err}`);
-        reject(err);
       }
-    });
+    }
+    return targetExit;
   },
   targetAlias(worldState, userId, roomNum, targetObject, targetInventory, targetMob, alias) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let targetData = null;
-        let targetType = "";
-        let targetId = null;
+    let targetData = null;
+    let targetType = "";
+    let targetId = null;
 
-        if (targetInventory) {
-          const inventoryAliases = await worldState.inventories.getInventoryAliases(userId);
-          for (const id in inventoryAliases) {
-            if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
-              if (inventoryAliases[id].indexOf(alias) !== -1) {
-                targetData = await worldState.inventories.getInventoryItem(userId, id);
-                targetData = targetData["data"];
-                targetType = "inventory";
-                targetId = id;
-                break;
-              }
-            }
+    if (targetInventory) {
+      const inventoryAliases = worldState.inventories.getInventoryAliases(userId);
+      for (const id in inventoryAliases) {
+        if (Object.prototype.hasOwnProperty.call(inventoryAliases, id)) {
+          if (inventoryAliases[id].indexOf(alias) !== -1) {
+            targetData = worldState.inventories.getInventoryItem(userId, id);
+            targetData = targetData["data"];
+            targetType = "inventory";
+            targetId = id;
+            break;
           }
         }
-
-        // We didn't find an object in inventory, look in the room
-        if (targetObject && targetData === null) {
-          const roomItems = this.getItemsInRoom(worldState.simulation.world, roomNum);
-
-          for (let i = 0; i < roomItems.length; i++) {
-            const roomItemData = worldState.items.getActiveItemData(roomItems[i]);
-            for (let i = 0; i < roomItemData.aliases.length; i++) {
-              if (roomItemData.aliases[i].indexOf(alias) !== -1) {
-                targetData = roomItemData;
-                targetType = "item";
-                targetId = roomItems[i];
-                i = roomItemData.aliases.length;
-              }
-            }
-          }
-        }
-
-        // We didn't find any objects, look for mobs
-        if (targetMob && targetData === null) {
-          const roomMobs = this.getMobsInRoom(worldState.simulation.world, roomNum);
-
-          for (let i = 0; i < roomMobs.length; i++) {
-            const roomMobData = worldState.mobs.getActiveMobData(roomMobs[i]);
-            for (let j = 0; j < roomMobData.aliases.length; j++) {
-              if (roomMobData.aliases[j].indexOf(alias) !== -1) {
-                targetData = roomMobData;
-                targetType = "mob";
-                targetId = roomMobs[i];
-                i = roomMobData.aliases.length;
-              }
-            }
-          }
-        }
-
-        // TODO: Target extra room aliases
-        // TODO: Add room door aliases
-
-        resolve({
-          eid: targetId,
-          type: targetType,
-          data: targetData,
-        });
-      } catch (err) {
-        console.error(`Error getting target alias for room ${roomNum}: ${err}`);
-        reject(err);
       }
-    });
+    }
+
+    if (targetObject && targetData === null) {
+      const roomItems = this.getItemsInRoom(worldState.simulation.world, roomNum);
+
+      for (let i = 0; i < roomItems.length; i++) {
+        const roomItemData = worldState.items.getActiveItemData(roomItems[i]);
+        for (let j = 0; j < roomItemData.aliases.length; j++) {
+          if (roomItemData.aliases[j].indexOf(alias) !== -1) {
+            targetData = roomItemData;
+            targetType = "item";
+            targetId = roomItems[i];
+            j = roomItemData.aliases.length;
+          }
+        }
+      }
+    }
+
+    if (targetMob && targetData === null) {
+      const roomMobs = this.getMobsInRoom(worldState.simulation.world, roomNum);
+
+      for (let i = 0; i < roomMobs.length; i++) {
+        const roomMobData = worldState.mobs.getActiveMobData(roomMobs[i]);
+        for (let j = 0; j < roomMobData.aliases.length; j++) {
+          if (roomMobData.aliases[j].indexOf(alias) !== -1) {
+            targetData = roomMobData;
+            targetType = "mob";
+            targetId = roomMobs[i];
+            i = roomMobData.aliases.length;
+          }
+        }
+      }
+    }
+
+    // TODO: Target extra room aliases
+    // TODO: Add room door aliases
+
+    return {
+      eid: targetId,
+      type: targetType,
+      data: targetData,
+    };
   },
 };
 

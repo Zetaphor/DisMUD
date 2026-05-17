@@ -1,3 +1,4 @@
+import logger from "../../util/logger";
 import { createWorld } from "bitecs";
 import components from "./components";
 import entities from "./entities";
@@ -17,6 +18,6 @@ export default function setupWorld() {
     pipeline(world);
   }, 16);
 
-  console.info("World simulations started...");
+  logger.info("World simulations started...");
   return world;
 }

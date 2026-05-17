@@ -1,149 +1,77 @@
 import { defineQuery } from "bitecs";
+import logger from "../util/logger";
 import emoji from "../messages/emoji";
 import globalConstants from "../simulation/constants/global";
 
 export const mobs = {
-  activeMobs: {}, // { mobEID: mobData }
+  activeMobs: {},
   mobCounts: {},
 
   getActiveMobData(eid) {
     return this.activeMobs[eid];
   },
   loadMobData(db, vNum) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const mob = await db.methods.getMobData(vNum);
-        resolve(mob);
-      } catch (err) {
-        console.error(`Error loading mob ${vNum}: ${err}`);
-        reject(err);
-      }
-    });
+    return db.methods.getMobData(vNum);
   },
   placeMob(worldState, mobData, roomNum, maxExisting = -1) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const mobId = await worldState.simulation.createMobEntity(
-          Number(worldState.simulation.world.time.ticks),
-          mobData,
-          roomNum
-        );
-        mobData.items = {};
-        mobData.equipment = {};
-        mobData.followers = {};
-        mobData.following = null;
-        mobData.followingPlayer = false;
-        mobData.followingName = "";
-        this.activeMobs[mobId] = mobData;
+    const mobId = worldState.simulation.createMobEntity(
+      Number(worldState.simulation.world.time.ticks),
+      mobData,
+      roomNum
+    );
+    mobData.items = {};
+    mobData.equipment = {};
+    mobData.followers = {};
+    mobData.following = null;
+    mobData.followingPlayer = false;
+    mobData.followingName = "";
+    this.activeMobs[mobId] = mobData;
 
-        if (this.mobCounts[mobData.id] === undefined) {
-          this.mobCounts[mobData.id] = { qty: 1, max: maxExisting };
-        } else this.mobCounts[mobData.id]["qty"] += 1;
-        resolve(mobId);
-      } catch (err) {
-        console.error(`Error placing mob ${mobData.id} in room #${roomNum}: ${err}`);
-        reject(err);
-      }
-    });
+    if (this.mobCounts[mobData.id] === undefined) {
+      this.mobCounts[mobData.id] = { qty: 1, max: maxExisting };
+    } else this.mobCounts[mobData.id]["qty"] += 1;
+    return mobId;
   },
   removeMob(worldState, mobId) {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        await worldState.simulation.removeWorldEntity(mobId);
-        delete this.activeMobs[mobId];
-        this.mobCounts[mobId]--;
-        resolve();
-      } catch (err) {
-        console.error(`Error removing mob ${mobId}: ${err}`);
-        reject(err);
-      }
-    });
+    worldState.simulation.removeWorldEntity(mobId);
+    delete this.activeMobs[mobId];
+    this.mobCounts[mobId]--;
   },
   getMobInventory(mobId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        return this.activeMobs[mobId].items;
-      } catch (err) {
-        console.error(`Error getting mob inventory for ${mobId}: ${err}`);
-        reject(err);
-      }
-    });
+    return this.activeMobs[mobId].items;
   },
   mobHasItem(mobId, itemId) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const mob = this.activeMobs[mobId];
-        if (mob.items[itemId] !== undefined) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      } catch (err) {
-        console.error(`Error checking mob inventory for ${mobId}: ${err}`);
-        reject(err);
-      }
-    });
+    const mob = this.activeMobs[mobId];
+    return mob.items[itemId] !== undefined;
   },
   updateMobItemQty(mobId, itemId, qty) {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        if (this.activeMobs[mobId].items[itemId] !== undefined) {
-          this.activeMobs[mobId].items[itemId].qty += qty;
-          if (this.activeMobs[mobId].items[itemId].qty === 0) {
-            delete this.activeMobs[mobId].items[itemId];
-          }
-        }
-        resolve();
-      } catch (err) {
-        console.error(`Error update mob ${mobId} item ${itemId} qty ${qty}: ${err}`);
-        reject(err);
+    if (this.activeMobs[mobId].items[itemId] !== undefined) {
+      this.activeMobs[mobId].items[itemId].qty += qty;
+      if (this.activeMobs[mobId].items[itemId].qty === 0) {
+        delete this.activeMobs[mobId].items[itemId];
       }
-    });
+    }
   },
   giveMobItem(mobId, itemData, quantity) {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        if (typeof this.activeMobs[mobId].items[itemData.id] === "undefined") {
-          this.activeMobs[mobId].items[itemData.id] = {
-            qty: quantity,
-            data: itemData,
-          };
-        } else this.activeMobs[mobId].items[itemData.id].qty += quantity;
-        resolve();
-      } catch (err) {
-        console.error(`Error giving mob ${mobId} item ${itemData.id}: ${err}`);
-        reject(err);
-      }
-    });
+    if (typeof this.activeMobs[mobId].items[itemData.id] === "undefined") {
+      this.activeMobs[mobId].items[itemData.id] = {
+        qty: quantity,
+        data: itemData,
+      };
+    } else this.activeMobs[mobId].items[itemData.id].qty += quantity;
   },
   removeMobItem(mobId, itemId) {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        if (this.activeMobs[mobId].items[itemId] !== undefined) {
-          delete this.activeMobs[mobId].items[itemId];
-        }
-        resolve();
-      } catch (err) {
-        console.error(`Error removing mob ${mobId} item ${itemId}: ${err}`);
-        reject(err);
-      }
-    });
+    if (this.activeMobs[mobId].items[itemId] !== undefined) {
+      delete this.activeMobs[mobId].items[itemId];
+    }
   },
   equipMobItem(mobId, itemData, position) {
-    return new Promise<void>(async (resolve, reject) => {
-      try {
-        if (typeof this.activeMobs[mobId].equipment[itemData.id] === "undefined") {
-          this.activeMobs[mobId].equipment[itemData.id] = {
-            position: position,
-            data: itemData,
-          };
-        }
-        resolve();
-      } catch (err) {
-        console.error(`Error equipping mob ${mobId} item ${itemData.id}: ${err}`);
-        reject(err);
-      }
-    });
+    if (typeof this.activeMobs[mobId].equipment[itemData.id] === "undefined") {
+      this.activeMobs[mobId].equipment[itemData.id] = {
+        position: position,
+        data: itemData,
+      };
+    }
   },
   addFollower(mobId, eid, player = false) {
     try {
@@ -154,7 +82,7 @@ export const mobs = {
         };
       }
     } catch (err) {
-      console.error(`Error adding ${player ? "player" : "mob"} ${mobId} follower ${eid}: ${err}`);
+      logger.error({ err }, `Error adding ${player ? "player" : "mob"} ${mobId} follower ${eid}`);
     }
   },
   removeFollower(mobId, eid) {
@@ -163,7 +91,7 @@ export const mobs = {
         delete this.activeMobs[mobId].followers[eid];
       }
     } catch (err) {
-      console.error(`Error removing ${mobId}'s follower ${eid}: ${err}`);
+      logger.error({ err }, `Error removing ${mobId}'s follower ${eid}`);
     }
   },
   setFollowing(mobId, eid, name, player = false) {
@@ -182,20 +110,20 @@ export const mobs = {
     this.wanderComponent = worldState.simulation.world._components["wander"];
     this.wanderQuery = defineQuery([this.wanderComponent]);
   },
-  async timedMobMovement(worldState) {
+  timedMobMovement(worldState) {
     const ents = this.wanderQuery(worldState.simulation.world);
     for (let i = 0; i < ents.length; i++) {
       const eid = ents[i];
       if (this.wanderComponent.pending[eid] === globalConstants.FALSE) continue;
       const oldRoomNum = worldState.rooms.getEntityRoomNum(worldState.simulation.world, eid);
-      const roomExits = await worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
+      const roomExits = worldState.rooms.getRoomExits(worldState.db["rooms"], oldRoomNum);
       const exitData = Object.values(roomExits);
       const directionNames = Object.keys(roomExits);
 
       const mobData = worldState.mobs.getActiveMobData(eid);
 
       if (mobData.following !== null) {
-        continue; // Don't randomly move if we're following someone
+        continue;
       }
 
       const direction = Math.floor(Math.random() * exitData.length);
@@ -207,7 +135,7 @@ export const mobs = {
       )
         continue;
       else {
-        await worldState.rooms.updateEntityRoomNum(worldState.simulation.world, eid, exitData[direction]["roomId"]);
+        worldState.rooms.updateEntityRoomNum(worldState.simulation.world, eid, exitData[direction]["roomId"]);
         this.wanderComponent.pending[eid] = globalConstants.FALSE;
         this.wanderComponent.lastTick[eid] = Number(worldState.simulation.world.time.ticks);
       }
@@ -237,7 +165,7 @@ export const mobs = {
 
           if (followerRoomNum === oldRoomNum) {
             if (followerData.player) {
-              await worldState.players.sendCommandAsUser(
+              worldState.players.sendCommandAsUser(
                 worldState,
                 followerData.eid,
                 `move ${directionNames[direction]}`
@@ -245,7 +173,7 @@ export const mobs = {
             } else {
               const followerMobData = worldState.mobs.getActiveMobData(followerData.eid);
 
-              await worldState.rooms.updateEntityRoomNum(
+              worldState.rooms.updateEntityRoomNum(
                 worldState.simulation.world,
                 followerData.eid,
                 exitData[direction]["roomId"]
@@ -266,7 +194,7 @@ export const mobs = {
                 roomExits[directionNames[direction]].roomId,
                 -1,
                 false,
-                `${emoji.enter} _${worldState.utils.captailizeFirst(mobData.shortDesc)} has arrived._`
+                `${emoji.enter} _${worldState.utils.capitalizeFirst(mobData.shortDesc)} has arrived._`
               );
             }
           }
