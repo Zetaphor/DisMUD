@@ -1,40 +1,37 @@
-const fs = require("fs");
-const sqlite3 = require("sqlite3").verbose();
+import fs from "fs";
+import Database from "better-sqlite3";
 
-try {
-  fs.unlinkSync(`src/databases/imported/zones.db`, (err) => {});
-} catch (error) {}
+const dbPath = "/home/zetaphor/Code/DisMUD/src/databases/zones.db";
+const zonDir = "/home/zetaphor/Code/DisMUD/src/simulation/world-data/data/json/zon/";
 
-const db = new sqlite3.Database("src/databases/imported/zones.db");
+if (fs.existsSync(dbPath)) {
+  fs.unlinkSync(dbPath);
+}
 
-db.serialize(() => {
-  db.run(`
+const db = new Database(dbPath);
+db.pragma("journal_mode = WAL");
+
+db.exec(`
   CREATE TABLE IF NOT EXISTS Zones (
     id INTEGER PRIMARY KEY,
     vNum INTEGER UNIQUE,
     data TEXT,
     created TEXT DEFAULT (datetime('now', 'utc')),
     lastUpdated TEXT DEFAULT (datetime('now', 'utc'))
-  );
+  )
+`);
+db.exec("CREATE INDEX IF NOT EXISTS idx_vNum ON Zones (vNum)");
 
-  CREATE INDEX idx_vNum ON Zones (vNum)
-  `);
+const files = fs.readdirSync(zonDir).filter((f) => f.endsWith(".json"));
+const insert = db.prepare("INSERT OR IGNORE INTO Zones (vNum, data) VALUES (@vNum, @data)");
 
-  fs.readdir("src/simulation/world-data/data/json/zon/", (err, files) => {
-    if (err) throw err;
+let totalZones = 0;
+for (const file of files) {
+  const content = fs.readFileSync(`${zonDir}${file}`, "utf8");
+  const zone = JSON.parse(content);
+  insert.run({ vNum: zone.id, data: content });
+  totalZones++;
+}
 
-    files.forEach((file) => {
-      if (file.endsWith(".json")) {
-        fs.readFile(`src/simulation/world-data/data/json/zon/${file}`, "utf8", (err, content) => {
-          if (err) throw err;
-
-          const zone = JSON.parse(content);
-          db.run("INSERT INTO Zones (vNum, data) VALUES (?, ?)", [zone.id, content], (err) => {
-            if (err) throw err;
-          });
-        });
-      }
-    });
-    // db.close();
-  });
-});
+console.log(`Imported ${totalZones} zones into ${dbPath}`);
+db.close();
