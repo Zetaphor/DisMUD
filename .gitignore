@@ -1,6 +1,6 @@
 node_modules/
+dist/
 .env
 src/databases/*
-!src/databases/imported/*.db
 !src/databases/.gitkeep
 logs/*.log
