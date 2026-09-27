@@ -1,5 +1,3 @@
-import type { User } from "discord.js";
-
 export interface WorldState {
   db: DatabaseCollection;
   players: typeof import("../state/players").players;
@@ -11,6 +9,7 @@ export interface WorldState {
   mobs: typeof import("../state/mobs").mobs;
   zones: typeof import("../state/zones").zones;
   broadcasts: typeof import("../state/broadcasts").broadcasts;
+  worldPersistence: typeof import("../state/worldPersistence").worldPersistence;
   utils: {
     containsBannedWord: (word: string) => boolean;
     stripString: (str: string) => string;
@@ -32,6 +31,7 @@ export interface DatabaseCollection {
   items?: DatabaseModule;
   rooms?: DatabaseModule;
   zones?: DatabaseModule;
+  worldState?: DatabaseModule;
   [key: string]: any;
 }
 
@@ -62,13 +62,21 @@ export interface UserData {
   admin: boolean;
   enabled: boolean;
   eid: number;
-  user: User;
+  user: SessionUser;
   newPlayer: boolean;
   followers: Record<number, FollowerEntry>;
   following: number | null;
   followingPlayer: boolean;
   followingName: string;
-  sendMessage: (user: User, message: string) => void;
+  sendMessage: (user: SessionUser, message: string) => void;
+}
+
+export interface SessionUser {
+  id: string;
+  username: string;
+  discriminator?: string;
+  transport: "discord" | "web" | "cli";
+  send: (message: string) => void | Promise<void>;
 }
 
 export interface EquipmentSlot {

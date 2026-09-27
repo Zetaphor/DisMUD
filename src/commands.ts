@@ -47,6 +47,8 @@ import auctionChat from "./commands/auctionChat";
 import globalChat from "./commands/globalChat";
 import shout from "./commands/shout";
 import tell from "./commands/tell";
+import use from "./commands/use";
+import loadSlice from "./commands/admin/loadSlice";
 
 export const commands = {
   say,
@@ -88,6 +90,7 @@ export const commands = {
   global: globalChat,
   shout,
   tell,
+  use,
 };
 
 export const adminCommands = {
@@ -101,6 +104,7 @@ export const adminCommands = {
   force,
   debugexits: debugExits,
   debuguser: debugUser,
+  loadslice: loadSlice,
 };
 
 export const commandAliases = {
@@ -123,6 +127,7 @@ export const commandAliases = {
   sip: drink,
   rules: policy,
   whisper: tell,
+  apply: use,
 };
 
 export const adminCommandList = Object.keys(adminCommands);

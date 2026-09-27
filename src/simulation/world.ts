@@ -110,6 +110,50 @@ export const simulation = {
         state: Number(mobData.defaultPosition),
         attackDamange: Number(attackDamange),
       },
+      interactable: {
+        inspectable: 1,
+        usable: 0,
+        combinable: 0,
+        automatable: 1,
+      },
+      materialState: {
+        temperature: 20,
+        durability: 100,
+        contamination: 0,
+        locked: 0,
+        open: 1,
+      },
+      processState: {
+        recipeId: 0,
+        progress: 0,
+        requiredProgress: 3,
+        active: 0,
+        quality: 0,
+      },
+      ownership: {
+        ownerPlayerId: 0,
+        factionId: 0,
+        claimed: 0,
+      },
+      agentNeeds: {
+        hunger: 10,
+        fatigue: 10,
+        morale: 0,
+        safety: 100,
+      },
+      agentGoal: {
+        goalType: 0,
+        targetRoom: roomNum,
+        targetEntity: 0,
+        priority: 0,
+      },
+      agentTask: {
+        taskType: 0,
+        progress: 0,
+        required: 0,
+        active: 0,
+        cooldown: 0,
+      },
     });
   },
   createItemEntity(itemData, roomNum) {
@@ -117,6 +161,31 @@ export const simulation = {
       item: { id: itemData.id },
       position: { roomNum: roomNum },
       scale: { scaleIndex: scaleIndexes.MEDIUM },
+      interactable: {
+        inspectable: 1,
+        usable: 1,
+        combinable: 1,
+        automatable: 0,
+      },
+      materialState: {
+        temperature: 20,
+        durability: 100,
+        contamination: 0,
+        locked: 0,
+        open: 1,
+      },
+      processState: {
+        recipeId: 0,
+        progress: 0,
+        requiredProgress: 3,
+        active: 0,
+        quality: 0,
+      },
+      ownership: {
+        ownerPlayerId: 0,
+        factionId: 0,
+        claimed: 0,
+      },
     });
   },
   getPlayerStat(entityId, statName) {
@@ -158,6 +227,39 @@ export const simulation = {
       }
     }
     return completePlayerEntity;
+  },
+  serializeWorldState() {
+    const components = this.world["_components"];
+    const serializeQuery = (componentName: string, idFieldName: string) => {
+      const Component = components[componentName];
+      const QueryComponent = components[idFieldName];
+      const componentQuery = defineQuery([QueryComponent]);
+      const ents = componentQuery(this.world);
+      const rows = [];
+      const componentProperties = Object.keys(Component);
+      for (let i = 0; i < ents.length; i++) {
+        const eid = ents[i];
+        const serialized = { eid };
+        for (let j = 0; j < componentProperties.length; j++) {
+          const property = componentProperties[j];
+          serialized[property] = Component[property][eid];
+        }
+        rows.push(serialized);
+      }
+      return rows;
+    };
+
+    return {
+      mobs: serializeQuery("mob", "mob"),
+      items: serializeQuery("item", "item"),
+      processState: serializeQuery("processState", "processState"),
+      materialState: serializeQuery("materialState", "materialState"),
+      ownership: serializeQuery("ownership", "ownership"),
+      agentNeeds: serializeQuery("agentNeeds", "agentNeeds"),
+      agentGoal: serializeQuery("agentGoal", "agentGoal"),
+      agentTask: serializeQuery("agentTask", "agentTask"),
+      timestamp: Date.now(),
+    };
   },
   getPlayersInZone(zoneNum) {
     const Player = this.world._components["player"];

@@ -19,6 +19,13 @@ import Item from "../components/Item";
 import Wander from "../components/Wander";
 import Hunger from "../components/Hunger";
 import Thirst from "../components/Thirst";
+import Interactable from "../components/Interactable";
+import MaterialState from "../components/MaterialState";
+import ProcessState from "../components/ProcessState";
+import Ownership from "../components/Ownership";
+import AgentNeeds from "../components/AgentNeeds";
+import AgentGoal from "../components/AgentGoal";
+import AgentTask from "../components/AgentTask";
 
 export default {
   breakable: Breakable,
@@ -42,4 +49,11 @@ export default {
   wander: Wander,
   hunger: Hunger,
   thirst: Thirst,
+  interactable: Interactable,
+  materialState: MaterialState,
+  processState: ProcessState,
+  ownership: Ownership,
+  agentNeeds: AgentNeeds,
+  agentGoal: AgentGoal,
+  agentTask: AgentTask,
 };

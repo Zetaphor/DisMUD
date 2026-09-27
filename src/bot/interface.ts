@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 import logger from "../util/logger";
+import { createDiscordSessionUser } from "../io/sessionAdapter";
 
 const { EventEmitter } = require("events");
 const { Client, GatewayIntentBits, Partials, Options } = require("discord.js");
@@ -73,7 +74,7 @@ botInterface.client.on("ready", (c) => {
 botInterface.client.on("messageCreate", (msg) => {
   if (msg.author.id === botId) return;
   botInterface.emit("playerMsg", {
-    user: msg.author,
+    user: createDiscordSessionUser(msg.author),
     content: msg.content,
   });
 });

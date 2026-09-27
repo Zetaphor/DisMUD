@@ -10,6 +10,10 @@ const byPlayerId = new Map<number, any>();
 const byDiscordId = new Map<string, any>();
 const byEntityId = new Map<number, any>();
 
+function normalizeDiscordId(userId: string) {
+  return userId.startsWith("k") ? userId : `k${userId}`;
+}
+
 function indexPlayer(playerData) {
   byPlayerId.set(playerData.id, playerData);
   byDiscordId.set(playerData.discordId, playerData);
@@ -73,9 +77,11 @@ export const players = {
   },
   createNewPlayer(worldState, user, className, displayName) {
     logger.info(`Creating new player ${user.username} with discordId: ${user.id}`);
+    const discordId = normalizeDiscordId(String(user.id));
+    const discriminator = user.discriminator ? `#${user.discriminator}` : "";
     const playerData = worldState.db["players"].methods.createPlayer({
-      discordId: `k${user.id}`,
-      discordUsername: `${user.username}#${user.discriminator}`,
+      discordId: discordId,
+      discordUsername: `${user.username}${discriminator}`,
       displayName: displayName,
       roomNum: globalConstants.NEW_USER_ROOMNUM,
       equipment: "",
@@ -100,7 +106,8 @@ export const players = {
     return playerData;
   },
   login(worldState, user, newPlayer = false) {
-    let playerData = worldState.db["players"].methods.getPlayerDataByDiscordId(`k${user.id}`);
+    const discordId = normalizeDiscordId(String(user.id));
+    let playerData = worldState.db["players"].methods.getPlayerDataByDiscordId(discordId);
     if (!playerData) {
       throw new Error(`Player not found ${user.id} ${user.username}`);
     }
@@ -148,7 +155,7 @@ export const players = {
     return playerData;
   },
   logout(worldState, discordId) {
-    const userData = this.getActiveByDiscordId(`k${discordId}`);
+    const userData = this.getActiveByDiscordId(normalizeDiscordId(String(discordId)));
     this.save(worldState, userData);
     this.removePlayer(worldState, userData.id);
   },

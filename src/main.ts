@@ -1,56 +1,19 @@
-import { WorldState } from "./types";
-import db from "./db/init";
+import { createWorldState, initializeWorldState } from "./bootstrap/worldState";
 import setupBotInterface from "./bot/interface";
-import simulation from "./simulation/world";
 import msgAuthenticated from "./msgAuthenticated";
 import msgUnauthenticated from "./msgUnauthenticated";
 import systemMessages from "./messages/system";
 import players from "./state/players";
-import inventories from "./state/inventories";
-import items from "./state/items";
-import rooms from "./state/rooms";
-import mobs from "./state/mobs";
-import zones from "./state/zones";
-import timedStateFunctions from "./state/timedStateFunctions";
-import broadcasts from "./state/broadcasts";
-import { containsBannedWord, stripString } from "./util/wordFilter";
-import capitalizeFirst from "./util/capitalizeFirst";
 import logger from "./util/logger";
 
-const worldState: WorldState = {
-  db,
-  players,
-  simulation,
-  timedStateFunctions,
-  inventories,
-  items,
-  rooms,
-  mobs,
-  zones,
-  broadcasts,
-  utils: {
-    containsBannedWord,
-    stripString,
-    capitalizeFirst,
-  },
-};
+const worldState = createWorldState();
 
 async function startup() {
   try {
-    simulation.start();
-
-    worldState.rooms.setupQueries(worldState.simulation.world);
-
-    db.init();
-    logger.info("Databases loaded...");
-
-    worldState.zones.loadZones(worldState);
-    logger.info("Zones loaded...\n");
+    initializeWorldState(worldState);
 
     const botInterface = setupBotInterface();
     await botInterface.waitForEvent("ready");
-
-    timedStateFunctions.setupTimedStateFunctions(worldState);
 
     systemMessages.notifyOnline(botInterface.client);
 

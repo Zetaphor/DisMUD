@@ -1,9 +1,10 @@
 import logger from "../util/logger";
+import { SessionUser } from "../types";
 
-export default function sendMessage(user, message) {
+export default function sendMessage(user: SessionUser, message: string) {
   try {
-    if (typeof user === "string") {
-      logger.error("Sent string as userdata: " + user);
+    if (!user || typeof user.send !== "function") {
+      logger.error("Cannot send message, invalid session user");
     } else if (message === "undefined" || !message.length) {
       logger.error("Trying to send an empty message!");
     } else {

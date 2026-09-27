@@ -1,6 +1,8 @@
+import sendMessage from "./sendMessage";
+
 export const roomMessages = {
   displayRoom(user, roomData) {
-    user.send(`
+    sendMessage(user, `
     ☀️ **__${roomData.name}__** ${roomData.adminTag}\n\n${roomData.desc.length ? roomData.desc + "\n\n" : ""} ${
       roomData.itemDescriptions
     }${roomData.mobDescriptions}${roomData.playerDescriptions}`);

@@ -4,6 +4,7 @@ import initMobsDb from "./mobs";
 import initPlayersDb from "./players";
 import initRoomsDb from "./rooms";
 import initZonesDb from "./zones";
+import initWorldStateDb from "./worldState";
 
 function initDatabases() {
   db["players"] = initPlayersDb();
@@ -12,6 +13,7 @@ function initDatabases() {
   db["items"] = initItemsDb();
   db["rooms"] = initRoomsDb();
   db["zones"] = initZonesDb();
+  db["worldState"] = initWorldStateDb();
   return true;
 }
 
